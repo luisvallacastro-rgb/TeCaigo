@@ -1,3 +1,3 @@
 window.TECAIGO_CONFIG = {
-  API_BASE_URL: "http://localhost:3001/api",
+  API_BASE_URL: "https://tecaigo.onrender.com/api",
 };
