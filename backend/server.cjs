@@ -18,10 +18,23 @@ const PORT = Number(process.env.PORT) || 3001;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
 const DATABASE_PROVIDER = process.env.DATABASE_PROVIDER || "sqlite";
 
-function sendJson(response, statusCode, payload) {
+function getCorsOrigin(request) {
+  if (CORS_ORIGIN === "*") return "*";
+
+  const requestOrigin = request.headers.origin;
+  const allowedOrigins = CORS_ORIGIN.split(",").map((origin) => origin.trim()).filter(Boolean);
+
+  if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
+    return requestOrigin;
+  }
+
+  return allowedOrigins[0] || "*";
+}
+
+function sendJson(request, response, statusCode, payload) {
   response.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": CORS_ORIGIN,
+    "Access-Control-Allow-Origin": getCorsOrigin(request),
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   });
@@ -113,13 +126,13 @@ const server = http.createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
 
   if (request.method === "OPTIONS") {
-    sendJson(response, 204, {});
+    sendJson(request, response, 204, {});
     return;
   }
 
   try {
     if (request.method === "GET" && url.pathname === "/api/health") {
-      sendJson(response, 200, {
+      sendJson(request, response, 200, {
         ok: true,
         service: "TeCaiGO Backend",
         message: "Backend conectado correctamente.",
@@ -132,19 +145,19 @@ const server = http.createServer(async (request, response) => {
     }
 
     if (request.method === "GET" && url.pathname === "/api/summary") {
-      sendJson(response, 200, await getSummary());
+      sendJson(request, response, 200, await getSummary());
       return;
     }
 
     if (request.method === "GET" && url.pathname === "/api/events") {
-      sendJson(response, 200, { events: await getEvents() });
+      sendJson(request, response, 200, { events: await getEvents() });
       return;
     }
 
     if (request.method === "GET" && url.pathname.startsWith("/api/events/")) {
       const eventId = decodeURIComponent(url.pathname.replace("/api/events/", ""));
       const event = await getEventById(eventId);
-      sendJson(response, event ? 200 : 404, event ? { event } : { error: "Evento no encontrado." });
+      sendJson(request, response, event ? 200 : 404, event ? { event } : { error: "Evento no encontrado." });
       return;
     }
 
@@ -152,12 +165,12 @@ const server = http.createServer(async (request, response) => {
       const body = await readRequestBody(request);
       const input = body ? JSON.parse(body) : {};
       const newEvent = normalizeEvent(input);
-      sendJson(response, 201, { event: await upsertEvent(newEvent) });
+      sendJson(request, response, 201, { event: await upsertEvent(newEvent) });
       return;
     }
 
     if (request.method === "GET" && url.pathname === "/api/registrations") {
-      sendJson(response, 200, { registrations: await getRegistrations() });
+      sendJson(request, response, 200, { registrations: await getRegistrations() });
       return;
     }
 
@@ -165,13 +178,13 @@ const server = http.createServer(async (request, response) => {
       const body = await readRequestBody(request);
       const input = body ? JSON.parse(body) : {};
       const registration = normalizeRegistration(input);
-      sendJson(response, 201, { registration: await insertRegistration(registration) });
+      sendJson(request, response, 201, { registration: await insertRegistration(registration) });
       return;
     }
 
-    sendJson(response, 404, { error: "Ruta no encontrada." });
+    sendJson(request, response, 404, { error: "Ruta no encontrada." });
   } catch (error) {
-    sendJson(response, 500, { error: error.message || "Error interno del backend." });
+    sendJson(request, response, 500, { error: error.message || "Error interno del backend." });
   }
 });
 
