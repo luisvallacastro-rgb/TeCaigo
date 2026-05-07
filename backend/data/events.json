@@ -1,0 +1,142 @@
+[
+  {
+    "id": "ruta-panoramica",
+    "title": "Ruta Panoramica",
+    "description": "Evento conectado desde el backend para validar la primera integracion del sistema.",
+    "state": "Borrador",
+    "capacity": 50,
+    "visibility": "Publico por oferta y demanda",
+    "route": "Ruta nacional",
+    "mode": "Publico con comision",
+    "cluster": "Ruta Panoramica",
+    "host": "TeCaigo Tours",
+    "price": 42,
+    "costs": {
+      "total": 1100,
+      "guide": 150,
+      "transport": 850,
+      "other": 100
+    },
+    "commissions": {
+      "internal": "30%",
+      "external": "70%"
+    },
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85",
+    "photoTitle": "Mirador, carretera panoramica y desayuno turistico",
+    "itinerary": "6:00 AM salida desde San Salvador\n8:00 AM desayuno en mirador\n10:00 AM recorrido guiado\n12:30 PM almuerzo local\n3:00 PM tiempo libre y fotografias\n5:00 PM retorno",
+    "dates": [
+      {
+        "date": "18/05/2026",
+        "sold": 41,
+        "internal": 21,
+        "external": 20,
+        "contrib": "Cipitio Tour:13;Turismo Tour:12;Aventura Local:9;Ruta Viva:7"
+      }
+    ]
+  },
+  {
+    "id": "ruta-volcan",
+    "title": "Ruta al volcan",
+    "description": "Salida privada del cluster con enfoque de caminata ligera, fotografia y comida local.",
+    "state": "Vigente",
+    "capacity": 50,
+    "visibility": "Privado del cluster",
+    "route": "Ruta nacional",
+    "mode": "Privado del cluster",
+    "cluster": "Cluster Volcan",
+    "host": "Volcan Tours",
+    "price": 28,
+    "costs": {
+      "total": 760,
+      "guide": 120,
+      "transport": 560,
+      "other": 80
+    },
+    "commissions": {
+      "internal": "25%",
+      "external": "0%"
+    },
+    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
+    "photoTitle": "Sendero volcanico, mirador natural y almuerzo de montana",
+    "itinerary": "7:00 AM salida desde San Salvador\n9:00 AM ingreso al sendero\n11:30 AM mirador principal\n1:00 PM almuerzo local\n3:30 PM retorno",
+    "dates": [
+      {
+        "date": "20/05/2026",
+        "sold": 24,
+        "internal": 24,
+        "external": 0,
+        "contrib": "Volcan Tours:6;Cipitio Tour:12;Aventura Local:6"
+      }
+    ]
+  },
+  {
+    "id": "prueba-backend",
+    "title": "Prueba Backend",
+    "description": "Evento creado desde la primera prueba de backend.",
+    "state": "Borrador",
+    "capacity": 12,
+    "visibility": "Privado del cluster",
+    "route": "",
+    "mode": "Privado del cluster",
+    "cluster": "Cluster Test",
+    "host": "TeCaigo Tours",
+    "price": 25,
+    "costs": {
+      "total": 0,
+      "guide": 0,
+      "transport": 0,
+      "other": 0
+    },
+    "commissions": {
+      "internal": "0%",
+      "external": "0%"
+    },
+    "image": "",
+    "photoTitle": "Sin imagen del evento",
+    "itinerary": "",
+    "dates": [
+      {
+        "date": "10/06/2026",
+        "sold": 0,
+        "internal": 0,
+        "external": 0,
+        "contrib": "TeCaigo Tours:0"
+      }
+    ]
+  },
+  {
+    "id": "ruta-mahajual",
+    "title": "RUTA MAHAJUAL",
+    "description": "Evento privado del cluster, listo para coordinar cupos internos.",
+    "state": "Borrador",
+    "capacity": 0,
+    "visibility": "Privado del cluster",
+    "route": "Ruta nacional",
+    "mode": "Privado del cluster",
+    "cluster": "Cluster Volcan",
+    "host": "LUIS VALLADARES",
+    "price": 15,
+    "costs": {
+      "total": 35,
+      "guide": 10,
+      "transport": 25,
+      "other": 0
+    },
+    "commissions": {
+      "internal": "0%",
+      "external": "0%"
+    },
+    "image": "",
+    "photoTitle": "Sin imagen del evento",
+    "itinerary": "",
+    "dates": [
+      {
+        "date": "16",
+        "sold": 0,
+        "internal": 0,
+        "external": 0,
+        "contrib": "LUIS VALLADARES:0"
+      }
+    ]
+  }
+]

@@ -1,0 +1,2069 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>TeCaigo - Prototipo</title>
+    <link rel="stylesheet" href="./styles.css?v=tecaigo-registration-list-1" />
+    <style>
+      #home .wall-post:not(.feed-hidden) {
+        display: block !important;
+        overflow: hidden !important;
+      }
+
+      #home .wall-post.feed-hidden {
+        display: none !important;
+      }
+
+      #home .post-photo-frame {
+        display: block !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        height: 340px !important;
+        margin: 0 !important;
+        background: #dfe5de !important;
+      }
+
+      #home .post-photo-frame img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      #home .post-photo-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 2px !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        height: 340px !important;
+        margin: 0 !important;
+        background: #dfe5de !important;
+      }
+
+      #home .post-photo-grid img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      #home .potential-strip,
+      #home .post-actions {
+        display: flex !important;
+      }
+
+      #home .post-actions {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      }
+    </style>
+  </head>
+  <body data-active-view="home">
+    <!-- tecaigo-homefeed-inline-final -->
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div>
+            <strong
+              class="brand-logo"
+              aria-label="TeCaiGO"
+              style="display:inline-flex;align-items:baseline;font-family:'Arial Black',Impact,Arial,sans-serif;font-size:32px;font-weight:900;line-height:.95;letter-spacing:-1px;white-space:nowrap;"
+            >
+              <span class="logo-white" style="color:#fff;text-shadow:none;font-size:inherit;">TeCai</span><span class="logo-teal" style="color:#079aa3;text-shadow:none;font-size:inherit;">GO</span>
+            </strong>
+            <span class="brand-subtitle" style="margin-top:12px;font-size:13px;">Turismo conectado</span>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="home">Home</button>
+          <button class="nav-item" data-view="event-builder">Crear evento</button>
+          <button class="nav-item" data-view="my-events">Mis eventos</button>
+          <button class="nav-item" data-view="public-events">Eventos publicos</button>
+          <button class="nav-item" data-view="requests">Solicitudes</button>
+          <button class="nav-item" data-view="finance">Finanzas</button>
+          <button class="nav-item" data-view="clusters">Clusters</button>
+          <button class="nav-item" data-view="admin">Admin</button>
+        </nav>
+
+        <div class="sidebar-card">
+          <span>Evento monitoreado</span>
+          <strong>Ruta Panoramica</strong>
+          <div class="mini-progress">
+            <span style="width: 82%"></span>
+          </div>
+          <small>41 de 50 cupos llenos</small>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-home-filters">
+            <article class="taste-filter-strip" aria-label="Filtros del HomeFeed">
+              <div class="taste-carousel">
+                <button class="taste-filter" type="button" data-feed-filter="todos">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Todos</strong>
+                </button>
+                <button class="taste-filter active" type="button" data-feed-filter="playa">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Playa</strong>
+                </button>
+                <button class="taste-filter" type="button" data-feed-filter="montana">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Montana</strong>
+                </button>
+                <button class="taste-filter" type="button" data-feed-filter="pueblos">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Pueblos</strong>
+                </button>
+                <button class="taste-filter" type="button" data-feed-filter="caminatas">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Caminatas</strong>
+                </button>
+                <button class="taste-filter" type="button" data-feed-filter="lagos">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Lagos</strong>
+                </button>
+                <button class="taste-filter" type="button" data-feed-filter="gastronomia">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=240&q=80')"></span>
+                  <strong>Gastro</strong>
+                </button>
+              </div>
+            </article>
+          </div>
+          <div class="topbar-actions">
+            <span class="backend-status is-checking" data-backend-status>Conectando backend...</span>
+            <button class="profile-button" type="button" title="Perfil de usuario" aria-label="Perfil de usuario">
+              <span>LV</span>
+            </button>
+            <button class="primary-button" type="button" data-jump="event-builder">Crear evento</button>
+          </div>
+        </header>
+
+        <section class="view active" id="home">
+          <div class="home-layout">
+            <div class="social-feed">
+              <article class="composer-card">
+                <div class="avatar">TC</div>
+                <button class="composer-button" type="button" data-open-composer>
+                  Comparte un lugar con potencial turistico
+                </button>
+              </article>
+
+              <article class="wall-post" data-category="gastronomia">
+                <div class="post-header">
+                  <div class="avatar commerce">CA</div>
+                  <div>
+                    <strong>Cafe Aventura</strong>
+                    <span>Comercio turistico en Ruta de las Flores</span>
+                  </div>
+                </div>
+                <p>
+                  Mirador con cafe de altura, sendero corto y espacio para grupos. Ideal para crear un evento de
+                  desayuno panoramico o tour fotografico.
+                </p>
+                <figure class="post-photo-grid">
+                  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85" alt="Mirador panoramico de cafe" />
+                  <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=85" alt="Cafe de especialidad para experiencia turistica" />
+                </figure>
+                <div class="potential-strip">
+                  <span>Vinculo: Comercio</span>
+                  <span>Potencial: evento gastronomico</span>
+                  <span>Capacidad sugerida: 35 personas</span>
+                  <span>Cluster: Ruta de las Flores</span>
+                </div>
+                <div class="comment-preview">
+                  <strong>Comentarios</strong>
+                  <p><b>Ruta Viva:</b> Podemos aportar 12 pasajeros si se programa domingo.</p>
+                  <p><b>TeCaigo Tours:</b> Este lugar puede convertirse en evento privado del cluster cafe.</p>
+                </div>
+                <div class="post-engagement">
+                  <span>👍 ❤️ 18</span>
+                  <span>2 comentarios</span>
+                </div>
+                <div class="post-actions social-actions" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #e3e7e7;">
+                  <button type="button">♡ Me interesa</button>
+                  <button type="button">◯ Comentar</button>
+                  <button type="button">↗ Compartir</button>
+                  <button type="button" data-jump="event-builder">＋ Crear evento</button>
+                </div>
+              </article>
+
+              <article class="wall-post" data-category="lagos">
+                <div class="post-header">
+                  <div class="avatar operator">OL</div>
+                  <div>
+                    <strong>Operador Lago Tours</strong>
+                    <span>Operador turistico</span>
+                  </div>
+                </div>
+                <p>
+                  Hay demanda para una ruta de lago, lancha y almuerzo los domingos. Buscamos anfitrion o comercio
+                  aliado para estructurar el evento.
+                </p>
+                <figure class="post-photo-grid">
+                  <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=900&q=85" alt="Lago rodeado de montanas" />
+                  <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85" alt="Ruta panoramica junto al lago" />
+                </figure>
+                <div class="potential-strip">
+                  <span>Vinculo: Operador</span>
+                  <span>Demanda detectada: 18 interesados</span>
+                  <span>Requiere transporte: lancha + bus</span>
+                </div>
+                <div class="comment-preview">
+                  <strong>Comentarios</strong>
+                  <p><b>Lago Hostal:</b> Tenemos almuerzo para grupos de 40 personas.</p>
+                </div>
+                <div class="post-engagement">
+                  <span>👍 18</span>
+                  <span>1 comentario</span>
+                </div>
+                <div class="post-actions social-actions" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #e3e7e7;">
+                  <button type="button">♡ Me interesa</button>
+                  <button type="button">◯ Comentar</button>
+                  <button type="button">↗ Compartir</button>
+                  <button type="button">＋ Proponer alianza</button>
+                </div>
+              </article>
+
+              <article class="wall-post" data-category="pueblos">
+                <div class="post-header">
+                  <div class="avatar commerce">LH</div>
+                  <div>
+                    <strong>Lago Hostal</strong>
+                    <span>Hostal turistico en Cluster Lago</span>
+                  </div>
+                </div>
+                <p>
+                  Tenemos muelle, habitaciones familiares y restaurante frente al lago. Puede convertirse en paquete
+                  de fin de semana con transporte, lancha y alojamiento.
+                </p>
+                <figure class="post-photo-grid">
+                  <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85" alt="Paisaje de lago para hospedaje" />
+                  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=85" alt="Habitacion de hostal turistico" />
+                </figure>
+                <div class="potential-strip">
+                  <span>Vinculo: Comercio</span>
+                  <span>Potencial: paquete con hospedaje</span>
+                  <span>Capacidad sugerida: 45 personas</span>
+                </div>
+                <div class="comment-preview">
+                  <strong>Comentarios</strong>
+                  <p><b>Rutas SV:</b> Podemos asignar bus de 50 pasajeros para sabado y domingo.</p>
+                </div>
+                <div class="post-engagement">
+                  <span>👍 ❤️ 24</span>
+                  <span>1 comentario</span>
+                </div>
+                <div class="post-actions social-actions" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #e3e7e7;">
+                  <button type="button">♡ Me interesa</button>
+                  <button type="button">◯ Comentar</button>
+                  <button type="button">↗ Compartir</button>
+                  <button type="button" data-jump="event-builder">＋ Crear evento</button>
+                </div>
+              </article>
+
+              <article class="wall-post" data-category="montana">
+                <div class="post-header">
+                  <div class="avatar operator">RS</div>
+                  <div>
+                    <strong>Rutas SV</strong>
+                    <span>Tour operador anfitrion</span>
+                  </div>
+                </div>
+                <p>
+                  Propuesta para ruta internacional corta: frontera, ciudad colonial, almuerzo y retorno nocturno.
+                  Buscamos operadores externos para llenar cupos por comision.
+                </p>
+                <figure class="post-photo-grid">
+                  <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=900&q=85" alt="Camino panoramico de montana" />
+                  <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=900&q=85" alt="Ciudad colonial para ruta internacional" />
+                </figure>
+                <div class="potential-strip">
+                  <span>Vinculo: Evento futuro</span>
+                  <span>Ruta internacional</span>
+                  <span>Oferta y demanda</span>
+                  <span>Comision externa 70%</span>
+                </div>
+                <div class="post-engagement">
+                  <span>👍 31</span>
+                  <span>4 comentarios</span>
+                </div>
+                <div class="post-actions social-actions" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #e3e7e7;">
+                  <button type="button">♡ Me interesa</button>
+                  <button type="button">◯ Comentar</button>
+                  <button type="button">↗ Compartir</button>
+                  <button type="button" data-jump="public-events">▣ Ver oferta</button>
+                </div>
+              </article>
+
+              <article class="wall-post" data-category="playa">
+                <div class="post-header">
+                  <div class="avatar commerce">SP</div>
+                  <div>
+                    <strong>Surf Pacific</strong>
+                    <span>Comercio turistico en Surf City</span>
+                  </div>
+                </div>
+                <p>
+                  Clase de surf para principiantes, almuerzo en playa y fogata de cierre. Ideal para grupos juveniles
+                  y empresas.
+                </p>
+                <figure class="post-photo-grid">
+                  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" alt="Playa para experiencia turistica" />
+                  <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=900&q=85" alt="Clase de surf en la playa" />
+                </figure>
+                <div class="potential-strip">
+                  <span>Vinculo: Comercio</span>
+                  <span>Cluster: Surf City</span>
+                  <span>Capacidad sugerida: 30 personas</span>
+                </div>
+                <div class="post-engagement">
+                  <span>👍 15</span>
+                  <span>0 comentarios</span>
+                </div>
+                <div class="post-actions social-actions" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #e3e7e7;">
+                  <button type="button">♡ Me interesa</button>
+                  <button type="button">◯ Comentar</button>
+                  <button type="button">↗ Compartir</button>
+                  <button type="button" data-jump="event-builder">＋ Crear evento</button>
+                </div>
+              </article>
+
+              <article class="wall-post" data-category="caminatas">
+                <div class="post-header">
+                  <div class="avatar operator">AV</div>
+                  <div>
+                    <strong>Aventura Local</strong>
+                    <span>Operador hijo de TeCaigo Tours</span>
+                  </div>
+                </div>
+                <p>
+                  Hemos detectado demanda para caminata de amanecer, desayuno y mirador. Podemos aportar 13 cupos al
+                  evento del cluster.
+                </p>
+                <figure class="post-photo-grid">
+                  <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=900&q=85" alt="Bosque para caminata turistica" />
+                  <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=900&q=85" alt="Caminata de aventura en sendero" />
+                </figure>
+                <div class="potential-strip">
+                  <span>Vinculo: Operador</span>
+                  <span>Aporte estimado: 13 cupos</span>
+                  <span>Cluster: Ruta Panoramica</span>
+                </div>
+                <div class="post-engagement">
+                  <span>👍 ❤️ 13</span>
+                  <span>3 comentarios</span>
+                </div>
+                <div class="post-actions social-actions" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #e3e7e7;">
+                  <button type="button">♡ Me interesa</button>
+                  <button type="button">◯ Comentar</button>
+                  <button type="button">↗ Compartir</button>
+                  <button type="button" data-jump="my-events">▣ Mis eventos</button>
+                </div>
+              </article>
+            </div>
+
+            <aside class="home-side">
+              <article class="side-panel">
+                <div class="panel-title">
+                  <strong>Cluster Premier</strong>
+                </div>
+                <div class="home-cluster-filters" aria-label="Filtrar eventos del cluster">
+                  <button class="active" type="button" data-cluster-event-filter="todos">Todos</button>
+                  <button type="button" data-cluster-event-filter="publico">Publicos</button>
+                  <button type="button" data-cluster-event-filter="privado">Privados</button>
+                </div>
+                <div class="cluster-event-list">
+                  <button class="cluster-event-item active" type="button" data-cluster-event-type="publico" data-home-cluster-event="ruta-flores">
+                    <div>
+                      <strong>Ruta las flores</strong>
+                      <span>Publico</span>
+                    </div>
+                    <b data-home-cluster-cupos>0, 48/50</b>
+                  </button>
+                  <button class="cluster-event-item" type="button" data-cluster-event-type="privado" data-home-cluster-event="ruta-volcan">
+                    <div>
+                      <strong>Ruta al volcan</strong>
+                      <span>Privado</span>
+                    </div>
+                    <b data-home-cluster-cupos>6, 24/50</b>
+                  </button>
+                  <button class="cluster-event-item" type="button" data-cluster-event-type="publico" data-home-cluster-event="ruta-panoramica">
+                    <div>
+                      <strong>Ruta panoramica</strong>
+                      <span>Publico</span>
+                    </div>
+                    <b data-home-cluster-cupos>13, 41/50</b>
+                  </button>
+                  <button class="cluster-event-item" type="button" data-cluster-event-type="privado" data-home-cluster-event="cafe-senderos">
+                    <div>
+                      <strong>Cafe y senderos</strong>
+                      <span>Privado</span>
+                    </div>
+                    <b data-home-cluster-cupos>2, 18/35</b>
+                  </button>
+                </div>
+              </article>
+
+              <article class="side-panel cupos-composition-card">
+                <div class="panel-title">
+                  <span>Composicion de cupos</span>
+                  <strong data-composition-title>Ruta las flores</strong>
+                </div>
+                <div class="composition-summary">
+                  <strong data-composition-total>48/50</strong>
+                  <span data-composition-free>2 cupos disponibles</span>
+                </div>
+                <div class="composition-bars" data-composition-bars></div>
+              </article>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="event-builder">
+          <article class="event-history-board">
+            <div class="event-history-head">
+              <div>
+                <span class="hero-kicker">Internas</span>
+                <h2>Cluster Premier</h2>
+              </div>
+              <button class="add-event-button" type="button" data-open-event-form data-new-event aria-label="Agregar nuevo evento">
+                +
+              </button>
+            </div>
+
+            <div class="cluster-operations-grid">
+              <div class="event-table-wrap">
+                <div class="request-filter-bar internal-filter-bar">
+                  <div class="filter-tabs" aria-label="Filtrar eventos internos">
+                    <button class="active" type="button" data-cluster-event-filter="todos">Todos <b data-internal-filter-count="todos">4</b></button>
+                    <button type="button" data-cluster-event-filter="publico">Publicos <b data-internal-filter-count="publico">2</b></button>
+                    <button type="button" data-cluster-event-filter="privado">Privados <b data-internal-filter-count="privado">2</b></button>
+                  </div>
+                  <div class="internal-select-filters">
+                    <label class="date-filter-control">
+                      <span>Salida</span>
+                      <select data-internal-date-filter>
+                        <option value="todas">Todas las fechas</option>
+                        <option value="2026-05-15">15/05/2026</option>
+                        <option value="2026-05-18">18/05/2026</option>
+                        <option value="2026-05-20">20/05/2026</option>
+                        <option value="2026-05-25">25/05/2026</option>
+                      </select>
+                    </label>
+                    <label class="date-filter-control">
+                      <span>Estado</span>
+                      <select data-internal-state-filter>
+                        <option value="todos">Todos</option>
+                        <option value="vigente">Vigente</option>
+                        <option value="cerrado">Cerrado</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <table class="event-matrix">
+                  <thead>
+                    <tr>
+                      <th>Evento</th>
+                      <th>Ruta</th>
+                      <th>Salida</th>
+                      <th>Cupos</th>
+                      <th>Precio</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-internal-event-row data-cluster-event-type="publico" data-event-date="2026-05-15" data-event-id="ruta-flores" data-my-cupos="0" data-filled="48" data-total="50" data-event-state="vigente">
+                      <td><strong>Ruta las flores</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
+                      <td>Nacional</td>
+                      <td>15/05/2026</td>
+                      <td>
+                        <div class="cupos-editor">
+                          <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
+                          <strong data-my-cupos>0</strong>
+                          <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
+                          <span><b data-filled-cupos>48/50</b> cluster</span>
+                        </div>
+                      </td>
+                      <td>$35</td>
+                      <td><span class="matrix-status active" data-event-status>Vigente</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-internal-event-row data-cluster-event-type="privado" data-event-date="2026-05-20" data-event-id="ruta-volcan" data-my-cupos="6" data-filled="24" data-total="50" data-event-state="vigente">
+                      <td><strong>Ruta al volcan</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
+                      <td>Nacional</td>
+                      <td>20/05/2026</td>
+                      <td>
+                        <div class="cupos-editor">
+                          <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
+                          <strong data-my-cupos>6</strong>
+                          <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
+                          <span><b data-filled-cupos>24/50</b> cluster</span>
+                        </div>
+                      </td>
+                      <td>$28</td>
+                      <td><span class="matrix-status active" data-event-status>Vigente</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-internal-event-row data-cluster-event-type="publico" data-event-date="2026-05-18" data-event-id="ruta-panoramica" data-my-cupos="13" data-filled="41" data-total="50" data-event-state="vigente">
+                      <td><strong>Ruta panoramica</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
+                      <td>Nacional</td>
+                      <td>18/05/2026</td>
+                      <td>
+                        <div class="cupos-editor">
+                          <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
+                          <strong data-my-cupos>13</strong>
+                          <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
+                          <span><b data-filled-cupos>41/50</b> cluster</span>
+                        </div>
+                      </td>
+                      <td>$42</td>
+                      <td><span class="matrix-status active" data-event-status>Vigente</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-internal-event-row data-cluster-event-type="privado" data-event-date="2026-05-25" data-event-id="cafe-senderos" data-my-cupos="2" data-filled="18" data-total="35" data-event-state="vigente">
+                      <td><strong>Cafe y senderos</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
+                      <td>Nacional</td>
+                      <td>25/05/2026</td>
+                      <td>
+                        <div class="cupos-editor">
+                          <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
+                          <strong data-my-cupos>2</strong>
+                          <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
+                          <span><b data-filled-cupos>18/35</b> cluster</span>
+                        </div>
+                      </td>
+                      <td>$55</td>
+                      <td><span class="matrix-status active" data-event-status>Vigente</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <aside class="cluster-ranking-card">
+                <div class="ranking-head">
+                  <span>Ranking del anfitrion</span>
+                  <strong>Eventos por llenado</strong>
+                </div>
+                <div class="ranking-list">
+                  <div class="ranking-item" data-ranking-event="ruta-flores">
+                    <div>
+                      <strong>Ruta las flores</strong>
+                      <span data-ranking-cupos>48/50 cupos llenos</span>
+                    </div>
+                    <b data-ranking-percent>96%</b>
+                    <div class="ranking-bar"><span data-ranking-bar style="width: 96%"></span></div>
+                  </div>
+                  <div class="ranking-item" data-ranking-event="ruta-panoramica">
+                    <div>
+                      <strong>Ruta panoramica</strong>
+                      <span data-ranking-cupos>41/50 cupos llenos</span>
+                    </div>
+                    <b data-ranking-percent>82%</b>
+                    <div class="ranking-bar"><span data-ranking-bar style="width: 82%"></span></div>
+                  </div>
+                  <div class="ranking-item" data-ranking-event="ruta-volcan">
+                    <div>
+                      <strong>Ruta al volcan</strong>
+                      <span data-ranking-cupos>24/50 cupos llenos</span>
+                    </div>
+                    <b data-ranking-percent>48%</b>
+                    <div class="ranking-bar"><span data-ranking-bar style="width: 48%"></span></div>
+                  </div>
+                  <div class="ranking-item" data-ranking-event="cafe-senderos">
+                    <div>
+                      <strong>Cafe y senderos</strong>
+                      <span data-ranking-cupos>18/35 cupos llenos</span>
+                    </div>
+                    <b data-ranking-percent>51%</b>
+                    <div class="ranking-bar"><span data-ranking-bar style="width: 51%"></span></div>
+                  </div>
+                </div>
+                <div class="ranking-total">
+                  <span>Total gestionado por el cluster</span>
+                  <strong data-ranking-total>131/185 cupos</strong>
+                </div>
+              </aside>
+            </div>
+          </article>
+
+          <article class="event-history-board requested-events-board">
+            <div class="event-history-head secondary">
+              <div>
+                <span class="hero-kicker">Externa</span>
+                <h2>Solicitudes</h2>
+              </div>
+            </div>
+
+            <div class="cluster-operations-grid">
+              <div class="event-table-wrap">
+                <div class="external-summary-strip">
+                  <div>
+                    <span>Cupos aprobados</span>
+                    <strong>23 cupos</strong>
+                    <small>Confirmados por anfitriones externos</small>
+                  </div>
+                  <div>
+                    <span>Solicitudes pendientes</span>
+                    <strong>8 cupos</strong>
+                    <small>En espera de confirmacion</small>
+                  </div>
+                  <div class="risk">
+                    <span>Riesgo por cupos</span>
+                    <strong>8 pendientes</strong>
+                    <small>Mayor que disponibilidad del anfitrion</small>
+                  </div>
+                </div>
+                <div class="request-filter-bar external-filter-bar">
+                  <div class="filter-tabs" aria-label="Filtrar solicitudes">
+                    <button class="active" type="button" data-external-request-filter="aprobadas">Aprobadas <b>3</b></button>
+                    <button type="button" data-external-request-filter="pendientes">Pendientes <b>1</b></button>
+                    <button type="button" data-external-request-filter="todas">Todas <b>4</b></button>
+                    <button class="risk-filter" type="button" data-external-request-filter="riesgo">Falta de cupos <b>8</b></button>
+                  </div>
+                </div>
+                <table class="event-matrix requested-matrix">
+                  <thead>
+                    <tr>
+                      <th>Evento externo</th>
+                      <th>Cluster anfitrion</th>
+                      <th>Salida</th>
+                      <th>Solicitud de cupos</th>
+                      <th>Conteo anfitrion</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-external-request-row data-external-request-status="aprobadas" data-external-risk="true" data-external-free="5" data-external-pending="8">
+                      <td><strong>Ruta internacional corta</strong><span class="event-open">Abierto</span></td>
+                      <td>Cluster Cuscatlan</td>
+                      <td>09/06/2026</td>
+                      <td>
+                        <div class="external-cupos-editor">
+                          <div class="cupos-editor">
+                            <button type="button" data-external-cupos-delta="1" aria-label="Solicitar cupo">+</button>
+                            <strong data-external-pending-count>8</strong>
+                            <button type="button" data-external-cupos-delta="-1" aria-label="Quitar cupo solicitado">-</button>
+                          </div>
+                          <span><b>8 aprobados</b></span>
+                          <em data-external-pending-label>8 pendientes por confirmar</em>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="capacity-cell risk">
+                          <strong>45/50</strong>
+                          <span>5 disponibles</span>
+                          <em>Riesgo: 8 pendientes</em>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="request-state-badge pending" data-external-state-label>Pendiente</span>
+                      </td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+                          <button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button>
+                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-external-request-row data-external-request-status="aprobadas" data-external-free="3" data-external-pending="0">
+                      <td><strong>Lago, lancha y almuerzo</strong><span class="event-open">Abierto</span></td>
+                      <td>Cluster Premier</td>
+                      <td>02/06/2026</td>
+                      <td>
+                        <div class="external-cupos-editor">
+                          <div class="cupos-editor">
+                            <button type="button" data-external-cupos-delta="1" aria-label="Solicitar cupo">+</button>
+                            <strong data-external-pending-count>0</strong>
+                            <button type="button" data-external-cupos-delta="-1" aria-label="Quitar cupo solicitado">-</button>
+                          </div>
+                          <span><b>6 aprobados</b></span>
+                          <em data-external-pending-label>0 pendientes por confirmar</em>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="capacity-cell">
+                          <strong>37/40</strong>
+                          <span>3 disponibles</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="request-state-badge approved" data-external-state-label>Aprobado</span>
+                      </td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+                          <button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button>
+                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-external-request-row data-external-request-status="aprobadas">
+                      <td>
+                        <strong>Tour cafe y mirador</strong>
+                        <span class="event-closed">Cerrado</span>
+                        <span class="event-paid">Pagado</span>
+                      </td>
+                      <td>Cluster Maya</td>
+                      <td>25/05/2026</td>
+                      <td>
+                        <b>5 cupos</b><span class="request-note">Pagado validado</span>
+                      </td>
+                      <td>
+                        <div class="capacity-cell">
+                          <strong>34/50</strong>
+                          <span>16 disponibles</span>
+                        </div>
+                      </td>
+                      <td><span class="request-state-badge approved">Aprobado</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+                          <button class="icon-action" type="button" data-open-payment title="Ver boleta bancaria" aria-label="Ver boleta bancaria">$</button>
+                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-external-request-row data-external-request-status="pendientes">
+                      <td>
+                        <strong>Ruta playa nocturna</strong>
+                        <span class="event-closed">Cerrado</span>
+                      </td>
+                      <td>Cluster Pacifico</td>
+                      <td>28/05/2026</td>
+                      <td>
+                        <b>4 cupos</b><span class="request-note">Pendiente de pago</span>
+                      </td>
+                      <td>
+                        <div class="capacity-cell">
+                          <strong>44/45</strong>
+                          <span>1 disponible</span>
+                        </div>
+                      </td>
+                      <td><span class="request-state-badge pending">Pendiente</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+                          <button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button>
+                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="empty-filter-state" data-external-empty-state>
+                  No hay solicitudes para el filtro seleccionado.
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+          <div class="event-form-panel" id="eventFormPanel" aria-hidden="true">
+          <div class="workspace-grid event-workspace">
+            <article class="workspace-main">
+              <div class="event-hero">
+                <div>
+                  <span class="hero-kicker">Centro de operaciones turisticas</span>
+                  <h2 data-event-form-title>Ruta Panoramica</h2>
+                  <p data-event-form-description>
+                    Configura cupos, transporte, comisiones y visibilidad antes de abrir la oferta al cluster o al
+                    mercado publico.
+                  </p>
+                </div>
+                <div class="hero-status">
+                  <div class="event-window-controls" aria-label="Controles del detalle">
+                    <button class="window-dot close" type="button" data-close-event-form title="Cerrar" aria-label="Cerrar detalle"></button>
+                    <button class="window-dot minimize" type="button" data-minimize-event-form title="Minimizar" aria-label="Minimizar detalle"></button>
+                    <button class="window-dot maximize" type="button" data-maximize-event-form title="Agrandar" aria-label="Agrandar detalle"></button>
+                  </div>
+                  <span class="status draft" data-event-form-state>Borrador</span>
+                  <strong data-event-form-capacity>50 cupos</strong>
+                  <small data-event-form-visibility>Publico por oferta y demanda</small>
+                </div>
+              </div>
+
+              <div class="event-detail-photo">
+                <img
+                  data-event-form-image
+                  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85"
+                  alt="Foto del evento Ruta Panoramica"
+                />
+                <div>
+                  <span>Foto del evento</span>
+                  <strong data-event-form-photo-title>Mirador, carretera panoramica y desayuno turistico</strong>
+                </div>
+              </div>
+
+              <div class="event-metrics">
+                <div>
+                  <span>Precio por cupo</span>
+                  <strong data-event-form-price>$35</strong>
+                  <small data-event-form-price-note>Venta por persona</small>
+                </div>
+                <div>
+                  <span>Costos asociados</span>
+                  <strong data-event-form-cost>$1,100</strong>
+                  <small data-event-form-cost-note>Guia $150 + transporte $850 + otros $100</small>
+                </div>
+                <div>
+                  <span>Costo promedio unitario</span>
+                  <strong data-event-form-average-cost>$22</strong>
+                  <small data-event-form-average-note>$1,100 / 50 cupos</small>
+                </div>
+                <div>
+                  <span>Costo unitario real</span>
+                  <strong data-real-unit-cost>$45.83</strong>
+                  <small data-real-unit-note>$1,100 / 24 vendidos</small>
+                </div>
+                <div>
+                  <span>Margen real fecha</span>
+                  <strong data-real-margin>-$260</strong>
+                  <small data-real-margin-note>Venta $840 - costo $1,100</small>
+                </div>
+              </div>
+
+              <div class="event-editor-toolbar">
+                <div class="editor-toolbar-copy">
+                  <span>CRUD del evento</span>
+                  <strong data-editor-state>Vista de detalle</strong>
+                  <small>Gestiona la informacion base, cupos, costos, fechas y visibilidad comercial.</small>
+                </div>
+                <div class="event-editor-actions">
+                  <button class="editor-action new" type="button" data-new-date><span>↻</span>Nueva fecha</button>
+                  <button class="editor-action edit" type="button" data-edit-event><span>✎</span>Editar</button>
+                  <button class="editor-action save" type="button" data-save-event><span>✓</span>Guardar</button>
+                </div>
+                <label class="public-switch">
+                  <input type="checkbox" data-event-public-switch />
+                  <span></span>
+                  <div>
+                    <strong data-public-switch-title>Privado</strong>
+                    <small data-public-switch-note>Solo visible para el cluster asignado.</small>
+                  </div>
+                </label>
+              </div>
+
+              <div class="event-date-selector">
+                <div class="section-head compact">
+                  <h2>Fechas disponibles</h2>
+                  <span class="status public">Multifecha</span>
+                </div>
+                <div class="event-date-list">
+                  <span class="visually-hidden" data-event-date-list-anchor></span>
+                  <button class="active" type="button" data-date-option="15/01/2026" data-count="24/50" data-free="26" data-internal="12" data-external="12" data-status="48% lleno" data-sold="24" data-contrib="Cipitio Tour:8;Turismo Tour:6;Aventura Local:5;Ruta Viva:5">
+                    <strong>15/01/2026</strong>
+                  </button>
+                  <button type="button" data-date-option="16/01/2026" data-count="45/50" data-free="5" data-internal="25" data-external="20" data-status="90% lleno" data-sold="45" data-contrib="Cipitio Tour:15;Turismo Tour:12;Aventura Local:10;Ruta Viva:8">
+                    <strong>16/01/2026</strong>
+                  </button>
+                  <button type="button" data-date-option="18/05/2026" data-count="41/50" data-free="9" data-internal="21" data-external="20" data-status="82% lleno" data-sold="41" data-contrib="Cipitio Tour:13;Turismo Tour:12;Aventura Local:9;Ruta Viva:7">
+                    <strong>18/05/2026</strong>
+                  </button>
+                </div>
+                <div class="selected-date-panel" id="selectedDatePanel">
+                  <div>
+                    <span>Fecha seleccionada</span>
+                    <strong data-selected-date>15/01/2026</strong>
+                  </div>
+                  <div class="date-count-card fill-low" data-fill-card>
+                    <span>Conteo de esta salida</span>
+                    <strong data-selected-count>24/50</strong>
+                    <small data-selected-status>48% lleno</small>
+                  </div>
+                  <div>
+                    <span>Disponibles</span>
+                    <strong data-selected-free>26 cupos</strong>
+                  </div>
+                  <div>
+                    <span>Origen del llenado</span>
+                    <strong><b data-selected-internal>12</b> internos / <b data-selected-external>12</b> externos</strong>
+                  </div>
+                </div>
+              </div>
+
+              <form class="event-form">
+                <label>
+                  Nombre del evento
+                  <input value="Ruta Panoramica" data-event-input-name />
+                </label>
+
+                <div class="form-pair">
+                  <label>
+                    Tipo de ruta
+                    <select data-event-input-route>
+                      <option value="">Seleccionar tipo</option>
+                      <option>Ruta nacional</option>
+                      <option>Ruta internacional</option>
+                    </select>
+                  </label>
+                  <label>
+                    Visibilidad
+                    <select data-event-input-visibility>
+                      <option>Privado del cluster</option>
+                      <option>Publico por oferta y demanda</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="form-pair">
+                  <label>
+                    Cluster
+                    <select data-event-input-cluster>
+                      <option value="">Seleccionar cluster</option>
+                      <option>Ruta Panoramica</option>
+                      <option>Ruta de las Flores</option>
+                      <option>Surf City</option>
+                      <option>Cluster Volcan</option>
+                      <option>Cluster Cafe</option>
+                      <option>Cluster Maya</option>
+                      <option>Cluster Pacifico</option>
+                      <option>Cluster Lago</option>
+                    </select>
+                  </label>
+                  <label>
+                    Anfitrion responsable
+                    <input value="TeCaigo Tours" data-event-input-host />
+                  </label>
+                </div>
+
+                <div class="form-pair">
+                  <label>
+                    Fechas del evento
+                    <input value="18/05/2026, 25/05/2026, 01/06/2026" data-event-input-dates />
+                  </label>
+                  <label>
+                    Precio por cupo
+                    <input value="$35" data-event-input-price />
+                  </label>
+                </div>
+
+                <div class="form-pair">
+                  <label>
+                    Sueldo guia
+                    <input value="$150" data-event-input-guide />
+                  </label>
+                  <label>
+                    Costo transporte
+                    <input value="$850" data-event-input-transport />
+                  </label>
+                </div>
+
+                <div class="form-pair">
+                  <label>
+                    Otros costos
+                    <input value="$100" data-event-input-other-costs />
+                  </label>
+                  <label>
+                    Costo promedio unitario
+                    <input value="$22" data-event-input-average-cost />
+                  </label>
+                </div>
+
+                <div class="form-pair">
+                  <label>
+                    Transporte asignado
+                    <select data-event-input-transport-provider>
+                      <option value="">Sin transporte asignado</option>
+                      <option>Microbus 30 pasajeros - Transporte Hernandez</option>
+                      <option>Bus 50 pasajeros - Rutas SV</option>
+                      <option>Lancha 20 pasajeros - Lago Tours</option>
+                    </select>
+                  </label>
+                  <label>
+                    Cupos del evento
+                    <input type="number" value="50" data-event-input-capacity />
+                  </label>
+                </div>
+
+                <div class="form-pair">
+                  <label>
+                    Comision operador interno
+                    <input value="30%" data-event-input-internal-commission />
+                  </label>
+                  <label>
+                    Comision operador externo
+                    <input value="70%" data-event-input-external-commission />
+                  </label>
+                </div>
+
+                <label>
+                  Itinerario del viaje
+                  <textarea data-event-input-itinerary>6:00 AM salida desde San Salvador
+8:00 AM desayuno en mirador
+10:00 AM recorrido guiado
+12:30 PM almuerzo local
+3:00 PM tiempo libre y fotografias
+5:00 PM retorno</textarea>
+                </label>
+
+                <div class="form-actions">
+                  <button class="ghost-button" type="button" data-new-event>Limpiar para nuevo evento</button>
+                  <button class="primary-button" type="button" data-save-event>Guardar cambios</button>
+                </div>
+              </form>
+            </article>
+
+            <aside class="workspace-side event-summary-panel">
+              <div class="panel-title">
+                <span>Salidas vigentes</span>
+                <strong>Conteo por fecha</strong>
+              </div>
+              <div class="date-ring-list">
+                <button class="date-ring-item active" type="button" data-date-option="15/01/2026" data-count="24/50" data-free="26" data-internal="12" data-external="12" data-status="48% lleno" data-sold="24">
+                  <div class="mini-ring" style="--fill: 48%">
+                    <strong>24/50</strong>
+                  </div>
+                  <div>
+                    <strong>15/01/2026</strong>
+                    <span>26 cupos disponibles</span>
+                  </div>
+                </button>
+                  <button class="date-ring-item" type="button" data-date-option="16/01/2026" data-count="45/50" data-free="5" data-internal="25" data-external="20" data-status="90% lleno" data-sold="45" data-contrib="Cipitio Tour:15;Turismo Tour:12;Aventura Local:10;Ruta Viva:8">
+                  <div class="mini-ring" style="--fill: 90%">
+                    <strong>45/50</strong>
+                  </div>
+                  <div>
+                    <strong>16/01/2026</strong>
+                    <span>5 cupos disponibles</span>
+                  </div>
+                </button>
+                  <button class="date-ring-item" type="button" data-date-option="18/05/2026" data-count="41/50" data-free="9" data-internal="21" data-external="20" data-status="82% lleno" data-sold="41" data-contrib="Cipitio Tour:13;Turismo Tour:12;Aventura Local:9;Ruta Viva:7">
+                  <div class="mini-ring" style="--fill: 82%">
+                    <strong>41/50</strong>
+                  </div>
+                  <div>
+                    <strong>18/05/2026</strong>
+                    <span>9 cupos disponibles</span>
+                  </div>
+                </button>
+              </div>
+              <div class="cluster-contribution-panel">
+                <div class="panel-title">
+                  <span>Aporte por integrante</span>
+                  <strong data-contrib-title>15/01/2026 - 24/50</strong>
+                </div>
+                <div class="contribution-list" data-contribution-list>
+                  <div class="contribution-row">
+                    <div><strong>Cipitio Tour</strong><span>8/50 cupos</span></div>
+                    <div class="contribution-bar"><span style="width: 16%"></span></div>
+                  </div>
+                  <div class="contribution-row">
+                    <div><strong>Turismo Tour</strong><span>6/50 cupos</span></div>
+                    <div class="contribution-bar"><span style="width: 12%"></span></div>
+                  </div>
+                  <div class="contribution-row">
+                    <div><strong>Aventura Local</strong><span>5/50 cupos</span></div>
+                    <div class="contribution-bar"><span style="width: 10%"></span></div>
+                  </div>
+                  <div class="contribution-row">
+                    <div><strong>Ruta Viva</strong><span>5/50 cupos</span></div>
+                    <div class="contribution-bar"><span style="width: 10%"></span></div>
+                  </div>
+                </div>
+                <div class="cluster-space-actions" aria-label="Ajuste directo de cupos del cluster">
+                  <button class="cluster-add" type="button" data-adjust-cupos="1">Agregar +</button>
+                  <button class="cluster-remove" type="button" data-adjust-cupos="-1">Eliminar -</button>
+                </div>
+              </div>
+              <div class="summary-stack">
+                <div>
+                  <span>Tipo</span>
+                  <strong data-event-summary-route>Ruta nacional</strong>
+                </div>
+                <div>
+                  <span>Modalidad</span>
+                  <strong data-event-summary-mode>Publico con comision</strong>
+                </div>
+                <div>
+                  <span>Comision sugerida</span>
+                  <strong data-event-summary-commission>Interno 30% / Externo 70%</strong>
+                </div>
+                <div>
+                  <span>Control</span>
+                  <strong>Anfitrion aprueba solicitudes</strong>
+                </div>
+                <div>
+                  <span>Costo promedio</span>
+                  <strong data-event-summary-average>$22 por cupo</strong>
+                </div>
+                <div>
+                  <span>Margen proyectado</span>
+                  <strong data-event-summary-margin>$650 lleno</strong>
+                </div>
+                <div>
+                  <span>Home social</span>
+                  <strong>Publicacion vinculada al evento</strong>
+                </div>
+              </div>
+            </aside>
+          </div>
+          </div>
+        </section>
+
+        <section class="view" id="my-events">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Agenda global del anfitrion</p>
+              <h2>Mis eventos</h2>
+            </div>
+          </div>
+
+          <div class="host-agenda-layout">
+            <aside class="cluster-ranking-card agenda-scoring-panel">
+              <div class="ranking-head">
+                <span>Programacion</span>
+                <strong>Calendario operativo</strong>
+              </div>
+              <button class="date-week-result" type="button" data-calendar-toggle aria-expanded="false">
+                <span>Rango activo</span>
+                <strong data-week-result-title>Todo el mes</strong>
+                <small data-week-result-range>01/05/26 - 31/05/26</small>
+                <b data-week-result-count>3 / 5</b>
+              </button>
+              <div class="filter-tabs my-events-filter" aria-label="Filtrar mis eventos">
+                <button class="active" type="button" data-my-event-filter="todos">Todos <b>6</b></button>
+                <button type="button" data-my-event-filter="vigente">Vigentes <b>4</b></button>
+                <button type="button" data-my-event-filter="cerrado">Cerrados <b>2</b></button>
+                <button type="button" data-my-event-filter="riesgo">Riesgo <b>2</b></button>
+              </div>
+              <div class="calendar-popover" data-calendar-popover hidden>
+                <div class="calendar-picker" aria-label="Calendario de eventos">
+                  <div class="calendar-controls">
+                    <button type="button" data-calendar-nav="prev-month" aria-label="Mes anterior">‹</button>
+                    <select data-date-month aria-label="Mes">
+                      <option value="05" selected>Mayo</option>
+                      <option value="06">Junio</option>
+                    </select>
+                    <button type="button" data-calendar-nav="next-month" aria-label="Mes siguiente">›</button>
+                    <button type="button" data-calendar-nav="prev-year" aria-label="Ano anterior">‹</button>
+                    <select data-date-year aria-label="Ano">
+                      <option value="2026" selected>2026</option>
+                      <option value="2027">2027</option>
+                    </select>
+                    <button type="button" data-calendar-nav="next-year" aria-label="Ano siguiente">›</button>
+                  </div>
+                  <div class="calendar-grid" data-calendar-grid></div>
+                  <button class="calendar-month-button active" type="button" data-calendar-all>Todo el mes</button>
+                </div>
+              </div>
+            </aside>
+
+            <article class="event-history-board host-agenda-board">
+              <div class="event-history-head secondary">
+                <div>
+                  <span class="hero-kicker">Matriz</span>
+                  <h2>Eventos privados</h2>
+                </div>
+              </div>
+
+              <div class="event-table-wrap">
+                <table class="event-matrix host-agenda-matrix">
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Evento</th>
+                      <th>Cluster</th>
+                      <th>Cupos</th>
+                      <th>Operadores</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-my-event-card data-event-detail="ruta-flores" data-my-event-state="vigente" data-my-event-risk="false" data-week-segment="2026-w20">
+                      <td><strong>15/05/2026</strong><span>Vie 6:00 AM</span></td>
+                      <td><strong>Ruta las flores</strong><span class="event-open">Publico</span></td>
+                      <td>Cluster Cafe</td>
+                      <td><b>48/50</b><span>2 disponibles</span></td>
+                      <td><span>Aventura Local 10</span><span>Ruta Viva 8</span></td>
+                      <td><span class="matrix-status active">Vigente</span></td>
+                      <td><div class="crud-actions compact"><button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button><button class="icon-action paper-action" type="button" data-print-event title="Imprimir PDF del evento" aria-label="Imprimir PDF del evento"><span class="paper-icon"></span></button><button class="icon-action" type="button" data-jump="requests" title="Solicitudes" aria-label="Solicitudes">↗</button><button class="icon-action" type="button" data-jump="finance" title="Finanzas" aria-label="Finanzas">$</button></div></td>
+                    </tr>
+                    <tr data-my-event-card data-event-detail="ruta-panoramica" data-my-event-state="vigente" data-my-event-risk="true" data-week-segment="2026-w21">
+                      <td><strong>18/05/2026</strong><span>Lun 6:00 AM</span></td>
+                      <td><strong>Ruta Panoramica</strong><span class="event-open">Publico</span></td>
+                      <td>Cluster Premier</td>
+                      <td><b>41/50</b><span>9 disponibles</span></td>
+                      <td><span>Internos 21</span><span>Externos 20</span></td>
+                      <td><span class="matrix-status review">Riesgo</span></td>
+                      <td><div class="crud-actions compact"><button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button><button class="icon-action paper-action" type="button" data-print-event title="Imprimir PDF del evento" aria-label="Imprimir PDF del evento"><span class="paper-icon"></span></button><button class="icon-action" type="button" data-jump="requests" title="Solicitudes" aria-label="Solicitudes">↗</button><button class="icon-action" type="button" data-jump="finance" title="Finanzas" aria-label="Finanzas">$</button></div></td>
+                    </tr>
+                    <tr data-my-event-card data-event-detail="ruta-volcan" data-my-event-state="vigente" data-my-event-risk="false" data-week-segment="2026-w21">
+                      <td><strong>20/05/2026</strong><span>Mie 7:00 AM</span></td>
+                      <td><strong>Ruta al volcan</strong><span class="event-paid">Privado</span></td>
+                      <td>Cluster Volcan</td>
+                      <td><b>24/50</b><span>26 disponibles</span></td>
+                      <td><span>Luis 6</span><span>Cipitio Tour 12</span></td>
+                      <td><span class="matrix-status active">Vigente</span></td>
+                      <td><div class="crud-actions compact"><button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button><button class="icon-action paper-action" type="button" data-print-event title="Imprimir PDF del evento" aria-label="Imprimir PDF del evento"><span class="paper-icon"></span></button><button class="icon-action" type="button" data-jump="requests" title="Solicitudes" aria-label="Solicitudes">↗</button><button class="icon-action" type="button" data-jump="finance" title="Finanzas" aria-label="Finanzas">$</button></div></td>
+                    </tr>
+                    <tr data-my-event-card data-event-detail="tour-cafe" data-my-event-state="cerrado" data-my-event-risk="false" data-week-segment="2026-w22">
+                      <td><strong>25/05/2026</strong><span>Lun 8:00 AM</span></td>
+                      <td><strong>Tour cafe y mirador</strong><span class="event-closed">Cerrado</span><span class="event-paid">Pagado</span></td>
+                      <td>Cluster Maya</td>
+                      <td><b>34/50</b><span>16 no vendidos</span></td>
+                      <td><span>Aventura Local 5</span><span>Pago validado</span></td>
+                      <td><span class="matrix-status closed">Cerrado</span></td>
+                      <td><div class="crud-actions compact"><button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button><button class="icon-action paper-action" type="button" data-print-event title="Imprimir PDF del evento" aria-label="Imprimir PDF del evento"><span class="paper-icon"></span></button><button class="icon-action" type="button" data-jump="finance" title="Ver liquidacion" aria-label="Ver liquidacion">$</button></div></td>
+                    </tr>
+                    <tr data-my-event-card data-event-detail="playa-nocturna" data-my-event-state="cerrado" data-my-event-risk="true" data-week-segment="2026-w22">
+                      <td><strong>28/05/2026</strong><span>Jue 5:30 PM</span></td>
+                      <td><strong>Ruta playa nocturna</strong><span class="event-closed">Cerrado</span></td>
+                      <td>Cluster Pacifico</td>
+                      <td><b>44/45</b><span>1 disponible</span></td>
+                      <td><span>4 cupos pendientes</span><span>Pago pendiente</span></td>
+                      <td><span class="matrix-status review">Cobro pendiente</span></td>
+                      <td><div class="crud-actions compact"><button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button><button class="icon-action paper-action" type="button" data-print-event title="Imprimir PDF del evento" aria-label="Imprimir PDF del evento"><span class="paper-icon"></span></button><button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button></div></td>
+                    </tr>
+                    <tr data-my-event-card data-event-detail="lago-lancha" data-my-event-state="vigente" data-my-event-risk="false" data-week-segment="2026-w23">
+                      <td><strong>02/06/2026</strong><span>Mar 6:30 AM</span></td>
+                      <td><strong>Lago, lancha y almuerzo</strong><span class="event-open">Publico</span></td>
+                      <td>Cluster Lago</td>
+                      <td><b>37/40</b><span>3 disponibles</span></td>
+                      <td><span>Operador Centro 6</span><span>3 por confirmar</span></td>
+                      <td><span class="matrix-status active">Vigente</span></td>
+                      <td><div class="crud-actions compact"><button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button><button class="icon-action paper-action" type="button" data-print-event title="Imprimir PDF del evento" aria-label="Imprimir PDF del evento"><span class="paper-icon"></span></button><button class="icon-action" type="button" data-jump="requests" title="Solicitudes" aria-label="Solicitudes">↗</button><button class="icon-action" type="button" data-jump="finance" title="Finanzas" aria-label="Finanzas">$</button></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="event-history-board cluster-detail-board">
+              <div class="event-history-head secondary">
+                <div>
+                  <span class="hero-kicker">Detalle cluster</span>
+                  <h2 data-cluster-detail-title>Ruta Panoramica</h2>
+                </div>
+              </div>
+              <div class="event-table-wrap">
+                <table class="event-matrix cluster-detail-matrix">
+                  <thead>
+                    <tr>
+                      <th>Tour operadores</th>
+                      <th>Cupos aportados</th>
+                      <th>Pagados</th>
+                      <th>Pendientes de pago</th>
+                    </tr>
+                  </thead>
+                  <tbody data-cluster-detail-body></tbody>
+                </table>
+              </div>
+            </article>
+
+            <strong data-week-filter-summary class="visually-hidden">Todos los eventos</strong>
+          </div>
+        </section>
+
+        <section class="view" id="public-events">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Oferta y demanda</p>
+              <h2>Eventos publicos ofertados por anfitriones</h2>
+            </div>
+            <button class="ghost-button">Ver solicitudes</button>
+          </div>
+
+          <div class="event-grid">
+            <article class="event-card public-preview-card" data-public-preview-card hidden>
+              <div class="event-preview-empty" data-public-preview-image>Sin imagen</div>
+              <div class="event-body">
+                <span class="status public">Publico</span>
+                <h3 data-public-preview-title>Nuevo evento publico</h3>
+                <p data-public-preview-host>Anfitrion: pendiente</p>
+                <div class="event-tags">
+                  <span data-public-preview-route>Ruta por definir</span>
+                  <span data-public-preview-commission>Comision externo pendiente</span>
+                  <span>Ayuda para llenar cupos</span>
+                </div>
+                <div class="progress-row">
+                  <strong data-public-preview-count>0/0</strong>
+                  <span data-public-preview-free>0 cupos libres</span>
+                </div>
+                <button class="primary-button" type="button">Solicitar cupos</button>
+              </div>
+            </article>
+            <article class="event-card">
+              <img
+                src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=900&q=80"
+                alt="Ruta de montana"
+              />
+              <div class="event-body">
+                <span class="status public">Publico</span>
+                <h3>Ruta Panoramica</h3>
+                <p>Anfitrion: TeCaigo Tours</p>
+                <div class="event-tags">
+                  <span>Ruta nacional</span>
+                  <span>Comision externo 70%</span>
+                  <span>Salida 6:00 AM</span>
+                </div>
+                <div class="progress-row">
+                  <strong>41/50</strong>
+                  <span>9 cupos libres</span>
+                </div>
+                <button
+                  class="primary-button"
+                  type="button"
+                  data-open-slot-request
+                  data-request-event="Ruta Panoramica"
+                  data-request-host="TeCaigo Tours"
+                  data-request-free="9"
+                  data-request-commission="70%"
+                >
+                  Solicitar cupos
+                </button>
+              </div>
+            </article>
+
+            <article class="event-card">
+              <img
+                src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=900&q=80"
+                alt="Lago"
+              />
+              <div class="event-body">
+                <span class="status public">Publico</span>
+                <h3>Lago y Miradores</h3>
+                <p>Anfitrion: Rutas SV</p>
+                <div class="event-tags">
+                  <span>Ruta nacional</span>
+                  <span>22 cupos ofertables</span>
+                  <span>Bus + lancha</span>
+                </div>
+                <div class="progress-row">
+                  <strong>18/40</strong>
+                  <span>22 cupos libres</span>
+                </div>
+                <button
+                  class="primary-button"
+                  type="button"
+                  data-open-slot-request
+                  data-request-event="Lago y Miradores"
+                  data-request-host="Rutas SV"
+                  data-request-free="22"
+                  data-request-commission="70%"
+                >
+                  Solicitar cupos
+                </button>
+              </div>
+            </article>
+
+            <article class="event-card">
+              <img
+                src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=900&q=80"
+                alt="Bosque"
+              />
+              <div class="event-body">
+                <span class="status public">Publico</span>
+                <h3>Cafe y senderos</h3>
+                <p>Anfitrion: Cafe Aventura</p>
+                <div class="event-tags">
+                  <span>Cluster cafe</span>
+                  <span>Comision interno 30%</span>
+                  <span>Home feed activo</span>
+                </div>
+                <div class="progress-row">
+                  <strong>12/35</strong>
+                  <span>23 cupos libres</span>
+                </div>
+                <button
+                  class="primary-button"
+                  type="button"
+                  data-open-slot-request
+                  data-request-event="Cafe y senderos"
+                  data-request-host="Cafe Aventura"
+                  data-request-free="23"
+                  data-request-commission="30%"
+                >
+                  Solicitar cupos
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="requests">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">SolicitudCupo heredado</p>
+              <h2>Solicitudes de cupos</h2>
+            </div>
+            <button
+              class="primary-button"
+              type="button"
+              data-open-slot-request
+              data-request-event="Ruta Panoramica"
+              data-request-host="TeCaigo Tours"
+              data-request-free="9"
+              data-request-commission="70%"
+            >
+              Nueva solicitud
+            </button>
+          </div>
+
+          <article class="event-history-board request-remittance-board">
+            <div class="event-history-head request-head">
+              <div>
+                <span class="hero-kicker">Operador</span>
+                <h2>Solicitudes enviadas al anfitrion</h2>
+              </div>
+            </div>
+
+            <div class="event-table-wrap">
+              <table class="event-matrix slot-request-matrix">
+                <thead>
+                  <tr>
+                    <th>Evento</th>
+                    <th>Anfitrion</th>
+                    <th>Cupos solicitados</th>
+                    <th>Comision</th>
+                    <th>Disponibles al solicitar</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody data-slot-request-list>
+                  <tr>
+                    <td><strong>Ruta internacional corta</strong><span class="event-open">Publico</span></td>
+                    <td>TeCaigo Tours</td>
+                    <td><b class="transfer-amount">8</b></td>
+                    <td>70%</td>
+                    <td>18</td>
+                    <td><span class="matrix-status draft">Pendiente</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tour cafe y mirador</strong><span class="event-open">Publico</span></td>
+                    <td>Cafe Aventura</td>
+                    <td><b class="transfer-amount">5</b></td>
+                    <td>30%</td>
+                    <td>12</td>
+                    <td><span class="matrix-status active">Aprobada</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="event-history-board remittance-board request-remittance-board">
+            <div class="event-history-head finance-head">
+              <div>
+                <span class="hero-kicker">Anfitrion</span>
+                <h2>Validacion de remesas</h2>
+              </div>
+            </div>
+
+            <div class="event-table-wrap">
+              <table class="event-matrix remittance-matrix">
+                <thead>
+                  <tr>
+                    <th>Evento</th>
+                    <th>Operador externo</th>
+                    <th>Boleta bancaria</th>
+                    <th>Banco</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Decision</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Tour cafe y mirador</strong><span class="event-closed">Cerrado</span></td>
+                    <td>Aventura Local</td>
+                    <td>0004589123</td>
+                    <td>Banco Cuscatlan</td>
+                    <td>29/04/2026</td>
+                    <td><b class="transfer-amount">$82.50</b></td>
+                    <td><span class="matrix-status active">Validada</span></td>
+                    <td><span class="payment-badge paid">Remesa aplicada</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ruta internacional corta</strong><span class="event-closed">Cerrado</span></td>
+                    <td>Ruta Viva</td>
+                    <td>0004589450</td>
+                    <td>Banco Agricola</td>
+                    <td>30/04/2026</td>
+                    <td><b class="transfer-amount">$176.00</b></td>
+                    <td><span class="matrix-status draft">Por validar</span></td>
+                    <td>
+                      <div class="crud-actions compact">
+                        <button class="icon-action" type="button" title="Validar remesa" aria-label="Validar remesa">✓</button>
+                        <button class="icon-action danger" type="button" title="Rechazar remesa" aria-label="Rechazar remesa">×</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Lago, lancha y almuerzo</strong><span class="event-open">Abierto</span></td>
+                    <td>Operador Centro</td>
+                    <td>0004590012</td>
+                    <td>Promerica</td>
+                    <td>30/04/2026</td>
+                    <td><b class="transfer-amount">$165.00</b></td>
+                    <td><span class="matrix-status review">Observada</span></td>
+                    <td>
+                      <div class="crud-actions compact">
+                        <button class="icon-action" type="button" title="Validar remesa" aria-label="Validar remesa">✓</button>
+                        <button class="icon-action danger" type="button" title="Rechazar remesa" aria-label="Rechazar remesa">×</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="finance">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">ReporteComisiones heredado</p>
+              <h2>Finanzas y comisiones</h2>
+            </div>
+            <button class="ghost-button">Exportar reporte</button>
+          </div>
+
+          <div class="admin-grid">
+            <article class="stat-card">
+              <span>Venta total</span>
+              <strong>$1,435</strong>
+            </article>
+            <article class="stat-card">
+              <span>Costo total</span>
+              <strong>$902</strong>
+            </article>
+            <article class="stat-card">
+              <span>Utilidad</span>
+              <strong>$533</strong>
+            </article>
+            <article class="stat-card">
+              <span>Comisiones pendientes</span>
+              <strong>$168</strong>
+            </article>
+          </div>
+
+          <article class="admin-table">
+            <div class="section-head compact">
+              <h2>Comisiones por vendedor</h2>
+              <button class="ghost-button">Marcar pagado</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Evento</th>
+                  <th>Vendedor</th>
+                  <th>Tipo</th>
+                  <th>Cupos</th>
+                  <th>Comision ganada</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ruta Panoramica</td>
+                  <td>Aventura Local</td>
+                  <td>Interno</td>
+                  <td>13</td>
+                  <td>$50.70</td>
+                  <td>Pendiente</td>
+                </tr>
+                <tr>
+                  <td>Ruta Panoramica</td>
+                  <td>Colaborador Norte</td>
+                  <td>Externo</td>
+                  <td>20</td>
+                  <td>$182.00</td>
+                  <td>Pagada parcial</td>
+                </tr>
+                <tr>
+                  <td>Centro historico nocturno</td>
+                  <td>Ruta Viva</td>
+                  <td>Interno</td>
+                  <td>7</td>
+                  <td>$28.00</td>
+                  <td>Pagada</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="view" id="clusters">
+          <div class="cluster-hero">
+            <div>
+              <p class="eyebrow">Modulo logistico</p>
+              <h2>Clusters con tour operador anfitrion padre y operadores amarrados a una sola red.</h2>
+            </div>
+            <button class="primary-button">Nuevo cluster</button>
+          </div>
+
+          <div class="cluster-board">
+            <article class="cluster-panel">
+              <div class="panel-title">
+                <span>Cluster</span>
+                <strong>Ruta Panoramica</strong>
+              </div>
+              <dl class="metric-list">
+                <div>
+                  <dt>Tour operador anfitrion padre</dt>
+                  <dd>TeCaigo Tours</dd>
+                </div>
+                <div>
+                  <dt>Tour operadores hijos</dt>
+                  <dd>4 activos</dd>
+                </div>
+                <div>
+                  <dt>Regla de pertenencia</dt>
+                  <dd>Un operador, un cluster</dd>
+                </div>
+                <div>
+                  <dt>Evento activo</dt>
+                  <dd>Ruta Panoramica 41/50</dd>
+                </div>
+                <div>
+                  <dt>Internos / externos</dt>
+                  <dd>21 / 20</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="cluster-panel wide">
+              <div class="panel-title">
+                <span>Tour operadores activos</span>
+                <strong>Jerarquia del cluster</strong>
+              </div>
+              <div class="to-tree">
+                <div class="to-node parent">
+                  <span>Padre anfitrion</span>
+                  <strong>TeCaigo Tours</strong>
+                    <small>Cluster: Premier</small>
+                </div>
+                <div class="to-children">
+                  <div class="to-node">
+                    <span>Operador hijo</span>
+                    <strong>Aventura Local</strong>
+                    <small>Amarrado a TeCaigo Tours</small>
+                  </div>
+                  <div class="to-node">
+                    <span>Operador hijo</span>
+                    <strong>Ruta Viva</strong>
+                    <small>Amarrado a TeCaigo Tours</small>
+                  </div>
+                  <div class="to-node">
+                    <span>Operador hijo</span>
+                    <strong>Colaborador Norte</strong>
+                    <small>Amarrado a TeCaigo Tours</small>
+                  </div>
+                  <div class="to-node locked">
+                    <span>No disponible</span>
+                    <strong>Lago Tours</strong>
+                    <small>Ya pertenece a Cluster Lago</small>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <article class="admin-table cluster-table">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Todos son tour operadores</p>
+                <h2>Tour operadores activos del sistema</h2>
+              </div>
+              <button class="ghost-button">Asignar a cluster</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tour operador</th>
+                  <th>Rol operativo</th>
+                  <th>TO anfitrion padre</th>
+                  <th>Cluster</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TeCaigo Tours</td>
+                  <td>Anfitrion padre</td>
+                  <td>TeCaigo Tours</td>
+                  <td>Premier</td>
+                  <td>Activo</td>
+                </tr>
+                <tr>
+                  <td>Aventura Local</td>
+                  <td>Operador hijo</td>
+                  <td>TeCaigo Tours</td>
+                  <td>Premier</td>
+                  <td>Activo amarrado</td>
+                </tr>
+                <tr>
+                  <td>Ruta Viva</td>
+                  <td>Operador hijo</td>
+                  <td>TeCaigo Tours</td>
+                  <td>Premier</td>
+                  <td>Activo amarrado</td>
+                </tr>
+                <tr>
+                  <td>Lago Tours</td>
+                  <td>Operador hijo</td>
+                  <td>Rutas SV</td>
+                  <td>Cluster Lago</td>
+                  <td>No asignable aqui</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <div class="cluster-board secondary-board">
+            <article class="cluster-panel">
+              <div class="panel-title">
+                <span>Regla del cluster</span>
+                <strong>Un operador, un padre</strong>
+              </div>
+              <p class="panel-copy">
+                Anfitriones y operadores son tour operadores. El anfitrion es el tour operador padre del cluster.
+                Cada operador hijo solo puede pertenecer a un cluster y quedar amarrado a un padre anfitrion activo.
+              </p>
+            </article>
+            <article class="cluster-panel wide">
+              <div class="panel-title">
+                <span>Estados operativos</span>
+                <strong>Cupos y pagos</strong>
+              </div>
+              <div class="inline-metrics">
+                <span>Cupos asignados: 50</span>
+                <span>Vendidos: 41</span>
+                <span>Disponibles: 9</span>
+                <span>Pagados: 33</span>
+                <span>Pendientes: 8</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="admin">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Administracion</p>
+              <h2>Panel administrativo</h2>
+            </div>
+          </div>
+
+          <div class="admin-shell">
+            <aside class="admin-options">
+              <button class="active" type="button">
+                <span>Registro</span>
+                <small>Alta de usuarios y empresas</small>
+              </button>
+            </aside>
+
+            <article class="admin-registration">
+              <div class="admin-registration-head">
+                <div>
+                  <span>Registro</span>
+                  <h2>Formulario para pertenecer a TeCaigo</h2>
+                </div>
+                <button class="primary-button" type="button" data-save-registration>Guardar registro</button>
+              </div>
+
+              <form class="admin-registration-form">
+                <label>
+                  Nombre de empresa comercial
+                  <input placeholder="Ej. Rutas Cuscatlan Tours" data-registration-field="companyName" />
+                </label>
+                <label>
+                  Representante legal
+                  <input placeholder="Nombre completo" data-registration-field="legalRepresentative" />
+                </label>
+                <label>
+                  Telefono
+                  <input placeholder="Ej. 7000-0000" data-registration-field="phone" />
+                </label>
+                <label>
+                  Correo electronico
+                  <input placeholder="empresa@correo.com" data-registration-field="email" />
+                </label>
+                <label class="wide">
+                  Direccion
+                  <input placeholder="Departamento, municipio, colonia, calle y referencia" data-registration-field="address" />
+                </label>
+                <label>
+                  Numero de DUI
+                  <input placeholder="00000000-0" data-registration-field="dui" />
+                </label>
+                <label>
+                  Numero de NIT
+                  <input placeholder="0000-000000-000-0" data-registration-field="nit" />
+                </label>
+                <label>
+                  Tipo de usuario
+                  <select data-admin-user-type data-registration-field="userType">
+                    <option value="anfitrion" selected>Anfitrion de cluster</option>
+                    <option value="operador">Tour operador</option>
+                    <option value="comercio">Comercio turistico</option>
+                    <option value="transporte">Transporte</option>
+                  </select>
+                </label>
+                <label>
+                  Banco para liquidaciones
+                  <select data-registration-field="bank">
+                    <option>Banco Cuscatlan</option>
+                    <option>Banco Agricola</option>
+                    <option>Davivienda</option>
+                    <option>Promerica</option>
+                  </select>
+                </label>
+                <div class="cluster-link-panel wide" data-cluster-link-panel>
+                  <div class="cluster-link-head">
+                    <div>
+                      <span>Cluster anfitrion</span>
+                      <strong>Vinculacion de cuentas</strong>
+                    </div>
+                    <small>Conecta al anfitrion con tour operadores vigentes que aun no pertenecen a un cluster.</small>
+                  </div>
+                  <label>
+                    Nombre del Cluster
+                    <input placeholder="Ej. Cluster Ruta de las Flores" data-cluster-name />
+                  </label>
+                  <div class="operator-link-row">
+                    <label>
+                      Tour operador disponible
+                      <select data-available-operator>
+                        <option value="" disabled>Sin operadores disponibles</option>
+                        <option>Aventura Local</option>
+                        <option>Ruta Viva</option>
+                        <option>Cipitio Tour</option>
+                        <option>Turismo Tour</option>
+                        <option>Operador Centro</option>
+                      </select>
+                    </label>
+                    <button class="operator-add-button" type="button" data-add-cluster-operator aria-label="Agregar tour operador al cluster">+</button>
+                  </div>
+                  <div class="linked-operator-list" data-linked-operator-list>
+                    <span data-operator-name="Aventura Local">Aventura Local <button type="button" data-remove-linked-operator aria-label="Eliminar Aventura Local">×</button></span>
+                    <span data-operator-name="Ruta Viva">Ruta Viva <button type="button" data-remove-linked-operator aria-label="Eliminar Ruta Viva">×</button></span>
+                  </div>
+                </div>
+                <label>
+                  Numero de cuenta bancaria
+                  <input placeholder="Cuenta para pagos y liquidaciones" data-registration-field="bankAccount" />
+                </label>
+                <label>
+                  Nombre del titular de cuenta
+                  <input placeholder="Titular registrado en banco" data-registration-field="accountHolder" />
+                </label>
+                <label class="wide">
+                  Observaciones administrativas
+                  <textarea rows="4" placeholder="Notas de revision, documentos pendientes o condicion especial" data-registration-field="observations"></textarea>
+                </label>
+              </form>
+
+              <section class="admin-saved-records">
+                <div class="admin-saved-records-head">
+                  <div>
+                    <span>Base de datos</span>
+                    <strong>Registros guardados</strong>
+                  </div>
+                  <b data-registration-count>0</b>
+                </div>
+                <div class="event-table-wrap">
+                  <table class="event-matrix admin-records-table">
+                    <thead>
+                      <tr>
+                        <th>Empresa</th>
+                        <th>Tipo</th>
+                        <th>Banco</th>
+                        <th>Cluster</th>
+                        <th>Operadores</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody data-registration-list>
+                      <tr>
+                        <td colspan="6">Conecta el backend para ver registros guardados.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="composer-modal" id="composerModal" aria-hidden="true">
+      <div class="composer-backdrop" data-close-composer></div>
+      <section class="composer-dialog" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
+        <header class="composer-dialog-head">
+          <h2 id="composerTitle">Crear publicacion</h2>
+          <button class="composer-close" type="button" data-close-composer aria-label="Cerrar">X</button>
+        </header>
+        <div class="composer-author">
+          <div class="avatar profile-photo">LV</div>
+          <div>
+            <strong>Luis Valladares</strong>
+            <button class="audience-button" type="button">Amigos</button>
+          </div>
+        </div>
+        <textarea
+          class="composer-textarea"
+          rows="5"
+          placeholder="Que estas pensando, Luis?"
+        ></textarea>
+        <div class="composer-style-row">
+          <button class="style-chip" type="button">Aa</button>
+          <button class="emoji-button" type="button">:)</button>
+        </div>
+        <div class="composer-addons">
+          <strong>Anadir a tu publicacion</strong>
+          <div class="addon-actions">
+            <button type="button" title="Foto">Foto</button>
+            <button type="button" title="Etiquetar">Tag</button>
+            <button type="button" title="Sentimiento">Smile</button>
+            <button type="button" title="Ubicacion">Lugar</button>
+            <button type="button" title="GIF">GIF</button>
+            <button type="button" title="Mas">...</button>
+          </div>
+        </div>
+        <div class="composer-category-panel">
+          <strong>Categoria del post</strong>
+          <div class="composer-category-list" aria-label="Categoria donde descansara la publicacion">
+            <button class="active" type="button" data-composer-category="playa">Playa</button>
+            <button type="button" data-composer-category="montana">Montana</button>
+            <button type="button" data-composer-category="pueblos">Pueblos</button>
+            <button type="button" data-composer-category="caminatas">Caminatas</button>
+            <button type="button" data-composer-category="lagos">Lagos</button>
+            <button type="button" data-composer-category="gastronomia">Gastro</button>
+          </div>
+        </div>
+        <button class="publish-button" type="button" disabled>Publicar</button>
+      </section>
+    </div>
+
+    <div class="payment-modal" id="paymentModal" aria-hidden="true">
+      <div class="composer-backdrop" data-close-payment></div>
+      <section class="payment-dialog" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+        <header class="composer-dialog-head">
+          <h2 id="paymentTitle">Enviar boleta de pago</h2>
+          <button class="composer-close" type="button" data-close-payment aria-label="Cerrar">X</button>
+        </header>
+        <form class="payment-form">
+          <label>
+            Numero de boleta bancaria
+            <input placeholder="Ej. 0004589123" />
+          </label>
+          <label>
+            Fecha de pago
+            <input type="date" value="2026-04-29" />
+          </label>
+          <label>
+            Banco
+            <select>
+              <option>Banco Agricola</option>
+              <option>Banco Cuscatlan</option>
+              <option>Davivienda</option>
+              <option>Promerica</option>
+            </select>
+          </label>
+          <label>
+            Monto
+            <input value="$72.00" />
+          </label>
+          <label class="payment-proof-upload">
+            Comprobante de pago
+            <input type="file" accept="image/*,.pdf" data-payment-proof />
+            <span>
+              <strong>Adjuntar comprobante</strong>
+              <small data-payment-proof-name>Imagen o PDF del abono bancario</small>
+            </span>
+          </label>
+          <div class="payment-actions">
+            <button class="ghost-button" type="button" data-close-payment>Cancelar</button>
+            <button class="primary-button" type="button" data-close-payment>Enviar boleta</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="payment-modal" id="slotRequestModal" aria-hidden="true">
+      <div class="composer-backdrop" data-close-slot-request></div>
+      <section class="payment-dialog slot-request-dialog" role="dialog" aria-modal="true" aria-labelledby="slotRequestTitle">
+        <header class="composer-dialog-head">
+          <h2 id="slotRequestTitle">Solicitar cupos</h2>
+          <button class="composer-close" type="button" data-close-slot-request aria-label="Cerrar">X</button>
+        </header>
+        <form class="payment-form" data-slot-request-form>
+          <div class="request-modal-summary">
+            <span data-slot-request-host>TeCaigo Tours</span>
+            <strong data-slot-request-event>Ruta Panoramica</strong>
+            <small><b data-slot-request-free>9</b> cupos disponibles para oferta externa</small>
+          </div>
+          <label>
+            Cupos a solicitar
+            <input type="number" min="1" value="4" data-slot-request-count />
+          </label>
+          <label>
+            Comision propuesta
+            <input data-slot-request-commission value="70%" />
+          </label>
+          <label>
+            Mensaje para el anfitrion
+            <input data-slot-request-message value="Puedo moverlos con clientes de fin de semana." />
+          </label>
+          <div class="payment-actions">
+            <button class="ghost-button" type="button" data-close-slot-request>Cancelar</button>
+            <button class="primary-button" type="submit">Enviar solicitud</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <script src="./config.js?v=tecaigo-api-config-1"></script>
+    <script src="./app.js?v=tecaigo-api-config-1"></script>
+  </body>
+</html>

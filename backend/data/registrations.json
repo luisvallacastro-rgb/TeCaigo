@@ -1,0 +1,25 @@
+[
+  {
+    "id": "registro-demo-tours-1778128577734",
+    "companyName": "Registro Demo Tours",
+    "legalRepresentative": "Luis Demo",
+    "phone": "7000-0000",
+    "email": "demo@tecaigo.test",
+    "address": "",
+    "dui": "",
+    "nit": "",
+    "userType": "anfitrion",
+    "bank": "Banco Cuscatlan",
+    "bankAccount": "",
+    "accountHolder": "",
+    "observations": "",
+    "clusterName": "Cluster Demo",
+    "linkedOperators": [
+      "Aventura Local",
+      "Ruta Viva"
+    ],
+    "status": "pendiente_validacion",
+    "createdAt": "2026-05-07T04:36:17.733Z",
+    "updatedAt": "2026-05-07T04:36:17.733Z"
+  }
+]
