@@ -6,6 +6,8 @@ const eventFormPanel = document.querySelector("#eventFormPanel");
 const paymentModal = document.querySelector("#paymentModal");
 const slotRequestModal = document.querySelector("#slotRequestModal");
 const slotRequestForm = document.querySelector("[data-slot-request-form]");
+const mobileMenuToggle = document.querySelector("[data-menu-toggle]");
+const mobileMenuOverlay = document.querySelector("[data-menu-overlay]");
 const API_BASE_URL = window.TECAIGO_CONFIG?.API_BASE_URL || "http://localhost:3001/api";
 let minimizedDrag = null;
 
@@ -356,6 +358,41 @@ function activateView(viewId) {
   });
 
   window.scrollTo({ top: 0, behavior: "smooth" });
+  closeMobileMenu();
+}
+
+function openMobileMenu() {
+  document.body.classList.add("mobile-menu-open");
+  mobileMenuToggle?.setAttribute("aria-label", "Cerrar menu");
+}
+
+function closeMobileMenu() {
+  document.body.classList.remove("mobile-menu-open");
+  mobileMenuToggle?.setAttribute("aria-label", "Abrir menu");
+}
+
+function toggleMobileMenu() {
+  if (document.body.classList.contains("mobile-menu-open")) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
+function hydrateResponsiveTables() {
+  document.querySelectorAll("table").forEach((table) => {
+    table.classList.add("responsive-table");
+    const headers = [...table.querySelectorAll("thead th")].map((header) => header.textContent.trim());
+
+    table.querySelectorAll("tbody tr").forEach((row) => {
+      [...row.children].forEach((cell, index) => {
+        if (cell.hasAttribute("colspan")) return;
+        if (!cell.dataset.label) {
+          cell.dataset.label = headers[index] || "";
+        }
+      });
+    });
+  });
 }
 
 function updateBackendStatus(message, status) {
@@ -416,6 +453,7 @@ function renderRegistrationList(registrations = []) {
       <td><span class="record-status">${escapeHtml(formatRegistrationStatus(registration.status))}</span></td>
     </tr>`;
   }).join("");
+  hydrateResponsiveTables();
 }
 
 async function loadRegistrationsFromBackend() {
@@ -460,6 +498,12 @@ async function connectBackend() {
 
 navItems.forEach((item) => {
   item.addEventListener("click", () => activateView(item.dataset.view));
+});
+
+mobileMenuToggle?.addEventListener("click", toggleMobileMenu);
+mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeMobileMenu();
 });
 
 function parseContributions(value) {
@@ -2171,6 +2215,7 @@ function adjustInternalEventCupos(button) {
 }
 
 hydrateHomeFeed();
+hydrateResponsiveTables();
 applyHomeFeedFilters();
 applyClusterEventFilter();
 applyExternalRequestFilter();
