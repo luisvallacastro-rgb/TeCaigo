@@ -386,6 +386,14 @@ function formatRegistrationStatus(value) {
   return labels[value] || value || "Pendiente";
 }
 
+function formatStorageLabel(storage) {
+  const labels = {
+    postgres: "Neon PostgreSQL",
+    sqlite: "SQLite local",
+  };
+  return labels[storage] || "Backend";
+}
+
 function renderRegistrationList(registrations = []) {
   const list = document.querySelector("[data-registration-list]");
   const count = document.querySelector("[data-registration-count]");
@@ -442,7 +450,7 @@ async function connectBackend() {
     renderClusterEventDetail();
     await loadRegistrationsFromBackend();
     updateBackendStatus(
-      `Backend SQLite: ${summary?.eventCount ?? payload.events?.length ?? 0} eventos / ${summary?.registrationCount ?? 0} registros`,
+      `${formatStorageLabel(summary?.storage)}: ${summary?.eventCount ?? payload.events?.length ?? 0} eventos / ${summary?.registrationCount ?? 0} registros`,
       "is-online"
     );
   } catch (error) {
