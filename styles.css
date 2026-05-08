@@ -4624,19 +4624,19 @@ th {
     margin-bottom: 12px;
     border: 1px solid #dbe6e6;
     border-radius: 14px;
-    padding: 12px;
+    overflow: hidden;
+    padding: 0;
     background: #fff;
     box-shadow: 0 12px 28px rgba(24, 33, 31, 0.06);
   }
 
   table.responsive-table td {
-    display: grid;
-    min-height: 38px;
-    align-items: center;
-    grid-template-columns: minmax(92px, 0.42fr) minmax(0, 1fr);
-    gap: 12px;
+    display: block;
+    min-height: 0;
     border-bottom: 1px solid #eef2f2;
-    padding: 10px 0;
+    padding: 13px 14px;
+    overflow: hidden;
+    text-align: left;
   }
 
   table.responsive-table td:last-child {
@@ -4645,6 +4645,8 @@ th {
 
   table.responsive-table td::before {
     content: attr(data-label);
+    display: block;
+    margin-bottom: 7px;
     color: var(--muted);
     font-size: 11px;
     font-weight: 900;
@@ -4664,6 +4666,111 @@ th {
   .event-matrix th {
     padding-right: 0;
     padding-left: 0;
+  }
+
+  table.responsive-table.event-matrix td {
+    padding: 13px 14px;
+  }
+
+  table.responsive-table td > strong:first-child {
+    display: block;
+    max-width: 100%;
+    font-size: 20px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
+  table.responsive-table td > span,
+  table.responsive-table td > em {
+    max-width: 100%;
+  }
+
+  table.responsive-table .event-open,
+  table.responsive-table .event-closed,
+  table.responsive-table .event-paid,
+  table.responsive-table .matrix-status,
+  table.responsive-table .request-state-badge {
+    display: inline-flex !important;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 32px;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  table.responsive-table .event-open,
+  table.responsive-table .event-closed,
+  table.responsive-table .event-paid {
+    margin-right: 6px;
+  }
+
+  table.responsive-table .cupos-editor {
+    display: grid;
+    width: min(100%, 230px);
+    min-width: 0;
+    grid-template-columns: 44px minmax(82px, 1fr) 44px;
+    gap: 8px;
+    align-items: center;
+  }
+
+  table.responsive-table .cupos-editor button {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+
+  table.responsive-table .cupos-editor strong {
+    min-height: 44px;
+    font-size: 18px;
+  }
+
+  table.responsive-table .external-cupos-editor {
+    width: 100%;
+    min-width: 0;
+    justify-items: start;
+    gap: 8px;
+  }
+
+  table.responsive-table .external-cupos-editor > em {
+    max-width: 100%;
+    padding: 7px 12px;
+  }
+
+  table.responsive-table .crud-actions {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    gap: 9px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  table.responsive-table .crud-actions.compact {
+    min-width: 0;
+  }
+
+  table.responsive-table .crud-actions button,
+  table.responsive-table .icon-action {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+    border-radius: 10px;
+    font-size: 19px;
+  }
+
+  table.responsive-table .paper-icon {
+    width: 16px;
+    height: 20px;
+  }
+
+  table.responsive-table td[data-label="Acciones"],
+  table.responsive-table td[data-label="ACCIONES"] {
+    background: #fbfdfd;
   }
 
   .post-photo-grid,
