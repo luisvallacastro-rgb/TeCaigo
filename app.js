@@ -530,6 +530,11 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+document.addEventListener("focusin", (event) => {
+  const field = event.target.closest("#eventFormPanel.new-event-param-mode input, #eventFormPanel.new-event-param-mode textarea");
+  if (field) clearNewEventExampleValue(field);
+});
+
 function clearTasteDock() {
   tasteCarousel?.querySelectorAll(".taste-filter").forEach((filter) => {
     filter.classList.remove("dock-hover", "dock-near", "dock-far");
@@ -877,6 +882,11 @@ function setValue(selector, value) {
   if (element) element.value = value;
 }
 
+function setPlaceholder(selector, value) {
+  const element = document.querySelector(selector);
+  if (element) element.placeholder = value;
+}
+
 function setText(selector, value) {
   const element = document.querySelector(selector);
   if (element) element.textContent = value;
@@ -895,6 +905,40 @@ function setNewEventParamMode(isParamMode) {
   setText("[data-crud-new-label]", isParamMode ? "Limpiar" : "Nueva fecha");
   setText("[data-crud-edit-label]", isParamMode ? "Editar" : "Editar");
   setText("[data-crud-save-label]", isParamMode ? "Guardar parametros" : "Guardar");
+}
+
+function prepareNewEventCaptureFields() {
+  const examples = {
+    "[data-event-input-name]": "Ej. Ruta de cafe y mirador",
+    "[data-event-input-host]": "Ej. TeCaigo Tours",
+    "[data-event-input-dates]": "Ej. 25/05/2026, 01/06/2026",
+    "[data-event-input-price]": "Ej. $35",
+    "[data-event-input-guide]": "Ej. $130",
+    "[data-event-input-transport]": "Ej. $750",
+    "[data-event-input-other-costs]": "Ej. $100",
+    "[data-event-input-capacity]": "Ej. 50",
+    "[data-event-input-internal-commission]": "Ej. 30%",
+    "[data-event-input-external-commission]": "Ej. 70%",
+    "[data-event-input-itinerary]": "Ej. 6:00 AM salida, 8:00 AM desayuno, 10:00 AM recorrido...",
+  };
+
+  Object.entries(examples).forEach(([selector, placeholder]) => {
+    setPlaceholder(selector, placeholder);
+    setValue(selector, "");
+  });
+
+  setValue("[data-event-input-route]", "");
+  setValue("[data-event-input-cluster]", "");
+  setValue("[data-event-input-transport-provider]", "");
+  setValue("[data-event-input-visibility]", "Privado del cluster");
+}
+
+function clearNewEventExampleValue(field) {
+  if (!eventFormPanel?.classList.contains("new-event-param-mode")) return;
+  if (!field.matches("input, textarea")) return;
+
+  const disposableValues = new Set(["Nuevo evento", "$0", "$0.00", "0", "0%", "Sin imagen del evento"]);
+  if (disposableValues.has(field.value.trim())) field.value = "";
 }
 
 function setEventEditMode(isEditing) {
@@ -1014,6 +1058,7 @@ function renderEventOperationDetail(eventId = "ruta-panoramica") {
   setValue("[data-event-input-internal-commission]", detail.commissions.internal);
   setValue("[data-event-input-external-commission]", detail.commissions.external);
   setValue("[data-event-input-itinerary]", detail.itinerary);
+  if (isParamMode) prepareNewEventCaptureFields();
 
   const dateList = document.querySelector(".event-date-list");
   const ringList = document.querySelector(".date-ring-list");

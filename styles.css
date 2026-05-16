@@ -8055,6 +8055,17 @@ body[data-active-view="home"] .post-actions button.is-active {
   font-size: 12px;
 }
 
+#eventFormPanel.new-event-param-mode .event-form input::placeholder,
+#eventFormPanel.new-event-param-mode .event-form textarea::placeholder {
+  color: rgba(236, 245, 246, 0.24) !important;
+  font-weight: 760;
+}
+
+#eventFormPanel.new-event-param-mode .event-form input:focus::placeholder,
+#eventFormPanel.new-event-param-mode .event-form textarea:focus::placeholder {
+  color: rgba(236, 245, 246, 0.16) !important;
+}
+
 @media (max-width: 780px) {
   #eventFormPanel.new-event-param-mode {
     overflow: hidden !important;
