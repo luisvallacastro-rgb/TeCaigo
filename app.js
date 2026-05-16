@@ -892,17 +892,20 @@ function setText(selector, value) {
   if (element) element.textContent = value;
 }
 
-function setNewEventParamMode(isParamMode) {
+function setNewEventParamMode(isParamMode, mode = "blank") {
   eventFormPanel?.classList.toggle("new-event-param-mode", isParamMode);
+  const isInherited = mode === "inherited";
   setText("[data-editor-kicker]", isParamMode ? "Parametrizacion" : "CRUD del evento");
-  setText("[data-editor-state]", isParamMode ? "Nuevo evento" : "Vista de detalle");
+  setText("[data-editor-state]", isParamMode ? (isInherited ? "Reprogramar evento" : "Nuevo evento") : "Vista de detalle");
   setText(
     "[data-editor-note]",
     isParamMode
-      ? "Define los parametros base del evento antes de abrir cupos, fechas o mercado publico."
+      ? isInherited
+        ? "Datos heredados del evento actual para cambiar fecha, foto, titulo o parametros puntuales."
+        : "Define los parametros base del evento antes de abrir cupos, fechas o mercado publico."
       : "Gestiona la informacion base, cupos, costos, fechas y visibilidad comercial."
   );
-  setText("[data-crud-new-label]", isParamMode ? "Limpiar" : "Nueva fecha");
+  setText("[data-crud-new-label]", isParamMode ? (isInherited ? "Limpiar fecha" : "Limpiar") : "Nueva fecha");
   setText("[data-crud-edit-label]", isParamMode ? "Editar" : "Editar");
   setText("[data-crud-save-label]", isParamMode ? "Guardar parametros" : "Guardar");
 }
@@ -931,6 +934,7 @@ function prepareNewEventCaptureFields() {
   setValue("[data-event-input-cluster]", "");
   setValue("[data-event-input-transport-provider]", "");
   setValue("[data-event-input-visibility]", "Privado del cluster");
+  setText("[data-event-photo-file-name]", "Ej. mirador, playa o punto principal del viaje");
 }
 
 function clearNewEventExampleValue(field) {
@@ -941,8 +945,105 @@ function clearNewEventExampleValue(field) {
   if (disposableValues.has(field.value.trim())) field.value = "";
 }
 
+function parseEventDateValue(value) {
+  const [day, month, year] = String(value || "").split("/").map(Number);
+  if (!day || !month || !year) return null;
+  return { day, month: month - 1, year };
+}
+
+function getClusterProgrammedDays(detail, month, year) {
+  const cluster = detail?.cluster;
+  const days = new Set();
+  const details = Object.entries(eventOperationDetails)
+    .filter(([id, item]) => id !== "nuevo-evento" && item?.dates?.length)
+    .map(([, item]) => item);
+
+  details
+    .filter((item) => (cluster ? item.cluster === cluster : item === detail))
+    .forEach((item) => {
+      item.dates.forEach((dateItem) => {
+        const parsed = parseEventDateValue(dateItem.date);
+        if (parsed?.month === month && parsed.year === year) days.add(parsed.day);
+      });
+    });
+
+  return days;
+}
+
+function renderParamClusterCalendar(detail, shouldShow) {
+  const grid = document.querySelector("[data-event-param-calendar-grid]");
+  if (!grid || !shouldShow) return;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const monthLabel = new Intl.DateTimeFormat("es-SV", { month: "long", year: "numeric" }).format(now);
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const programmedDays = getClusterProgrammedDays(detail, month, year);
+  const weekdays = ["D", "L", "M", "M", "J", "V", "S"];
+  const cells = weekdays.map((day) => `<span class="calendar-weekday">${day}</span>`);
+
+  for (let index = 0; index < firstDay; index += 1) {
+    cells.push(`<span class="calendar-day muted"></span>`);
+  }
+
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    cells.push(`<span class="calendar-day${programmedDays.has(day) ? " programmed" : ""}">${day}</span>`);
+  }
+
+  setText("[data-event-param-calendar-month]", monthLabel);
+  setText(
+    "[data-event-param-calendar-note]",
+    programmedDays.size ? `${programmedDays.size} dia programado por ${detail.cluster || "este cluster"}` : "Sin dias programados este mes"
+  );
+  grid.innerHTML = cells.join("");
+}
+
+function syncParamImagePreview(detail, shouldShow) {
+  const preview = document.querySelector("[data-event-param-image-preview]");
+  const image = document.querySelector("[data-event-param-preview-image]");
+  if (!preview) return;
+
+  const hasImage = Boolean(detail?.image);
+  preview.hidden = !(shouldShow && hasImage);
+  if (!shouldShow || !hasImage) return;
+
+  if (image) {
+    image.src = detail.image;
+    image.alt = `Foto del evento ${detail.title || "seleccionado"}`;
+  }
+  setText("[data-event-param-preview-title]", detail.photoTitle || detail.title || "Imagen vinculada al evento");
+  renderParamClusterCalendar(detail, true);
+}
+
+function setEventPhotoFromFile(file) {
+  if (!file) return;
+
+  const eventId = eventFormPanel?.dataset.eventId || "nuevo-evento";
+  const detail = eventOperationDetails[eventId] || getBlankEventDetail();
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    detail.image = String(reader.result || "");
+    detail.photoTitle = file.name;
+    eventOperationDetails[eventId] = detail;
+
+    const image = document.querySelector("[data-event-form-image]");
+    const photo = document.querySelector(".event-detail-photo");
+    if (image) image.src = detail.image;
+    if (photo) photo.classList.remove("is-empty");
+    setText("[data-event-form-photo-title]", file.name);
+    setText("[data-event-photo-file-name]", file.name);
+    syncParamImagePreview(detail, eventId !== "nuevo-evento");
+  };
+
+  reader.readAsDataURL(file);
+}
+
 function setEventEditMode(isEditing) {
   eventFormPanel?.classList.toggle("editing", isEditing);
+  if (eventFormPanel?.classList.contains("new-event-param-mode")) return;
   setText("[data-editor-state]", isEditing ? "Editando evento" : "Vista de detalle");
 }
 
@@ -1004,15 +1105,16 @@ function renderEmptyDateDashboard() {
   if (contributionList) contributionList.innerHTML = `<div class="empty-filter-state show">Sin aportes registrados.</div>`;
 }
 
-function renderEventOperationDetail(eventId = "ruta-panoramica") {
+function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
   const detail = eventOperationDetails[eventId] || eventOperationDetails["ruta-panoramica"];
   if (!eventFormPanel || !detail) return;
 
   eventFormPanel.dataset.eventId = eventId;
-  const isParamMode = eventId === "nuevo-evento";
+  const isParamMode = eventId === "nuevo-evento" || options.paramMode;
+  const paramModeType = options.inherited ? "inherited" : "blank";
   const averageCost = detail.capacity ? detail.costs.total / detail.capacity : 0;
-  setEventEditMode(eventId === "nuevo-evento");
-  setNewEventParamMode(isParamMode);
+  setEventEditMode(eventId === "nuevo-evento" || options.inherited);
+  setNewEventParamMode(isParamMode, paramModeType);
   setText("[data-event-form-title]", detail.title);
   setText("[data-event-form-description]", detail.description);
   setText("[data-event-form-state]", detail.state);
@@ -1042,6 +1144,8 @@ function renderEventOperationDetail(eventId = "ruta-panoramica") {
     if (detail.image) image.src = detail.image;
     image.alt = `Foto del evento ${detail.title}`;
   }
+  setText("[data-event-photo-file-name]", detail.image ? detail.photoTitle : "Ej. mirador, playa o punto principal del viaje");
+  syncParamImagePreview(detail, isParamMode && (options.inherited || eventId !== "nuevo-evento"));
 
   setValue("[data-event-input-name]", detail.title);
   setValue("[data-event-input-route]", detail.route);
@@ -1058,7 +1162,7 @@ function renderEventOperationDetail(eventId = "ruta-panoramica") {
   setValue("[data-event-input-internal-commission]", detail.commissions.internal);
   setValue("[data-event-input-external-commission]", detail.commissions.external);
   setValue("[data-event-input-itinerary]", detail.itinerary);
-  if (isParamMode) prepareNewEventCaptureFields();
+  if (eventId === "nuevo-evento" && !options.inherited) prepareNewEventCaptureFields();
 
   const dateList = document.querySelector(".event-date-list");
   const ringList = document.querySelector(".date-ring-list");
@@ -1090,18 +1194,16 @@ function openBlankEventForm() {
   eventFormPanel?.setAttribute("aria-hidden", "false");
 }
 
-function openInheritedDateForm() {
-  const currentId = eventFormPanel?.dataset.eventId || "ruta-panoramica";
+function openInheritedEventParamForm(sourceEventId) {
+  const currentId = sourceEventId || eventFormPanel?.dataset.eventId || "ruta-panoramica";
   const source = eventOperationDetails[currentId] || eventOperationDetails["ruta-panoramica"];
   const inherited = JSON.parse(JSON.stringify(source));
+  const inheritedId = "evento-heredado";
 
   inherited.state = "Borrador";
-  inherited.dates = [];
   inherited.description = `${source.title} heredado para programar una nueva salida sin volver a capturar toda la informacion.`;
-  eventOperationDetails["nueva-fecha"] = inherited;
-  renderEventOperationDetail("nueva-fecha");
-  setEventEditMode(true);
-  setText("[data-editor-state]", "Nueva fecha heredada");
+  eventOperationDetails[inheritedId] = inherited;
+  renderEventOperationDetail(inheritedId, { paramMode: true, inherited: true });
   keepEventPanelGlobal();
   eventFormPanel?.classList.remove("minimized", "maximized");
   eventFormPanel?.style.removeProperty("--event-drag-x");
@@ -1109,6 +1211,10 @@ function openInheritedDateForm() {
   eventFormPanel?.classList.add("open");
   eventFormPanel?.setAttribute("aria-hidden", "false");
   document.querySelector("[data-event-input-dates]")?.focus();
+}
+
+function openInheritedDateForm() {
+  openInheritedEventParamForm();
 }
 
 async function saveEventToBackend(eventId, detail) {
@@ -1173,6 +1279,7 @@ async function saveRegistrationToBackend() {
 
 function applyEventFormInputsToView() {
   const eventId = eventFormPanel?.dataset.eventId || "nuevo-evento";
+  const staysInParamMode = eventFormPanel?.classList.contains("new-event-param-mode");
   const detail = eventOperationDetails[eventId] || getBlankEventDetail();
   const capacity = Number(document.querySelector("[data-event-input-capacity]")?.value) || 0;
   const guide = parseMoneyValue(document.querySelector("[data-event-input-guide]")?.value);
@@ -1213,7 +1320,7 @@ function applyEventFormInputsToView() {
   eventOperationDetails[nextEventId] = detail;
   if (nextEventId !== eventId) delete eventOperationDetails[eventId];
   eventFormPanel.dataset.eventId = nextEventId;
-  renderEventOperationDetail(nextEventId);
+  renderEventOperationDetail(nextEventId, { paramMode: staysInParamMode, inherited: staysInParamMode && eventId !== "nuevo-evento" });
   setEventEditMode(false);
   saveEventToBackend(nextEventId, detail);
 }
@@ -1774,6 +1881,18 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const reprogramEventButton = event.target.closest("[data-reprogram-event]");
+  if (reprogramEventButton) {
+    const eventId =
+      reprogramEventButton.dataset.eventId ||
+      reprogramEventButton.closest("[data-internal-event-row]")?.dataset.eventId ||
+      reprogramEventButton.closest("[data-my-event-card]")?.dataset.eventDetail ||
+      getSelectedHomeClusterEventId() ||
+      "ruta-panoramica";
+    openInheritedEventParamForm(eventId);
+    return;
+  }
+
   if (event.target.closest("[data-edit-event]")) {
     setEventEditMode(true);
     document.querySelector("[data-event-input-name]")?.focus();
@@ -1932,6 +2051,13 @@ document.addEventListener("change", (event) => {
       renderComposerImagePreview();
       updateComposerPublishState();
     });
+    return;
+  }
+
+  const eventPhotoInput = event.target.closest("[data-event-input-image]");
+  if (eventPhotoInput) {
+    setEventPhotoFromFile(eventPhotoInput.files?.[0]);
+    eventPhotoInput.value = "";
     return;
   }
 

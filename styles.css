@@ -7855,6 +7855,14 @@ body[data-active-view="home"] .post-actions button.is-active {
   background: rgba(143, 243, 244, 0.1) !important;
 }
 
+#eventFormPanel .event-photo-field {
+  display: none;
+}
+
+#eventFormPanel .event-param-image-preview {
+  display: none;
+}
+
 /* Nuevo evento: start from a single parametrization CRUD form. */
 #eventFormPanel.new-event-param-mode {
   overflow: hidden !important;
@@ -8011,6 +8019,50 @@ body[data-active-view="home"] .post-actions button.is-active {
   grid-column: 1 / -1;
 }
 
+#eventFormPanel.new-event-param-mode .event-photo-field {
+  display: grid;
+  cursor: pointer;
+}
+
+#eventFormPanel.new-event-param-mode .event-photo-field input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#eventFormPanel.new-event-param-mode .event-photo-drop {
+  display: grid;
+  gap: 3px;
+  min-height: 54px;
+  align-content: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 0;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(143, 243, 244, 0.14), transparent 38%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.028)),
+    rgba(255, 255, 255, 0.048);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.11);
+}
+
+#eventFormPanel.new-event-param-mode .event-photo-drop b {
+  color: rgba(236, 245, 246, 0.9);
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+#eventFormPanel.new-event-param-mode .event-photo-drop small {
+  color: rgba(236, 245, 246, 0.24);
+  font-size: 11px;
+  font-weight: 760;
+  line-height: 1.2;
+}
+
 #eventFormPanel.new-event-param-mode .event-form label:has([data-event-input-average-cost]) {
   display: none;
 }
@@ -8066,6 +8118,129 @@ body[data-active-view="home"] .post-actions button.is-active {
   color: rgba(236, 245, 246, 0.16) !important;
 }
 
+#eventFormPanel.new-event-param-mode .event-param-image-preview:not([hidden]) {
+  position: fixed;
+  top: 36px;
+  left: 530px;
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(260px, 320px);
+  align-items: start;
+  gap: 14px;
+  width: min(720px, calc(100vw - 560px));
+  min-width: 600px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-photo-card,
+#eventFormPanel.new-event-param-mode .event-param-calendar {
+  border: 0;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(143, 243, 244, 0.18), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.028)),
+    rgba(8, 15, 24, 0.64);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 26px 82px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
+}
+
+#eventFormPanel.new-event-param-mode .event-param-photo-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-image-preview img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+}
+
+#eventFormPanel.new-event-param-mode .event-param-photo-card div {
+  display: grid;
+  gap: 2px;
+  padding: 0 2px 2px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-image-preview span,
+#eventFormPanel.new-event-param-mode .event-param-calendar span {
+  color: rgba(143, 243, 244, 0.8);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-image-preview strong,
+#eventFormPanel.new-event-param-mode .event-param-calendar strong {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+  line-height: 1.18;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar > div:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+#eventFormPanel.new-event-param-mode .calendar-weekday {
+  display: grid;
+  place-items: center;
+  min-height: 22px;
+  color: rgba(236, 245, 246, 0.38) !important;
+  font-size: 10px !important;
+}
+
+#eventFormPanel.new-event-param-mode .calendar-day {
+  display: grid;
+  place-items: center;
+  min-height: 32px;
+  border-radius: 11px;
+  color: rgba(236, 245, 246, 0.72);
+  font-size: 12px;
+  font-weight: 850;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+#eventFormPanel.new-event-param-mode .calendar-day.programmed {
+  color: #061316;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.85), transparent 34%),
+    linear-gradient(135deg, rgba(143, 243, 244, 0.95), rgba(42, 164, 171, 0.74));
+  box-shadow:
+    0 0 0 4px rgba(143, 243, 244, 0.08),
+    0 14px 34px rgba(34, 195, 202, 0.22);
+}
+
+#eventFormPanel.new-event-param-mode .calendar-day.muted {
+  visibility: hidden;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar small {
+  color: rgba(236, 245, 246, 0.5);
+  font-size: 11px;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
 @media (max-width: 780px) {
   #eventFormPanel.new-event-param-mode {
     overflow: hidden !important;
@@ -8079,5 +8254,13 @@ body[data-active-view="home"] .post-actions button.is-active {
 
   #eventFormPanel.new-event-param-mode .event-form {
     grid-template-columns: 1fr;
+  }
+
+  #eventFormPanel.new-event-param-mode .event-param-image-preview:not([hidden]) {
+    position: static;
+    grid-template-columns: 1fr;
+    width: auto;
+    min-width: 0;
+    margin-top: 12px;
   }
 }

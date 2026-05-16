@@ -508,7 +508,7 @@
                       <td>
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" data-reprogram-event title="Reprogramar evento" aria-label="Reprogramar evento">✎</button>
                           <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
@@ -531,7 +531,7 @@
                       <td>
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" data-reprogram-event title="Reprogramar evento" aria-label="Reprogramar evento">✎</button>
                           <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
@@ -554,7 +554,7 @@
                       <td>
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" data-reprogram-event title="Reprogramar evento" aria-label="Reprogramar evento">✎</button>
                           <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
@@ -577,7 +577,7 @@
                       <td>
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" data-reprogram-event title="Reprogramar evento" aria-label="Reprogramar evento">✎</button>
                           <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
@@ -600,7 +600,7 @@
                       <td>
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" data-reprogram-event title="Reprogramar evento" aria-label="Reprogramar evento">✎</button>
                           <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
@@ -741,6 +741,15 @@
               </div>
 
               <form class="event-form">
+                <label class="event-photo-field">
+                  Foto del evento
+                  <input type="file" accept="image/*" data-event-input-image />
+                  <span class="event-photo-drop">
+                    <b>+ Agregar foto</b>
+                    <small data-event-photo-file-name>Ej. mirador, playa o punto principal del viaje</small>
+                  </span>
+                </label>
+
                 <label>
                   Nombre del evento
                   <input value="Ruta Panoramica" data-event-input-name />
@@ -956,6 +965,23 @@
               </div>
             </aside>
           </div>
+          <aside class="event-param-image-preview" data-event-param-image-preview hidden>
+            <div class="event-param-photo-card">
+              <img data-event-param-preview-image alt="Foto del evento seleccionado" />
+              <div>
+                <span>Foto del evento</span>
+                <strong data-event-param-preview-title>Imagen vinculada al evento</strong>
+              </div>
+            </div>
+            <div class="event-param-calendar" data-event-param-calendar>
+              <div>
+                <span>Calendario del cluster</span>
+                <strong data-event-param-calendar-month>Mayo 2026</strong>
+              </div>
+              <div class="event-param-calendar-grid" data-event-param-calendar-grid></div>
+              <small data-event-param-calendar-note>Dias programados para este cluster</small>
+            </div>
+          </aside>
           </div>
         </section>
 
@@ -1886,6 +1912,6 @@
     </div>
 
     <script src="./config.js?v=tecaigo-api-config-1"></script>
-    <script src="./app.js?v=tecaigo-new-event-placeholders-1"></script>
+    <script src="./app.js?v=tecaigo-new-event-side-image-1"></script>
   </body>
 </html>
