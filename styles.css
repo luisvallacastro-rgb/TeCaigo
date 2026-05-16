@@ -7857,10 +7857,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 /* Nuevo evento: start from a single parametrization CRUD form. */
 #eventFormPanel.new-event-param-mode {
-  overflow: auto !important;
+  overflow: hidden !important;
   padding: 18px 28px !important;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(143, 243, 244, 0.38) transparent;
 }
 
 #eventFormPanel.new-event-param-mode .event-workspace {
@@ -7873,9 +7871,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 #eventFormPanel.new-event-param-mode .workspace-main {
   display: grid;
-  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: stretch;
   gap: 9px;
-  min-height: calc(100vh - 36px);
+  height: calc(100vh - 36px);
+  min-height: 0;
   padding: 14px !important;
   border-radius: 18px !important;
   border: 0 !important;
@@ -7886,15 +7886,6 @@ body[data-active-view="home"] .post-actions button.is-active {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 28px 90px rgba(0, 0, 0, 0.34) !important;
-}
-
-#eventFormPanel.new-event-param-mode::-webkit-scrollbar {
-  width: 8px;
-}
-
-#eventFormPanel.new-event-param-mode::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(143, 243, 244, 0.34);
 }
 
 #eventFormPanel.new-event-param-mode .event-hero,
@@ -7986,14 +7977,34 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 #eventFormPanel.new-event-param-mode .event-form {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
   gap: 7px 10px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 0 !important;
+  padding-right: 8px !important;
   border: 0 !important;
   outline: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 243, 244, 0.38) transparent;
+}
+
+#eventFormPanel.new-event-param-mode .event-form::-webkit-scrollbar {
+  width: 7px;
+}
+
+#eventFormPanel.new-event-param-mode .event-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#eventFormPanel.new-event-param-mode .event-form::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(143, 243, 244, 0.34);
 }
 
 #eventFormPanel.new-event-param-mode .event-form > label {
@@ -8044,7 +8055,7 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 @media (max-width: 780px) {
   #eventFormPanel.new-event-param-mode {
-    overflow: auto !important;
+    overflow: hidden !important;
     padding: 14px !important;
   }
 
