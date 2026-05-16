@@ -7587,3 +7587,237 @@ body[data-active-view="home"] .post-actions button.is-active {
 #admin .admin-records-table td span {
   color: rgba(236, 245, 246, 0.62) !important;
 }
+
+/* Event detail/editor: keep the whole modal in the same readable dark glass system. */
+#eventFormPanel {
+  background:
+    radial-gradient(circle at 24% 18%, rgba(13, 129, 135, 0.18), transparent 34%),
+    rgba(3, 7, 12, 0.72) !important;
+  backdrop-filter: blur(10px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(120%) !important;
+}
+
+#eventFormPanel .event-workspace {
+  gap: 18px;
+}
+
+#eventFormPanel .workspace-main,
+#eventFormPanel .workspace-side,
+#eventFormPanel .event-form,
+#eventFormPanel .event-date-selector,
+#eventFormPanel .event-editor-toolbar,
+#eventFormPanel .public-switch,
+#eventFormPanel .cluster-contribution-panel,
+#eventFormPanel .summary-card,
+#eventFormPanel .date-ring-item {
+  border: 1px solid rgba(143, 243, 244, 0.18) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.022)),
+    rgba(8, 15, 24, 0.82) !important;
+  color: #f7fbfb !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 70px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(22px) saturate(126%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(126%) !important;
+}
+
+#eventFormPanel .workspace-main,
+#eventFormPanel .workspace-side {
+  border-radius: 20px !important;
+}
+
+#eventFormPanel .event-hero {
+  border: 1px solid rgba(143, 243, 244, 0.22) !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(143, 243, 244, 0.16), transparent 30%),
+    linear-gradient(135deg, rgba(1, 12, 14, 0.98), rgba(9, 60, 67, 0.92) 58%, rgba(19, 118, 124, 0.72)) !important;
+}
+
+#eventFormPanel .event-hero h2,
+#eventFormPanel .event-hero p,
+#eventFormPanel .hero-status strong,
+#eventFormPanel .hero-status small {
+  color: #ffffff !important;
+  text-shadow: none !important;
+}
+
+#eventFormPanel .hero-kicker,
+#eventFormPanel .event-detail-photo span,
+#eventFormPanel .panel-title span,
+#eventFormPanel .event-metrics span,
+#eventFormPanel .event-metrics small,
+#eventFormPanel .event-editor-toolbar span,
+#eventFormPanel .event-editor-toolbar small,
+#eventFormPanel .public-switch small,
+#eventFormPanel .selected-date-panel span,
+#eventFormPanel .selected-date-panel small,
+#eventFormPanel .summary-card span,
+#eventFormPanel .summary-card small,
+#eventFormPanel .date-ring-item span,
+#eventFormPanel .cluster-contribution-panel span {
+  color: rgba(186, 252, 253, 0.72) !important;
+}
+
+#eventFormPanel .event-detail-photo strong,
+#eventFormPanel .panel-title strong,
+#eventFormPanel .event-editor-toolbar strong,
+#eventFormPanel .public-switch strong,
+#eventFormPanel .selected-date-panel strong,
+#eventFormPanel .summary-card strong,
+#eventFormPanel .date-ring-item strong,
+#eventFormPanel .cluster-contribution-panel strong {
+  color: #ffffff !important;
+  text-shadow: none !important;
+}
+
+#eventFormPanel .event-metrics {
+  align-items: stretch;
+}
+
+#eventFormPanel .event-metrics div {
+  border: 1px solid rgba(143, 243, 244, 0.18) !important;
+  border-radius: 16px !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(9, 18, 28, 0.78) !important;
+  color: #f7fbfb !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 38px rgba(0, 0, 0, 0.2) !important;
+}
+
+#eventFormPanel .event-metrics strong {
+  color: #8ff3f4 !important;
+}
+
+#eventFormPanel .event-detail-photo.is-empty {
+  border-color: rgba(143, 243, 244, 0.22) !important;
+  background:
+    linear-gradient(135deg, rgba(143, 243, 244, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(8, 15, 24, 0.82) !important;
+}
+
+#eventFormPanel .event-detail-photo.is-empty div,
+#eventFormPanel .event-detail-photo.is-empty strong {
+  color: #ffffff !important;
+}
+
+#eventFormPanel .event-form {
+  padding: 20px !important;
+  border-radius: 18px !important;
+}
+
+#eventFormPanel .event-form label {
+  color: rgba(236, 245, 246, 0.88) !important;
+  font-weight: 850;
+  text-shadow: none !important;
+}
+
+#eventFormPanel .event-form input,
+#eventFormPanel .event-form select,
+#eventFormPanel .event-form textarea {
+  border-color: rgba(202, 239, 241, 0.22) !important;
+  color: #ffffff !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)),
+    rgba(255, 255, 255, 0.045) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+#eventFormPanel .event-form input::placeholder,
+#eventFormPanel .event-form textarea::placeholder {
+  color: rgba(236, 245, 246, 0.52) !important;
+}
+
+#eventFormPanel .event-form input:focus,
+#eventFormPanel .event-form select:focus,
+#eventFormPanel .event-form textarea:focus {
+  outline: 0 !important;
+  border-color: rgba(143, 243, 244, 0.58) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 3px rgba(143, 243, 244, 0.12) !important;
+}
+
+#eventFormPanel .event-date-selector,
+#eventFormPanel .event-editor-toolbar {
+  border-radius: 18px !important;
+}
+
+#eventFormPanel .event-date-list button,
+#eventFormPanel .date-ring-item {
+  border-color: rgba(143, 243, 244, 0.18) !important;
+  color: #f7fbfb !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+#eventFormPanel .event-date-list button.active,
+#eventFormPanel .date-ring-item.active {
+  border-color: rgba(143, 243, 244, 0.56) !important;
+  background:
+    linear-gradient(135deg, rgba(13, 129, 135, 0.58), rgba(143, 243, 244, 0.12)),
+    rgba(255, 255, 255, 0.045) !important;
+}
+
+#eventFormPanel .empty-filter-state {
+  border-color: rgba(143, 243, 244, 0.16) !important;
+  color: rgba(236, 245, 246, 0.76) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+#eventFormPanel .selected-date-panel,
+#eventFormPanel .date-count-card {
+  border-color: rgba(143, 243, 244, 0.18) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+#eventFormPanel .date-count-card strong,
+#eventFormPanel .event-fill-percent-card strong {
+  color: #8ff3f4 !important;
+}
+
+#eventFormPanel .workspace-side {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02)),
+    rgba(9, 16, 26, 0.88) !important;
+}
+
+#eventFormPanel .cluster-contribution-panel {
+  padding: 16px !important;
+  border-radius: 18px !important;
+}
+
+#eventFormPanel .contribution-bar {
+  background: rgba(202, 239, 241, 0.16) !important;
+}
+
+#eventFormPanel .contribution-bar span {
+  background: linear-gradient(90deg, #0f8d94, #8ff3f4) !important;
+}
+
+#eventFormPanel .summary-card {
+  border-radius: 14px !important;
+}
+
+#eventFormPanel .mini-ring {
+  color: #8ff3f4 !important;
+}
+
+#eventFormPanel .editor-action.new,
+#eventFormPanel .editor-action.edit {
+  color: #f7ffff !important;
+  border-color: rgba(143, 243, 244, 0.22) !important;
+  background: rgba(143, 243, 244, 0.1) !important;
+}
+
+#eventFormPanel .public-switch > div {
+  min-width: 0;
+}
+
+#eventFormPanel .form-actions .ghost-button {
+  color: #d9ffff !important;
+  border: 1px solid rgba(143, 243, 244, 0.22) !important;
+  background: rgba(143, 243, 244, 0.1) !important;
+}
