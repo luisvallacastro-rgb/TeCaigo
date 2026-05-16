@@ -882,6 +882,21 @@ function setText(selector, value) {
   if (element) element.textContent = value;
 }
 
+function setNewEventParamMode(isParamMode) {
+  eventFormPanel?.classList.toggle("new-event-param-mode", isParamMode);
+  setText("[data-editor-kicker]", isParamMode ? "Parametrizacion" : "CRUD del evento");
+  setText("[data-editor-state]", isParamMode ? "Nuevo evento" : "Vista de detalle");
+  setText(
+    "[data-editor-note]",
+    isParamMode
+      ? "Define los parametros base del evento antes de abrir cupos, fechas o mercado publico."
+      : "Gestiona la informacion base, cupos, costos, fechas y visibilidad comercial."
+  );
+  setText("[data-crud-new-label]", isParamMode ? "Limpiar" : "Nueva fecha");
+  setText("[data-crud-edit-label]", isParamMode ? "Editar" : "Editar");
+  setText("[data-crud-save-label]", isParamMode ? "Guardar parametros" : "Guardar");
+}
+
 function setEventEditMode(isEditing) {
   eventFormPanel?.classList.toggle("editing", isEditing);
   setText("[data-editor-state]", isEditing ? "Editando evento" : "Vista de detalle");
@@ -950,8 +965,10 @@ function renderEventOperationDetail(eventId = "ruta-panoramica") {
   if (!eventFormPanel || !detail) return;
 
   eventFormPanel.dataset.eventId = eventId;
+  const isParamMode = eventId === "nuevo-evento";
   const averageCost = detail.capacity ? detail.costs.total / detail.capacity : 0;
   setEventEditMode(eventId === "nuevo-evento");
+  setNewEventParamMode(isParamMode);
   setText("[data-event-form-title]", detail.title);
   setText("[data-event-form-description]", detail.description);
   setText("[data-event-form-state]", detail.state);
@@ -1699,6 +1716,10 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-new-date]")) {
+    if (eventFormPanel?.classList.contains("new-event-param-mode")) {
+      openBlankEventForm();
+      return;
+    }
     openInheritedDateForm();
     return;
   }

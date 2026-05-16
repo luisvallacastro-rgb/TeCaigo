@@ -679,14 +679,14 @@
 
               <div class="event-editor-toolbar">
                 <div class="editor-toolbar-copy">
-                  <span>CRUD del evento</span>
+                  <span data-editor-kicker>CRUD del evento</span>
                   <strong data-editor-state>Vista de detalle</strong>
-                  <small>Gestiona la informacion base, cupos, costos, fechas y visibilidad comercial.</small>
+                  <small data-editor-note>Gestiona la informacion base, cupos, costos, fechas y visibilidad comercial.</small>
                 </div>
                 <div class="event-editor-actions">
-                  <button class="editor-action new" type="button" data-new-date><span>↻</span>Nueva fecha</button>
-                  <button class="editor-action edit" type="button" data-edit-event><span>✎</span>Editar</button>
-                  <button class="editor-action save" type="button" data-save-event><span>✓</span>Guardar</button>
+                  <button class="editor-action new" type="button" data-new-date><span>↻</span><b data-crud-new-label>Nueva fecha</b></button>
+                  <button class="editor-action edit" type="button" data-edit-event><span>✎</span><b data-crud-edit-label>Editar</b></button>
+                  <button class="editor-action save" type="button" data-save-event><span>✓</span><b data-crud-save-label>Guardar</b></button>
                 </div>
                 <label class="public-switch">
                   <input type="checkbox" data-event-public-switch />
@@ -1886,6 +1886,6 @@
     </div>
 
     <script src="./config.js?v=tecaigo-api-config-1"></script>
-    <script src="./app.js?v=tecaigo-api-config-1"></script>
+    <script src="./app.js?v=tecaigo-new-event-param-1"></script>
   </body>
 </html>
