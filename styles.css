@@ -7858,12 +7858,12 @@ body[data-active-view="home"] .post-actions button.is-active {
 /* Nuevo evento: start from a single parametrization CRUD form. */
 #eventFormPanel.new-event-param-mode {
   overflow: hidden !important;
-  padding: 18px 28px !important;
+  padding: 20px 30px !important;
 }
 
 #eventFormPanel.new-event-param-mode .event-workspace {
   display: block !important;
-  width: min(720px, calc(100vw - 56px)) !important;
+  width: min(468px, calc(100vw - 60px)) !important;
   max-width: none !important;
   min-height: auto;
   margin: 0 auto 0 0 !important;
@@ -7873,11 +7873,11 @@ body[data-active-view="home"] .post-actions button.is-active {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   align-content: stretch;
-  gap: 9px;
-  height: calc(100vh - 36px);
+  gap: 12px;
+  height: calc(100vh - 40px);
   min-height: 0;
-  padding: 14px !important;
-  border-radius: 18px !important;
+  padding: 18px !important;
+  border-radius: 24px !important;
   border: 0 !important;
   background:
     radial-gradient(circle at 12% 0%, rgba(143, 243, 244, 0.1), transparent 32%),
@@ -7928,7 +7928,7 @@ body[data-active-view="home"] .post-actions button.is-active {
   display: block;
   margin-top: 4px;
   color: #ffffff !important;
-  font-size: clamp(24px, 3.2vw, 31px);
+  font-size: clamp(30px, 4.6vw, 42px);
   line-height: 0.98;
 }
 
@@ -7937,8 +7937,8 @@ body[data-active-view="home"] .post-actions button.is-active {
   max-width: 620px;
   margin-top: 4px;
   color: rgba(236, 245, 246, 0.68) !important;
-  font-size: 10px;
-  line-height: 1.25;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
 #eventFormPanel.new-event-param-mode .event-editor-actions {
@@ -7976,9 +7976,9 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-form {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   align-content: start;
-  gap: 7px 10px;
+  gap: 10px;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
@@ -8016,7 +8016,9 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-form .form-pair {
-  display: contents;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
 }
 
 #eventFormPanel.new-event-param-mode .event-form label {
