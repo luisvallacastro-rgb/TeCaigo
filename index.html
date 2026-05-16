@@ -97,22 +97,14 @@
         <nav class="nav">
           <button class="nav-item active" data-view="home">Home</button>
           <button class="nav-item" data-view="event-builder">Crear evento</button>
+          <button class="nav-item" data-view="requests">Solicitudes</button>
           <button class="nav-item" data-view="my-events">Mis eventos</button>
           <button class="nav-item" data-view="public-events">Eventos publicos</button>
-          <button class="nav-item" data-view="requests">Solicitudes</button>
           <button class="nav-item" data-view="finance">Finanzas</button>
           <button class="nav-item" data-view="clusters">Clusters</button>
           <button class="nav-item" data-view="admin">Admin</button>
         </nav>
 
-        <div class="sidebar-card">
-          <span>Evento monitoreado</span>
-          <strong>Ruta Panoramica</strong>
-          <div class="mini-progress">
-            <span style="width: 82%"></span>
-          </div>
-          <small>41 de 50 cupos llenos</small>
-        </div>
       </aside>
 
       <main class="main">
@@ -389,18 +381,14 @@
                 <div class="panel-title">
                   <strong>Cluster Premier</strong>
                 </div>
-                <div class="home-cluster-filters" aria-label="Filtrar eventos del cluster">
-                  <button class="active" type="button" data-cluster-event-filter="todos">Todos</button>
-                  <button type="button" data-cluster-event-filter="publico">Publicos</button>
-                  <button type="button" data-cluster-event-filter="privado">Privados</button>
-                </div>
+                <div class="home-date-rail" data-home-date-rail aria-label="Fechas con eventos del cluster"></div>
                 <div class="cluster-event-list">
                   <button class="cluster-event-item active" type="button" data-cluster-event-type="publico" data-home-cluster-event="ruta-flores">
                     <div>
                       <strong>Ruta las flores</strong>
                       <span>Publico</span>
                     </div>
-                    <b data-home-cluster-cupos>0, 48/50</b>
+                    <b data-home-cluster-cupos>4, 44/50</b>
                   </button>
                   <button class="cluster-event-item" type="button" data-cluster-event-type="privado" data-home-cluster-event="ruta-volcan">
                     <div>
@@ -414,7 +402,14 @@
                       <strong>Ruta panoramica</strong>
                       <span>Publico</span>
                     </div>
-                    <b data-home-cluster-cupos>13, 41/50</b>
+                    <b data-home-cluster-cupos>12, 41/50</b>
+                  </button>
+                  <button class="cluster-event-item" type="button" data-cluster-event-type="privado" data-home-cluster-event="tour-cafe">
+                    <div>
+                      <strong>Tour cafe y mirador</strong>
+                      <span>Privado</span>
+                    </div>
+                    <b data-home-cluster-cupos>5, 34/50</b>
                   </button>
                   <button class="cluster-event-item" type="button" data-cluster-event-type="privado" data-home-cluster-event="cafe-senderos">
                     <div>
@@ -426,7 +421,7 @@
                 </div>
               </article>
 
-              <article class="side-panel cupos-composition-card">
+              <article class="side-panel cupos-composition-card" data-composition-card aria-hidden="true">
                 <div class="panel-title">
                   <span>Composicion de cupos</span>
                   <strong data-composition-title>Ruta las flores</strong>
@@ -495,16 +490,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr data-internal-event-row data-cluster-event-type="publico" data-event-date="2026-05-15" data-event-id="ruta-flores" data-my-cupos="0" data-filled="48" data-total="50" data-event-state="vigente">
+                    <tr data-internal-event-row data-cluster-event-type="publico" data-event-date="2026-05-25" data-event-id="ruta-flores" data-my-cupos="4" data-filled="44" data-total="50" data-event-state="vigente">
                       <td><strong>Ruta las flores</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
                       <td>Nacional</td>
-                      <td>15/05/2026</td>
+                      <td>25/05/2026</td>
                       <td>
                         <div class="cupos-editor">
                           <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
-                          <strong data-my-cupos>0</strong>
+                          <strong data-my-cupos>4</strong>
                           <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
-                          <span><b data-filled-cupos>48/50</b> cluster</span>
+                          <span><b data-filled-cupos>44/50</b> cluster</span>
                         </div>
                       </td>
                       <td>$35</td>
@@ -513,7 +508,7 @@
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
                           <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
-                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
                       </td>
@@ -536,19 +531,42 @@
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
                           <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
-                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
                       </td>
                     </tr>
-                    <tr data-internal-event-row data-cluster-event-type="publico" data-event-date="2026-05-18" data-event-id="ruta-panoramica" data-my-cupos="13" data-filled="41" data-total="50" data-event-state="vigente">
-                      <td><strong>Ruta panoramica</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
+                    <tr data-internal-event-row data-cluster-event-type="privado" data-event-date="2026-05-20" data-event-id="tour-cafe" data-my-cupos="5" data-filled="34" data-total="50" data-event-state="vigente">
+                      <td><strong>Tour cafe y mirador</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
                       <td>Nacional</td>
-                      <td>18/05/2026</td>
+                      <td>20/05/2026</td>
                       <td>
                         <div class="cupos-editor">
                           <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
-                          <strong data-my-cupos>13</strong>
+                          <strong data-my-cupos>5</strong>
+                          <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
+                          <span><b data-filled-cupos>34/50</b> cluster</span>
+                        </div>
+                      </td>
+                      <td>$38</td>
+                      <td><span class="matrix-status active" data-event-status>Vigente</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
+                          <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
+                          <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
+                          <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-internal-event-row data-cluster-event-type="publico" data-event-date="2026-05-25" data-event-id="ruta-panoramica" data-my-cupos="12" data-filled="41" data-total="50" data-event-state="vigente">
+                      <td><strong>Ruta panoramica</strong><span class="event-closed-badge" data-event-closed-badge>Cerrado</span></td>
+                      <td>Nacional</td>
+                      <td>25/05/2026</td>
+                      <td>
+                        <div class="cupos-editor">
+                          <button type="button" data-cupos-delta="1" aria-label="Agregar cupo">+</button>
+                          <strong data-my-cupos>12</strong>
                           <button type="button" data-cupos-delta="-1" aria-label="Quitar cupo">-</button>
                           <span><b data-filled-cupos>41/50</b> cluster</span>
                         </div>
@@ -559,7 +577,7 @@
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
                           <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
-                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
                       </td>
@@ -582,235 +600,13 @@
                         <div class="crud-actions">
                           <button class="icon-action" type="button" data-open-event-form title="Ver detalle" aria-label="Ver detalle">◉</button>
                           <button class="icon-action" type="button" data-open-event-form title="Editar evento" aria-label="Editar evento">✎</button>
-                          <button class="icon-action" type="button" title="Duplicar evento" aria-label="Duplicar evento">⧉</button>
+                          <button class="icon-action" type="button" data-open-event-composition title="Composicion de cupos" aria-label="Ver composicion de cupos">⧉</button>
                           <button class="icon-action host-close-action" type="button" data-toggle-event-close title="Cerrar evento" aria-label="Cerrar evento">!</button>
                         </div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
-
-              <aside class="cluster-ranking-card">
-                <div class="ranking-head">
-                  <span>Ranking del anfitrion</span>
-                  <strong>Eventos por llenado</strong>
-                </div>
-                <div class="ranking-list">
-                  <div class="ranking-item" data-ranking-event="ruta-flores">
-                    <div>
-                      <strong>Ruta las flores</strong>
-                      <span data-ranking-cupos>48/50 cupos llenos</span>
-                    </div>
-                    <b data-ranking-percent>96%</b>
-                    <div class="ranking-bar"><span data-ranking-bar style="width: 96%"></span></div>
-                  </div>
-                  <div class="ranking-item" data-ranking-event="ruta-panoramica">
-                    <div>
-                      <strong>Ruta panoramica</strong>
-                      <span data-ranking-cupos>41/50 cupos llenos</span>
-                    </div>
-                    <b data-ranking-percent>82%</b>
-                    <div class="ranking-bar"><span data-ranking-bar style="width: 82%"></span></div>
-                  </div>
-                  <div class="ranking-item" data-ranking-event="ruta-volcan">
-                    <div>
-                      <strong>Ruta al volcan</strong>
-                      <span data-ranking-cupos>24/50 cupos llenos</span>
-                    </div>
-                    <b data-ranking-percent>48%</b>
-                    <div class="ranking-bar"><span data-ranking-bar style="width: 48%"></span></div>
-                  </div>
-                  <div class="ranking-item" data-ranking-event="cafe-senderos">
-                    <div>
-                      <strong>Cafe y senderos</strong>
-                      <span data-ranking-cupos>18/35 cupos llenos</span>
-                    </div>
-                    <b data-ranking-percent>51%</b>
-                    <div class="ranking-bar"><span data-ranking-bar style="width: 51%"></span></div>
-                  </div>
-                </div>
-                <div class="ranking-total">
-                  <span>Total gestionado por el cluster</span>
-                  <strong data-ranking-total>131/185 cupos</strong>
-                </div>
-              </aside>
-            </div>
-          </article>
-
-          <article class="event-history-board requested-events-board">
-            <div class="event-history-head secondary">
-              <div>
-                <span class="hero-kicker">Externa</span>
-                <h2>Solicitudes</h2>
-              </div>
-            </div>
-
-            <div class="cluster-operations-grid">
-              <div class="event-table-wrap">
-                <div class="external-summary-strip">
-                  <div>
-                    <span>Cupos aprobados</span>
-                    <strong>23 cupos</strong>
-                    <small>Confirmados por anfitriones externos</small>
-                  </div>
-                  <div>
-                    <span>Solicitudes pendientes</span>
-                    <strong>8 cupos</strong>
-                    <small>En espera de confirmacion</small>
-                  </div>
-                  <div class="risk">
-                    <span>Riesgo por cupos</span>
-                    <strong>8 pendientes</strong>
-                    <small>Mayor que disponibilidad del anfitrion</small>
-                  </div>
-                </div>
-                <div class="request-filter-bar external-filter-bar">
-                  <div class="filter-tabs" aria-label="Filtrar solicitudes">
-                    <button class="active" type="button" data-external-request-filter="aprobadas">Aprobadas <b>3</b></button>
-                    <button type="button" data-external-request-filter="pendientes">Pendientes <b>1</b></button>
-                    <button type="button" data-external-request-filter="todas">Todas <b>4</b></button>
-                    <button class="risk-filter" type="button" data-external-request-filter="riesgo">Falta de cupos <b>8</b></button>
-                  </div>
-                </div>
-                <table class="event-matrix requested-matrix">
-                  <thead>
-                    <tr>
-                      <th>Evento externo</th>
-                      <th>Cluster anfitrion</th>
-                      <th>Salida</th>
-                      <th>Solicitud de cupos</th>
-                      <th>Conteo anfitrion</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr data-external-request-row data-external-request-status="aprobadas" data-external-risk="true" data-external-free="5" data-external-pending="8">
-                      <td><strong>Ruta internacional corta</strong><span class="event-open">Abierto</span></td>
-                      <td>Cluster Cuscatlan</td>
-                      <td>09/06/2026</td>
-                      <td>
-                        <div class="external-cupos-editor">
-                          <div class="cupos-editor">
-                            <button type="button" data-external-cupos-delta="1" aria-label="Solicitar cupo">+</button>
-                            <strong data-external-pending-count>8</strong>
-                            <button type="button" data-external-cupos-delta="-1" aria-label="Quitar cupo solicitado">-</button>
-                          </div>
-                          <span><b>8 aprobados</b></span>
-                          <em data-external-pending-label>8 pendientes por confirmar</em>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="capacity-cell risk">
-                          <strong>45/50</strong>
-                          <span>5 disponibles</span>
-                          <em>Riesgo: 8 pendientes</em>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="request-state-badge pending" data-external-state-label>Pendiente</span>
-                      </td>
-                      <td>
-                        <div class="crud-actions">
-                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
-                          <button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button>
-                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr data-external-request-row data-external-request-status="aprobadas" data-external-free="3" data-external-pending="0">
-                      <td><strong>Lago, lancha y almuerzo</strong><span class="event-open">Abierto</span></td>
-                      <td>Cluster Premier</td>
-                      <td>02/06/2026</td>
-                      <td>
-                        <div class="external-cupos-editor">
-                          <div class="cupos-editor">
-                            <button type="button" data-external-cupos-delta="1" aria-label="Solicitar cupo">+</button>
-                            <strong data-external-pending-count>0</strong>
-                            <button type="button" data-external-cupos-delta="-1" aria-label="Quitar cupo solicitado">-</button>
-                          </div>
-                          <span><b>6 aprobados</b></span>
-                          <em data-external-pending-label>0 pendientes por confirmar</em>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="capacity-cell">
-                          <strong>37/40</strong>
-                          <span>3 disponibles</span>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="request-state-badge approved" data-external-state-label>Aprobado</span>
-                      </td>
-                      <td>
-                        <div class="crud-actions">
-                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
-                          <button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button>
-                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr data-external-request-row data-external-request-status="aprobadas">
-                      <td>
-                        <strong>Tour cafe y mirador</strong>
-                        <span class="event-closed">Cerrado</span>
-                        <span class="event-paid">Pagado</span>
-                      </td>
-                      <td>Cluster Maya</td>
-                      <td>25/05/2026</td>
-                      <td>
-                        <b>5 cupos</b><span class="request-note">Pagado validado</span>
-                      </td>
-                      <td>
-                        <div class="capacity-cell">
-                          <strong>34/50</strong>
-                          <span>16 disponibles</span>
-                        </div>
-                      </td>
-                      <td><span class="request-state-badge approved">Aprobado</span></td>
-                      <td>
-                        <div class="crud-actions">
-                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
-                          <button class="icon-action" type="button" data-open-payment title="Ver boleta bancaria" aria-label="Ver boleta bancaria">$</button>
-                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr data-external-request-row data-external-request-status="pendientes">
-                      <td>
-                        <strong>Ruta playa nocturna</strong>
-                        <span class="event-closed">Cerrado</span>
-                      </td>
-                      <td>Cluster Pacifico</td>
-                      <td>28/05/2026</td>
-                      <td>
-                        <b>4 cupos</b><span class="request-note">Pendiente de pago</span>
-                      </td>
-                      <td>
-                        <div class="capacity-cell">
-                          <strong>44/45</strong>
-                          <span>1 disponible</span>
-                        </div>
-                      </td>
-                      <td><span class="request-state-badge pending">Pendiente</span></td>
-                      <td>
-                        <div class="crud-actions">
-                          <button class="icon-action" type="button" title="Ver detalle" aria-label="Ver detalle">◉</button>
-                          <button class="icon-action" type="button" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
-                          <button class="icon-action" type="button" data-open-payment title="Enviar boleta bancaria" aria-label="Enviar boleta bancaria">$</button>
-                          <button class="icon-action danger" type="button" title="Eliminar solicitud" aria-label="Eliminar solicitud">×</button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="empty-filter-state" data-external-empty-state>
-                  No hay solicitudes para el filtro seleccionado.
-                </div>
               </div>
 
             </div>
@@ -935,6 +731,10 @@
                   <div>
                     <span>Origen del llenado</span>
                     <strong><b data-selected-internal>12</b> internos / <b data-selected-external>12</b> externos</strong>
+                  </div>
+                  <div class="event-fill-percent-card">
+                    <span>Llenado general</span>
+                    <strong data-event-fill-percent>0%</strong>
                   </div>
                 </div>
               </div>
@@ -1964,9 +1764,18 @@
         </div>
         <textarea
           class="composer-textarea"
+          data-composer-text
           rows="5"
           placeholder="Que estas pensando, Luis?"
         ></textarea>
+        <input
+          class="composer-file-input"
+          type="file"
+          accept="image/*"
+          multiple
+          data-composer-file
+        />
+        <div class="composer-image-preview" data-composer-preview aria-live="polite"></div>
         <div class="composer-style-row">
           <button class="style-chip" type="button">Aa</button>
           <button class="emoji-button" type="button">:)</button>
@@ -1974,12 +1783,12 @@
         <div class="composer-addons">
           <strong>Anadir a tu publicacion</strong>
           <div class="addon-actions">
-            <button type="button" title="Foto">Foto</button>
-            <button type="button" title="Etiquetar">Tag</button>
-            <button type="button" title="Sentimiento">Smile</button>
-            <button type="button" title="Ubicacion">Lugar</button>
-            <button type="button" title="GIF">GIF</button>
-            <button type="button" title="Mas">...</button>
+            <button type="button" title="Foto" data-composer-photo>Foto</button>
+            <button type="button" title="Etiquetar" data-composer-insert="#TeCaiGO ">Tag</button>
+            <button type="button" title="Sentimiento" data-composer-insert=" 🙂">Smile</button>
+            <button type="button" title="Ubicacion" data-composer-insert="📍 ">Lugar</button>
+            <button type="button" title="GIF" data-composer-insert="[GIF] ">GIF</button>
+            <button type="button" title="Mas" data-composer-insert="#Ruta #Turismo ">...</button>
           </div>
         </div>
         <div class="composer-category-panel">
@@ -1993,7 +1802,7 @@
             <button type="button" data-composer-category="gastronomia">Gastro</button>
           </div>
         </div>
-        <button class="publish-button" type="button" disabled>Publicar</button>
+        <button class="publish-button" type="button" data-publish-post disabled>Guardar publicacion</button>
       </section>
     </div>
 

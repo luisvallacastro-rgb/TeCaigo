@@ -2,43 +2,57 @@ const navItems = document.querySelectorAll(".nav-item");
 const views = document.querySelectorAll(".view");
 const composerModal = document.querySelector("#composerModal");
 const composerTextarea = document.querySelector(".composer-textarea");
+const composerFileInput = document.querySelector("[data-composer-file]");
+const composerPreview = document.querySelector("[data-composer-preview]");
+const publishPostButton = document.querySelector("[data-publish-post]");
 const eventFormPanel = document.querySelector("#eventFormPanel");
 const paymentModal = document.querySelector("#paymentModal");
 const slotRequestModal = document.querySelector("#slotRequestModal");
 const slotRequestForm = document.querySelector("[data-slot-request-form]");
 const mobileMenuToggle = document.querySelector("[data-menu-toggle]");
 const mobileMenuOverlay = document.querySelector("[data-menu-overlay]");
+const tasteCarousel = document.querySelector(".taste-carousel");
+const desktopSidebarDeadZones = ".main, .view, .view.active, .home-layout, .feed-layout, .social-feed";
 const API_BASE_URL = window.TECAIGO_CONFIG?.API_BASE_URL || "http://localhost:3001/api";
+const LOCAL_FEED_POSTS_KEY = "tecaigo-local-feed-posts";
 let minimizedDrag = null;
+let composerImages = [];
 
 const clusterCupComposition = {
   "ruta-flores": [
-    { name: "Luis Valladares", count: 0, isMe: true },
-    { name: "Cipitio Tour", count: 16 },
-    { name: "Turismo Tour", count: 14 },
-    { name: "Aventura Local", count: 10 },
-    { name: "Ruta Viva", count: 8 },
+    { name: "Luis Valladares", count: 4, isMe: true },
+    { name: "Cipitio Tour", count: 14 },
+    { name: "Turismo Tour", count: 10 },
+    { name: "Aventura Local", count: 9 },
+    { name: "Ruta Viva", count: 7 },
   ],
   "ruta-volcan": [
     { name: "Luis Valladares", count: 6, isMe: true },
-    { name: "Cipitio Tour", count: 12 },
-    { name: "Turismo Tour", count: 10 },
-    { name: "Aventura Local", count: 8 },
-    { name: "Ruta Viva", count: 14 },
+    { name: "Cipitio Tour", count: 8 },
+    { name: "Turismo Tour", count: 4 },
+    { name: "Aventura Local", count: 4 },
+    { name: "Ruta Viva", count: 2 },
   ],
   "ruta-panoramica": [
-    { name: "Luis Valladares", count: 13, isMe: true },
+    { name: "Luis Valladares", count: 12, isMe: true },
     { name: "Cipitio Tour", count: 11 },
-    { name: "Turismo Tour", count: 10 },
-    { name: "Aventura Local", count: 8 },
-    { name: "Ruta Viva", count: 8 },
+    { name: "Turismo Tour", count: 8 },
+    { name: "Aventura Local", count: 6 },
+    { name: "Ruta Viva", count: 4 },
   ],
   "cafe-senderos": [
     { name: "Luis Valladares", count: 2, isMe: true },
-    { name: "Cipitio Tour", count: 9 },
-    { name: "Turismo Tour", count: 8 },
-    { name: "Aventura Local", count: 7 },
-    { name: "Ruta Viva", count: 9 },
+    { name: "Cipitio Tour", count: 6 },
+    { name: "Turismo Tour", count: 4 },
+    { name: "Aventura Local", count: 4 },
+    { name: "Ruta Viva", count: 2 },
+  ],
+  "tour-cafe": [
+    { name: "Luis Valladares", count: 5, isMe: true },
+    { name: "Cafe Aventura", count: 14 },
+    { name: "Aventura Local", count: 8 },
+    { name: "Ruta Viva", count: 5 },
+    { name: "Cipitio Tour", count: 2 },
   ],
 };
 
@@ -118,12 +132,9 @@ const feedEnhancements = [
 
 const dateSegments = {
   "2026-05": [
-    { value: "todos", day: 0, label: "Todo el mes", title: "Todo el mes", range: "01/05/26 - 31/05/26", count: "3 / 5" },
-    { value: "2026-w20", day: 15, label: "15 Mayo", title: "#20", range: "11/05/26 - 17/05/26", count: "1 / 1" },
-    { value: "2026-w21", day: 18, label: "18 Mayo", title: "#21", range: "18/05/26 - 24/05/26", count: "2 / 2" },
+    { value: "todos", day: 0, label: "Todo el mes", title: "Todo el mes", range: "01/05/26 - 31/05/26", count: "5 / 5" },
     { value: "2026-w21", day: 20, label: "20 Mayo", title: "#21", range: "18/05/26 - 24/05/26", count: "2 / 2" },
-    { value: "2026-w22", day: 25, label: "25 Mayo", title: "#22", range: "25/05/26 - 31/05/26", count: "0 / 2" },
-    { value: "2026-w22", day: 28, label: "28 Mayo", title: "#22", range: "25/05/26 - 31/05/26", count: "0 / 2" },
+    { value: "2026-w22", day: 25, label: "25 Mayo", title: "#22", range: "25/05/26 - 31/05/26", count: "3 / 3" },
   ],
   "2026-06": [
     { value: "todos", day: 0, label: "Todo el mes", title: "Todo el mes", range: "01/06/26 - 30/06/26", count: "1 / 1" },
@@ -219,7 +230,7 @@ const eventOperationDetails = {
     photoTitle: "Mirador, flores de temporada y desayuno turistico",
     itinerary: "6:00 AM salida desde San Salvador\n8:00 AM desayuno en ruta\n10:00 AM visita a miradores\n12:30 PM almuerzo local\n3:00 PM recorrido por cafetales\n5:30 PM retorno",
     dates: [
-      { date: "15/05/2026", sold: 48, internal: 28, external: 20, contrib: "TeCaigo Tours:20;Aventura Local:10;Ruta Viva:8;Cipitio Tour:10" },
+      { date: "25/05/2026", sold: 44, internal: 30, external: 14, contrib: "Luis Valladares:4;Cipitio Tour:14;Turismo Tour:10;Aventura Local:9;Ruta Viva:7" },
     ],
   },
   "ruta-volcan": {
@@ -239,7 +250,7 @@ const eventOperationDetails = {
     photoTitle: "Sendero volcanico, mirador natural y almuerzo de montana",
     itinerary: "7:00 AM salida desde San Salvador\n9:00 AM ingreso al sendero\n11:30 AM mirador principal\n1:00 PM almuerzo local\n3:30 PM retorno",
     dates: [
-      { date: "20/05/2026", sold: 24, internal: 24, external: 0, contrib: "Volcan Tours:6;Cipitio Tour:12;Aventura Local:6" },
+      { date: "20/05/2026", sold: 24, internal: 24, external: 0, contrib: "Luis Valladares:6;Cipitio Tour:8;Turismo Tour:4;Aventura Local:4;Ruta Viva:2" },
     ],
   },
   "ruta-panoramica": {
@@ -259,9 +270,7 @@ const eventOperationDetails = {
     photoTitle: "Mirador, carretera panoramica y desayuno turistico",
     itinerary: "6:00 AM salida desde San Salvador\n8:00 AM desayuno en mirador\n10:00 AM recorrido guiado\n12:30 PM almuerzo local\n3:00 PM tiempo libre y fotografias\n5:00 PM retorno",
     dates: [
-      { date: "15/01/2026", sold: 24, internal: 12, external: 12, contrib: "Cipitio Tour:8;Turismo Tour:6;Aventura Local:5;Ruta Viva:5" },
-      { date: "16/01/2026", sold: 45, internal: 25, external: 20, contrib: "Cipitio Tour:15;Turismo Tour:12;Aventura Local:10;Ruta Viva:8" },
-      { date: "18/05/2026", sold: 41, internal: 21, external: 20, contrib: "Cipitio Tour:13;Turismo Tour:12;Aventura Local:9;Ruta Viva:7" },
+      { date: "25/05/2026", sold: 41, internal: 27, external: 14, contrib: "Luis Valladares:12;Cipitio Tour:11;Turismo Tour:8;Aventura Local:6;Ruta Viva:4" },
     ],
   },
   "cafe-senderos": {
@@ -281,13 +290,13 @@ const eventOperationDetails = {
     photoTitle: "Sendero entre cafetales, degustacion y mirador natural",
     itinerary: "8:00 AM salida desde San Salvador\n10:00 AM caminata por sendero\n11:30 AM degustacion de cafe\n1:00 PM almuerzo\n3:00 PM mirador y retorno",
     dates: [
-      { date: "25/05/2026", sold: 18, internal: 12, external: 6, contrib: "Cafe Aventura:7;Aventura Local:5;Ruta Viva:4;Cipitio Tour:2" },
+      { date: "25/05/2026", sold: 18, internal: 12, external: 6, contrib: "Luis Valladares:2;Cipitio Tour:6;Turismo Tour:4;Aventura Local:4;Ruta Viva:2" },
     ],
   },
   "tour-cafe": {
     title: "Tour cafe y mirador",
     description: "Evento cerrado con validacion de pago, recorrido de cafe y cupos liquidados por operador.",
-    state: "Cerrado",
+    state: "Vigente",
     capacity: 50,
     visibility: "Privado del cluster",
     route: "Ruta nacional",
@@ -301,7 +310,7 @@ const eventOperationDetails = {
     photoTitle: "Tour de cafe, mirador rural y experiencia gastronomica",
     itinerary: "8:00 AM salida\n10:00 AM recorrido de cafe\n12:00 PM almuerzo\n2:00 PM mirador\n4:00 PM retorno",
     dates: [
-      { date: "25/05/2026", sold: 34, internal: 34, external: 0, contrib: "Cafe Aventura:29;Aventura Local:5" },
+      { date: "20/05/2026", sold: 34, internal: 29, external: 5, contrib: "Luis Valladares:5;Cafe Aventura:14;Aventura Local:8;Ruta Viva:5;Cipitio Tour:2" },
     ],
   },
   "playa-nocturna": {
@@ -377,6 +386,17 @@ function toggleMobileMenu() {
   } else {
     openMobileMenu();
   }
+}
+
+function isDesktopSidebarToggleTarget(event) {
+  if (window.matchMedia("(max-width: 920px)").matches) return false;
+  if (event.target.closest(".sidebar, .mobile-app-bar, .modal, .modal-card, .composer-dialog, .payment-dialog, .slot-request-dialog")) return false;
+  if (event.target.closest("button, a, input, select, textarea, label, [role='button'], [data-open-composer], .composer-card, .wall-post, .side-panel, .event-card, .operator-event, .event-table-wrap, .admin-table, .detail-cluster, .event-form-panel, .host-agenda-shell")) return false;
+  return Boolean(event.target.closest(desktopSidebarDeadZones));
+}
+
+function toggleDesktopSidebar() {
+  document.body.classList.toggle("sidebar-collapsed");
 }
 
 function hydrateResponsiveTables() {
@@ -503,8 +523,50 @@ navItems.forEach((item) => {
 mobileMenuToggle?.addEventListener("click", toggleMobileMenu);
 mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeMobileMenu();
+  if (event.key === "Escape") {
+    closeMobileMenu();
+    closeClusterCupComposition();
+    document.body.classList.remove("sidebar-collapsed");
+  }
 });
+
+function clearTasteDock() {
+  tasteCarousel?.querySelectorAll(".taste-filter").forEach((filter) => {
+    filter.classList.remove("dock-hover", "dock-near", "dock-far");
+  });
+}
+
+function applyTasteDock(activeFilter) {
+  if (!tasteCarousel || !activeFilter) return;
+
+  const filters = Array.from(tasteCarousel.querySelectorAll(".taste-filter"));
+  const activeIndex = filters.indexOf(activeFilter);
+  if (activeIndex < 0) return;
+
+  filters.forEach((filter, index) => {
+    const distance = Math.abs(index - activeIndex);
+    filter.classList.toggle("dock-hover", distance === 0);
+    filter.classList.toggle("dock-near", distance === 1);
+    filter.classList.toggle("dock-far", distance === 2);
+  });
+}
+
+tasteCarousel?.addEventListener("pointermove", (event) => {
+  if (event.pointerType === "touch") return;
+  const filter = event.target.closest(".taste-filter");
+  if (!filter || !tasteCarousel.contains(filter)) {
+    clearTasteDock();
+    return;
+  }
+  applyTasteDock(filter);
+});
+
+tasteCarousel?.addEventListener("pointerleave", clearTasteDock);
+tasteCarousel?.addEventListener("focusin", (event) => {
+  const filter = event.target.closest(".taste-filter");
+  if (filter) applyTasteDock(filter);
+});
+tasteCarousel?.addEventListener("focusout", clearTasteDock);
 
 function parseContributions(value) {
   return value
@@ -873,6 +935,7 @@ function renderEmptyDateDashboard() {
   setText("[data-selected-status]", "Sin programacion");
   setText("[data-selected-internal]", "0");
   setText("[data-selected-external]", "0");
+  setText("[data-event-fill-percent]", "0%");
   setText("[data-real-unit-cost]", "$0.00");
   setText("[data-real-unit-note]", "$0 / 0 vendidos");
   setText("[data-real-margin]", "$0");
@@ -944,6 +1007,12 @@ function renderEventOperationDetail(eventId = "ruta-panoramica") {
   const firstDateButton = document.querySelector(".event-date-list [data-date-option]");
   if (firstDateButton) syncDateDashboard(firstDateButton);
   else renderEmptyDateDashboard();
+
+  const eventRow = document.querySelector(`[data-internal-event-row][data-event-id="${eventId}"]`);
+  const filled = Number(eventRow?.dataset.filled || detail.dates?.[0]?.sold || 0);
+  const total = Number(eventRow?.dataset.total || detail.capacity || 0);
+  const fillPercent = total ? Math.round((filled / total) * 100) : 0;
+  setText("[data-event-fill-percent]", `${fillPercent}%`);
 
   updatePublicReplicaState(detail.visibility === "Publico por oferta y demanda");
 }
@@ -1395,6 +1464,29 @@ function moveCalendarControl(action) {
 }
 
 document.addEventListener("click", (event) => {
+  if (document.body.classList.contains("event-composition-open")) {
+    const insideEventComposition = event.target.closest("[data-event-composition-panel]");
+    const opensEventComposition = event.target.closest("[data-open-event-composition]");
+    if (!insideEventComposition && !opensEventComposition) {
+      closeEventCompositionOverlay();
+      return;
+    }
+  }
+
+  if (document.body.classList.contains("home-composition-open")) {
+    const insideComposition = event.target.closest("[data-composition-card]");
+    const opensComposition = event.target.closest("[data-home-cluster-event]");
+    if (!insideComposition && !opensComposition) {
+      closeClusterCupComposition();
+      return;
+    }
+  }
+
+  if (isDesktopSidebarToggleTarget(event)) {
+    toggleDesktopSidebar();
+    return;
+  }
+
   const cuposAdjustButton = event.target.closest("[data-adjust-cupos]");
 
   if (cuposAdjustButton) {
@@ -1413,6 +1505,62 @@ document.addEventListener("click", (event) => {
     composerModal?.classList.add("open");
     composerModal?.setAttribute("aria-hidden", "false");
     composerTextarea?.focus();
+    updateComposerPublishState();
+    renderComposerImagePreview();
+    return;
+  }
+
+  if (event.target.closest("[data-composer-photo]")) {
+    composerFileInput?.click();
+    return;
+  }
+
+  const composerInsert = event.target.closest("[data-composer-insert]");
+  if (composerInsert) {
+    insertComposerText(composerInsert.dataset.composerInsert || "");
+    return;
+  }
+
+  const removeComposerImage = event.target.closest("[data-remove-composer-image]");
+  if (removeComposerImage) {
+    composerImages.splice(Number(removeComposerImage.dataset.removeComposerImage), 1);
+    renderComposerImagePreview();
+    updateComposerPublishState();
+    return;
+  }
+
+  if (event.target.closest("[data-publish-post]")) {
+    publishComposerPost();
+    return;
+  }
+
+  const postInterestButton = event.target.closest("[data-post-interest]");
+  if (postInterestButton) {
+    togglePostInterest(postInterestButton.closest(".wall-post"));
+    return;
+  }
+
+  const postCommentButton = event.target.closest("[data-post-comment]");
+  if (postCommentButton) {
+    postCommentButton.closest(".wall-post")?.classList.toggle("comments-open");
+    return;
+  }
+
+  const saveCommentButton = event.target.closest("[data-save-comment]");
+  if (saveCommentButton) {
+    savePostComment(saveCommentButton.closest(".wall-post"));
+    return;
+  }
+
+  const postShareButton = event.target.closest("[data-post-share]");
+  if (postShareButton) {
+    sharePostFeedback(postShareButton);
+    return;
+  }
+
+  const deleteLocalPost = event.target.closest("[data-delete-local-post]");
+  if (deleteLocalPost) {
+    removeLocalFeedPost(deleteLocalPost.dataset.deleteLocalPost);
     return;
   }
 
@@ -1436,6 +1584,12 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const homeDateStep = event.target.closest("[data-home-date-step]");
+  if (homeDateStep) {
+    shiftHomeClusterDate(Number(homeDateStep.dataset.homeDateStep) || 0);
+    return;
+  }
+
   const clusterEventFilter = event.target.closest("[data-cluster-event-filter]");
 
   if (clusterEventFilter) {
@@ -1449,7 +1603,7 @@ document.addEventListener("click", (event) => {
 
   const homeClusterEvent = event.target.closest("[data-home-cluster-event]");
   if (homeClusterEvent) {
-    selectHomeClusterEvent(homeClusterEvent.dataset.homeClusterEvent);
+    selectHomeClusterEvent(homeClusterEvent.dataset.homeClusterEvent, { openComposition: true });
     return;
   }
 
@@ -1462,6 +1616,12 @@ document.addEventListener("click", (event) => {
   const eventCloseButton = event.target.closest("[data-toggle-event-close]");
   if (eventCloseButton) {
     toggleInternalEventClose(eventCloseButton);
+    return;
+  }
+
+  const eventCompositionButton = event.target.closest("[data-open-event-composition]");
+  if (eventCompositionButton) {
+    openEventCompositionOverlay(eventCompositionButton);
     return;
   }
 
@@ -1688,6 +1848,27 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("change", (event) => {
+  const composerFile = event.target.closest("[data-composer-file]");
+  if (composerFile) {
+    const files = Array.from(composerFile.files || []).slice(0, 4 - composerImages.length);
+    Promise.all(
+      files.map(
+        (file) =>
+          new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve({ name: file.name, src: String(reader.result || "") });
+            reader.readAsDataURL(file);
+          })
+      )
+    ).then((images) => {
+      composerImages = composerImages.concat(images).slice(0, 4);
+      composerFile.value = "";
+      renderComposerImagePreview();
+      updateComposerPublishState();
+    });
+    return;
+  }
+
   if (event.target.closest("[data-internal-date-filter], [data-internal-state-filter]")) {
     applyClusterEventFilter();
   }
@@ -1726,6 +1907,8 @@ document.addEventListener("change", (event) => {
   }
 });
 
+composerTextarea?.addEventListener("input", updateComposerPublishState);
+
 slotRequestForm?.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -1746,6 +1929,10 @@ slotRequestForm?.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && document.body.classList.contains("event-composition-open")) {
+    closeEventCompositionOverlay();
+  }
+
   if (event.key === "Escape" && composerModal?.classList.contains("open")) {
     composerModal.classList.remove("open");
     composerModal.setAttribute("aria-hidden", "true");
@@ -1807,10 +1994,284 @@ function buildElement(tagName, className, text) {
   return element;
 }
 
+function getLocalFeedPosts() {
+  try {
+    const posts = JSON.parse(localStorage.getItem(LOCAL_FEED_POSTS_KEY) || "[]");
+    return Array.isArray(posts) ? posts : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveLocalFeedPosts(posts) {
+  try {
+    localStorage.setItem(LOCAL_FEED_POSTS_KEY, JSON.stringify(posts));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function getComposerCategory() {
+  return composerModal?.dataset.category || document.querySelector("[data-composer-category].active")?.dataset.composerCategory || "playa";
+}
+
+function getCategoryLabel(category) {
+  const labels = {
+    playa: "Playa",
+    montana: "Montana",
+    pueblos: "Pueblos",
+    caminatas: "Caminatas",
+    lagos: "Lagos",
+    gastronomia: "Gastro",
+  };
+  return labels[category] || "Turismo";
+}
+
+function renderComposerImagePreview() {
+  if (!composerPreview) return;
+
+  composerPreview.innerHTML = "";
+  composerPreview.classList.toggle("has-images", composerImages.length > 0);
+
+  composerImages.forEach((image, index) => {
+    const figure = document.createElement("figure");
+    const previewImage = document.createElement("img");
+    const removeButton = document.createElement("button");
+
+    previewImage.src = image.src;
+    previewImage.alt = image.name || `Imagen ${index + 1}`;
+    removeButton.type = "button";
+    removeButton.dataset.removeComposerImage = String(index);
+    removeButton.setAttribute("aria-label", `Quitar ${image.name || `imagen ${index + 1}`}`);
+    removeButton.textContent = "×";
+
+    figure.append(previewImage, removeButton);
+    composerPreview.appendChild(figure);
+  });
+}
+
+function updateComposerPublishState() {
+  if (!publishPostButton) return;
+  const hasText = Boolean(composerTextarea?.value.trim());
+  publishPostButton.disabled = !hasText && composerImages.length === 0;
+}
+
+function resetComposer() {
+  if (composerTextarea) composerTextarea.value = "";
+  if (composerFileInput) composerFileInput.value = "";
+  composerImages = [];
+  renderComposerImagePreview();
+  updateComposerPublishState();
+}
+
+function insertComposerText(text) {
+  if (!composerTextarea) return;
+  const start = composerTextarea.selectionStart ?? composerTextarea.value.length;
+  const end = composerTextarea.selectionEnd ?? composerTextarea.value.length;
+  const before = composerTextarea.value.slice(0, start);
+  const after = composerTextarea.value.slice(end);
+  composerTextarea.value = `${before}${text}${after}`;
+  composerTextarea.focus();
+  composerTextarea.setSelectionRange(start + text.length, start + text.length);
+  updateComposerPublishState();
+}
+
+function buildPostActions(postId = "") {
+  const actions = buildElement("div", "post-actions social-actions");
+  const buttons = [
+    { label: "♡ Me interesa", action: "interest" },
+    { label: "◯ Comentar", action: "comment" },
+    { label: "↗ Compartir", action: "share" },
+  ];
+
+  buttons.forEach((buttonData) => {
+    const button = buildElement("button", "", buttonData.label);
+    button.type = "button";
+    button.dataset[`post${buttonData.action[0].toUpperCase()}${buttonData.action.slice(1)}`] = "true";
+    actions.appendChild(button);
+  });
+
+  if (postId) {
+    const deleteButton = buildElement("button", "", "Eliminar");
+    deleteButton.type = "button";
+    deleteButton.dataset.deleteLocalPost = postId;
+    actions.appendChild(deleteButton);
+  }
+
+  return actions;
+}
+
+function ensurePostInteractionControls(post) {
+  if (!post) return;
+
+  const engagement = post.querySelector(".post-engagement");
+  if (engagement?.firstElementChild) {
+    engagement.firstElementChild.dataset.interestCount = engagement.firstElementChild.textContent.match(/\d+/)?.[0] || "0";
+  }
+
+  const existingActions = post.querySelector(".post-actions");
+  if (existingActions && !existingActions.querySelector("[data-post-interest]")) {
+    const oldButtons = [...existingActions.querySelectorAll("button")];
+    oldButtons[0]?.setAttribute("data-post-interest", "true");
+    oldButtons[1]?.setAttribute("data-post-comment", "true");
+    oldButtons[2]?.setAttribute("data-post-share", "true");
+  }
+
+  if (!post.querySelector(".comment-preview")) {
+    const comments = buildElement("div", "comment-preview");
+    comments.appendChild(buildElement("strong", "", "Comentarios"));
+    post.insertBefore(comments, engagement || existingActions || null);
+  }
+
+  if (!post.querySelector(".comment-composer")) {
+    const commentComposer = buildElement("div", "comment-composer");
+    const input = document.createElement("input");
+    const button = buildElement("button", "", "Enviar");
+    input.type = "text";
+    input.placeholder = "Escribe un comentario";
+    button.type = "button";
+    button.dataset.saveComment = "true";
+    commentComposer.append(input, button);
+    post.querySelector(".comment-preview")?.appendChild(commentComposer);
+  }
+}
+
+function togglePostInterest(post) {
+  if (!post) return;
+  const button = post.querySelector("[data-post-interest]");
+  const counter = post.querySelector(".post-engagement span:first-child");
+  const baseCount = Number(counter?.dataset.interestCount || counter?.textContent.match(/\d+/)?.[0] || 0);
+  const active = button?.classList.toggle("is-active") || false;
+  const nextCount = Math.max(0, baseCount + (active ? 1 : 0));
+  if (counter) counter.textContent = `👍 ${nextCount}`;
+}
+
+function savePostComment(post) {
+  if (!post) return;
+  const input = post.querySelector(".comment-composer input");
+  const text = input?.value.trim();
+  if (!text) return;
+
+  const comment = document.createElement("p");
+  comment.innerHTML = `<b>Luis Valladares:</b> ${text}`;
+  post.querySelector(".comment-composer")?.insertAdjacentElement("beforebegin", comment);
+  if (input) input.value = "";
+
+  const counter = post.querySelector(".post-engagement span:last-child");
+  const count = post.querySelectorAll(".comment-preview p").length;
+  if (counter) counter.textContent = `${count} comentario${count === 1 ? "" : "s"}`;
+}
+
+function sharePostFeedback(button) {
+  const originalText = button.textContent;
+  button.textContent = "Copiado";
+  window.setTimeout(() => {
+    button.textContent = originalText;
+  }, 1100);
+}
+
+function createFeedPostElement(post) {
+  const article = buildElement("article", "wall-post local-post");
+  const images = Array.isArray(post.images) ? post.images : [];
+  article.dataset.category = post.category;
+  article.dataset.localPostId = post.id;
+
+  const header = buildElement("div", "post-header");
+  const avatar = buildElement("div", "avatar profile-photo", "LV");
+  const authorInfo = buildElement("div", "");
+  authorInfo.append(buildElement("strong", "", "Luis Valladares"), buildElement("span", "", `Publicacion local · ${getCategoryLabel(post.category)}`));
+  header.append(avatar, authorInfo);
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = post.text || "Publicacion con imagenes del operador.";
+
+  const strip = buildElement("div", "potential-strip");
+  ["Creado desde HomeFeed", `Categoria: ${getCategoryLabel(post.category)}`, `${images.length} imagen${images.length === 1 ? "" : "es"}`].forEach((tag) => {
+    strip.appendChild(buildElement("span", "", tag));
+  });
+
+  const engagement = buildElement("div", "post-engagement");
+  engagement.append(buildElement("span", "", "👍 0"), buildElement("span", "", "0 comentarios"));
+
+  article.append(header, paragraph);
+
+  if (images.length > 0) {
+    const frame = buildElement("figure", "post-photo-grid");
+    frame.style.gridTemplateColumns = images.length === 1 ? "1fr" : "repeat(2, minmax(0, 1fr))";
+    images.slice(0, 4).forEach((image, index) => {
+      const postImage = document.createElement("img");
+      postImage.src = image.src;
+      postImage.alt = image.name || `Imagen de publicacion ${index + 1}`;
+      frame.appendChild(postImage);
+    });
+    article.appendChild(frame);
+  }
+
+  article.append(strip, engagement, buildPostActions(post.id));
+  ensurePostInteractionControls(article);
+  return article;
+}
+
+function renderLocalFeedPosts() {
+  const feed = document.querySelector("#home .social-feed");
+  const composerCard = feed?.querySelector(".composer-card");
+  if (!feed || !composerCard) return;
+
+  feed.querySelectorAll("[data-local-post-id]").forEach((post) => post.remove());
+
+  getLocalFeedPosts()
+    .slice()
+    .reverse()
+    .forEach((post) => {
+      composerCard.insertAdjacentElement("afterend", createFeedPostElement(post));
+    });
+}
+
+function selectFeedCategory(category) {
+  document.querySelectorAll("[data-feed-filter]").forEach((filter) => {
+    filter.classList.toggle("active", filter.dataset.feedFilter === category);
+  });
+}
+
+function publishComposerPost() {
+  const text = composerTextarea?.value.trim() || "";
+  if (!text && composerImages.length === 0) return;
+
+  const post = {
+    id: `post-${Date.now()}`,
+    text,
+    category: getComposerCategory(),
+    images: composerImages.slice(0, 4),
+    createdAt: new Date().toISOString(),
+  };
+
+  const posts = getLocalFeedPosts();
+  posts.push(post);
+  if (!saveLocalFeedPosts(posts)) {
+    alert("La imagen es muy pesada para guardarla en el prototipo local. Prueba con una foto mas liviana.");
+    return;
+  }
+  renderLocalFeedPosts();
+  selectFeedCategory(post.category);
+  applyHomeFeedFilters();
+  resetComposer();
+  composerModal?.classList.remove("open");
+  composerModal?.setAttribute("aria-hidden", "true");
+}
+
+function removeLocalFeedPost(postId) {
+  saveLocalFeedPosts(getLocalFeedPosts().filter((post) => post.id !== postId));
+  renderLocalFeedPosts();
+  applyHomeFeedFilters();
+}
+
 function hydrateHomeFeed() {
   const posts = document.querySelectorAll(".wall-post");
 
   posts.forEach((post, index) => {
+    ensurePostInteractionControls(post);
+
     const data = feedEnhancements[index];
 
     if (!data) {
@@ -1949,6 +2410,116 @@ function applyClusterEventFilter(filterType = "todos") {
   updateInternalRanking();
 }
 
+function parseISODateValue(value) {
+  if (!value) return new Date(0);
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year || 1970, (month || 1) - 1, day || 1);
+}
+
+function formatShortDate(value) {
+  const date = parseISODateValue(value);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = String(date.getFullYear()).slice(-2);
+  return `${day}/${month}/${year}`;
+}
+
+function getHomeClusterEventRows() {
+  return getInternalEventRows()
+    .map((row) => ({
+      id: row.dataset.eventId,
+      date: row.dataset.eventDate,
+      title: row.querySelector("td strong")?.textContent?.trim() || "Evento",
+    }))
+    .filter((event) => event.id && event.date);
+}
+
+function getHomeClusterDates() {
+  return [...new Set(getHomeClusterEventRows().map((event) => event.date))].sort(
+    (left, right) => parseISODateValue(right) - parseISODateValue(left)
+  );
+}
+
+function renderHomeClusterDateRail(preferredDate) {
+  const rail = document.querySelector("[data-home-date-rail]");
+  if (!rail) return;
+
+  const events = getHomeClusterEventRows();
+  const dates = getHomeClusterDates();
+  const activeDate = dates.includes(preferredDate) ? preferredDate : dates[0];
+  const activeIndex = Math.max(0, dates.indexOf(activeDate));
+  const total = events.filter((event) => event.date === activeDate).length;
+  const label = total === 1 ? "1 evento" : `${total} eventos`;
+
+  rail.dataset.homeActiveDate = activeDate || "";
+  rail.dataset.homeActiveIndex = String(activeIndex);
+
+  if (!activeDate) {
+    rail.innerHTML = `
+      <div class="home-date-card empty" aria-live="polite">
+        <span>Fecha activa</span>
+        <strong>--/--/--</strong>
+        <small>0 eventos</small>
+      </div>
+    `;
+    return;
+  }
+
+  rail.innerHTML = `
+    <button class="home-date-step" type="button" data-home-date-step="-1" aria-label="Ir a fecha mas reciente" ${activeIndex <= 0 ? "disabled" : ""}>‹</button>
+    <div class="home-date-card" aria-live="polite">
+      <span>Fecha activa</span>
+      <strong>${formatShortDate(activeDate)}</strong>
+      <small>${label}</small>
+    </div>
+    <button class="home-date-step" type="button" data-home-date-step="1" aria-label="Fecha anterior" ${activeIndex >= dates.length - 1 ? "disabled" : ""}>›</button>
+  `;
+
+  applyHomeClusterDateFilter(activeDate);
+}
+
+function shiftHomeClusterDate(direction) {
+  const dates = getHomeClusterDates();
+  if (!dates.length) return;
+
+  closeClusterCupComposition();
+  const rail = document.querySelector("[data-home-date-rail]");
+  const activeDate = rail?.dataset.homeActiveDate || dates[0];
+  const currentIndex = Math.max(0, dates.indexOf(activeDate));
+  const nextIndex = Math.max(0, Math.min(dates.length - 1, currentIndex + direction));
+  renderHomeClusterDateRail(dates[nextIndex]);
+}
+
+function applyHomeClusterDateFilter(date) {
+  const events = getHomeClusterEventRows();
+  const dates = getHomeClusterDates();
+  const activeDate = dates.includes(date) ? date : dates[0];
+  if (!activeDate) return;
+
+  const rail = document.querySelector("[data-home-date-rail]");
+  if (rail) {
+    rail.dataset.homeActiveDate = activeDate;
+    rail.dataset.homeActiveIndex = String(Math.max(0, dates.indexOf(activeDate)));
+  }
+
+  const activeLabel = document.querySelector("[data-home-date-current]");
+  const eventsInDate = events.filter((event) => event.date === activeDate);
+  if (activeLabel) {
+    const label = eventsInDate.length === 1 ? "1 evento" : `${eventsInDate.length} eventos`;
+    activeLabel.textContent = `${formatShortDate(activeDate)} · ${label}`;
+  }
+
+  document.querySelectorAll("[data-home-cluster-event]").forEach((card) => {
+    const row = document.querySelector(`[data-internal-event-row][data-event-id="${card.dataset.homeClusterEvent}"]`);
+    const isVisible = row?.dataset.eventDate === activeDate;
+    card.classList.toggle("is-hidden", !isVisible);
+  });
+
+  const visibleActive = document.querySelector("[data-home-cluster-event].active:not(.is-hidden)");
+  const firstVisible = document.querySelector("[data-home-cluster-event]:not(.is-hidden)");
+  if (!visibleActive && firstVisible) selectHomeClusterEvent(firstVisible.dataset.homeClusterEvent);
+}
+
 function applyExternalRequestFilter(filterType = "aprobadas") {
   let visibleRows = 0;
   const counts = {
@@ -2045,11 +2616,114 @@ function getSelectedHomeClusterEventId() {
   );
 }
 
-function selectHomeClusterEvent(eventId) {
+function selectHomeClusterEvent(eventId, options = {}) {
   document.querySelectorAll("[data-home-cluster-event]").forEach((eventItem) => {
     eventItem.classList.toggle("active", eventItem.dataset.homeClusterEvent === eventId);
   });
   renderClusterCupComposition(eventId);
+  if (options.openComposition) openClusterCupComposition();
+}
+
+function openClusterCupComposition() {
+  const compositionCard = document.querySelector("[data-composition-card]");
+  if (!compositionCard) return;
+  document.body.classList.add("home-composition-open");
+  compositionCard.setAttribute("aria-hidden", "false");
+}
+
+function closeClusterCupComposition() {
+  const compositionCard = document.querySelector("[data-composition-card]");
+  document.body.classList.remove("home-composition-open");
+  compositionCard?.setAttribute("aria-hidden", "true");
+}
+
+function ensureEventCompositionOverlay() {
+  let overlay = document.querySelector("[data-event-composition-overlay]");
+  if (overlay) return overlay;
+
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `<div class="event-composition-overlay" data-event-composition-overlay aria-hidden="true">
+      <div class="event-composition-frost" data-event-composition-close></div>
+      <section class="event-composition-panel" data-event-composition-panel role="dialog" aria-modal="true" aria-label="Composicion de cupos">
+        <div class="event-composition-heading">
+          <span>Composicion de cupos</span>
+          <strong data-event-composition-title>Evento seleccionado</strong>
+        </div>
+        <div class="event-composition-summary">
+          <strong data-event-composition-total>0/0</strong>
+          <span data-event-composition-free>0 cupos disponibles</span>
+        </div>
+        <div class="event-composition-bars" data-event-composition-bars></div>
+      </section>
+    </div>`
+  );
+
+  return document.querySelector("[data-event-composition-overlay]");
+}
+
+function getCompositionFromInternalRow(row) {
+  const eventId = row?.dataset.eventId;
+  const total = Number(row?.dataset.total) || 0;
+  const filled = Number(row?.dataset.filled) || 0;
+  const myCupos = Number(row?.dataset.myCupos) || 0;
+  const others = (clusterCupComposition[eventId] || [])
+    .filter((item) => !item.isMe)
+    .map((item) => ({ ...item, count: Number(item.count) || 0 }));
+  const otherSum = others.reduce((sum, item) => sum + item.count, 0);
+  const expectedOtherSum = Math.max(0, filled - myCupos);
+
+  if (others.length && otherSum !== expectedOtherSum) {
+    others[others.length - 1].count = Math.max(0, others[others.length - 1].count + expectedOtherSum - otherSum);
+  } else if (!others.length && expectedOtherSum) {
+    others.push({ name: "Operadores vinculados", count: expectedOtherSum });
+  }
+
+  return [{ name: "Luis Valladares", count: myCupos, isMe: true }, ...others].filter((item) => item.count > 0 || item.isMe);
+}
+
+function renderEventCompositionOverlay(row) {
+  const overlay = ensureEventCompositionOverlay();
+  const barsContainer = overlay?.querySelector("[data-event-composition-bars]");
+  if (!overlay || !row || !barsContainer) return;
+
+  const title = row.querySelector("td strong")?.textContent?.trim() || "Evento seleccionado";
+  const total = Number(row.dataset.total) || 0;
+  const filled = Number(row.dataset.filled) || 0;
+  const free = Math.max(0, total - filled);
+  const composition = getCompositionFromInternalRow(row);
+
+  overlay.querySelector("[data-event-composition-title]").textContent = title;
+  overlay.querySelector("[data-event-composition-total]").textContent = `${filled}/${total}`;
+  overlay.querySelector("[data-event-composition-free]").textContent = `${free} cupos disponibles`;
+  barsContainer.innerHTML = composition
+    .map((item) => {
+      const width = total ? Math.max(3, Math.min(100, (item.count / total) * 100)) : 0;
+      return `<div class="event-composition-row${item.isMe ? " is-me" : ""}">
+        <div>
+          <strong>${escapeHtml(item.name)}</strong>
+          <span>${item.count}/${total} cupos</span>
+        </div>
+        <div class="event-composition-track"><b style="width: ${width}%"></b></div>
+      </div>`;
+    })
+    .join("");
+}
+
+function openEventCompositionOverlay(trigger) {
+  const row = trigger?.closest?.("[data-internal-event-row]") || trigger;
+  if (!row) return;
+
+  const overlay = ensureEventCompositionOverlay();
+  renderEventCompositionOverlay(row);
+  document.body.classList.add("event-composition-open");
+  overlay?.setAttribute("aria-hidden", "false");
+}
+
+function closeEventCompositionOverlay() {
+  const overlay = document.querySelector("[data-event-composition-overlay]");
+  document.body.classList.remove("event-composition-open");
+  overlay?.setAttribute("aria-hidden", "true");
 }
 
 function renderClusterCupComposition(eventId = getSelectedHomeClusterEventId()) {
@@ -2146,6 +2820,10 @@ function updateInternalRanking() {
     const homeClusterCupos = homeClusterEvent?.querySelector("[data-home-cluster-cupos]");
     if (homeClusterCupos) homeClusterCupos.textContent = `${Number(row.dataset.myCupos) || 0}, ${filled}/${total}`;
 
+    if (eventFormPanel?.dataset.eventId === row.dataset.eventId) {
+      setText("[data-event-fill-percent]", `${percent}%`);
+    }
+
     const ranking = document.querySelector(`[data-ranking-event="${row.dataset.eventId}"]`);
     if (!ranking) return;
 
@@ -2161,6 +2839,8 @@ function updateInternalRanking() {
 
   const rankingTotal = document.querySelector("[data-ranking-total]");
   if (rankingTotal) rankingTotal.textContent = `${totalFilled}/${totalCapacity} cupos`;
+  const activeHomeDate = document.querySelector("[data-home-date-rail]")?.dataset.homeActiveDate;
+  if (activeHomeDate) applyHomeClusterDateFilter(activeHomeDate);
   renderClusterCupComposition();
 }
 
@@ -2215,12 +2895,14 @@ function adjustInternalEventCupos(button) {
 }
 
 hydrateHomeFeed();
+renderLocalFeedPosts();
 hydrateResponsiveTables();
 applyHomeFeedFilters();
 applyClusterEventFilter();
 applyExternalRequestFilter();
 refreshInternalFilterCounts();
 updateInternalRanking();
+renderHomeClusterDateRail();
 renderClusterCupComposition();
 syncDateSegmentOptions();
 renderClusterEventDetail();
