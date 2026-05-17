@@ -8002,6 +8002,55 @@ body[data-active-view="home"] .post-actions button.is-active {
   scrollbar-color: rgba(143, 243, 244, 0.38) transparent;
 }
 
+#eventFormPanel.new-event-param-mode.itinerary-returning .event-form {
+  animation: eventPaperReturn 260ms ease-out both;
+  transform-origin: right center;
+}
+
+#eventFormPanel.new-event-param-mode.itinerary-flipped .event-form {
+  display: none !important;
+}
+
+#eventFormPanel .event-itinerary-form {
+  display: none;
+}
+
+#eventFormPanel.new-event-param-mode.itinerary-flipped .event-itinerary-form {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  transform-origin: left center;
+  animation: itineraryPaperFlip 260ms ease-out both;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 243, 244, 0.38) transparent;
+}
+
+@keyframes itineraryPaperFlip {
+  from {
+    opacity: 0;
+    transform: perspective(900px) rotateY(-18deg) translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) rotateY(0deg) translateX(0);
+  }
+}
+
+@keyframes eventPaperReturn {
+  from {
+    opacity: 0;
+    transform: perspective(900px) rotateY(18deg) translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) rotateY(0deg) translateX(0);
+  }
+}
+
 #eventFormPanel.new-event-param-mode .event-form::-webkit-scrollbar {
   width: 7px;
 }
@@ -8011,6 +8060,19 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-form::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(143, 243, 244, 0.34);
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form::-webkit-scrollbar {
+  width: 7px;
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: rgba(143, 243, 244, 0.34);
 }
@@ -8063,6 +8125,158 @@ body[data-active-view="home"] .post-actions button.is-active {
   line-height: 1.2;
 }
 
+#eventFormPanel.new-event-param-mode .itinerary-add-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  border: 0;
+  border-radius: 13px;
+  padding: 0 13px;
+  color: rgba(236, 245, 246, 0.9);
+  font-size: 12px;
+  font-weight: 900;
+  background:
+    linear-gradient(135deg, rgba(143, 243, 244, 0.16), rgba(255, 255, 255, 0.045)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#eventFormPanel.new-event-param-mode .editor-action.flip span,
+#eventFormPanel.new-event-param-mode .itinerary-add-row span {
+  color: #8ff3f4;
+  font-size: 17px;
+  line-height: 1;
+}
+
+#eventFormPanel.new-event-param-mode .editor-action.flip.return {
+  display: none !important;
+}
+
+#eventFormPanel.new-event-param-mode.itinerary-flipped .editor-action.flip:not(.return) {
+  display: none !important;
+}
+
+#eventFormPanel.new-event-param-mode.itinerary-flipped .editor-action.flip.return {
+  display: inline-flex !important;
+  visibility: hidden;
+  animation: eventPaperReturn 260ms ease-out both;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#eventFormPanel.new-event-param-mode .editor-action.flip {
+  justify-content: center;
+  min-width: 132px;
+  width: 132px;
+  background:
+    linear-gradient(135deg, rgba(143, 243, 244, 0.16), rgba(255, 255, 255, 0.045)),
+    rgba(255, 255, 255, 0.035) !important;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-crud-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-crud-head div {
+  display: grid;
+  gap: 4px;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-crud-head span {
+  color: rgba(143, 243, 244, 0.86);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-crud-head strong {
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 1;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-departure-grid,
+#eventFormPanel.new-event-param-mode .itinerary-row {
+  display: grid;
+  gap: 10px;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-row-list {
+  display: grid;
+  gap: 10px;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-row {
+  position: relative;
+  padding: 12px;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form label {
+  display: grid;
+  gap: 4px;
+  color: rgba(236, 245, 246, 0.82);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form input,
+#eventFormPanel.new-event-param-mode .event-itinerary-form select {
+  min-height: 36px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0 12px;
+  color: #ffffff;
+  color-scheme: dark;
+  font-size: 12px;
+  font-weight: 850;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035)),
+    rgba(255, 255, 255, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form select option,
+#eventFormPanel.new-event-param-mode .event-form select option {
+  color: rgba(236, 245, 246, 0.94);
+  background: #17212b;
+}
+
+#eventFormPanel.new-event-param-mode .event-itinerary-form select option:checked,
+#eventFormPanel.new-event-param-mode .event-form select option:checked {
+  color: #071719;
+  background: #8ff3f4;
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-row [data-remove-itinerary-row] {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 10px;
+  color: rgba(236, 245, 246, 0.76);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+#eventFormPanel.new-event-param-mode .itinerary-add-row {
+  justify-content: center;
+  width: 100%;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(10, 132, 139, 0.72), rgba(143, 243, 244, 0.12)),
+    rgba(255, 255, 255, 0.04);
+}
+
 #eventFormPanel.new-event-param-mode .event-form label:has([data-event-input-average-cost]) {
   display: none;
 }
@@ -8086,6 +8300,7 @@ body[data-active-view="home"] .post-actions button.is-active {
   border-radius: 11px;
   padding: 0 12px;
   border: 0 !important;
+  color-scheme: dark;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035)),
     rgba(255, 255, 255, 0.055) !important;

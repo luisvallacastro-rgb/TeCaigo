@@ -687,6 +687,8 @@
                   <button class="editor-action new" type="button" data-new-date><span>↻</span><b data-crud-new-label>Nueva fecha</b></button>
                   <button class="editor-action edit" type="button" data-edit-event><span>✎</span><b data-crud-edit-label>Editar</b></button>
                   <button class="editor-action save" type="button" data-save-event><span>✓</span><b data-crud-save-label>Guardar</b></button>
+                  <button class="editor-action flip" type="button" data-open-itinerary-crud><span>↩</span><b>Itinerario</b></button>
+                  <button class="editor-action flip return" type="button" data-close-itinerary-crud><span>↪</span><b>Evento</b></button>
                 </div>
                 <label class="public-switch">
                   <input type="checkbox" data-event-public-switch />
@@ -854,21 +856,44 @@
                   </label>
                 </div>
 
-                <label>
-                  Itinerario del viaje
-                  <textarea data-event-input-itinerary>6:00 AM salida desde San Salvador
-8:00 AM desayuno en mirador
-10:00 AM recorrido guiado
-12:30 PM almuerzo local
-3:00 PM tiempo libre y fotografias
-5:00 PM retorno</textarea>
-                </label>
-
                 <div class="form-actions">
                   <button class="ghost-button" type="button" data-new-event>Limpiar para nuevo evento</button>
                   <button class="primary-button" type="button" data-save-event>Guardar cambios</button>
                 </div>
               </form>
+
+              <div class="event-itinerary-form" data-event-itinerary-crud>
+                <div class="itinerary-crud-head">
+                  <div>
+                    <span>Itinerario del viaje</span>
+                    <strong>CRUD de recorrido</strong>
+                  </div>
+                </div>
+
+                <div class="itinerary-departure-grid">
+                  <label>
+                    Hora de salida
+                    <input type="time" value="06:00" data-itinerary-start-time />
+                  </label>
+                  <label>
+                    Lugar de salida
+                    <select data-itinerary-start-location>
+                      <option>San Salvador</option>
+                      <option>San Salvador - Metrocentro</option>
+                      <option>Santa Tecla - Plaza Merliot</option>
+                      <option>Ruta de las Flores - Juayua centro</option>
+                      <option>Surf City - El Tunco</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="itinerary-row-list" data-itinerary-row-list></div>
+
+                <button class="itinerary-add-row" type="button" data-add-itinerary-row>
+                  <span>+</span>
+                  <b>Agregar fila</b>
+                </button>
+              </div>
             </article>
 
             <aside class="workspace-side event-summary-panel">

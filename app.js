@@ -19,6 +19,8 @@ const EMPTY_EVENT_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAA
 let minimizedDrag = null;
 let composerImages = [];
 const paramCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
+const publicItineraryPlaces = ["Mirador publico", "Parque central", "Playa publica", "Sendero de montana", "Centro historico"];
+const privateItineraryPlaces = ["Restaurante Bruma", "Finca Cafe Aventura", "Hotel Jardin de Flores", "Hostal Lago Azul", "Comedor Ruta Viva"];
 
 const clusterCupComposition = {
   "ruta-flores": [
@@ -896,6 +898,7 @@ function setText(selector, value) {
 
 function setNewEventParamMode(isParamMode, mode = "blank") {
   eventFormPanel?.classList.toggle("new-event-param-mode", isParamMode);
+  if (!isParamMode) eventFormPanel?.classList.remove("itinerary-flipped", "itinerary-returning");
   const isInherited = mode === "inherited";
   setText("[data-editor-kicker]", isParamMode ? "Parametrizacion" : "CRUD del evento");
   setText("[data-editor-state]", isParamMode ? (isInherited ? "Reprogramar evento" : "Nuevo evento") : "Vista de detalle");
@@ -924,7 +927,6 @@ function prepareNewEventCaptureFields() {
     "[data-event-input-capacity]": "Ej. 50",
     "[data-event-input-internal-commission]": "Ej. 30%",
     "[data-event-input-external-commission]": "Ej. 70%",
-    "[data-event-input-itinerary]": "Ej. 6:00 AM salida, 8:00 AM desayuno, 10:00 AM recorrido...",
   };
 
   Object.entries(examples).forEach(([selector, placeholder]) => {
@@ -946,6 +948,109 @@ function clearNewEventExampleValue(field) {
 
   const disposableValues = new Set(["Nuevo evento", "$0", "$0.00", "0", "0%", "Sin imagen del evento"]);
   if (disposableValues.has(field.value.trim())) field.value = "";
+}
+
+function parseItineraryLine(line) {
+  const match = String(line || "").trim().match(/^(\d{1,2}:\d{2})\s*(AM|PM)?\s+(.+)$/i);
+  if (!match) return { time: "", place: line || "" };
+  return {
+    time: toTimeInputValue(match[1], match[2]),
+    place: match[3].trim(),
+  };
+}
+
+function toTimeInputValue(time, period) {
+  const [rawHour, minute] = String(time || "").split(":").map(Number);
+  if (!rawHour || Number.isNaN(minute)) return "";
+  let hour = rawHour;
+  const normalizedPeriod = String(period || "").toUpperCase();
+  if (normalizedPeriod === "PM" && hour < 12) hour += 12;
+  if (normalizedPeriod === "AM" && hour === 12) hour = 0;
+  return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+}
+
+function fromTimeInputValue(value) {
+  const [hourValue, minute = "00"] = String(value || "00:00").split(":");
+  const hour = Number(hourValue);
+  const period = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+  return `${displayHour}:${minute} ${period}`;
+}
+
+function destinationOptionsMarkup(type, selected = "") {
+  const options = type === "private" ? privateItineraryPlaces : publicItineraryPlaces;
+  return options.map((place) => `<option${place === selected ? " selected" : ""}>${place}</option>`).join("");
+}
+
+function makeItineraryRowMarkup(row = {}, index = 0) {
+  const type = row.type || "public";
+  const selectedPlace = row.destination || (type === "private" ? privateItineraryPlaces[0] : publicItineraryPlaces[0]);
+  return `
+    <div class="itinerary-row" data-itinerary-row>
+      <label>
+        Nueva hora
+        <input type="time" value="${row.time || "08:00"}" data-itinerary-row-time />
+      </label>
+      <label>
+        Tipo de destino
+        <select data-itinerary-destination-type>
+          <option value="public"${type === "public" ? " selected" : ""}>Publico</option>
+          <option value="private"${type === "private" ? " selected" : ""}>Privado</option>
+        </select>
+      </label>
+      <label>
+        Lugar de destino
+        <input list="itinerary-destination-options-${index}" value="${selectedPlace}" data-itinerary-destination placeholder="Buscar destino" />
+        <datalist id="itinerary-destination-options-${index}">
+          ${destinationOptionsMarkup(type)}
+        </datalist>
+      </label>
+      <button type="button" data-remove-itinerary-row aria-label="Eliminar fila">×</button>
+    </div>`;
+}
+
+function renderItineraryCrud(detail) {
+  const lines = String(detail?.itinerary || "").split("\n").map((line) => line.trim()).filter(Boolean);
+  const [departureLine, ...destinationLines] = lines;
+  const departure = parseItineraryLine(departureLine || "6:00 AM salida desde San Salvador");
+  const rowList = document.querySelector("[data-itinerary-row-list]");
+
+  setValue("[data-itinerary-start-time]", departure.time || "06:00");
+  setValue("[data-itinerary-start-location]", departure.place.replace(/^salida\s+(desde\s+)?/i, "") || "San Salvador - Metrocentro");
+
+  if (rowList) {
+    const rows = destinationLines.length
+      ? destinationLines.map((line) => {
+          const parsed = parseItineraryLine(line);
+          return { time: parsed.time || "08:00", type: "public", destination: parsed.place };
+        })
+      : [{ time: "08:00", type: "public", destination: "Mirador publico" }];
+    rowList.innerHTML = rows.map(makeItineraryRowMarkup).join("");
+  }
+}
+
+function serializeItineraryCrud() {
+  const lines = [];
+  const startTime = document.querySelector("[data-itinerary-start-time]")?.value || "06:00";
+  const startLocation = document.querySelector("[data-itinerary-start-location]")?.value || "San Salvador - Metrocentro";
+  lines.push(`${fromTimeInputValue(startTime)} salida desde ${startLocation}`);
+
+  document.querySelectorAll("[data-itinerary-row]").forEach((row) => {
+    const time = row.querySelector("[data-itinerary-row-time]")?.value || "08:00";
+    const destination = row.querySelector("[data-itinerary-destination]")?.value || "Destino pendiente";
+    lines.push(`${fromTimeInputValue(time)} ${destination}`);
+  });
+
+  return lines.join("\n");
+}
+
+function refreshItineraryDatalist(row) {
+  const type = row.querySelector("[data-itinerary-destination-type]")?.value || "public";
+  const input = row.querySelector("[data-itinerary-destination]");
+  const datalist = row.querySelector("datalist");
+  const options = type === "private" ? privateItineraryPlaces : publicItineraryPlaces;
+  if (input) input.value = options[0] || "";
+  if (datalist) datalist.innerHTML = destinationOptionsMarkup(type);
 }
 
 function parseEventDateValue(value) {
@@ -1224,8 +1329,8 @@ function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
   setValue("[data-event-input-capacity]", detail.capacity);
   setValue("[data-event-input-internal-commission]", detail.commissions.internal);
   setValue("[data-event-input-external-commission]", detail.commissions.external);
-  setValue("[data-event-input-itinerary]", detail.itinerary);
   if (eventId === "nuevo-evento" && !options.inherited) prepareNewEventCaptureFields();
+  renderItineraryCrud(detail);
   syncParamImagePreview(detail, isParamMode);
 
   const dateList = document.querySelector(".event-date-list");
@@ -1367,7 +1472,7 @@ function applyEventFormInputsToView() {
     internal: document.querySelector("[data-event-input-internal-commission]")?.value || "0%",
     external: document.querySelector("[data-event-input-external-commission]")?.value || "0%",
   };
-  detail.itinerary = document.querySelector("[data-event-input-itinerary]")?.value || "";
+  detail.itinerary = serializeItineraryCrud();
   detail.dates = dates.map((date) => ({
     date,
     sold: 0,
@@ -1997,6 +2102,34 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  if (event.target.closest("[data-open-itinerary-crud]")) {
+    const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
+    renderItineraryCrud(detail);
+    eventFormPanel?.classList.remove("itinerary-returning");
+    eventFormPanel?.classList.add("itinerary-flipped");
+    return;
+  }
+
+  if (event.target.closest("[data-close-itinerary-crud]")) {
+    eventFormPanel?.classList.add("itinerary-returning");
+    eventFormPanel?.classList.remove("itinerary-flipped");
+    return;
+  }
+
+  if (event.target.closest("[data-add-itinerary-row]")) {
+    const rowList = document.querySelector("[data-itinerary-row-list]");
+    if (rowList) {
+      rowList.insertAdjacentHTML("beforeend", makeItineraryRowMarkup({ time: "09:00", type: "public", destination: "Mirador publico" }, rowList.children.length));
+    }
+    return;
+  }
+
+  const removeItineraryRow = event.target.closest("[data-remove-itinerary-row]");
+  if (removeItineraryRow) {
+    removeItineraryRow.closest("[data-itinerary-row]")?.remove();
+    return;
+  }
+
   if (event.target.closest("[data-save-registration]")) {
     saveRegistrationToBackend();
     return;
@@ -2191,6 +2324,11 @@ document.addEventListener("change", (event) => {
     paramCalendarState.year = Number(yearSelect?.value) || new Date().getFullYear();
     const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
     renderParamClusterCalendar(detail, true);
+  }
+
+  const itineraryDestinationType = event.target.closest("[data-itinerary-destination-type]");
+  if (itineraryDestinationType) {
+    refreshItineraryDatalist(itineraryDestinationType.closest("[data-itinerary-row]"));
   }
 
   const paymentProof = event.target.closest("[data-payment-proof]");
