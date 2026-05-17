@@ -9459,6 +9459,11 @@ body[data-active-view="home"] .post-actions button.is-active {
   line-height: 1.15;
 }
 
+#slotRequestModal .slot-request-param-grid .slot-request-stock-cell strong {
+  color: rgba(143, 243, 244, 0.96);
+  font-size: 16px;
+}
+
 #slotRequestModal .slot-request-itinerary-preview p {
   display: grid;
   grid-template-columns: 28px 1fr;

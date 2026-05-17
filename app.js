@@ -1792,7 +1792,7 @@ function renderSlotRequestEventDetail(dateValue) {
           <div><span>Cluster</span><strong>${escapeHtml(eventItem.cluster)}</strong></div>
           <div><span>Ruta</span><strong>${escapeHtml(eventItem.route)}</strong></div>
           <div><span>Precio por cupo</span><strong>${escapeHtml(profile.price)}</strong></div>
-          <div><span>Cupos externos</span><strong>${escapeHtml(String(eventItem.free))}</strong></div>
+          <div class="slot-request-stock-cell"><span>Cupos disponibles</span><strong>${escapeHtml(eventItem.stock || `${Math.max(0, 50 - Number(eventItem.free || 0))}/50`)}</strong></div>
           <div><span>Comision sugerida</span><strong>${escapeHtml(eventItem.commission)}</strong></div>
           <div><span>Capacidad</span><strong>${escapeHtml(profile.capacity)}</strong></div>
           <div><span>Guia</span><strong>${escapeHtml(profile.guide)}</strong></div>
