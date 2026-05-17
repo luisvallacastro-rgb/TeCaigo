@@ -6529,6 +6529,10 @@ body[data-active-view="event-builder"] .topbar {
   display: none !important;
 }
 
+body[data-active-view="requests"] .topbar {
+  display: none !important;
+}
+
 body[data-active-view="home"] .topbar-home-filters,
 body[data-active-view="home"] .taste-filter-strip {
   overflow: visible !important;
@@ -8631,6 +8635,212 @@ body[data-active-view="home"] .post-actions button.is-active {
   font-size: 11px;
   font-weight: 760;
   line-height: 1.25;
+}
+
+/* Solicitudes: misma limpieza visual del modulo Crear evento. */
+#requests .section-head {
+  align-items: end;
+  margin-bottom: 26px;
+  padding: 0 2px;
+}
+
+#requests .section-head .eyebrow {
+  display: none;
+}
+
+#requests .section-head h2 {
+  margin: 0;
+  color: #f7fbfb;
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+#requests .section-head .primary-button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 0;
+  padding: 0 2px;
+  color: rgba(236, 255, 255, 0.94);
+  background: transparent;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+#requests .section-head .primary-button::first-letter {
+  color: #8ff3f4;
+  font-size: 34px;
+  line-height: 0.8;
+}
+
+#requests .request-remittance-board {
+  overflow: visible;
+  margin: 0 0 26px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#requests .event-history-head {
+  min-height: 0;
+  padding: 0 2px 14px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#requests .event-history-head .hero-kicker {
+  color: rgba(143, 243, 244, 0.68) !important;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+#requests .event-history-head h2 {
+  margin: 4px 0 0 !important;
+  color: rgba(247, 251, 251, 0.94) !important;
+  font-size: clamp(20px, 2vw, 28px) !important;
+  line-height: 1.04;
+}
+
+#requests .event-table-wrap {
+  width: 100%;
+  padding: 0 !important;
+  overflow-x: auto;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#requests .event-matrix {
+  display: block;
+  width: 100%;
+  border-spacing: 0 !important;
+}
+
+#requests .event-matrix thead,
+#requests .event-matrix tbody {
+  display: block;
+}
+
+#requests .event-matrix thead tr,
+#requests .event-matrix tbody tr {
+  display: grid;
+  align-items: center;
+  column-gap: 0;
+}
+
+#requests .slot-request-matrix {
+  min-width: 980px;
+}
+
+#requests .slot-request-matrix thead tr,
+#requests .slot-request-matrix tbody tr {
+  grid-template-columns:
+    minmax(210px, 1.45fr)
+    minmax(150px, 1fr)
+    minmax(150px, 0.92fr)
+    minmax(110px, 0.62fr)
+    minmax(176px, 1fr)
+    minmax(130px, 0.74fr);
+}
+
+#requests .remittance-matrix {
+  min-width: 1120px;
+}
+
+#requests .remittance-matrix thead tr,
+#requests .remittance-matrix tbody tr {
+  grid-template-columns:
+    minmax(190px, 1.28fr)
+    minmax(150px, 1fr)
+    minmax(136px, 0.86fr)
+    minmax(128px, 0.8fr)
+    minmax(118px, 0.7fr)
+    minmax(112px, 0.66fr)
+    minmax(126px, 0.72fr)
+    minmax(172px, 0.96fr);
+}
+
+#requests .event-matrix tbody tr {
+  margin-bottom: 14px;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.038), rgba(255, 255, 255, 0.01)),
+    rgba(13, 21, 29, 0.3) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.048),
+    0 12px 32px rgba(0, 0, 0, 0.085);
+  backdrop-filter: blur(20px) saturate(118%);
+}
+
+#requests .event-matrix th {
+  padding: 6px 18px 12px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: rgba(236, 245, 246, 0.48) !important;
+  font-size: 11px !important;
+}
+
+#requests .event-matrix td {
+  min-height: 78px;
+  padding: 18px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#requests .event-matrix td:first-child {
+  border-left: 0 !important;
+  border-radius: 24px 0 0 24px !important;
+}
+
+#requests .event-matrix td:last-child {
+  border-right: 0 !important;
+  border-radius: 0 24px 24px 0 !important;
+}
+
+#requests .event-matrix tbody tr:hover {
+  background:
+    linear-gradient(135deg, rgba(143, 243, 244, 0.05), rgba(255, 255, 255, 0.014)),
+    rgba(15, 24, 32, 0.36) !important;
+  transform: translateY(-1px);
+}
+
+#requests .event-open,
+#requests .event-closed,
+#requests .matrix-status.active,
+#requests .payment-badge.paid,
+#requests .transfer-amount {
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168) !important;
+  color: #ffffff !important;
+}
+
+#requests .matrix-status.draft,
+#requests .matrix-status.review {
+  color: rgba(255, 244, 196, 0.94) !important;
+  background: rgba(255, 220, 108, 0.14) !important;
+}
+
+#requests .event-matrix .crud-actions {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+#requests .event-matrix .crud-actions button {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  border-radius: 10px;
 }
 
 .internal-filter-bar .internal-select-filters {
