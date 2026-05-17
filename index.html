@@ -1950,7 +1950,7 @@
 
         <div class="correspondence-workspace">
           <aside class="correspondence-folders" aria-label="Carpetas de correspondencia">
-            <button class="correspondence-compose" type="button">✎ Nuevo oficio</button>
+            <button class="correspondence-compose" type="button" data-correspondence-compose-open>✎ Nuevo correo</button>
             <nav>
               <button class="active" type="button" data-correspondence-folder="inbox"><span>▣</span> Recibidos <b>1</b></button>
               <button type="button" data-correspondence-folder="sent"><span>↗</span> Enviados <b>2</b></button>
@@ -2053,6 +2053,38 @@
               <button class="ghost-button" type="button" data-close-correspondence>Cerrar</button>
               <button class="primary-button" type="button" data-correspondence-follow>Ver solicitud</button>
             </footer>
+
+            <form class="correspondence-compose-panel" data-correspondence-compose-panel hidden>
+              <div class="correspondence-message-head">
+                <div>
+                  <span>Nuevo correo formal</span>
+                  <h3>Redactar correspondencia</h3>
+                </div>
+                <time>Borrador</time>
+              </div>
+
+              <label>
+                <span>Para</span>
+                <input data-correspondence-compose-to placeholder="Ej. Cafe Aventura, TeCaigo Tours o Soporte TeCaiGO" />
+              </label>
+              <label>
+                <span>Asunto</span>
+                <input data-correspondence-compose-subject placeholder="Ej. Solicitud de cupos para Tour cafe y mirador" />
+              </label>
+              <label>
+                <span>Referencia</span>
+                <input data-correspondence-compose-reference placeholder="Evento, fecha, cluster o numero de solicitud" />
+              </label>
+              <label class="message">
+                <span>Mensaje</span>
+                <textarea data-correspondence-compose-message placeholder="Escribi aqui la comunicacion formal..."></textarea>
+              </label>
+
+              <footer class="correspondence-actions">
+                <button class="ghost-button" type="button" data-correspondence-compose-cancel>Cancelar</button>
+                <button class="primary-button" type="submit">Enviar correo</button>
+              </footer>
+            </form>
           </article>
         </div>
       </section>

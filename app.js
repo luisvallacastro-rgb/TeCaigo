@@ -2073,6 +2073,11 @@ function closeCorrespondenceModal() {
 function syncCorrespondenceThread(type) {
   if (!correspondenceModal) return;
 
+  correspondenceModal.classList.remove("is-composing");
+  correspondenceModal.querySelector(".correspondence-compose")?.classList.remove("active");
+  const composePanel = correspondenceModal.querySelector("[data-correspondence-compose-panel]");
+  if (composePanel) composePanel.hidden = true;
+
   const eventName = correspondenceModal.dataset.sourceEvent || "Solicitud de cupos";
   const host = correspondenceModal.dataset.currentHost || "Anfitrion";
   const cupos = correspondenceModal.dataset.currentCupos || "0";
@@ -2136,8 +2141,28 @@ function syncCorrespondenceThread(type) {
   );
 }
 
+function openCorrespondenceCompose() {
+  if (!correspondenceModal) return;
+
+  correspondenceModal.classList.add("is-composing");
+  correspondenceModal.querySelector(".correspondence-compose")?.classList.add("active");
+  correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => thread.classList.remove("active"));
+
+  const composePanel = correspondenceModal.querySelector("[data-correspondence-compose-panel]");
+  if (!composePanel) return;
+
+  composePanel.hidden = false;
+  composePanel.reset();
+  composePanel.querySelector("[data-correspondence-compose-to]")?.focus();
+}
+
 function filterCorrespondenceThreads() {
   if (!correspondenceModal) return;
+
+  correspondenceModal.classList.remove("is-composing");
+  correspondenceModal.querySelector(".correspondence-compose")?.classList.remove("active");
+  const composePanel = correspondenceModal.querySelector("[data-correspondence-compose-panel]");
+  if (composePanel) composePanel.hidden = true;
 
   const folder = correspondenceModal.dataset.activeFolder || "inbox";
   const tab = correspondenceModal.dataset.activeTab || "all";
@@ -2941,6 +2966,17 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  if (event.target.closest("[data-correspondence-compose-open]")) {
+    openCorrespondenceCompose();
+    return;
+  }
+
+  if (event.target.closest("[data-correspondence-compose-cancel]")) {
+    const activeThread = correspondenceModal?.querySelector("[data-correspondence-thread]:not([hidden])");
+    if (activeThread) syncCorrespondenceThread(activeThread.dataset.correspondenceThread);
+    return;
+  }
+
   const correspondenceFolder = event.target.closest("[data-correspondence-folder]");
   if (correspondenceFolder) {
     correspondenceModal.dataset.activeFolder = correspondenceFolder.dataset.correspondenceFolder;
@@ -3114,6 +3150,16 @@ document.addEventListener("input", (event) => {
   if (correspondenceSearch) {
     filterCorrespondenceThreads();
   }
+});
+
+document.addEventListener("submit", (event) => {
+  const correspondenceCompose = event.target.closest("[data-correspondence-compose-panel]");
+  if (!correspondenceCompose) return;
+
+  event.preventDefault();
+  correspondenceCompose.reset();
+  const activeThread = correspondenceModal?.querySelector("[data-correspondence-thread]:not([hidden])");
+  if (activeThread) syncCorrespondenceThread(activeThread.dataset.correspondenceThread);
 });
 
 composerTextarea?.addEventListener("input", updateComposerPublishState);

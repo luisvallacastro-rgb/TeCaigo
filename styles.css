@@ -9455,9 +9455,14 @@ body[data-active-view="home"] .post-actions button.is-active {
   height: min(860px, calc(100vh - 42px));
   max-height: min(860px, calc(100vh - 42px));
   background:
-    radial-gradient(circle at 14% 12%, rgba(143, 243, 244, 0.12), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.016)),
-    rgba(13, 22, 30, 0.84);
+    radial-gradient(circle at 14% 12%, rgba(143, 243, 244, 0.16), transparent 30%),
+    radial-gradient(circle at 82% 78%, rgba(10, 115, 122, 0.11), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018)),
+    rgba(13, 22, 30, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 34px 90px rgba(0, 0, 0, 0.44);
+  backdrop-filter: blur(34px) saturate(138%);
 }
 
 .correspondence-modal .correspondence-top {
@@ -9492,8 +9497,13 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-modal .correspondence-mailbox,
 .correspondence-modal .correspondence-message {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.058), rgba(255, 255, 255, 0.012)),
-    rgba(9, 17, 24, 0.48);
+    radial-gradient(circle at 18% 8%, rgba(143, 243, 244, 0.105), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.012)),
+    rgba(9, 17, 24, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.085),
+    0 22px 42px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(24px) saturate(132%);
 }
 
 .correspondence-modal .correspondence-folders {
@@ -9504,6 +9514,12 @@ body[data-active-view="home"] .post-actions button.is-active {
   justify-content: flex-start;
   padding-inline: 18px;
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+.correspondence-modal .correspondence-compose.active,
+.correspondence-modal .correspondence-compose:hover {
+  outline: 2px solid rgba(143, 243, 244, 0.38);
+  background: linear-gradient(135deg, #0b878d, var(--ok-teal, #0a737a));
 }
 
 .correspondence-modal .correspondence-folders nav button {
@@ -9527,7 +9543,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-modal .correspondence-toolbar label {
   min-height: 54px;
   border-radius: 999px;
-  background: rgba(48, 55, 64, 0.5);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018)),
+    rgba(48, 55, 64, 0.31);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px) saturate(128%);
 }
 
 .correspondence-modal .correspondence-tools button {
@@ -9647,8 +9667,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-modal .correspondence-body {
   border-radius: 20px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.014)),
-    rgba(48, 55, 64, 0.46);
+    radial-gradient(circle at 8% 0%, rgba(143, 243, 244, 0.09), transparent 42%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.015)),
+    rgba(48, 55, 64, 0.32);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px) saturate(125%);
 }
 
 .correspondence-modal .correspondence-body {
@@ -9671,6 +9694,85 @@ body[data-active-view="home"] .post-actions button.is-active {
   border-radius: 16px;
   padding: 0 20px;
   font-size: 14px;
+}
+
+.correspondence-modal.is-composing .correspondence-message > .correspondence-message-head,
+.correspondence-modal.is-composing .correspondence-message > .correspondence-route,
+.correspondence-modal.is-composing .correspondence-message > .correspondence-body,
+.correspondence-modal.is-composing .correspondence-message > .correspondence-actions {
+  display: none;
+}
+
+.correspondence-compose-panel {
+  display: none;
+  min-height: 0;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  gap: 14px;
+}
+
+.correspondence-modal.is-composing .correspondence-compose-panel {
+  display: grid;
+}
+
+.correspondence-compose-panel[hidden] {
+  display: none;
+}
+
+.correspondence-compose-panel label {
+  display: grid;
+  gap: 7px;
+}
+
+.correspondence-compose-panel label span {
+  color: rgba(143, 243, 244, 0.72);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.correspondence-compose-panel input,
+.correspondence-compose-panel textarea {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 6% 0%, rgba(143, 243, 244, 0.11), transparent 42%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.015)),
+    rgba(48, 55, 64, 0.29);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.075),
+    0 12px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(18px) saturate(128%);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 850;
+  outline: 0;
+}
+
+.correspondence-compose-panel input {
+  min-height: 54px;
+  padding: 0 18px;
+}
+
+.correspondence-compose-panel textarea {
+  min-height: 220px;
+  resize: none;
+  padding: 16px 18px;
+  line-height: 1.42;
+}
+
+.correspondence-compose-panel input::placeholder,
+.correspondence-compose-panel textarea::placeholder {
+  color: rgba(236, 245, 246, 0.28);
+}
+
+.correspondence-compose-panel input:focus,
+.correspondence-compose-panel textarea:focus {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 2px rgba(143, 243, 244, 0.2);
 }
 
 @media (max-width: 980px) {
