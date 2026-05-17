@@ -8633,6 +8633,122 @@ body[data-active-view="home"] .post-actions button.is-active {
   line-height: 1.25;
 }
 
+.internal-filter-bar .internal-select-filters {
+  align-items: end;
+  gap: 12px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.internal-filter-bar .filter-tabs {
+  align-items: center;
+  gap: 10px;
+}
+
+.internal-filter-bar .filter-tabs button {
+  min-height: 42px;
+  border: 0 !important;
+  border-radius: 17px !important;
+  padding: 0 12px 0 15px;
+  color: rgba(247, 248, 251, 0.82) !important;
+  font-size: 13px;
+  font-weight: 880;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+    rgba(15, 23, 32, 0.72) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 28px rgba(0, 0, 0, 0.14) !important;
+}
+
+.internal-filter-bar .filter-tabs button.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 14px 30px rgba(0, 0, 0, 0.18) !important;
+}
+
+.internal-filter-bar .filter-tabs button b {
+  display: inline-grid;
+  place-items: center;
+  min-width: 25px;
+  height: 25px;
+  margin-left: 8px;
+  border-radius: 999px;
+  color: rgba(236, 245, 246, 0.9) !important;
+  font-size: 12px;
+  font-weight: 900;
+  background: rgba(10, 115, 122, 0.22);
+}
+
+.internal-filter-bar .filter-tabs button.active b {
+  color: var(--ok-teal, #0a737a) !important;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.internal-filter-bar .date-filter-control {
+  position: relative;
+  gap: 6px;
+  min-width: 188px;
+}
+
+.internal-filter-bar .date-filter-control span {
+  display: inline-flex;
+  width: fit-content;
+  color: rgba(236, 245, 246, 0.54) !important;
+  font-size: 10px !important;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.internal-filter-bar .date-filter-control select {
+  width: 100%;
+  max-width: none;
+  min-height: 46px;
+  border: 0 !important;
+  border-radius: 15px !important;
+  padding: 0 40px 0 14px;
+  color: rgba(247, 248, 251, 0.94) !important;
+  font-size: 14px;
+  font-weight: 880;
+  appearance: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.026)),
+    rgba(36, 43, 52, 0.82) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.internal-filter-bar .date-filter-control::after {
+  content: "⌄";
+  position: absolute;
+  right: 14px;
+  bottom: 13px;
+  color: rgba(236, 245, 246, 0.78);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.internal-filter-bar .date-filter-control select:focus {
+  outline: 0;
+  background:
+    linear-gradient(135deg, rgba(10, 115, 122, 0.48), rgba(11, 97, 104, 0.34)),
+    rgba(36, 43, 52, 0.88) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 2px rgba(10, 115, 122, 0.26),
+    0 14px 32px rgba(0, 0, 0, 0.2) !important;
+}
+
 @media (max-width: 780px) {
   #eventFormPanel.new-event-param-mode {
     overflow: hidden !important;
