@@ -8204,10 +8204,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .param-glass-options button.active {
-  color: #061316;
-  background:
-    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.85), transparent 32%),
-    linear-gradient(135deg, rgba(143, 243, 244, 0.95), rgba(42, 164, 171, 0.74));
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
 }
 
 #eventFormPanel.new-event-param-mode .itinerary-add-row {
@@ -8218,18 +8216,16 @@ body[data-active-view="home"] .post-actions button.is-active {
   border: 0;
   border-radius: 13px;
   padding: 0 13px;
-  color: rgba(236, 245, 246, 0.9);
+  color: #ffffff;
   font-size: 12px;
   font-weight: 900;
-  background:
-    linear-gradient(135deg, rgba(143, 243, 244, 0.16), rgba(255, 255, 255, 0.045)),
-    rgba(255, 255, 255, 0.035);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
+  box-shadow: none;
 }
 
 #eventFormPanel.new-event-param-mode .editor-action.flip span,
 #eventFormPanel.new-event-param-mode .itinerary-add-row span {
-  color: #8ff3f4;
+  color: rgba(236, 245, 246, 0.9);
   font-size: 17px;
   line-height: 1;
 }
@@ -8254,9 +8250,8 @@ body[data-active-view="home"] .post-actions button.is-active {
   justify-content: center;
   min-width: 132px;
   width: 132px;
-  background:
-    linear-gradient(135deg, rgba(143, 243, 244, 0.16), rgba(255, 255, 255, 0.045)),
-    rgba(255, 255, 255, 0.035) !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168) !important;
 }
 
 #eventFormPanel.new-event-param-mode .itinerary-crud-head {
@@ -8337,8 +8332,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 #eventFormPanel.new-event-param-mode .event-itinerary-form select option:checked,
 #eventFormPanel.new-event-param-mode .event-form select option:checked {
-  color: #071719;
-  background: #8ff3f4;
+  color: #ffffff;
+  background: var(--ok-teal, #0a737a);
 }
 
 #eventFormPanel.new-event-param-mode .itinerary-row [data-remove-itinerary-row] {
@@ -8357,9 +8352,7 @@ body[data-active-view="home"] .post-actions button.is-active {
   justify-content: center;
   width: 100%;
   color: #ffffff;
-  background:
-    linear-gradient(135deg, rgba(10, 132, 139, 0.72), rgba(143, 243, 244, 0.12)),
-    rgba(255, 255, 255, 0.04);
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
 }
 
 #eventFormPanel.new-event-param-mode .event-form label:has([data-event-input-average-cost]) {
@@ -8456,6 +8449,23 @@ body[data-active-view="home"] .post-actions button.is-active {
   padding: 12px;
 }
 
+#eventFormPanel.new-event-param-mode .event-param-image-preview.is-empty .event-param-photo-card::before {
+  content: "Foto";
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  color: rgba(236, 245, 246, 0.16);
+  font-size: 30px;
+  font-weight: 900;
+  background:
+    radial-gradient(circle at 24% 20%, rgba(143, 243, 244, 0.08), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025)),
+    rgba(42, 48, 56, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
 #eventFormPanel.new-event-param-mode .event-param-image-preview img {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -8465,14 +8475,7 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-param-image-preview.is-empty img {
-  display: block;
-  background:
-    radial-gradient(circle at 24% 20%, rgba(143, 243, 244, 0.18), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.028));
-}
-
-#eventFormPanel.new-event-param-mode .event-param-image-preview.is-empty img:not([src]) {
-  opacity: 1;
+  display: none;
 }
 
 #eventFormPanel.new-event-param-mode .event-param-photo-card div {
@@ -8566,13 +8569,9 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 #eventFormPanel.new-event-param-mode .calendar-day.programmed,
 #eventFormPanel.new-event-param-mode .calendar-day.selected {
-  color: #061316;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.85), transparent 34%),
-    linear-gradient(135deg, rgba(143, 243, 244, 0.95), rgba(42, 164, 171, 0.74));
-  box-shadow:
-    0 0 0 4px rgba(143, 243, 244, 0.08),
-    0 14px 34px rgba(34, 195, 202, 0.22);
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
 }
 
 #eventFormPanel.new-event-param-mode .calendar-day.selected {
@@ -8623,8 +8622,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-param-date-cards button {
-  color: #071719;
-  background: linear-gradient(135deg, rgba(143, 243, 244, 0.92), rgba(42, 164, 171, 0.68));
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
 }
 
 #eventFormPanel.new-event-param-mode .event-param-calendar small {
