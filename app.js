@@ -19,6 +19,7 @@ const EMPTY_EVENT_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAA
 let minimizedDrag = null;
 let composerImages = [];
 const paramCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
+const slotRequestCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
 const publicItineraryPlaces = ["Mirador publico", "Parque central", "Playa publica", "Sendero de montana", "Centro historico"];
 const privateItineraryPlaces = ["Restaurante Bruma", "Finca Cafe Aventura", "Hotel Jardin de Flores", "Hostal Lago Azul", "Comedor Ruta Viva"];
 
@@ -31,6 +32,7 @@ const slotRequestPublicEvents = [
     route: "Ruta nacional",
     type: "Publico",
     free: 9,
+    stock: "45/50",
     commission: "70%",
     dates: ["25/05/2026", "01/06/2026", "08/06/2026"],
     image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82",
@@ -43,6 +45,7 @@ const slotRequestPublicEvents = [
     route: "Ruta nacional",
     type: "Publico",
     free: 12,
+    stock: "28/40",
     commission: "30%",
     dates: ["18/05/2026", "25/05/2026"],
     image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=82",
@@ -55,6 +58,7 @@ const slotRequestPublicEvents = [
     route: "Ruta nacional",
     type: "Publico",
     free: 6,
+    stock: "24/30",
     commission: "45%",
     dates: ["20/05/2026", "27/05/2026"],
     image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=82",
@@ -67,6 +71,7 @@ const slotRequestPublicEvents = [
     route: "Ruta nacional",
     type: "Publico",
     free: 22,
+    stock: "18/40",
     commission: "70%",
     dates: ["22/05/2026", "29/05/2026"],
     image: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=1200&q=82",
@@ -79,6 +84,7 @@ const slotRequestPublicEvents = [
     route: "Ruta internacional",
     type: "Publico",
     free: 14,
+    stock: "36/50",
     commission: "60%",
     dates: ["24/05/2026", "31/05/2026"],
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=82",
@@ -91,6 +97,7 @@ const slotRequestPublicEvents = [
     route: "Ruta nacional",
     type: "Publico",
     free: 7,
+    stock: "33/40",
     commission: "55%",
     dates: ["26/05/2026", "02/06/2026"],
     image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1200&q=82",
@@ -1667,6 +1674,53 @@ function findSlotRequestEventByTitle(title) {
     || slotRequestPublicEvents[0];
 }
 
+function getSelectedSlotRequestEvent() {
+  const activeId = slotRequestModal?.dataset.selectedEventId;
+  return slotRequestPublicEvents.find((eventItem) => eventItem.id === activeId) || slotRequestPublicEvents[0];
+}
+
+function getSlotRequestEventProfile(eventItem) {
+  const profileMap = {
+    "ruta-flores-publica": {
+      description: "Ruta publica para miradores, flores de temporada y desayuno turistico.",
+      price: "$35",
+      transport: "$750",
+      guide: "$130",
+      other: "$100",
+      capacity: "50 cupos",
+      itinerary: ["06:00 a.m. salida desde San Salvador", "08:00 a.m. desayuno en ruta", "10:00 a.m. visita a miradores", "12:30 p.m. almuerzo local", "03:00 p.m. recorrido por cafetales", "05:30 p.m. retorno"],
+    },
+    "cafe-mirador-publico": {
+      description: "Experiencia de cafe, mirador natural y degustacion con comercio turistico local.",
+      price: "$42",
+      transport: "$520",
+      guide: "$150",
+      other: "$90",
+      capacity: "40 cupos",
+      itinerary: ["06:30 a.m. salida desde Santa Tecla", "08:30 a.m. desayuno en cafeteria", "10:00 a.m. recorrido de cafe", "12:00 p.m. mirador principal", "02:00 p.m. degustacion", "04:30 p.m. retorno"],
+    },
+    "volcan-senderos": {
+      description: "Caminata guiada de volcan con paradas de interpretacion y mirador.",
+      price: "$30",
+      transport: "$460",
+      guide: "$140",
+      other: "$80",
+      capacity: "30 cupos",
+      itinerary: ["06:00 a.m. salida desde San Salvador", "08:00 a.m. ingreso al sendero", "11:00 a.m. mirador principal", "01:00 p.m. almuerzo local", "03:30 p.m. retorno"],
+    },
+  };
+
+  return profileMap[eventItem?.id] || {
+    description: "Evento publico con disponibilidad para operadores externos del ecosistema TeCaigo.",
+    price: "$35",
+    transport: "$500",
+    guide: "$130",
+    other: "$90",
+    capacity: "40 cupos",
+    itinerary: ["06:00 a.m. salida desde punto asignado", "08:00 a.m. llegada y desayuno", "10:00 a.m. recorrido principal", "12:30 p.m. almuerzo", "03:00 p.m. cierre de experiencia", "05:00 p.m. retorno"],
+  };
+}
+
 function slotRequestSearchMatches(eventItem, query) {
   const normalized = String(query || "").trim().toLowerCase();
   if (!normalized) return true;
@@ -1688,7 +1742,7 @@ function renderSlotRequestCarousel(query = "") {
           (eventItem) => `
             <button class="slot-request-event-card${eventItem.id === activeId ? " active" : ""}" type="button" data-slot-request-event-id="${escapeHtml(eventItem.id)}">
               <img src="${escapeHtml(eventItem.image)}" alt="Foto del evento ${escapeHtml(eventItem.title)}" />
-              <span>${escapeHtml(eventItem.type)}</span>
+              <span>${escapeHtml(eventItem.stock || `${Math.max(0, 50 - Number(eventItem.free || 0))}/50`)} cupos</span>
               <strong>${escapeHtml(eventItem.title)}</strong>
               <small>${escapeHtml(eventItem.cluster)} · ${escapeHtml(eventItem.host)}</small>
             </button>
@@ -1698,6 +1752,107 @@ function renderSlotRequestCarousel(query = "") {
     : `<div class="slot-request-empty">Sin eventos publicados con esa busqueda.</div>`;
 }
 
+function showSlotRequestCarouselView() {
+  const card = slotRequestModal?.querySelector(".slot-request-carousel-card");
+  const carouselView = slotRequestModal?.querySelector("[data-slot-request-carousel-view]");
+  const detailView = slotRequestModal?.querySelector("[data-slot-request-detail]");
+  card?.classList.remove("is-detail-open", "itinerary-flipped");
+  if (carouselView) carouselView.hidden = false;
+  if (detailView) detailView.hidden = true;
+}
+
+function renderSlotRequestEventDetail(dateValue) {
+  const detailView = slotRequestModal?.querySelector("[data-slot-request-detail]");
+  const carouselView = slotRequestModal?.querySelector("[data-slot-request-carousel-view]");
+  const card = slotRequestModal?.querySelector(".slot-request-carousel-card");
+  const eventItem = getSelectedSlotRequestEvent();
+  if (!detailView || !eventItem) return;
+
+  const profile = getSlotRequestEventProfile(eventItem);
+  detailView.innerHTML = `
+    <div class="slot-request-detail-paper">
+      <section class="slot-request-detail-face front">
+        <div class="slot-request-detail-head">
+          <div>
+            <span>Generalidades del evento</span>
+            <strong>${escapeHtml(eventItem.title)}</strong>
+          </div>
+          <div class="slot-request-detail-actions">
+            <button type="button" data-slot-request-back-events>Eventos</button>
+            <button type="button" data-slot-request-flip-detail><span>↩</span><b>Itinerario</b></button>
+          </div>
+        </div>
+        <div class="slot-request-detail-photo">
+          <img src="${escapeHtml(eventItem.image)}" alt="Foto del evento ${escapeHtml(eventItem.title)}" />
+        </div>
+        <p>${escapeHtml(profile.description)}</p>
+        <div class="slot-request-param-grid">
+          <div><span>Fecha consultada</span><strong>${escapeHtml(dateValue || eventItem.dates[0] || "Sin fecha")}</strong></div>
+          <div><span>Anfitrion</span><strong>${escapeHtml(eventItem.host)}</strong></div>
+          <div><span>Cluster</span><strong>${escapeHtml(eventItem.cluster)}</strong></div>
+          <div><span>Ruta</span><strong>${escapeHtml(eventItem.route)}</strong></div>
+          <div><span>Precio por cupo</span><strong>${escapeHtml(profile.price)}</strong></div>
+          <div><span>Cupos externos</span><strong>${escapeHtml(String(eventItem.free))}</strong></div>
+          <div><span>Comision sugerida</span><strong>${escapeHtml(eventItem.commission)}</strong></div>
+          <div><span>Capacidad</span><strong>${escapeHtml(profile.capacity)}</strong></div>
+          <div><span>Guia</span><strong>${escapeHtml(profile.guide)}</strong></div>
+          <div><span>Transporte</span><strong>${escapeHtml(profile.transport)}</strong></div>
+        </div>
+      </section>
+
+      <section class="slot-request-detail-face back">
+        <div class="slot-request-detail-head">
+          <div>
+            <span>Itinerario del viaje</span>
+            <strong>${escapeHtml(eventItem.title)}</strong>
+          </div>
+          <div class="slot-request-detail-actions">
+            <button type="button" data-slot-request-back-events>Eventos</button>
+            <button type="button" data-slot-request-flip-detail><span>↪</span><b>Evento</b></button>
+          </div>
+        </div>
+        <div class="slot-request-detail-photo">
+          <img src="${escapeHtml(eventItem.image)}" alt="Foto del evento ${escapeHtml(eventItem.title)}" />
+        </div>
+        <div class="slot-request-readonly-note">Consulta de solo lectura. Este evento pertenece a ${escapeHtml(eventItem.host)}.</div>
+        <div class="slot-request-itinerary-preview">
+          <span>Recorrido programado</span>
+          ${profile.itinerary.map((item, index) => `<p><b>${String(index + 1).padStart(2, "0")}</b>${escapeHtml(item)}</p>`).join("")}
+        </div>
+      </section>
+    </div>
+  `;
+  card?.classList.add("is-detail-open");
+  card?.classList.remove("itinerary-flipped");
+  if (carouselView) carouselView.hidden = true;
+  detailView.hidden = false;
+}
+
+function toggleSlotRequestDetailFlip() {
+  const card = slotRequestModal?.querySelector(".slot-request-carousel-card");
+  card?.classList.toggle("itinerary-flipped");
+}
+
+function syncSlotRequestCalendarSelectors() {
+  const monthSelect = slotRequestModal?.querySelector("[data-slot-request-calendar-month]");
+  const yearSelect = slotRequestModal?.querySelector("[data-slot-request-calendar-year]");
+  const monthNames = [...Array(12)].map((_, index) => new Intl.DateTimeFormat("es-SV", { month: "short" }).format(new Date(2026, index, 1)));
+
+  if (monthSelect && !monthSelect.options.length) {
+    monthSelect.innerHTML = monthNames.map((month, index) => `<option value="${index}">${month}</option>`).join("");
+  }
+
+  if (yearSelect && !yearSelect.options.length) {
+    const currentYear = new Date().getFullYear();
+    yearSelect.innerHTML = [currentYear - 1, currentYear, currentYear + 1, currentYear + 2]
+      .map((year) => `<option value="${year}">${year}</option>`)
+      .join("");
+  }
+
+  if (monthSelect) monthSelect.value = String(slotRequestCalendarState.month);
+  if (yearSelect) yearSelect.value = String(slotRequestCalendarState.year);
+}
+
 function renderSlotRequestCalendar(eventItem) {
   const grid = slotRequestModal?.querySelector(".slot-request-days");
   const cards = slotRequestModal?.querySelector(".slot-request-date-cards");
@@ -1705,38 +1860,71 @@ function renderSlotRequestCalendar(eventItem) {
   const title = slotRequestModal?.querySelector(".slot-request-calendar > strong");
   if (!grid || !cards || !eventItem) return;
 
-  const firstDate = parseEventDateValue(eventItem.dates[0]) || { month: new Date().getMonth(), year: new Date().getFullYear() };
-  const month = firstDate.month;
-  const year = firstDate.year;
+  syncSlotRequestCalendarSelectors();
+  const month = slotRequestCalendarState.month;
+  const year = slotRequestCalendarState.year;
   const monthLabel = new Intl.DateTimeFormat("es-SV", { month: "long", year: "numeric" }).format(new Date(year, month, 1));
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const eventDates = new Set(eventItem.dates);
-  const cells = ["D", "L", "M", "M", "J", "V", "S"].map((day) => `<b>${day}</b>`);
+  const visibleDates = eventItem.dates.filter((date) => {
+    const parsed = parseEventDateValue(date);
+    return parsed?.month === month && parsed.year === year;
+  });
+  const cells = ["D", "L", "M", "M", "J", "V", "S"].map((day) => `<span class="calendar-weekday">${day}</span>`);
 
-  for (let index = 0; index < firstDay; index += 1) cells.push("<i></i>");
+  for (let index = 0; index < firstDay; index += 1) cells.push(`<span class="calendar-day muted"></span>`);
   for (let day = 1; day <= daysInMonth; day += 1) {
     const value = formatEventDateValue(day, month, year);
-    cells.push(`<button type="button" class="${eventDates.has(value) ? "active" : ""}">${day}</button>`);
+    const isAvailable = eventDates.has(value);
+    const isSelected = slotRequestModal?.dataset.selectedDate === value;
+    cells.push(`<button type="button" class="calendar-day${isAvailable ? " active" : ""}${isSelected ? " selected" : ""}" ${isAvailable ? `data-slot-request-date="${value}"` : ""}>${day}</button>`);
   }
 
   grid.innerHTML = cells.join("");
-  cards.innerHTML = eventItem.dates.map((date) => `<button type="button">${escapeHtml(date)}</button>`).join("");
+  cards.innerHTML = visibleDates.length
+    ? visibleDates.map((date) => `<button type="button" class="${slotRequestModal?.dataset.selectedDate === date ? "selected" : ""}" data-slot-request-date="${escapeHtml(date)}">${escapeHtml(date)}</button>`).join("")
+    : `<span>Sin fechas disponibles este mes</span>`;
   if (title) title.textContent = monthLabel;
   if (note) {
-    const plural = eventItem.dates.length === 1 ? "" : "s";
-    note.textContent = `${eventItem.dates.length} fecha${plural} disponible${plural} para solicitar cupos externos`;
+    const plural = visibleDates.length === 1 ? "" : "s";
+    note.textContent = visibleDates.length
+      ? `${visibleDates.length} fecha${plural} disponible${plural} este mes`
+      : `Sin fechas disponibles de ${eventItem.title} en este mes`;
   }
+}
+
+function updateSlotRequestCuposDisplay() {
+  const countInput = slotRequestModal?.querySelector("[data-slot-request-count]");
+  const display = slotRequestModal?.querySelector("[data-slot-request-count-display]");
+  if (display && countInput) display.textContent = countInput.value || "1";
+}
+
+function adjustSlotRequestCupos(delta) {
+  const countInput = slotRequestModal?.querySelector("[data-slot-request-count]");
+  if (!countInput) return;
+
+  const free = Number(slotRequestModal?.dataset.free) || Number(countInput.max) || 1;
+  const current = Number(countInput.value) || 1;
+  countInput.value = String(Math.max(1, Math.min(free, current + delta)));
+  updateSlotRequestCuposDisplay();
 }
 
 function selectSlotRequestEvent(eventItem) {
   if (!slotRequestModal || !eventItem) return;
 
   slotRequestModal.dataset.selectedEventId = eventItem.id;
+  delete slotRequestModal.dataset.selectedDate;
   slotRequestModal.dataset.event = eventItem.title;
   slotRequestModal.dataset.host = eventItem.host;
   slotRequestModal.dataset.free = eventItem.free;
   slotRequestModal.dataset.commission = eventItem.commission;
+
+  const firstDate = parseEventDateValue(eventItem.dates[0]);
+  if (firstDate) {
+    slotRequestCalendarState.month = firstDate.month;
+    slotRequestCalendarState.year = firstDate.year;
+  }
 
   slotRequestModal.querySelector("[data-slot-request-event]").textContent = eventItem.title;
   slotRequestModal.querySelector("[data-slot-request-host]").textContent = eventItem.host;
@@ -1748,9 +1936,11 @@ function selectSlotRequestEvent(eventItem) {
     countInput.max = eventItem.free;
     countInput.value = String(Math.min(4, Number(eventItem.free) || 1));
   }
+  updateSlotRequestCuposDisplay();
 
   renderSlotRequestCalendar(eventItem);
   renderSlotRequestCarousel(slotRequestModal.querySelector("[data-slot-request-search]")?.value || "");
+  showSlotRequestCarouselView();
 }
 
 function openSlotRequestModal(button) {
@@ -2452,6 +2642,40 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const slotRequestCuposButton = event.target.closest("[data-slot-request-cupos-step]");
+  if (slotRequestCuposButton) {
+    adjustSlotRequestCupos(Number(slotRequestCuposButton.dataset.slotRequestCuposStep) || 0);
+    return;
+  }
+
+  const slotRequestCalendarStep = event.target.closest("[data-slot-request-calendar-step]");
+  if (slotRequestCalendarStep) {
+    const nextMonth = slotRequestCalendarState.month + Number(slotRequestCalendarStep.dataset.slotRequestCalendarStep);
+    slotRequestCalendarState.year += nextMonth < 0 ? -1 : nextMonth > 11 ? 1 : 0;
+    slotRequestCalendarState.month = (nextMonth + 12) % 12;
+    renderSlotRequestCalendar(getSelectedSlotRequestEvent());
+    return;
+  }
+
+  const slotRequestDate = event.target.closest("[data-slot-request-date]");
+  if (slotRequestDate) {
+    const dateValue = slotRequestDate.dataset.slotRequestDate;
+    slotRequestModal.dataset.selectedDate = dateValue;
+    renderSlotRequestCalendar(getSelectedSlotRequestEvent());
+    renderSlotRequestEventDetail(dateValue);
+    return;
+  }
+
+  if (event.target.closest("[data-slot-request-back-events]")) {
+    showSlotRequestCarouselView();
+    return;
+  }
+
+  if (event.target.closest("[data-slot-request-flip-detail]")) {
+    toggleSlotRequestDetailFlip();
+    return;
+  }
+
   const slotEventCard = event.target.closest("[data-slot-request-event-id]");
   if (slotEventCard) {
     const eventItem = slotRequestPublicEvents.find((item) => item.id === slotEventCard.dataset.slotRequestEventId);
@@ -2557,6 +2781,14 @@ document.addEventListener("change", (event) => {
     paramCalendarState.year = Number(yearSelect?.value) || new Date().getFullYear();
     const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
     renderParamClusterCalendar(detail, true);
+  }
+
+  if (event.target.closest("[data-slot-request-calendar-month], [data-slot-request-calendar-year]")) {
+    const monthSelect = slotRequestModal?.querySelector("[data-slot-request-calendar-month]");
+    const yearSelect = slotRequestModal?.querySelector("[data-slot-request-calendar-year]");
+    slotRequestCalendarState.month = Number(monthSelect?.value) || 0;
+    slotRequestCalendarState.year = Number(yearSelect?.value) || new Date().getFullYear();
+    renderSlotRequestCalendar(getSelectedSlotRequestEvent());
   }
 
   const itineraryDestinationType = event.target.closest("[data-itinerary-destination-type]");

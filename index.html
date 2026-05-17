@@ -1944,10 +1944,15 @@
               <small><b data-slot-request-free>9</b> cupos disponibles para oferta externa</small>
             </div>
 
-            <label>
-              Cupos a solicitar
-              <input type="number" min="1" value="4" data-slot-request-count />
-            </label>
+            <div class="slot-request-cupos-field">
+              <span>Cupos a solicitar</span>
+              <div class="slot-request-cupos-control">
+                <button type="button" data-slot-request-cupos-step="1" aria-label="Agregar cupo">+</button>
+                <strong data-slot-request-count-display>4</strong>
+                <button type="button" data-slot-request-cupos-step="-1" aria-label="Quitar cupo">-</button>
+                <input type="hidden" min="1" value="4" data-slot-request-count />
+              </div>
+            </div>
             <label>
               Comision propuesta
               <input data-slot-request-commission value="70%" />
@@ -1966,10 +1971,10 @@
             <span>Calendario del cluster</span>
             <strong>mayo de 2026</strong>
             <div class="slot-request-calendar-controls">
-              <button type="button">‹</button>
-              <button type="button">May</button>
-              <button type="button">2026</button>
-              <button type="button">›</button>
+              <button type="button" data-slot-request-calendar-step="-1" aria-label="Mes anterior">‹</button>
+              <select data-slot-request-calendar-month aria-label="Mes de disponibilidad"></select>
+              <select data-slot-request-calendar-year aria-label="Ano de disponibilidad"></select>
+              <button type="button" data-slot-request-calendar-step="1" aria-label="Mes siguiente">›</button>
             </div>
             <div class="slot-request-days">
               <b>D</b><b>L</b><b>M</b><b>M</b><b>J</b><b>V</b><b>S</b>
@@ -1988,11 +1993,14 @@
           </aside>
 
           <aside class="slot-request-carousel-card">
-            <div class="slot-request-carousel-head">
-              <span>Eventos publicados</span>
-              <strong>Todos los clusters activos</strong>
+            <div class="slot-request-carousel-view" data-slot-request-carousel-view>
+              <div class="slot-request-carousel-head">
+                <span>Eventos publicados</span>
+                <strong>Todos los clusters activos</strong>
+              </div>
+              <div class="slot-request-carousel" data-slot-request-carousel aria-label="Eventos publicos disponibles"></div>
             </div>
-            <div class="slot-request-carousel" data-slot-request-carousel aria-label="Eventos publicos disponibles"></div>
+            <div class="slot-request-detail-view" data-slot-request-detail hidden></div>
           </aside>
         </form>
       </section>

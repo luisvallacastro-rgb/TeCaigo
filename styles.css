@@ -8973,6 +8973,43 @@ body[data-active-view="home"] .post-actions button.is-active {
   font-weight: 850;
 }
 
+#slotRequestModal .slot-request-cupos-field {
+  display: grid;
+  gap: 9px;
+  color: rgba(236, 245, 246, 0.78);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+#slotRequestModal .slot-request-cupos-control {
+  display: grid;
+  grid-template-columns: 42px minmax(76px, 1fr) 42px;
+  align-items: center;
+  gap: 9px;
+  max-width: 190px;
+}
+
+#slotRequestModal .slot-request-cupos-control button,
+#slotRequestModal .slot-request-cupos-control strong {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 950;
+}
+
+#slotRequestModal .slot-request-cupos-control button {
+  color: var(--ok-teal, #0a737a);
+  background: rgba(247, 248, 251, 0.94);
+}
+
+#slotRequestModal .slot-request-cupos-control strong {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
+}
+
 #slotRequestModal .payment-form input {
   min-height: 48px;
   border: 0;
@@ -9024,7 +9061,7 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 #slotRequestModal .slot-request-calendar {
   display: grid;
-  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto auto auto 1fr;
   gap: 12px;
   min-height: calc(100vh - 44px);
   padding: 18px;
@@ -9040,10 +9077,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 #slotRequestModal .slot-request-calendar-controls {
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr) 82px 34px;
-  gap: 7px;
+  gap: 8px;
 }
 
 #slotRequestModal .slot-request-calendar-controls button,
+#slotRequestModal .slot-request-calendar-controls select,
 #slotRequestModal .slot-request-days button {
   border: 0;
   color: rgba(236, 245, 246, 0.82);
@@ -9053,10 +9091,18 @@ body[data-active-view="home"] .post-actions button.is-active {
   font-weight: 900;
 }
 
-#slotRequestModal .slot-request-calendar-controls button {
+#slotRequestModal .slot-request-calendar-controls button,
+#slotRequestModal .slot-request-calendar-controls select {
   min-height: 34px;
   border-radius: 11px;
   font-size: 12px;
+}
+
+#slotRequestModal .slot-request-calendar-controls select {
+  width: 100%;
+  padding: 0 12px;
+  appearance: none;
+  text-transform: uppercase;
 }
 
 #slotRequestModal .slot-request-days {
@@ -9065,15 +9111,16 @@ body[data-active-view="home"] .post-actions button.is-active {
   gap: 7px;
 }
 
-#slotRequestModal .slot-request-days b {
+#slotRequestModal .slot-request-days .calendar-weekday {
   display: grid;
   place-items: center;
   min-height: 22px;
   color: rgba(236, 245, 246, 0.38);
   font-size: 10px;
+  font-weight: 900;
 }
 
-#slotRequestModal .slot-request-days i {
+#slotRequestModal .slot-request-days .calendar-day.muted {
   min-height: 34px;
 }
 
@@ -9089,19 +9136,38 @@ body[data-active-view="home"] .post-actions button.is-active {
   background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
 }
 
+#slotRequestModal .slot-request-days button.selected,
+#slotRequestModal .slot-request-date-cards button.selected {
+  box-shadow:
+    inset 0 0 0 2px rgba(247, 248, 251, 0.9),
+    0 0 0 2px rgba(48, 115, 255, 0.85);
+}
+
 #slotRequestModal .slot-request-date-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 8px;
+  max-height: 162px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 115, 122, 0.55) transparent;
 }
 
 #slotRequestModal .slot-request-date-cards button {
-  min-height: 34px;
+  min-height: 36px;
   border: 0;
-  border-radius: 11px;
-  padding: 0 12px;
+  border-radius: 12px;
+  padding: 0 10px;
   font-size: 12px;
   font-weight: 900;
+}
+
+#slotRequestModal .slot-request-date-cards span {
+  grid-column: 1 / -1;
+  color: rgba(236, 245, 246, 0.46);
+  font-size: 12px;
+  font-weight: 850;
 }
 
 #slotRequestModal .slot-request-calendar small {
@@ -9117,6 +9183,22 @@ body[data-active-view="home"] .post-actions button.is-active {
   gap: 14px;
   min-height: calc(100vh - 44px);
   padding: 18px;
+}
+
+#slotRequestModal .slot-request-carousel-card.is-detail-open {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+#slotRequestModal .slot-request-carousel-view {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  min-height: 0;
+}
+
+#slotRequestModal .slot-request-carousel-view[hidden],
+#slotRequestModal .slot-request-detail-view[hidden] {
+  display: none;
 }
 
 #slotRequestModal .slot-request-carousel-head {
@@ -9223,6 +9305,175 @@ body[data-active-view="home"] .post-actions button.is-active {
   font-size: 13px;
   font-weight: 850;
   text-align: center;
+}
+
+#slotRequestModal .slot-request-detail-view {
+  display: block;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  perspective: 1800px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 115, 122, 0.55) transparent;
+}
+
+#slotRequestModal .slot-request-detail-paper {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 360ms ease;
+}
+
+#slotRequestModal .slot-request-carousel-card.itinerary-flipped .slot-request-detail-paper {
+  transform: rotateY(180deg);
+}
+
+#slotRequestModal .slot-request-detail-face {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: calc(100vh - 82px);
+  backface-visibility: hidden;
+}
+
+#slotRequestModal .slot-request-detail-face.back {
+  transform: rotateY(180deg);
+}
+
+#slotRequestModal .slot-request-detail-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#slotRequestModal .slot-request-detail-head div {
+  display: grid;
+  gap: 4px;
+}
+
+#slotRequestModal .slot-request-detail-head span,
+#slotRequestModal .slot-request-itinerary-preview span,
+#slotRequestModal .slot-request-readonly-note {
+  color: rgba(143, 243, 244, 0.84);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#slotRequestModal .slot-request-detail-head strong {
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1;
+}
+
+#slotRequestModal .slot-request-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#slotRequestModal .slot-request-detail-head button,
+#slotRequestModal .slot-request-detail-actions button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--ok-teal, #0a737a), #0b6168);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+#slotRequestModal .slot-request-detail-actions [data-slot-request-flip-detail] {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background:
+    linear-gradient(135deg, rgba(10, 115, 122, 0.68), rgba(11, 97, 104, 0.42)),
+    rgba(255, 255, 255, 0.05);
+}
+
+#slotRequestModal .slot-request-detail-actions span {
+  color: rgba(143, 243, 244, 0.94);
+  font-size: 18px;
+  line-height: 1;
+}
+
+#slotRequestModal .slot-request-detail-actions b {
+  font-size: 12px;
+}
+
+#slotRequestModal .slot-request-detail-photo {
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+    rgba(42, 48, 56, 0.72);
+}
+
+#slotRequestModal .slot-request-detail-photo img {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+#slotRequestModal .slot-request-detail-face > p {
+  margin: 0;
+  color: rgba(236, 245, 246, 0.68);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.32;
+}
+
+#slotRequestModal .slot-request-param-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+#slotRequestModal .slot-request-param-grid div,
+#slotRequestModal .slot-request-itinerary-preview {
+  display: grid;
+  gap: 5px;
+  border-radius: 14px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.024)),
+    rgba(36, 43, 52, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+#slotRequestModal .slot-request-param-grid span {
+  color: rgba(236, 245, 246, 0.42);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+#slotRequestModal .slot-request-param-grid strong {
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.15;
+}
+
+#slotRequestModal .slot-request-itinerary-preview p {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 8px;
+  align-items: start;
+  margin: 0;
+  color: rgba(236, 245, 246, 0.76);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+#slotRequestModal .slot-request-itinerary-preview p b {
+  color: rgba(143, 243, 244, 0.86);
+  font-size: 11px;
 }
 
 @media (max-width: 1080px) {
