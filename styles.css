@@ -8128,6 +8128,7 @@ body[data-active-view="home"] .post-actions button.is-active {
   gap: 14px;
   width: min(720px, calc(100vw - 560px));
   min-width: 600px;
+  height: calc(100vh - 40px);
   padding: 0;
   border: 0;
   background: transparent;
@@ -8199,9 +8200,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 #eventFormPanel.new-event-param-mode .event-param-calendar {
   order: 1;
   display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
   gap: 12px;
+  height: 100%;
+  min-height: 0;
   padding: 16px;
-  max-height: calc(100vh - 40px);
   overflow: hidden;
 }
 
@@ -8283,9 +8286,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 #eventFormPanel.new-event-param-mode .event-param-date-cards {
   display: flex;
   flex-wrap: wrap;
+  align-content: start;
   gap: 6px;
   min-height: 30px;
-  max-height: 162px;
+  max-height: none;
+  overflow-x: hidden;
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;

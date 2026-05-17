@@ -1209,7 +1209,6 @@ function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
     image.alt = `Foto del evento ${detail.title}`;
   }
   setText("[data-event-photo-file-name]", detail.image ? detail.photoTitle : "Ej. mirador, playa o punto principal del viaje");
-  syncParamImagePreview(detail, isParamMode);
 
   setValue("[data-event-input-name]", detail.title);
   setValue("[data-event-input-route]", detail.route);
@@ -1227,6 +1226,7 @@ function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
   setValue("[data-event-input-external-commission]", detail.commissions.external);
   setValue("[data-event-input-itinerary]", detail.itinerary);
   if (eventId === "nuevo-evento" && !options.inherited) prepareNewEventCaptureFields();
+  syncParamImagePreview(detail, isParamMode);
 
   const dateList = document.querySelector(".event-date-list");
   const ringList = document.querySelector(".date-ring-list");
