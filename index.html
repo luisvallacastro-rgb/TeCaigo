@@ -1933,6 +1933,11 @@
             <h2 id="slotRequestTitle">Solicitar cupos</h2>
             <p>Reserva cupos disponibles de otro anfitrion para venderlos desde tu operador.</p>
 
+            <label>
+              Buscar eventos publicos
+              <input data-slot-request-search placeholder="Ej. flores, Ruta de las Flores, TeCaigo Tours, 25/05/2026" />
+            </label>
+
             <div class="request-modal-summary">
               <span data-slot-request-host>TeCaigo Tours</span>
               <strong data-slot-request-event>Ruta Panoramica</strong>
@@ -1982,10 +1987,12 @@
             <small>Fecha disponible para solicitar cupos externos</small>
           </aside>
 
-          <aside class="slot-request-photo-card">
-            <div>Foto</div>
-            <span>Evento solicitado</span>
-            <strong data-slot-request-preview-title>Ruta Panoramica</strong>
+          <aside class="slot-request-carousel-card">
+            <div class="slot-request-carousel-head">
+              <span>Eventos publicados</span>
+              <strong>Todos los clusters activos</strong>
+            </div>
+            <div class="slot-request-carousel" data-slot-request-carousel aria-label="Eventos publicos disponibles"></div>
           </aside>
         </form>
       </section>

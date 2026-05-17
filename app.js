@@ -22,6 +22,81 @@ const paramCalendarState = { month: new Date().getMonth(), year: new Date().getF
 const publicItineraryPlaces = ["Mirador publico", "Parque central", "Playa publica", "Sendero de montana", "Centro historico"];
 const privateItineraryPlaces = ["Restaurante Bruma", "Finca Cafe Aventura", "Hotel Jardin de Flores", "Hostal Lago Azul", "Comedor Ruta Viva"];
 
+const slotRequestPublicEvents = [
+  {
+    id: "ruta-flores-publica",
+    title: "Ruta las flores",
+    host: "TeCaigo Tours",
+    cluster: "Ruta de las Flores",
+    route: "Ruta nacional",
+    type: "Publico",
+    free: 9,
+    commission: "70%",
+    dates: ["25/05/2026", "01/06/2026", "08/06/2026"],
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82",
+  },
+  {
+    id: "cafe-mirador-publico",
+    title: "Tour cafe y mirador",
+    host: "Cafe Aventura",
+    cluster: "Ruta de las Flores",
+    route: "Ruta nacional",
+    type: "Publico",
+    free: 12,
+    commission: "30%",
+    dates: ["18/05/2026", "25/05/2026"],
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=82",
+  },
+  {
+    id: "volcan-senderos",
+    title: "Ruta al volcan",
+    host: "Volcan Tours",
+    cluster: "Cluster Volcan",
+    route: "Ruta nacional",
+    type: "Publico",
+    free: 6,
+    commission: "45%",
+    dates: ["20/05/2026", "27/05/2026"],
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=82",
+  },
+  {
+    id: "lago-miradores",
+    title: "Lago y miradores",
+    host: "Rutas SV",
+    cluster: "Lago Ilopango",
+    route: "Ruta nacional",
+    type: "Publico",
+    free: 22,
+    commission: "70%",
+    dates: ["22/05/2026", "29/05/2026"],
+    image: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=1200&q=82",
+  },
+  {
+    id: "surf-city-express",
+    title: "Surf City express",
+    host: "Surf Pacific",
+    cluster: "Surf City",
+    route: "Ruta internacional",
+    type: "Publico",
+    free: 14,
+    commission: "60%",
+    dates: ["24/05/2026", "31/05/2026"],
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=82",
+  },
+  {
+    id: "sendero-cafetales",
+    title: "Sendero entre cafetales",
+    host: "Ruta Viva",
+    cluster: "Ruta Panoramica",
+    route: "Ruta nacional",
+    type: "Publico",
+    free: 7,
+    commission: "55%",
+    dates: ["26/05/2026", "02/06/2026"],
+    image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1200&q=82",
+  },
+];
+
 const clusterCupComposition = {
   "ruta-flores": [
     { name: "Luis Valladares", count: 4, isMe: true },
@@ -1585,30 +1660,109 @@ function adjustSelectedDateCupos(delta) {
   syncDateDashboard(refreshedOption || activeOption);
 }
 
-function openSlotRequestModal(button) {
-  if (!slotRequestModal) return;
+function findSlotRequestEventByTitle(title) {
+  const normalized = String(title || "").toLowerCase();
+  return slotRequestPublicEvents.find((eventItem) => eventItem.title.toLowerCase() === normalized)
+    || slotRequestPublicEvents.find((eventItem) => eventItem.title.toLowerCase().includes(normalized))
+    || slotRequestPublicEvents[0];
+}
 
-  slotRequestModal.dataset.event = button.dataset.requestEvent || "Ruta Panoramica";
-  slotRequestModal.dataset.host = button.dataset.requestHost || "TeCaigo Tours";
-  slotRequestModal.dataset.free = button.dataset.requestFree || "9";
-  slotRequestModal.dataset.commission = button.dataset.requestCommission || "70%";
+function slotRequestSearchMatches(eventItem, query) {
+  const normalized = String(query || "").trim().toLowerCase();
+  if (!normalized) return true;
+  return [eventItem.title, eventItem.host, eventItem.cluster, eventItem.route, ...eventItem.dates]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalized);
+}
 
-  slotRequestModal.querySelector("[data-slot-request-event]").textContent = slotRequestModal.dataset.event;
-  slotRequestModal.querySelector("[data-slot-request-host]").textContent = slotRequestModal.dataset.host;
-  slotRequestModal.querySelector("[data-slot-request-free]").textContent = slotRequestModal.dataset.free;
-  const requestPreviewTitle = slotRequestModal.querySelector("[data-slot-request-preview-title]");
-  if (requestPreviewTitle) requestPreviewTitle.textContent = slotRequestModal.dataset.event;
-  slotRequestModal.querySelector("[data-slot-request-commission]").value = slotRequestModal.dataset.commission;
+function renderSlotRequestCarousel(query = "") {
+  const carousel = slotRequestModal?.querySelector("[data-slot-request-carousel]");
+  if (!carousel) return;
+
+  const activeId = slotRequestModal?.dataset.selectedEventId || slotRequestPublicEvents[0]?.id;
+  const events = slotRequestPublicEvents.filter((eventItem) => slotRequestSearchMatches(eventItem, query));
+  carousel.innerHTML = events.length
+    ? events
+        .map(
+          (eventItem) => `
+            <button class="slot-request-event-card${eventItem.id === activeId ? " active" : ""}" type="button" data-slot-request-event-id="${escapeHtml(eventItem.id)}">
+              <img src="${escapeHtml(eventItem.image)}" alt="Foto del evento ${escapeHtml(eventItem.title)}" />
+              <span>${escapeHtml(eventItem.type)}</span>
+              <strong>${escapeHtml(eventItem.title)}</strong>
+              <small>${escapeHtml(eventItem.cluster)} · ${escapeHtml(eventItem.host)}</small>
+            </button>
+          `
+        )
+        .join("")
+    : `<div class="slot-request-empty">Sin eventos publicados con esa busqueda.</div>`;
+}
+
+function renderSlotRequestCalendar(eventItem) {
+  const grid = slotRequestModal?.querySelector(".slot-request-days");
+  const cards = slotRequestModal?.querySelector(".slot-request-date-cards");
+  const note = slotRequestModal?.querySelector(".slot-request-calendar small");
+  const title = slotRequestModal?.querySelector(".slot-request-calendar > strong");
+  if (!grid || !cards || !eventItem) return;
+
+  const firstDate = parseEventDateValue(eventItem.dates[0]) || { month: new Date().getMonth(), year: new Date().getFullYear() };
+  const month = firstDate.month;
+  const year = firstDate.year;
+  const monthLabel = new Intl.DateTimeFormat("es-SV", { month: "long", year: "numeric" }).format(new Date(year, month, 1));
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const eventDates = new Set(eventItem.dates);
+  const cells = ["D", "L", "M", "M", "J", "V", "S"].map((day) => `<b>${day}</b>`);
+
+  for (let index = 0; index < firstDay; index += 1) cells.push("<i></i>");
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    const value = formatEventDateValue(day, month, year);
+    cells.push(`<button type="button" class="${eventDates.has(value) ? "active" : ""}">${day}</button>`);
+  }
+
+  grid.innerHTML = cells.join("");
+  cards.innerHTML = eventItem.dates.map((date) => `<button type="button">${escapeHtml(date)}</button>`).join("");
+  if (title) title.textContent = monthLabel;
+  if (note) {
+    const plural = eventItem.dates.length === 1 ? "" : "s";
+    note.textContent = `${eventItem.dates.length} fecha${plural} disponible${plural} para solicitar cupos externos`;
+  }
+}
+
+function selectSlotRequestEvent(eventItem) {
+  if (!slotRequestModal || !eventItem) return;
+
+  slotRequestModal.dataset.selectedEventId = eventItem.id;
+  slotRequestModal.dataset.event = eventItem.title;
+  slotRequestModal.dataset.host = eventItem.host;
+  slotRequestModal.dataset.free = eventItem.free;
+  slotRequestModal.dataset.commission = eventItem.commission;
+
+  slotRequestModal.querySelector("[data-slot-request-event]").textContent = eventItem.title;
+  slotRequestModal.querySelector("[data-slot-request-host]").textContent = eventItem.host;
+  slotRequestModal.querySelector("[data-slot-request-free]").textContent = eventItem.free;
+  slotRequestModal.querySelector("[data-slot-request-commission]").value = eventItem.commission;
 
   const countInput = slotRequestModal.querySelector("[data-slot-request-count]");
   if (countInput) {
-    countInput.max = slotRequestModal.dataset.free;
-    countInput.value = String(Math.min(4, Number(slotRequestModal.dataset.free) || 1));
+    countInput.max = eventItem.free;
+    countInput.value = String(Math.min(4, Number(eventItem.free) || 1));
   }
+
+  renderSlotRequestCalendar(eventItem);
+  renderSlotRequestCarousel(slotRequestModal.querySelector("[data-slot-request-search]")?.value || "");
+}
+
+function openSlotRequestModal(button) {
+  if (!slotRequestModal) return;
+
+  const searchInput = slotRequestModal.querySelector("[data-slot-request-search]");
+  if (searchInput) searchInput.value = "";
+  selectSlotRequestEvent(findSlotRequestEventByTitle(button.dataset.requestEvent || "Ruta Panoramica"));
 
   slotRequestModal.classList.add("open");
   slotRequestModal.setAttribute("aria-hidden", "false");
-  countInput?.focus();
+  searchInput?.focus();
 }
 
 function closeSlotRequestModal() {
@@ -2298,6 +2452,13 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const slotEventCard = event.target.closest("[data-slot-request-event-id]");
+  if (slotEventCard) {
+    const eventItem = slotRequestPublicEvents.find((item) => item.id === slotEventCard.dataset.slotRequestEventId);
+    if (eventItem) selectSlotRequestEvent(eventItem);
+    return;
+  }
+
   if (event.target.closest("[data-close-slot-request]")) {
     closeSlotRequestModal();
     return;
@@ -2408,6 +2569,13 @@ document.addEventListener("change", (event) => {
     const proofName = document.querySelector("[data-payment-proof-name]");
     const fileName = paymentProof.files?.[0]?.name;
     if (proofName) proofName.textContent = fileName || "Imagen o PDF del abono bancario";
+  }
+});
+
+document.addEventListener("input", (event) => {
+  const slotRequestSearch = event.target.closest("[data-slot-request-search]");
+  if (slotRequestSearch) {
+    renderSlotRequestCarousel(slotRequestSearch.value);
   }
 });
 
