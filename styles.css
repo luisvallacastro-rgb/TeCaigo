@@ -8120,10 +8120,10 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 #eventFormPanel.new-event-param-mode .event-param-image-preview:not([hidden]) {
   position: fixed;
-  top: 36px;
+  top: 20px;
   left: 530px;
   display: grid;
-  grid-template-columns: minmax(280px, 360px) minmax(260px, 320px);
+  grid-template-columns: minmax(300px, 330px) minmax(280px, 360px);
   align-items: start;
   gap: 14px;
   width: min(720px, calc(100vw - 560px));
@@ -8149,6 +8149,7 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-param-photo-card {
+  order: 2;
   display: grid;
   gap: 10px;
   padding: 12px;
@@ -8160,6 +8161,17 @@ body[data-active-view="home"] .post-actions button.is-active {
   border-radius: 18px;
   object-fit: cover;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+}
+
+#eventFormPanel.new-event-param-mode .event-param-image-preview.is-empty img {
+  display: block;
+  background:
+    radial-gradient(circle at 24% 20%, rgba(143, 243, 244, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.028));
+}
+
+#eventFormPanel.new-event-param-mode .event-param-image-preview.is-empty img:not([src]) {
+  opacity: 1;
 }
 
 #eventFormPanel.new-event-param-mode .event-param-photo-card div {
@@ -8185,14 +8197,42 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 #eventFormPanel.new-event-param-mode .event-param-calendar {
+  order: 1;
   display: grid;
-  gap: 14px;
+  gap: 12px;
   padding: 16px;
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
 }
 
-#eventFormPanel.new-event-param-mode .event-param-calendar > div:first-child {
+#eventFormPanel.new-event-param-mode .event-param-calendar-head {
+  display: grid;
+  gap: 10px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar-head > div:first-child {
   display: grid;
   gap: 4px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar-controls {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 72px 28px;
+  gap: 6px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-calendar-controls button,
+#eventFormPanel.new-event-param-mode .event-param-calendar-controls select {
+  min-height: 30px;
+  border: 0;
+  border-radius: 10px;
+  color: rgba(236, 245, 246, 0.88);
+  font-size: 11px;
+  font-weight: 850;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035)),
+    rgba(255, 255, 255, 0.048);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 #eventFormPanel.new-event-param-mode .event-param-calendar-grid {
@@ -8213,6 +8253,7 @@ body[data-active-view="home"] .post-actions button.is-active {
   display: grid;
   place-items: center;
   min-height: 32px;
+  border: 0;
   border-radius: 11px;
   color: rgba(236, 245, 246, 0.72);
   font-size: 12px;
@@ -8220,7 +8261,8 @@ body[data-active-view="home"] .post-actions button.is-active {
   background: rgba(255, 255, 255, 0.035);
 }
 
-#eventFormPanel.new-event-param-mode .calendar-day.programmed {
+#eventFormPanel.new-event-param-mode .calendar-day.programmed,
+#eventFormPanel.new-event-param-mode .calendar-day.selected {
   color: #061316;
   background:
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.85), transparent 34%),
@@ -8230,8 +8272,54 @@ body[data-active-view="home"] .post-actions button.is-active {
     0 14px 34px rgba(34, 195, 202, 0.22);
 }
 
+#eventFormPanel.new-event-param-mode .calendar-day.selected {
+  transform: translateY(-1px);
+}
+
 #eventFormPanel.new-event-param-mode .calendar-day.muted {
   visibility: hidden;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-date-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 30px;
+  max-height: 162px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 243, 244, 0.36) transparent;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-date-cards::-webkit-scrollbar {
+  width: 6px;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-date-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#eventFormPanel.new-event-param-mode .event-param-date-cards::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(143, 243, 244, 0.34);
+}
+
+#eventFormPanel.new-event-param-mode .event-param-date-cards button,
+#eventFormPanel.new-event-param-mode .event-param-date-cards span {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: rgba(236, 245, 246, 0.86);
+  font-size: 11px;
+  font-weight: 850;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#eventFormPanel.new-event-param-mode .event-param-date-cards button {
+  color: #071719;
+  background: linear-gradient(135deg, rgba(143, 243, 244, 0.92), rgba(42, 164, 171, 0.68));
 }
 
 #eventFormPanel.new-event-param-mode .event-param-calendar small {

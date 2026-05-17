@@ -15,8 +15,10 @@ const tasteCarousel = document.querySelector(".taste-carousel");
 const desktopSidebarDeadZones = ".main, .view, .view.active, .home-layout, .feed-layout, .social-feed";
 const API_BASE_URL = window.TECAIGO_CONFIG?.API_BASE_URL || "http://localhost:3001/api";
 const LOCAL_FEED_POSTS_KEY = "tecaigo-local-feed-posts";
+const EMPTY_EVENT_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 let minimizedDrag = null;
 let composerImages = [];
+const paramCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
 
 const clusterCupComposition = {
   "ruta-flores": [
@@ -935,6 +937,7 @@ function prepareNewEventCaptureFields() {
   setValue("[data-event-input-transport-provider]", "");
   setValue("[data-event-input-visibility]", "Privado del cluster");
   setText("[data-event-photo-file-name]", "Ej. mirador, playa o punto principal del viaje");
+  renderSelectedDateCards([]);
 }
 
 function clearNewEventExampleValue(field) {
@@ -949,6 +952,57 @@ function parseEventDateValue(value) {
   const [day, month, year] = String(value || "").split("/").map(Number);
   if (!day || !month || !year) return null;
   return { day, month: month - 1, year };
+}
+
+function formatEventDateValue(day, month = paramCalendarState.month, year = paramCalendarState.year) {
+  return `${String(day).padStart(2, "0")}/${String(month + 1).padStart(2, "0")}/${year}`;
+}
+
+function getSelectedEventDates() {
+  return (document.querySelector("[data-event-input-dates]")?.value || "")
+    .split(",")
+    .map((date) => date.trim())
+    .filter(Boolean);
+}
+
+function setSelectedEventDates(dates) {
+  const uniqueDates = [...new Set(dates)].sort((a, b) => {
+    const first = parseEventDateValue(a);
+    const second = parseEventDateValue(b);
+    if (!first || !second) return a.localeCompare(b);
+    return new Date(first.year, first.month, first.day) - new Date(second.year, second.month, second.day);
+  });
+  setValue("[data-event-input-dates]", uniqueDates.join(", "));
+  renderSelectedDateCards(uniqueDates);
+}
+
+function renderSelectedDateCards(dates = getSelectedEventDates()) {
+  const container = document.querySelector("[data-event-param-date-cards]");
+  if (!container) return;
+
+  container.innerHTML = dates.length
+    ? dates.map((date) => `<button type="button" data-param-date-card="${date}">${date}</button>`).join("")
+    : `<span>Sin fechas seleccionadas</span>`;
+}
+
+function syncCalendarSelectors() {
+  const monthSelect = document.querySelector("[data-param-calendar-month]");
+  const yearSelect = document.querySelector("[data-param-calendar-year]");
+  const monthNames = [...Array(12)].map((_, index) => new Intl.DateTimeFormat("es-SV", { month: "short" }).format(new Date(2026, index, 1)));
+
+  if (monthSelect && !monthSelect.options.length) {
+    monthSelect.innerHTML = monthNames.map((month, index) => `<option value="${index}">${month}</option>`).join("");
+  }
+
+  if (yearSelect && !yearSelect.options.length) {
+    const currentYear = new Date().getFullYear();
+    yearSelect.innerHTML = [currentYear - 1, currentYear, currentYear + 1, currentYear + 2]
+      .map((year) => `<option value="${year}">${year}</option>`)
+      .join("");
+  }
+
+  if (monthSelect) monthSelect.value = String(paramCalendarState.month);
+  if (yearSelect) yearSelect.value = String(paramCalendarState.year);
 }
 
 function getClusterProgrammedDays(detail, month, year) {
@@ -974,13 +1028,14 @@ function renderParamClusterCalendar(detail, shouldShow) {
   const grid = document.querySelector("[data-event-param-calendar-grid]");
   if (!grid || !shouldShow) return;
 
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const monthLabel = new Intl.DateTimeFormat("es-SV", { month: "long", year: "numeric" }).format(now);
+  syncCalendarSelectors();
+  const year = paramCalendarState.year;
+  const month = paramCalendarState.month;
+  const monthLabel = new Intl.DateTimeFormat("es-SV", { month: "long", year: "numeric" }).format(new Date(year, month, 1));
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const programmedDays = getClusterProgrammedDays(detail, month, year);
+  const selectedDates = new Set(getSelectedEventDates());
   const weekdays = ["D", "L", "M", "M", "J", "V", "S"];
   const cells = weekdays.map((day) => `<span class="calendar-weekday">${day}</span>`);
 
@@ -989,7 +1044,13 @@ function renderParamClusterCalendar(detail, shouldShow) {
   }
 
   for (let day = 1; day <= daysInMonth; day += 1) {
-    cells.push(`<span class="calendar-day${programmedDays.has(day) ? " programmed" : ""}">${day}</span>`);
+    const date = formatEventDateValue(day, month, year);
+    const classes = [
+      "calendar-day",
+      programmedDays.has(day) ? "programmed" : "",
+      selectedDates.has(date) ? "selected" : "",
+    ].filter(Boolean).join(" ");
+    cells.push(`<button class="${classes}" type="button" data-param-calendar-day="${day}">${day}</button>`);
   }
 
   setText("[data-event-param-calendar-month]", monthLabel);
@@ -998,6 +1059,7 @@ function renderParamClusterCalendar(detail, shouldShow) {
     programmedDays.size ? `${programmedDays.size} dia programado por ${detail.cluster || "este cluster"}` : "Sin dias programados este mes"
   );
   grid.innerHTML = cells.join("");
+  renderSelectedDateCards([...selectedDates]);
 }
 
 function syncParamImagePreview(detail, shouldShow) {
@@ -1006,14 +1068,16 @@ function syncParamImagePreview(detail, shouldShow) {
   if (!preview) return;
 
   const hasImage = Boolean(detail?.image);
-  preview.hidden = !(shouldShow && hasImage);
-  if (!shouldShow || !hasImage) return;
+  preview.hidden = !shouldShow;
+  preview.classList.toggle("is-empty", !hasImage);
+  if (!shouldShow) return;
 
   if (image) {
-    image.src = detail.image;
+    if (hasImage) image.src = detail.image;
+    else image.src = EMPTY_EVENT_IMAGE;
     image.alt = `Foto del evento ${detail.title || "seleccionado"}`;
   }
-  setText("[data-event-param-preview-title]", detail.photoTitle || detail.title || "Imagen vinculada al evento");
+  setText("[data-event-param-preview-title]", hasImage ? detail.photoTitle || detail.title : "Foto pendiente del evento");
   renderParamClusterCalendar(detail, true);
 }
 
@@ -1035,7 +1099,7 @@ function setEventPhotoFromFile(file) {
     if (photo) photo.classList.remove("is-empty");
     setText("[data-event-form-photo-title]", file.name);
     setText("[data-event-photo-file-name]", file.name);
-    syncParamImagePreview(detail, eventId !== "nuevo-evento");
+    syncParamImagePreview(detail, eventFormPanel?.classList.contains("new-event-param-mode"));
   };
 
   reader.readAsDataURL(file);
@@ -1145,7 +1209,7 @@ function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
     image.alt = `Foto del evento ${detail.title}`;
   }
   setText("[data-event-photo-file-name]", detail.image ? detail.photoTitle : "Ej. mirador, playa o punto principal del viaje");
-  syncParamImagePreview(detail, isParamMode && (options.inherited || eventId !== "nuevo-evento"));
+  syncParamImagePreview(detail, isParamMode);
 
   setValue("[data-event-input-name]", detail.title);
   setValue("[data-event-input-route]", detail.route);
@@ -1881,6 +1945,35 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const paramCalendarDay = event.target.closest("[data-param-calendar-day]");
+  if (paramCalendarDay) {
+    const date = formatEventDateValue(Number(paramCalendarDay.dataset.paramCalendarDay));
+    const selectedDates = getSelectedEventDates();
+    const nextDates = selectedDates.includes(date) ? selectedDates.filter((item) => item !== date) : [...selectedDates, date];
+    setSelectedEventDates(nextDates);
+    const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
+    renderParamClusterCalendar(detail, true);
+    return;
+  }
+
+  const dateCard = event.target.closest("[data-param-date-card]");
+  if (dateCard) {
+    setSelectedEventDates(getSelectedEventDates().filter((date) => date !== dateCard.dataset.paramDateCard));
+    const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
+    renderParamClusterCalendar(detail, true);
+    return;
+  }
+
+  const calendarStep = event.target.closest("[data-param-calendar-step]");
+  if (calendarStep) {
+    const nextMonth = paramCalendarState.month + Number(calendarStep.dataset.paramCalendarStep);
+    paramCalendarState.year += nextMonth < 0 ? -1 : nextMonth > 11 ? 1 : 0;
+    paramCalendarState.month = (nextMonth + 12) % 12;
+    const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
+    renderParamClusterCalendar(detail, true);
+    return;
+  }
+
   const reprogramEventButton = event.target.closest("[data-reprogram-event]");
   if (reprogramEventButton) {
     const eventId =
@@ -2089,6 +2182,15 @@ document.addEventListener("change", (event) => {
     detail.mode = isPublic ? "Publico con comision" : "Privado del cluster";
     updatePublicReplicaState(isPublic);
     setText("[data-event-summary-mode]", detail.mode);
+  }
+
+  if (event.target.closest("[data-param-calendar-month], [data-param-calendar-year]")) {
+    const monthSelect = document.querySelector("[data-param-calendar-month]");
+    const yearSelect = document.querySelector("[data-param-calendar-year]");
+    paramCalendarState.month = Number(monthSelect?.value) || 0;
+    paramCalendarState.year = Number(yearSelect?.value) || new Date().getFullYear();
+    const detail = eventOperationDetails[eventFormPanel?.dataset.eventId] || getBlankEventDetail();
+    renderParamClusterCalendar(detail, true);
   }
 
   const paymentProof = event.target.closest("[data-payment-proof]");

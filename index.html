@@ -974,11 +974,20 @@
               </div>
             </div>
             <div class="event-param-calendar" data-event-param-calendar>
-              <div>
-                <span>Calendario del cluster</span>
-                <strong data-event-param-calendar-month>Mayo 2026</strong>
+              <div class="event-param-calendar-head">
+                <div>
+                  <span>Calendario del cluster</span>
+                  <strong data-event-param-calendar-month>Mayo 2026</strong>
+                </div>
+                <div class="event-param-calendar-controls" aria-label="Seleccionar mes del evento">
+                  <button type="button" data-param-calendar-step="-1" aria-label="Mes anterior">‹</button>
+                  <select data-param-calendar-month aria-label="Mes del evento"></select>
+                  <select data-param-calendar-year aria-label="Ano del evento"></select>
+                  <button type="button" data-param-calendar-step="1" aria-label="Mes siguiente">›</button>
+                </div>
               </div>
               <div class="event-param-calendar-grid" data-event-param-calendar-grid></div>
+              <div class="event-param-date-cards" data-event-param-date-cards></div>
               <small data-event-param-calendar-note>Dias programados para este cluster</small>
             </div>
           </aside>
