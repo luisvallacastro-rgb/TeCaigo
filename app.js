@@ -1992,7 +1992,7 @@ function appendSlotRequest(eventName, host, count, commission, free) {
     <td><strong>${escapeHtml(eventName)}</strong><span class="matrix-status draft">Pendiente</span></td>
     <td>${escapeHtml(host)}</td>
     <td><b class="transfer-amount">${count}</b></td>
-    <td><button class="request-mail-button" type="button" aria-label="Sin respuesta del anfitrion">✉</button></td>
+    <td><button class="request-mail-button" type="button" aria-label="Sin respuesta del anfitrion"><span class="request-mail-icon">✉</span></button></td>
     <td>${free}</td>
     <td>
       <div class="crud-actions compact request-row-actions">
