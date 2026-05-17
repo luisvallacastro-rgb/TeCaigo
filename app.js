@@ -1596,6 +1596,8 @@ function openSlotRequestModal(button) {
   slotRequestModal.querySelector("[data-slot-request-event]").textContent = slotRequestModal.dataset.event;
   slotRequestModal.querySelector("[data-slot-request-host]").textContent = slotRequestModal.dataset.host;
   slotRequestModal.querySelector("[data-slot-request-free]").textContent = slotRequestModal.dataset.free;
+  const requestPreviewTitle = slotRequestModal.querySelector("[data-slot-request-preview-title]");
+  if (requestPreviewTitle) requestPreviewTitle.textContent = slotRequestModal.dataset.event;
   slotRequestModal.querySelector("[data-slot-request-commission]").value = slotRequestModal.dataset.commission;
 
   const countInput = slotRequestModal.querySelector("[data-slot-request-count]");

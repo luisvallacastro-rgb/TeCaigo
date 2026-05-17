@@ -98,6 +98,7 @@
           <button class="nav-item active" data-view="home">Home</button>
           <button class="nav-item" data-view="event-builder">Crear evento</button>
           <button class="nav-item" data-view="requests">Solicitudes</button>
+          <button class="nav-item" data-view="validations">Validaciones</button>
           <button class="nav-item" data-view="my-events">Mis eventos</button>
           <button class="nav-item" data-view="public-events">Eventos publicos</button>
           <button class="nav-item" data-view="finance">Finanzas</button>
@@ -1361,11 +1362,21 @@
             </div>
           </article>
 
+        </section>
+
+        <section class="view" id="validations">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Anfitrion</p>
+              <h2>Validacion de remesas</h2>
+            </div>
+          </div>
+
           <article class="event-history-board remittance-board request-remittance-board">
             <div class="event-history-head finance-head">
               <div>
-                <span class="hero-kicker">Anfitrion</span>
-                <h2>Validacion de remesas</h2>
+                <span class="hero-kicker">Remesas recibidas</span>
+                <h2>Operadores pendientes de liquidacion</h2>
               </div>
             </div>
 
@@ -1915,32 +1926,67 @@
     <div class="payment-modal" id="slotRequestModal" aria-hidden="true">
       <div class="composer-backdrop" data-close-slot-request></div>
       <section class="payment-dialog slot-request-dialog" role="dialog" aria-modal="true" aria-labelledby="slotRequestTitle">
-        <header class="composer-dialog-head">
-          <h2 id="slotRequestTitle">Solicitar cupos</h2>
-          <button class="composer-close" type="button" data-close-slot-request aria-label="Cerrar">X</button>
-        </header>
         <form class="payment-form" data-slot-request-form>
-          <div class="request-modal-summary">
-            <span data-slot-request-host>TeCaigo Tours</span>
-            <strong data-slot-request-event>Ruta Panoramica</strong>
-            <small><b data-slot-request-free>9</b> cupos disponibles para oferta externa</small>
+          <div class="slot-request-form-card">
+            <button class="slot-request-close" type="button" data-close-slot-request aria-label="Cerrar">X</button>
+            <span class="slot-request-kicker">Solicitud a cluster</span>
+            <h2 id="slotRequestTitle">Solicitar cupos</h2>
+            <p>Reserva cupos disponibles de otro anfitrion para venderlos desde tu operador.</p>
+
+            <div class="request-modal-summary">
+              <span data-slot-request-host>TeCaigo Tours</span>
+              <strong data-slot-request-event>Ruta Panoramica</strong>
+              <small><b data-slot-request-free>9</b> cupos disponibles para oferta externa</small>
+            </div>
+
+            <label>
+              Cupos a solicitar
+              <input type="number" min="1" value="4" data-slot-request-count />
+            </label>
+            <label>
+              Comision propuesta
+              <input data-slot-request-commission value="70%" />
+            </label>
+            <label>
+              Mensaje para el anfitrion
+              <input data-slot-request-message value="Puedo moverlos con clientes de fin de semana." />
+            </label>
+            <div class="payment-actions">
+              <button class="ghost-button" type="button" data-close-slot-request>Cancelar</button>
+              <button class="primary-button" type="submit">Enviar solicitud</button>
+            </div>
           </div>
-          <label>
-            Cupos a solicitar
-            <input type="number" min="1" value="4" data-slot-request-count />
-          </label>
-          <label>
-            Comision propuesta
-            <input data-slot-request-commission value="70%" />
-          </label>
-          <label>
-            Mensaje para el anfitrion
-            <input data-slot-request-message value="Puedo moverlos con clientes de fin de semana." />
-          </label>
-          <div class="payment-actions">
-            <button class="ghost-button" type="button" data-close-slot-request>Cancelar</button>
-            <button class="primary-button" type="submit">Enviar solicitud</button>
-          </div>
+
+          <aside class="slot-request-calendar">
+            <span>Calendario del cluster</span>
+            <strong>mayo de 2026</strong>
+            <div class="slot-request-calendar-controls">
+              <button type="button">‹</button>
+              <button type="button">May</button>
+              <button type="button">2026</button>
+              <button type="button">›</button>
+            </div>
+            <div class="slot-request-days">
+              <b>D</b><b>L</b><b>M</b><b>M</b><b>J</b><b>V</b><b>S</b>
+              <i></i><i></i><i></i><i></i><i></i>
+              <button type="button">1</button><button type="button">2</button>
+              <button type="button">3</button><button type="button">4</button><button type="button">5</button><button type="button">6</button><button type="button">7</button><button type="button">8</button><button type="button">9</button>
+              <button type="button">10</button><button type="button">11</button><button type="button">12</button><button type="button">13</button><button type="button">14</button><button type="button">15</button><button type="button">16</button>
+              <button type="button">17</button><button type="button">18</button><button type="button">19</button><button type="button">20</button><button type="button">21</button><button type="button">22</button><button type="button">23</button>
+              <button type="button">24</button><button type="button" class="active">25</button><button type="button">26</button><button type="button">27</button><button type="button">28</button><button type="button">29</button><button type="button">30</button>
+              <button type="button">31</button>
+            </div>
+            <div class="slot-request-date-cards">
+              <button type="button">25/05/2026</button>
+            </div>
+            <small>Fecha disponible para solicitar cupos externos</small>
+          </aside>
+
+          <aside class="slot-request-photo-card">
+            <div>Foto</div>
+            <span>Evento solicitado</span>
+            <strong data-slot-request-preview-title>Ruta Panoramica</strong>
+          </aside>
         </form>
       </section>
     </div>
