@@ -9647,6 +9647,23 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-modal .correspondence-message {
   padding: 22px;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.correspondence-modal .correspondence-message::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.11), transparent 18% 72%, rgba(143, 243, 244, 0.075)),
+    radial-gradient(circle at 86% 90%, rgba(10, 115, 122, 0.2), transparent 34%);
+  opacity: 0.7;
+}
+
+.correspondence-modal .correspondence-message > * {
+  position: relative;
 }
 
 .correspondence-modal .correspondence-message-head h3 {
@@ -9707,73 +9724,188 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-compose-panel {
   display: none;
   min-height: 0;
-  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
-  gap: 14px;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.01)),
+    rgba(10, 18, 25, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 44px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(24px) saturate(130%);
 }
 
 .correspondence-modal.is-composing .correspondence-compose-panel {
   display: grid;
+  grid-template-rows: 44px minmax(0, 1fr) 54px;
 }
 
 .correspondence-compose-panel[hidden] {
   display: none;
 }
 
-.correspondence-compose-panel label {
+.compose-window-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 0 14px 0 18px;
+  background:
+    linear-gradient(135deg, rgba(143, 243, 244, 0.08), rgba(255, 255, 255, 0.012)),
+    rgba(15, 26, 35, 0.48);
+}
+
+.compose-window-head strong {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.compose-window-head div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.compose-window-head button,
+.compose-tools button,
+.compose-trash {
+  border: 0;
+  color: rgba(236, 245, 246, 0.82);
+  background: transparent;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.compose-window-head button {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.compose-window-head button:hover,
+.compose-tools button:hover,
+.compose-trash:hover {
+  color: #ffffff;
+  background: rgba(143, 243, 244, 0.1);
+}
+
+.compose-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 243, 244, 0.42) rgba(255, 255, 255, 0.04);
+}
+
+.compose-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.compose-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(143, 243, 244, 0.42);
+}
+
+.compose-line {
   display: grid;
-  gap: 7px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  min-height: 54px;
+  border-bottom: 1px solid rgba(236, 245, 246, 0.12);
 }
 
-.correspondence-compose-panel label span {
-  color: rgba(143, 243, 244, 0.72);
-  font-size: 10px;
-  font-weight: 950;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.compose-to {
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
 }
 
-.correspondence-compose-panel input,
-.correspondence-compose-panel textarea {
+.compose-line span,
+.compose-line small {
+  color: rgba(236, 245, 246, 0.74);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.compose-line small {
+  padding-left: 12px;
+}
+
+.compose-line input,
+.compose-body {
   width: 100%;
   border: 0;
-  border-radius: 18px;
   color: #ffffff;
-  background:
-    radial-gradient(circle at 6% 0%, rgba(143, 243, 244, 0.14), transparent 44%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.098), rgba(255, 255, 255, 0.016)),
-    rgba(48, 55, 64, 0.2);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.075),
-    0 12px 24px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(24px) saturate(142%);
+  background: transparent;
   font: inherit;
-  font-size: 15px;
-  font-weight: 850;
+  font-size: 16px;
+  font-weight: 650;
   outline: 0;
 }
 
-.correspondence-compose-panel input {
-  min-height: 54px;
-  padding: 0 18px;
+.compose-line input {
+  min-height: 52px;
+  padding: 0 12px;
 }
 
-.correspondence-compose-panel textarea {
-  min-height: 220px;
-  resize: none;
-  padding: 16px 18px;
-  line-height: 1.42;
-}
-
-.correspondence-compose-panel input::placeholder,
-.correspondence-compose-panel textarea::placeholder {
+.compose-line input::placeholder,
+.compose-body::placeholder {
   color: rgba(236, 245, 246, 0.28);
 }
 
-.correspondence-compose-panel input:focus,
-.correspondence-compose-panel textarea:focus {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 0 0 2px rgba(143, 243, 244, 0.2);
+.compose-body {
+  display: block;
+  min-height: 360px;
+  resize: vertical;
+  padding: 18px 0;
+  line-height: 1.5;
+}
+
+.compose-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(236, 245, 246, 0.1);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.008)),
+    rgba(6, 13, 18, 0.38);
+}
+
+.compose-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compose-tools button,
+.compose-trash {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.compose-send {
+  min-width: 102px !important;
+  padding: 0 20px;
+  border-radius: 999px !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #0b8b8e, #08787b) !important;
+  box-shadow: 0 14px 28px rgba(6, 116, 120, 0.22);
+}
+
+.correspondence-modal.is-composing .correspondence-message {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.006)),
+    rgba(8, 17, 24, 0.18);
+}
+
+.correspondence-modal.is-composing .correspondence-message::before {
+  display: none;
 }
 
 @media (max-width: 980px) {

@@ -2055,34 +2055,43 @@
             </footer>
 
             <form class="correspondence-compose-panel" data-correspondence-compose-panel hidden>
-              <div class="correspondence-message-head">
-                <div>
-                  <span>Nuevo correo formal</span>
-                  <h3>Redactar correspondencia</h3>
+              <div class="compose-window-head">
+                <strong>Mensaje nuevo</strong>
+                <div aria-label="Controles de correo">
+                  <button type="button" aria-label="Minimizar">-</button>
+                  <button type="button" aria-label="Expandir">↗</button>
+                  <button type="button" data-correspondence-compose-cancel aria-label="Cerrar">×</button>
                 </div>
-                <time>Borrador</time>
               </div>
 
-              <label>
-                <span>Para</span>
-                <input data-correspondence-compose-to placeholder="Ej. Cafe Aventura, TeCaigo Tours o Soporte TeCaiGO" />
-              </label>
-              <label>
-                <span>Asunto</span>
-                <input data-correspondence-compose-subject placeholder="Ej. Solicitud de cupos para Tour cafe y mirador" />
-              </label>
-              <label>
-                <span>Referencia</span>
-                <input data-correspondence-compose-reference placeholder="Evento, fecha, cluster o numero de solicitud" />
-              </label>
-              <label class="message">
-                <span>Mensaje</span>
-                <textarea data-correspondence-compose-message placeholder="Escribi aqui la comunicacion formal..."></textarea>
-              </label>
+              <div class="compose-scroll">
+                <label class="compose-line compose-to">
+                  <span>Para</span>
+                  <input data-correspondence-compose-to placeholder="" />
+                  <small>Cc</small>
+                  <small>Cco</small>
+                </label>
+                <label class="compose-line">
+                  <span>Asunto</span>
+                  <input data-correspondence-compose-subject placeholder="" />
+                </label>
+                <label class="compose-line">
+                  <span>Referencia</span>
+                  <input data-correspondence-compose-reference placeholder="Evento, fecha, cluster o numero de solicitud" />
+                </label>
+                <textarea class="compose-body" data-correspondence-compose-message placeholder="Escribi aqui la comunicacion formal..."></textarea>
+              </div>
 
-              <footer class="correspondence-actions">
-                <button class="ghost-button" type="button" data-correspondence-compose-cancel>Cancelar</button>
-                <button class="primary-button" type="submit">Enviar correo</button>
+              <footer class="compose-bottom-bar">
+                <div class="compose-tools" aria-label="Herramientas de correo">
+                  <button class="compose-send" type="submit">Enviar</button>
+                  <button type="button" aria-label="Formato">Aa</button>
+                  <button type="button" aria-label="Adjuntar">⌘</button>
+                  <button type="button" aria-label="Insertar enlace">↔</button>
+                  <button type="button" aria-label="Imagen">▣</button>
+                  <button type="button" aria-label="Mas opciones">⋯</button>
+                </div>
+                <button class="compose-trash" type="button" data-correspondence-compose-cancel aria-label="Eliminar borrador">⌫</button>
               </footer>
             </form>
           </article>
