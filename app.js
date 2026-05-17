@@ -31,6 +31,7 @@ const slotRequestPublicEvents = [
     cluster: "Ruta de las Flores",
     route: "Ruta nacional",
     type: "Publico",
+    departure: "San Salvador",
     free: 9,
     stock: "45/50",
     commission: "70%",
@@ -44,6 +45,7 @@ const slotRequestPublicEvents = [
     cluster: "Ruta de las Flores",
     route: "Ruta nacional",
     type: "Publico",
+    departure: "Santa Tecla",
     free: 12,
     stock: "28/40",
     commission: "30%",
@@ -57,6 +59,7 @@ const slotRequestPublicEvents = [
     cluster: "Cluster Volcan",
     route: "Ruta nacional",
     type: "Publico",
+    departure: "San Salvador",
     free: 6,
     stock: "24/30",
     commission: "45%",
@@ -70,6 +73,7 @@ const slotRequestPublicEvents = [
     cluster: "Lago Ilopango",
     route: "Ruta nacional",
     type: "Publico",
+    departure: "San Miguelito",
     free: 22,
     stock: "18/40",
     commission: "70%",
@@ -83,6 +87,7 @@ const slotRequestPublicEvents = [
     cluster: "Surf City",
     route: "Ruta internacional",
     type: "Publico",
+    departure: "Surf City",
     free: 14,
     stock: "36/50",
     commission: "60%",
@@ -96,6 +101,7 @@ const slotRequestPublicEvents = [
     cluster: "Ruta Panoramica",
     route: "Ruta nacional",
     type: "Publico",
+    departure: "Santa Ana",
     free: 7,
     stock: "33/40",
     commission: "55%",
@@ -1724,7 +1730,7 @@ function getSlotRequestEventProfile(eventItem) {
 function slotRequestSearchMatches(eventItem, query) {
   const normalized = String(query || "").trim().toLowerCase();
   if (!normalized) return true;
-  return [eventItem.title, eventItem.host, eventItem.cluster, eventItem.route, ...eventItem.dates]
+  return [eventItem.title, eventItem.host, eventItem.cluster, eventItem.route, eventItem.departure, ...eventItem.dates]
     .join(" ")
     .toLowerCase()
     .includes(normalized);
@@ -1742,7 +1748,7 @@ function renderSlotRequestCarousel(query = "") {
           (eventItem) => `
             <button class="slot-request-event-card${eventItem.id === activeId ? " active" : ""}" type="button" data-slot-request-event-id="${escapeHtml(eventItem.id)}">
               <img src="${escapeHtml(eventItem.image)}" alt="Foto del evento ${escapeHtml(eventItem.title)}" />
-              <span>${escapeHtml(eventItem.stock || `${Math.max(0, 50 - Number(eventItem.free || 0))}/50`)} cupos</span>
+              <span>Salida: ${escapeHtml(eventItem.departure || "Por definir")}</span>
               <strong>${escapeHtml(eventItem.title)}</strong>
               <small>${escapeHtml(eventItem.cluster)} · ${escapeHtml(eventItem.host)}</small>
             </button>
@@ -1900,6 +1906,23 @@ function updateSlotRequestCuposDisplay() {
   if (display && countInput) display.textContent = countInput.value || "1";
 }
 
+function updateSlotRequestAvailability(eventItem = getSelectedSlotRequestEvent()) {
+  if (!slotRequestModal || !eventItem) return;
+
+  const stock = slotRequestModal.querySelector("[data-slot-request-available-stock]");
+  const limit = slotRequestModal.querySelector("[data-slot-request-available-limit]");
+  const countInput = slotRequestModal.querySelector("[data-slot-request-count]");
+  const free = Number(eventItem.free) || 1;
+
+  if (stock) stock.textContent = eventItem.stock || `${free} disponibles`;
+  if (limit) limit.textContent = `Maximo a solicitar: ${free}`;
+  if (countInput) {
+    countInput.max = String(free);
+    countInput.value = String(Math.max(1, Math.min(free, Number(countInput.value) || 1)));
+  }
+  updateSlotRequestCuposDisplay();
+}
+
 function adjustSlotRequestCupos(delta) {
   const countInput = slotRequestModal?.querySelector("[data-slot-request-count]");
   if (!countInput) return;
@@ -1936,7 +1959,7 @@ function selectSlotRequestEvent(eventItem) {
     countInput.max = eventItem.free;
     countInput.value = String(Math.min(4, Number(eventItem.free) || 1));
   }
-  updateSlotRequestCuposDisplay();
+  updateSlotRequestAvailability(eventItem);
 
   renderSlotRequestCalendar(eventItem);
   renderSlotRequestCarousel(slotRequestModal.querySelector("[data-slot-request-search]")?.value || "");
@@ -1966,14 +1989,74 @@ function appendSlotRequest(eventName, host, count, commission, free) {
 
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td><strong>${eventName}</strong><span class="event-open">Publico</span></td>
-    <td>${host}</td>
+    <td><strong>${escapeHtml(eventName)}</strong><span class="matrix-status draft">Pendiente</span></td>
+    <td>${escapeHtml(host)}</td>
     <td><b class="transfer-amount">${count}</b></td>
-    <td>${commission}</td>
+    <td><button class="request-mail-button" type="button" aria-label="Sin respuesta del anfitrion">✉</button></td>
     <td>${free}</td>
-    <td><span class="matrix-status draft">Pendiente</span></td>
+    <td>
+      <div class="crud-actions compact request-row-actions">
+        <button class="icon-action" type="button" data-request-action="consultar" title="Consultar solicitud" aria-label="Consultar solicitud">◉</button>
+        <button class="icon-action" type="button" data-request-action="editar" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+        <button class="icon-action" type="button" data-request-action="duplicar" title="Duplicar solicitud" aria-label="Duplicar solicitud">▣</button>
+        <button class="icon-action" type="button" data-request-action="retirar" title="Retirar solicitud" aria-label="Retirar solicitud">!</button>
+      </div>
+    </td>
   `;
   requestList.prepend(row);
+}
+
+function openSlotRequestFromRequestRow(row, mode = "editar") {
+  if (!row || !slotRequestModal) return;
+
+  const eventName = row.querySelector("td strong")?.textContent || "Ruta Panoramica";
+  const requested = Number(row.querySelector(".transfer-amount")?.textContent) || 1;
+  const eventItem = findSlotRequestEventByTitle(eventName);
+  selectSlotRequestEvent(eventItem);
+
+  const countInput = slotRequestModal.querySelector("[data-slot-request-count]");
+  if (countInput) {
+    const free = Number(slotRequestModal.dataset.free) || requested;
+    countInput.value = mode === "duplicar" ? "1" : String(Math.max(1, Math.min(free, requested)));
+  }
+  updateSlotRequestAvailability(eventItem);
+
+  slotRequestModal.classList.add("open");
+  slotRequestModal.setAttribute("aria-hidden", "false");
+
+  if (mode === "consultar") {
+    const dateValue = eventItem.dates[0];
+    slotRequestModal.dataset.selectedDate = dateValue;
+    renderSlotRequestCalendar(eventItem);
+    renderSlotRequestEventDetail(dateValue);
+    return;
+  }
+
+  if (mode === "duplicar") showSlotRequestCarouselView();
+  slotRequestModal.querySelector("[data-slot-request-search]")?.focus();
+}
+
+function handleRequestRowAction(button) {
+  const row = button.closest("tr");
+  const action = button.dataset.requestAction;
+  if (!row || !action) return;
+
+  document.querySelectorAll("[data-slot-request-list] tr").forEach((item) => item.classList.remove("is-selected"));
+  document.querySelectorAll("[data-request-action]").forEach((item) => item.classList.remove("active"));
+  row.classList.add("is-selected");
+  button.classList.add("active");
+
+  if (action === "retirar") {
+    const status = row.querySelector(".matrix-status");
+    if (status) {
+      status.textContent = "Retirada";
+      status.classList.remove("active", "draft");
+      status.classList.add("review");
+    }
+    return;
+  }
+
+  openSlotRequestFromRequestRow(row, action);
 }
 
 function applyMyEventsFilter(filterType = "todos") {
@@ -2661,6 +2744,7 @@ document.addEventListener("click", (event) => {
   if (slotRequestDate) {
     const dateValue = slotRequestDate.dataset.slotRequestDate;
     slotRequestModal.dataset.selectedDate = dateValue;
+    updateSlotRequestAvailability(getSelectedSlotRequestEvent());
     renderSlotRequestCalendar(getSelectedSlotRequestEvent());
     renderSlotRequestEventDetail(dateValue);
     return;
@@ -2685,6 +2769,12 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-close-slot-request]")) {
     closeSlotRequestModal();
+    return;
+  }
+
+  const requestActionButton = event.target.closest("[data-request-action]");
+  if (requestActionButton) {
+    handleRequestRowAction(requestActionButton);
     return;
   }
 

@@ -1335,27 +1335,41 @@
                     <th>Evento</th>
                     <th>Anfitrion</th>
                     <th>Cupos solicitados</th>
-                    <th>Comision</th>
+                    <th>Notificaciones</th>
                     <th>Disponibles al solicitar</th>
-                    <th>Estado</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody data-slot-request-list>
                   <tr>
-                    <td><strong>Ruta internacional corta</strong><span class="event-open">Publico</span></td>
+                    <td><strong>Ruta internacional corta</strong><span class="matrix-status draft">Pendiente</span></td>
                     <td>TeCaigo Tours</td>
                     <td><b class="transfer-amount">8</b></td>
-                    <td>70%</td>
+                    <td><button class="request-mail-button" type="button" aria-label="Sin respuesta del anfitrion">✉</button></td>
                     <td>18</td>
-                    <td><span class="matrix-status draft">Pendiente</span></td>
+                    <td>
+                      <div class="crud-actions compact request-row-actions">
+                        <button class="icon-action" type="button" data-request-action="consultar" title="Consultar solicitud" aria-label="Consultar solicitud">◉</button>
+                        <button class="icon-action" type="button" data-request-action="editar" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+                        <button class="icon-action" type="button" data-request-action="duplicar" title="Duplicar solicitud" aria-label="Duplicar solicitud">▣</button>
+                        <button class="icon-action" type="button" data-request-action="retirar" title="Retirar solicitud" aria-label="Retirar solicitud">!</button>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <td><strong>Tour cafe y mirador</strong><span class="event-open">Publico</span></td>
+                    <td><strong>Tour cafe y mirador</strong><span class="matrix-status active">Aprobada</span></td>
                     <td>Cafe Aventura</td>
                     <td><b class="transfer-amount">5</b></td>
-                    <td>30%</td>
+                    <td><button class="request-mail-button has-response" type="button" aria-label="Respuesta recibida del anfitrion">✉<sup>*</sup></button></td>
                     <td>12</td>
-                    <td><span class="matrix-status active">Aprobada</span></td>
+                    <td>
+                      <div class="crud-actions compact request-row-actions">
+                        <button class="icon-action" type="button" data-request-action="consultar" title="Consultar solicitud" aria-label="Consultar solicitud">◉</button>
+                        <button class="icon-action" type="button" data-request-action="editar" title="Editar solicitud" aria-label="Editar solicitud">✎</button>
+                        <button class="icon-action" type="button" data-request-action="duplicar" title="Duplicar solicitud" aria-label="Duplicar solicitud">▣</button>
+                        <button class="icon-action" type="button" data-request-action="retirar" title="Retirar solicitud" aria-label="Retirar solicitud">!</button>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -1946,6 +1960,11 @@
 
             <div class="slot-request-cupos-field">
               <span>Cupos a solicitar</span>
+              <div class="slot-request-available-box">
+                <span>Cupos disponibles</span>
+                <strong data-slot-request-available-stock>0/0</strong>
+                <small data-slot-request-available-limit>Maximo a solicitar: 0</small>
+              </div>
               <div class="slot-request-cupos-control">
                 <button type="button" data-slot-request-cupos-step="1" aria-label="Agregar cupo">+</button>
                 <strong data-slot-request-count-display>4</strong>
