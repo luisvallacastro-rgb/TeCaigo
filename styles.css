@@ -8786,6 +8786,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 :is(#requests, #validations) .event-matrix th {
+  display: grid !important;
+  place-items: center !important;
   padding: 6px 12px 12px !important;
   border: 0 !important;
   background: transparent !important;
@@ -8795,6 +8797,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 :is(#requests, #validations) .event-matrix td {
+  display: grid;
+  place-items: center;
   min-height: 78px;
   padding: 16px 12px !important;
   border: 0 !important;
@@ -8812,6 +8816,7 @@ body[data-active-view="home"] .post-actions button.is-active {
 }
 
 :is(#requests, #validations) .event-matrix td:last-child {
+  justify-items: center;
   border-right: 0 !important;
   border-radius: 0 24px 24px 0 !important;
 }
