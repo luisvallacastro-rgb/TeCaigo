@@ -7,6 +7,7 @@ const composerPreview = document.querySelector("[data-composer-preview]");
 const publishPostButton = document.querySelector("[data-publish-post]");
 const eventFormPanel = document.querySelector("#eventFormPanel");
 const paymentModal = document.querySelector("#paymentModal");
+const correspondenceModal = document.querySelector("#correspondenceModal");
 const slotRequestModal = document.querySelector("#slotRequestModal");
 const slotRequestForm = document.querySelector("[data-slot-request-form]");
 const mobileMenuToggle = document.querySelector("[data-menu-toggle]");
@@ -1992,7 +1993,7 @@ function appendSlotRequest(eventName, host, count, commission, free) {
     <td><strong>${escapeHtml(eventName)}</strong><span class="matrix-status draft">Pendiente</span></td>
     <td>${escapeHtml(host)}</td>
     <td><b class="transfer-amount">${count}</b></td>
-    <td><button class="request-mail-button" type="button" aria-label="Sin respuesta del anfitrion"><span class="request-mail-icon">✉</span></button></td>
+    <td><button class="request-mail-button" type="button" data-open-correspondence aria-label="Sin respuesta del anfitrion"><span class="request-mail-icon">✉</span></button></td>
     <td>${free}</td>
     <td>
       <div class="crud-actions compact request-row-actions">
@@ -2004,6 +2005,163 @@ function appendSlotRequest(eventName, host, count, commission, free) {
     </td>
   `;
   requestList.prepend(row);
+}
+
+function setCorrespondenceText(selector, value) {
+  const element = correspondenceModal?.querySelector(selector);
+  if (element) element.textContent = value;
+}
+
+function setCorrespondenceActiveControl(selector, value, dataKey) {
+  correspondenceModal?.querySelectorAll(selector).forEach((control) => {
+    control.classList.toggle("active", control.dataset[dataKey] === value);
+  });
+}
+
+function openCorrespondenceModal(button) {
+  if (!correspondenceModal) return;
+
+  const row = button.closest("tr");
+  const eventName = row?.querySelector("td:first-child strong")?.textContent?.trim() || "Solicitud de cupos";
+  const host = row?.children[1]?.textContent?.trim() || "Anfitrion";
+  const cupos = row?.querySelector(".transfer-amount")?.textContent?.trim() || "0";
+  const free = row?.children[4]?.textContent?.trim() || "0";
+  const status = row?.querySelector(".matrix-status")?.textContent?.trim() || "Pendiente";
+  const hasResponse = button.classList.contains("has-response");
+
+  correspondenceModal.dataset.sourceEvent = eventName;
+  correspondenceModal.dataset.currentHost = host;
+  correspondenceModal.dataset.currentCupos = cupos;
+  correspondenceModal.dataset.currentFree = free;
+  correspondenceModal.dataset.currentStatus = status;
+  correspondenceModal.dataset.hasResponse = hasResponse ? "true" : "false";
+  correspondenceModal.dataset.activeFolder = hasResponse ? "inbox" : "sent";
+  correspondenceModal.dataset.activeTab = "all";
+
+  setCorrespondenceText("[data-correspondence-event]", eventName);
+  setCorrespondenceText("[data-correspondence-thread-event]", eventName);
+  setCorrespondenceText("[data-correspondence-thread-sent]", eventName);
+  setCorrespondenceText("[data-correspondence-host]", host);
+  setCorrespondenceText("[data-correspondence-from]", hasResponse ? host : "Sistema TeCaiGO");
+  setCorrespondenceText("[data-correspondence-cupos]", cupos);
+  setCorrespondenceText("[data-correspondence-free]", free);
+  setCorrespondenceText("[data-correspondence-state]", status);
+  setCorrespondenceText(
+    "[data-correspondence-subject]",
+    hasResponse ? "Respuesta recibida del anfitrion" : "Solicitud enviada al anfitrion"
+  );
+  setCorrespondenceText(
+    "[data-correspondence-body]",
+    hasResponse
+      ? `El anfitrion ${host} respondio la solicitud de ${cupos} cupos para ${eventName}. Esta correspondencia queda registrada como comunicacion formal del proceso.`
+      : `La solicitud de ${cupos} cupos para ${eventName} fue enviada a ${host}. Aun no hay respuesta del anfitrion; cuando responda, este sobre mostrara la notificacion.`
+  );
+
+  syncCorrespondenceThread(hasResponse ? "response" : "sent");
+  const searchInput = correspondenceModal.querySelector("[data-correspondence-search]");
+  if (searchInput) searchInput.value = "";
+  filterCorrespondenceThreads();
+  correspondenceModal.classList.add("open");
+  correspondenceModal.setAttribute("aria-hidden", "false");
+}
+
+function closeCorrespondenceModal() {
+  correspondenceModal?.classList.remove("open");
+  correspondenceModal?.setAttribute("aria-hidden", "true");
+}
+
+function syncCorrespondenceThread(type) {
+  if (!correspondenceModal) return;
+
+  const eventName = correspondenceModal.dataset.sourceEvent || "Solicitud de cupos";
+  const host = correspondenceModal.dataset.currentHost || "Anfitrion";
+  const cupos = correspondenceModal.dataset.currentCupos || "0";
+  const free = correspondenceModal.dataset.currentFree || "0";
+  const status = correspondenceModal.dataset.currentStatus || "Pendiente";
+  const hasResponse = correspondenceModal.dataset.hasResponse === "true";
+  const selectedType = type === "response" && !hasResponse ? "sent" : type;
+
+  correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => {
+    thread.classList.toggle("active", thread.dataset.correspondenceThread === selectedType);
+  });
+
+  setCorrespondenceText("[data-correspondence-event]", selectedType === "system" ? "Reglas de cupos externos" : eventName);
+  setCorrespondenceText("[data-correspondence-host]", selectedType === "system" ? "TeCaiGO" : host);
+  setCorrespondenceText("[data-correspondence-cupos]", selectedType === "system" ? "Aplica segun solicitud" : cupos);
+  setCorrespondenceText("[data-correspondence-free]", selectedType === "system" ? "Controlado por anfitrion" : free);
+
+  if (selectedType === "system") {
+    setCorrespondenceText("[data-correspondence-state]", "Sistema");
+    setCorrespondenceText("[data-correspondence-subject]", "Reglas de cupos externos");
+    setCorrespondenceText("[data-correspondence-from]", "Sistema TeCaiGO");
+    setCorrespondenceText(
+      "[data-correspondence-body]",
+      "Toda solicitud, respuesta, retiro o aprobacion queda registrada como correspondencia formal entre operadores y anfitriones dentro de TeCaiGO."
+    );
+    return;
+  }
+
+  if (selectedType === "sent") {
+    setCorrespondenceText("[data-correspondence-state]", status === "Retirada" ? "Retirada" : "Enviada");
+    setCorrespondenceText("[data-correspondence-subject]", "Solicitud enviada al anfitrion");
+    setCorrespondenceText("[data-correspondence-from]", "Operador TeCaiGO");
+    setCorrespondenceText(
+      "[data-correspondence-body]",
+      `Se envio una solicitud formal de ${cupos} cupos para ${eventName} al anfitrion ${host}. La disponibilidad registrada al momento de solicitar fue de ${free} cupos.`
+    );
+    return;
+  }
+
+  if (selectedType === "denied") {
+    setCorrespondenceText("[data-correspondence-event]", "Ruta al volcan");
+    setCorrespondenceText("[data-correspondence-host]", "Volcan Tours");
+    setCorrespondenceText("[data-correspondence-cupos]", "4");
+    setCorrespondenceText("[data-correspondence-free]", "0");
+    setCorrespondenceText("[data-correspondence-state]", "Denegada");
+    setCorrespondenceText("[data-correspondence-subject]", "Solicitud denegada por el anfitrion");
+    setCorrespondenceText("[data-correspondence-from]", "Volcan Tours");
+    setCorrespondenceText(
+      "[data-correspondence-body]",
+      "El anfitrion Volcan Tours denego la solicitud de cupos para Ruta al volcan porque la disponibilidad externa ya no se encuentra abierta para esa fecha."
+    );
+    return;
+  }
+
+  setCorrespondenceText("[data-correspondence-state]", status);
+  setCorrespondenceText("[data-correspondence-subject]", "Respuesta recibida del anfitrion");
+  setCorrespondenceText("[data-correspondence-from]", host);
+  setCorrespondenceText(
+    "[data-correspondence-body]",
+    `El anfitrion ${host} respondio la solicitud de ${cupos} cupos para ${eventName}. Esta correspondencia queda registrada como comunicacion formal del proceso.`
+  );
+}
+
+function filterCorrespondenceThreads() {
+  if (!correspondenceModal) return;
+
+  const folder = correspondenceModal.dataset.activeFolder || "inbox";
+  const tab = correspondenceModal.dataset.activeTab || "all";
+  const query = correspondenceModal.querySelector("[data-correspondence-search]")?.value.trim().toLowerCase() || "";
+  let firstVisible = null;
+
+  setCorrespondenceActiveControl("[data-correspondence-folder]", folder, "correspondenceFolder");
+  setCorrespondenceActiveControl("[data-correspondence-tab]", tab, "correspondenceTab");
+
+  correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => {
+    const folders = thread.dataset.folder || "";
+    const threadTab = thread.dataset.tab || "all";
+    const haystack = `${thread.dataset.searchText || ""} ${thread.textContent || ""}`.toLowerCase();
+    const matchesFolder = folder === "inbox" ? folders.includes("inbox") : folders.includes(folder);
+    const matchesTab = tab === "all" || threadTab === tab;
+    const matchesQuery = !query || haystack.includes(query);
+    const visible = matchesFolder && matchesTab && matchesQuery;
+
+    thread.hidden = !visible;
+    if (visible && !firstVisible) firstVisible = thread;
+  });
+
+  const active = correspondenceModal.querySelector("[data-correspondence-thread].active:not([hidden])");
+  if (!active && firstVisible) syncCorrespondenceThread(firstVisible.dataset.correspondenceThread);
 }
 
 function openSlotRequestFromRequestRow(row, mode = "editar") {
@@ -2772,6 +2930,58 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const correspondenceButton = event.target.closest("[data-open-correspondence]");
+  if (correspondenceButton) {
+    openCorrespondenceModal(correspondenceButton);
+    return;
+  }
+
+  if (event.target.closest("[data-close-correspondence]")) {
+    closeCorrespondenceModal();
+    return;
+  }
+
+  const correspondenceFolder = event.target.closest("[data-correspondence-folder]");
+  if (correspondenceFolder) {
+    correspondenceModal.dataset.activeFolder = correspondenceFolder.dataset.correspondenceFolder;
+    correspondenceModal.dataset.activeTab = "all";
+    filterCorrespondenceThreads();
+    return;
+  }
+
+  const correspondenceTab = event.target.closest("[data-correspondence-tab]");
+  if (correspondenceTab) {
+    correspondenceModal.dataset.activeTab = correspondenceTab.dataset.correspondenceTab;
+    filterCorrespondenceThreads();
+    return;
+  }
+
+  if (event.target.closest("[data-correspondence-refresh]")) {
+    const searchInput = correspondenceModal?.querySelector("[data-correspondence-search]");
+    if (searchInput) searchInput.value = "";
+    correspondenceModal.dataset.activeFolder = "inbox";
+    correspondenceModal.dataset.activeTab = "all";
+    filterCorrespondenceThreads();
+    return;
+  }
+
+  const correspondenceThread = event.target.closest("[data-correspondence-thread]");
+  if (correspondenceThread) {
+    syncCorrespondenceThread(correspondenceThread.dataset.correspondenceThread);
+    return;
+  }
+
+  const correspondenceFollow = event.target.closest("[data-correspondence-follow]");
+  if (correspondenceFollow) {
+    const eventName = correspondenceModal?.dataset.sourceEvent || "Ruta Panoramica";
+    closeCorrespondenceModal();
+    openSlotRequestFromRequestRow(
+      [...document.querySelectorAll("[data-slot-request-list] tr")].find((row) => row.querySelector("td:first-child strong")?.textContent === eventName),
+      "consultar"
+    );
+    return;
+  }
+
   const requestActionButton = event.target.closest("[data-request-action]");
   if (requestActionButton) {
     handleRequestRowAction(requestActionButton);
@@ -2899,6 +3109,11 @@ document.addEventListener("input", (event) => {
   if (slotRequestSearch) {
     renderSlotRequestCarousel(slotRequestSearch.value);
   }
+
+  const correspondenceSearch = event.target.closest("[data-correspondence-search]");
+  if (correspondenceSearch) {
+    filterCorrespondenceThreads();
+  }
 });
 
 composerTextarea?.addEventListener("input", updateComposerPublishState);
@@ -2944,6 +3159,10 @@ document.addEventListener("keydown", (event) => {
 
   if (event.key === "Escape" && slotRequestModal?.classList.contains("open")) {
     closeSlotRequestModal();
+  }
+
+  if (event.key === "Escape" && correspondenceModal?.classList.contains("open")) {
+    closeCorrespondenceModal();
   }
 });
 
