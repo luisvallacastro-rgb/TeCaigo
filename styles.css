@@ -9455,14 +9455,14 @@ body[data-active-view="home"] .post-actions button.is-active {
   height: min(860px, calc(100vh - 42px));
   max-height: min(860px, calc(100vh - 42px));
   background:
-    radial-gradient(circle at 14% 12%, rgba(143, 243, 244, 0.16), transparent 30%),
-    radial-gradient(circle at 82% 78%, rgba(10, 115, 122, 0.11), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018)),
-    rgba(13, 22, 30, 0.72);
+    radial-gradient(circle at 12% 10%, rgba(143, 243, 244, 0.19), transparent 32%),
+    radial-gradient(circle at 84% 78%, rgba(10, 115, 122, 0.13), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.088), rgba(255, 255, 255, 0.015)),
+    rgba(13, 22, 30, 0.58);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     0 34px 90px rgba(0, 0, 0, 0.44);
-  backdrop-filter: blur(34px) saturate(138%);
+  backdrop-filter: blur(38px) saturate(145%);
 }
 
 .correspondence-modal .correspondence-top {
@@ -9497,13 +9497,13 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-modal .correspondence-mailbox,
 .correspondence-modal .correspondence-message {
   background:
-    radial-gradient(circle at 18% 8%, rgba(143, 243, 244, 0.105), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.012)),
-    rgba(9, 17, 24, 0.34);
+    radial-gradient(circle at 18% 8%, rgba(143, 243, 244, 0.135), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.082), rgba(255, 255, 255, 0.012)),
+    rgba(9, 17, 24, 0.24);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.085),
     0 22px 42px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(24px) saturate(132%);
+  backdrop-filter: blur(30px) saturate(142%);
 }
 
 .correspondence-modal .correspondence-folders {
@@ -9544,10 +9544,11 @@ body[data-active-view="home"] .post-actions button.is-active {
   min-height: 54px;
   border-radius: 999px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018)),
-    rgba(48, 55, 64, 0.31);
+    radial-gradient(circle at 8% 0%, rgba(143, 243, 244, 0.08), transparent 44%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.092), rgba(255, 255, 255, 0.018)),
+    rgba(48, 55, 64, 0.22);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(18px) saturate(128%);
+  backdrop-filter: blur(22px) saturate(138%);
 }
 
 .correspondence-modal .correspondence-tools button {
@@ -9591,8 +9592,8 @@ body[data-active-view="home"] .post-actions button.is-active {
 
 .correspondence-modal .correspondence-list .correspondence-thread.active {
   background:
-    linear-gradient(90deg, rgba(10, 115, 122, 0.3), rgba(255, 255, 255, 0.018)),
-    rgba(8, 14, 20, 0.38);
+    linear-gradient(90deg, rgba(10, 115, 122, 0.24), rgba(255, 255, 255, 0.018)),
+    rgba(8, 14, 20, 0.25);
   box-shadow:
     inset 4px 0 0 var(--ok-teal, #0a737a),
     inset 0 -1px 0 rgba(255, 255, 255, 0.075);
@@ -9667,11 +9668,11 @@ body[data-active-view="home"] .post-actions button.is-active {
 .correspondence-modal .correspondence-body {
   border-radius: 20px;
   background:
-    radial-gradient(circle at 8% 0%, rgba(143, 243, 244, 0.09), transparent 42%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.015)),
-    rgba(48, 55, 64, 0.32);
+    radial-gradient(circle at 8% 0%, rgba(143, 243, 244, 0.12), transparent 44%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.015)),
+    rgba(48, 55, 64, 0.22);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(22px) saturate(138%);
 }
 
 .correspondence-modal .correspondence-body {
@@ -9738,13 +9739,13 @@ body[data-active-view="home"] .post-actions button.is-active {
   border-radius: 18px;
   color: #ffffff;
   background:
-    radial-gradient(circle at 6% 0%, rgba(143, 243, 244, 0.11), transparent 42%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.015)),
-    rgba(48, 55, 64, 0.29);
+    radial-gradient(circle at 6% 0%, rgba(143, 243, 244, 0.14), transparent 44%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.098), rgba(255, 255, 255, 0.016)),
+    rgba(48, 55, 64, 0.2);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.075),
     0 12px 24px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(18px) saturate(128%);
+  backdrop-filter: blur(24px) saturate(142%);
   font: inherit;
   font-size: 15px;
   font-weight: 850;
