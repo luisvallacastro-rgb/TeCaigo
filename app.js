@@ -1027,6 +1027,7 @@ function renderItineraryCrud(detail) {
       : [{ time: "08:00", type: "public", destination: "Mirador publico" }];
     rowList.innerHTML = rows.map(makeItineraryRowMarkup).join("");
   }
+  enhanceParamSelects(document.querySelector("[data-event-itinerary-crud]"));
 }
 
 function serializeItineraryCrud() {
@@ -1051,6 +1052,46 @@ function refreshItineraryDatalist(row) {
   const options = type === "private" ? privateItineraryPlaces : publicItineraryPlaces;
   if (input) input.value = options[0] || "";
   if (datalist) datalist.innerHTML = destinationOptionsMarkup(type);
+  enhanceParamSelects(row);
+}
+
+function optionLabel(option) {
+  return option?.textContent?.trim() || option?.value || "Seleccionar";
+}
+
+function syncParamSelect(select) {
+  const customSelect = select.nextElementSibling?.matches?.("[data-param-select]") ? select.nextElementSibling : null;
+  if (!customSelect) return;
+
+  const selectedOption = select.selectedOptions?.[0] || select.querySelector("option");
+  const button = customSelect.querySelector("[data-param-select-button]");
+  const list = customSelect.querySelector("[data-param-select-list]");
+  if (button) button.innerHTML = `<span>${optionLabel(selectedOption)}</span><b>⌄</b>`;
+  if (list) {
+    list.innerHTML = [...select.options]
+      .map(
+        (option) =>
+          `<button type="button" data-param-select-option="${option.value}" class="${option.selected ? "active" : ""}">${optionLabel(option)}</button>`
+      )
+      .join("");
+  }
+}
+
+function enhanceParamSelects(root = eventFormPanel) {
+  if (!root) return;
+  root.querySelectorAll("select").forEach((select) => {
+    select.classList.add("native-select-hidden");
+    if (!select.nextElementSibling?.matches?.("[data-param-select]")) {
+      select.insertAdjacentHTML(
+        "afterend",
+        `<div class="param-glass-select" data-param-select>
+          <button type="button" data-param-select-button></button>
+          <div class="param-glass-options" data-param-select-list></div>
+        </div>`
+      );
+    }
+    syncParamSelect(select);
+  });
 }
 
 function parseEventDateValue(value) {
@@ -1331,6 +1372,7 @@ function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
   setValue("[data-event-input-external-commission]", detail.commissions.external);
   if (eventId === "nuevo-evento" && !options.inherited) prepareNewEventCaptureFields();
   renderItineraryCrud(detail);
+  enhanceParamSelects(eventFormPanel);
   syncParamImagePreview(detail, isParamMode);
 
   const dateList = document.querySelector(".event-date-list");
@@ -1802,6 +1844,33 @@ function moveCalendarControl(action) {
 }
 
 document.addEventListener("click", (event) => {
+  const paramSelectButton = event.target.closest("[data-param-select-button]");
+  if (paramSelectButton) {
+    const customSelect = paramSelectButton.closest("[data-param-select]");
+    document.querySelectorAll("[data-param-select].open").forEach((select) => {
+      if (select !== customSelect) select.classList.remove("open");
+    });
+    customSelect?.classList.toggle("open");
+    return;
+  }
+
+  const paramSelectOption = event.target.closest("[data-param-select-option]");
+  if (paramSelectOption) {
+    const customSelect = paramSelectOption.closest("[data-param-select]");
+    const select = customSelect?.previousElementSibling;
+    if (select?.matches("select")) {
+      select.value = paramSelectOption.dataset.paramSelectOption || "";
+      syncParamSelect(select);
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    customSelect?.classList.remove("open");
+    return;
+  }
+
+  if (!event.target.closest("[data-param-select]")) {
+    document.querySelectorAll("[data-param-select].open").forEach((select) => select.classList.remove("open"));
+  }
+
   if (document.body.classList.contains("event-composition-open")) {
     const insideEventComposition = event.target.closest("[data-event-composition-panel]");
     const opensEventComposition = event.target.closest("[data-open-event-composition]");
@@ -2120,6 +2189,7 @@ document.addEventListener("click", (event) => {
     const rowList = document.querySelector("[data-itinerary-row-list]");
     if (rowList) {
       rowList.insertAdjacentHTML("beforeend", makeItineraryRowMarkup({ time: "09:00", type: "public", destination: "Mirador publico" }, rowList.children.length));
+      enhanceParamSelects(rowList.lastElementChild);
     }
     return;
   }
