@@ -370,7 +370,7 @@ const eventOperationDetails = {
     title: "Cafe y senderos",
     description: "Experiencia publica de cafe, senderismo suave y degustacion con comercios aliados.",
     state: "Vigente",
-    capacity: 35,
+    capacity: 50,
     visibility: "Publico por oferta y demanda",
     route: "Ruta nacional",
     mode: "Publico con comision",
@@ -383,7 +383,11 @@ const eventOperationDetails = {
     photoTitle: "Sendero entre cafetales, degustacion y mirador natural",
     itinerary: "8:00 AM salida desde San Salvador\n10:00 AM caminata por sendero\n11:30 AM degustacion de cafe\n1:00 PM almuerzo\n3:00 PM mirador y retorno",
     dates: [
-      { date: "25/05/2026", sold: 18, internal: 12, external: 6, contrib: "Luis Valladares:2;Cipitio Tour:6;Turismo Tour:4;Aventura Local:4;Ruta Viva:2" },
+      { date: "25/05/2026", sold: 45, internal: 29, external: 16, contrib: "Luis Valladares:12;Cipitio Tour:11;Turismo Tour:8;Aventura Local:8;Ruta Viva:6" },
+      { date: "01/06/2026", sold: 34, internal: 22, external: 12, contrib: "Luis Valladares:8;Cipitio Tour:9;Turismo Tour:7;Aventura Local:6;Ruta Viva:4" },
+      { date: "08/06/2026", sold: 27, internal: 18, external: 9, contrib: "Luis Valladares:7;Cipitio Tour:6;Turismo Tour:5;Aventura Local:5;Ruta Viva:4" },
+      { date: "15/06/2026", sold: 18, internal: 11, external: 7, contrib: "Luis Valladares:5;Cipitio Tour:4;Turismo Tour:4;Aventura Local:3;Ruta Viva:2" },
+      { date: "22/06/2026", sold: 9, internal: 6, external: 3, contrib: "Luis Valladares:2;Cipitio Tour:2;Turismo Tour:2;Aventura Local:2;Ruta Viva:1" },
     ],
   },
   "tour-cafe": {
@@ -1297,6 +1301,39 @@ function renderParamClusterCalendar(detail, shouldShow) {
   renderSelectedDateCards([...selectedDates]);
 }
 
+function renderDateFillChart(detail) {
+  const container = document.querySelector("[data-event-date-fill-chart]");
+  if (!container) return;
+
+  const capacity = Number(detail?.capacity) || 0;
+  const dates = Array.isArray(detail?.dates) ? detail.dates : [];
+  if (!capacity || !dates.length) {
+    container.innerHTML = `<span class="date-fill-empty">Sin conteo de fechas</span>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="date-fill-chart-list">
+      ${dates.map((item) => {
+        const sold = Math.min(Number(item.sold) || 0, capacity);
+        const percent = Math.round((sold / capacity) * 100);
+        return `
+          <div class="date-fill-row">
+            <div>
+              <strong>${item.date}</strong>
+              <span>${sold}/${capacity} cupos</span>
+            </div>
+            <div class="date-fill-percent">${percent}%</div>
+            <div class="date-fill-track" aria-label="${item.date}: ${sold} de ${capacity} cupos">
+              <i style="width: ${percent}%"></i>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
 function syncParamImagePreview(detail, shouldShow) {
   const preview = document.querySelector("[data-event-param-image-preview]");
   const image = document.querySelector("[data-event-param-preview-image]");
@@ -1313,6 +1350,7 @@ function syncParamImagePreview(detail, shouldShow) {
     image.alt = `Foto del evento ${detail.title || "seleccionado"}`;
   }
   setText("[data-event-param-preview-title]", hasImage ? detail.photoTitle || detail.title : "Foto pendiente del evento");
+  renderDateFillChart(detail);
   renderParamClusterCalendar(detail, true);
 }
 
@@ -1431,6 +1469,11 @@ function renderEventOperationDetail(eventId = "ruta-panoramica", options = {}) {
   setText("[data-event-summary-commission]", `Interno ${detail.commissions.internal} / Externo ${detail.commissions.external}`);
   setText("[data-event-summary-average]", `${formatMoney(averageCost)} por cupo`);
   setText("[data-event-summary-margin]", `${formatMoney(detail.price * detail.capacity - detail.costs.total)} lleno`);
+  if (isParamMode) {
+    setText("[data-editor-kicker]", "");
+    setText("[data-editor-state]", detail.title || "Nuevo evento");
+    setText("[data-editor-note]", "");
+  }
 
   const stateBadge = document.querySelector("[data-event-form-state]");
   stateBadge?.classList.remove("draft", "active", "closed", "review");
@@ -2007,6 +2050,32 @@ function appendSlotRequest(eventName, host, count, commission, free) {
   requestList.prepend(row);
 }
 
+function getRequestStatusClass(status) {
+  const normalized = (status || "").toLowerCase();
+  if (normalized.includes("aprob")) return "active";
+  if (normalized.includes("deneg")) return "closed";
+  if (normalized.includes("retir")) return "review";
+  return "draft";
+}
+
+function setRequestRowStatus(row, statusText) {
+  const status = row?.querySelector(".matrix-status");
+  if (!status) return;
+
+  status.textContent = statusText;
+  status.classList.remove("active", "draft", "review", "closed", "risk");
+  status.classList.add(getRequestStatusClass(statusText));
+
+  const withdrawButton = row.querySelector('[data-request-action="retirar"]');
+  if (withdrawButton) {
+    const isWithdrawn = statusText === "Retirada";
+    withdrawButton.classList.toggle("is-revertable", isWithdrawn);
+    withdrawButton.textContent = isWithdrawn ? "↺" : "!";
+    withdrawButton.title = isWithdrawn ? "Reactivar solicitud" : "Retirar solicitud";
+    withdrawButton.setAttribute("aria-label", isWithdrawn ? "Reactivar solicitud" : "Retirar solicitud");
+  }
+}
+
 function setCorrespondenceText(selector, value) {
   const element = correspondenceModal?.querySelector(selector);
   if (element) element.textContent = value;
@@ -2232,9 +2301,14 @@ function handleRequestRowAction(button) {
   if (action === "retirar") {
     const status = row.querySelector(".matrix-status");
     if (status) {
-      status.textContent = "Retirada";
-      status.classList.remove("active", "draft");
-      status.classList.add("review");
+      const currentStatus = status.textContent.trim() || "Pendiente";
+
+      if (currentStatus === "Retirada") {
+        setRequestRowStatus(row, "Pendiente");
+        button.classList.remove("active");
+      } else {
+        setRequestRowStatus(row, "Retirada");
+      }
     }
     return;
   }
