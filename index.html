@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>TeCaigo - Prototipo</title>
-    <link rel="stylesheet" href="./styles.css?v=tecaigo-correspondence-mailflow-3" />
+    <link rel="stylesheet" href="./styles.css?v=tecaigo-notification-center-mail-13" />
     <style>
       #home .wall-post:not(.feed-hidden) {
         display: block !important;
@@ -2008,9 +2008,9 @@
           <aside class="correspondence-folders" aria-label="Carpetas de correspondencia">
             <button class="correspondence-compose" type="button" data-correspondence-compose-open><span>✎</span> Redactar</button>
             <nav>
-              <button class="active" type="button" data-correspondence-folder="inbox"><span>▣</span> Recibidos <b>1</b></button>
-              <button type="button" data-correspondence-folder="sent"><span>➤</span> Enviados <b>2</b></button>
-              <button type="button" data-correspondence-folder="important"><span>☆</span> Destacados</button>
+              <button class="active" type="button" data-correspondence-folder="inbox"><span>▣</span> Recibidos <b>13</b></button>
+              <button type="button" data-correspondence-folder="sent"><span>➤</span> Enviados <b>3</b></button>
+              <button type="button" data-correspondence-folder="important"><span>☆</span> Destacados <b>5</b></button>
               <button type="button" data-correspondence-folder="approved"><span>✓</span> Aprobaciones</button>
               <button type="button" data-correspondence-folder="denied"><span>!</span> Denegadas</button>
               <button type="button" data-correspondence-folder="system"><span>⌁</span> Sistema</button>
@@ -2033,17 +2033,17 @@
                 <button type="button" data-correspondence-refresh aria-label="Actualizar">↻</button>
                 <button type="button" data-correspondence-menu aria-label="Mas opciones">⋮</button>
               </div>
-              <span class="correspondence-range">1-4 de 4</span>
+              <span class="correspondence-range">1-14 de 14</span>
             </div>
 
             <div class="correspondence-tabs">
               <button class="active" type="button" data-correspondence-tab="all"><span>▣</span> Principal</button>
-              <button type="button" data-correspondence-tab="request"><span>◇</span> Solicitudes <b>2</b></button>
-              <button type="button" data-correspondence-tab="response"><span>ⓘ</span> Respuestas <b>1</b></button>
+              <button type="button" data-correspondence-tab="request"><span>◇</span> Solicitudes <b>7</b></button>
+              <button type="button" data-correspondence-tab="response"><span>ⓘ</span> Respuestas <b>4</b></button>
             </div>
 
             <div class="correspondence-list">
-              <button class="correspondence-thread active unread" type="button" data-correspondence-thread="response" data-folder="inbox approved important" data-tab="response" data-search-text="tour cafe y mirador cafe aventura aprobada respuesta cupos">
+              <button class="correspondence-thread active unread" type="button" data-correspondence-thread="response" data-folder="inbox approved important" data-tab="response" data-search-text="tour cafe y mirador cafe aventura aprobada respuesta cupos" data-mail-subject="Respuesta recibida del anfitrion" data-mail-state="Pendiente" data-mail-from="Cafe Aventura" data-mail-avatar="CA" data-mail-date="17/05/2026 · 08:45 a.m." data-mail-event="Tour cafe y mirador" data-mail-host="Cafe Aventura" data-mail-cupos="5" data-mail-free="12" data-mail-body="El anfitrion Cafe Aventura respondio la solicitud de 5 cupos para Tour cafe y mirador. Esta correspondencia queda registrada como comunicacion formal del proceso.">
                 <span class="mail-check"></span>
                 <span class="mail-star">☆</span>
                 <div>
@@ -2079,6 +2079,66 @@
                   <p><b>Reglas de cupos externos</b> - Registro formal de cambios y aprobaciones.</p>
                 </div>
                 <time>16 may</time>
+              </button>
+              <button class="correspondence-thread unread" type="button" data-correspondence-thread="mail-playa-dorada" data-folder="inbox important" data-tab="request" data-search-text="playa dorada comercio turistico nuevo lugar playa sunset food court" data-mail-subject="Nuevo lugar turistico: Playa Dorada Sunset" data-mail-state="Oferta recibida" data-mail-from="Playa Dorada Food Court" data-mail-avatar="PD" data-mail-date="18/05/2026 · 10:12 a.m." data-mail-event="Playa Dorada Sunset" data-mail-host="Playa Dorada Food Court" data-mail-cupos="40" data-mail-free="40" data-mail-body="El comercio Playa Dorada Food Court propone integrar un nuevo punto turistico frente al malecon con area gastronomica, parqueo para microbuses y capacidad para recibir grupos familiares los fines de semana. Solicitan evaluacion para activar experiencias de atardecer y cena local.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Playa Dorada Food Court</strong><p><b>Playa Dorada Sunset</b> - Comercio propone nuevo punto de atardecer y gastronomia.</p></div>
+                <time>10:12</time><em>Nuevo</em>
+              </button>
+              <button class="correspondence-thread unread" type="button" data-correspondence-thread="mail-transporte-cuscatlan" data-folder="inbox important" data-tab="request" data-search-text="transportes cuscatlan buses microbuses rutas aeropuerto surf city ataco" data-mail-subject="Flota disponible para rutas turisticas regionales" data-mail-state="Proveedor" data-mail-from="Transportes Cuscatlan" data-mail-avatar="TC" data-mail-date="18/05/2026 · 09:40 a.m." data-mail-event="Rutas aeropuerto · Surf City · Ataco" data-mail-host="Transportes Cuscatlan" data-mail-cupos="120" data-mail-free="8 unidades" data-mail-body="Transportes Cuscatlan informa disponibilidad de microbuses ejecutivos y buses de 30 pasajeros para cubrir traslados desde aeropuerto, hoteles de San Salvador, Surf City y Ruta de las Flores. Solicitan ser considerados como proveedor logistico para eventos con salida temprana.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Transportes Cuscatlan</strong><p><b>Flota disponible</b> - Microbuses y buses para rutas turisticas regionales.</p></div>
+                <time>09:40</time><em>Nuevo</em>
+              </button>
+              <button class="correspondence-thread unread" type="button" data-correspondence-thread="mail-universidad-turismo" data-folder="inbox important" data-tab="request" data-search-text="universidad nacional estudiantes turismo capital humano pasantias guias" data-mail-subject="Capital humano: estudiantes de turismo para practicas" data-mail-state="Alianza academica" data-mail-from="Universidad Nacional Turismo" data-mail-avatar="UN" data-mail-date="18/05/2026 · 09:05 a.m." data-mail-event="Programa de practicas turisticas" data-mail-host="Universidad Nacional Turismo" data-mail-cupos="28" data-mail-free="28 estudiantes" data-mail-body="La Escuela de Turismo presenta una cohorte de estudiantes disponibles para practicas profesionales como asistentes de guianza, anfitriones bilingues, apoyo logistico y levantamiento de inventario turistico territorial. Proponen una alianza piloto con comercios y operadores del cluster.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Universidad Nacional Turismo</strong><p><b>Capital humano</b> - Estudiantes de turismo para practicas y apoyo operativo.</p></div>
+                <time>09:05</time><em>Nuevo</em>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-cafe-mirador" data-folder="inbox approved" data-tab="response" data-search-text="cafe mirador la cumbre comercio turistico degustacion sendero mirador" data-mail-subject="Propuesta de experiencia Cafe Mirador La Cumbre" data-mail-state="En revision" data-mail-from="Cafe Mirador La Cumbre" data-mail-avatar="CM" data-mail-date="18/05/2026 · 08:32 a.m." data-mail-event="Cafe Mirador La Cumbre" data-mail-host="Cafe Mirador La Cumbre" data-mail-cupos="25" data-mail-free="25" data-mail-body="Cafe Mirador La Cumbre ofrece una experiencia de degustacion, historia del cultivo y caminata corta hacia un mirador natural. El comercio cuenta con area techada, sanitarios, punto fotografico y menu para grupos pequenos.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Cafe Mirador La Cumbre</strong><p><b>Experiencia cafetalera</b> - Degustacion, sendero suave y mirador natural.</p></div>
+                <time>08:32</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-lancheros-ilopango" data-folder="inbox" data-tab="request" data-search-text="lancheros ilopango transporte acuatico lago turismo operadores" data-mail-subject="Transporte acuatico para circuitos en lago" data-mail-state="Proveedor" data-mail-from="Cooperativa Lancheros Ilopango" data-mail-avatar="LI" data-mail-date="17/05/2026 · 04:18 p.m." data-mail-event="Circuito Lago de Ilopango" data-mail-host="Cooperativa Lancheros Ilopango" data-mail-cupos="60" data-mail-free="6 lanchas" data-mail-body="La cooperativa informa capacidad para operar circuitos acuaticos con chalecos, capitanes certificados y rutas hacia islas cercanas. Solicitan que TeCaiGO evalúe paquetes combinados con restaurantes y transporte terrestre.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Cooperativa Lancheros Ilopango</strong><p><b>Transporte acuatico</b> - Lanchas para circuitos en lago y paquetes combinados.</p></div>
+                <time>17 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-hostal-centro" data-folder="inbox important" data-tab="request" data-search-text="hostal centro historico alojamiento estudiantes turismo city tour" data-mail-subject="Alojamiento aliado para city tours educativos" data-mail-state="Oferta recibida" data-mail-from="Hostal Centro Historico" data-mail-avatar="HC" data-mail-date="17/05/2026 · 02:45 p.m." data-mail-event="City tour educativo Centro Historico" data-mail-host="Hostal Centro Historico" data-mail-cupos="32" data-mail-free="18 habitaciones" data-mail-body="Hostal Centro Historico propone tarifas preferenciales para grupos universitarios y operadores que realicen circuitos culturales. Ofrecen salon de briefing, desayuno temprano y resguardo de equipaje.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Hostal Centro Historico</strong><p><b>Alojamiento aliado</b> - Habitaciones y salon para city tours educativos.</p></div>
+                <time>17 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-ruta-viva" data-folder="inbox approved" data-tab="response" data-search-text="ruta viva operador cupos aprobacion comercio pueblos vivos" data-mail-subject="Aprobacion de cupos para Pueblos Vivos" data-mail-state="Aprobada" data-mail-from="Ruta Viva Operador" data-mail-avatar="RV" data-mail-date="17/05/2026 · 11:26 a.m." data-mail-event="Pueblos Vivos de Occidente" data-mail-host="Ruta Viva Operador" data-mail-cupos="12" data-mail-free="20" data-mail-body="Ruta Viva confirma asignacion de 12 cupos para el circuito Pueblos Vivos de Occidente. La venta externa queda autorizada con cierre 48 horas antes de la salida.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Ruta Viva Operador</strong><p><b>Pueblos Vivos</b> - Aprobacion de cupos para venta externa.</p></div>
+                <time>17 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-universidad-oriente" data-folder="inbox" data-tab="request" data-search-text="universidad oriente estudiantes turismo inventario territorial practicas" data-mail-subject="Brigada estudiantil para inventario turistico" data-mail-state="Alianza academica" data-mail-from="Universidad de Oriente" data-mail-avatar="UO" data-mail-date="16/05/2026 · 03:20 p.m." data-mail-event="Inventario turistico oriental" data-mail-host="Universidad de Oriente" data-mail-cupos="18" data-mail-free="18 estudiantes" data-mail-body="La Universidad de Oriente propone una brigada de estudiantes para documentar recursos turisticos, comercios, rutas de acceso y necesidades de capacitacion en municipios con potencial emergente.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Universidad de Oriente</strong><p><b>Inventario turistico</b> - Brigada estudiantil para territorios emergentes.</p></div>
+                <time>16 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-gastro-juayua" data-folder="inbox important" data-tab="request" data-search-text="festival gastronomico juayua comercio turistico experiencia comida local" data-mail-subject="Paquete gastronomico para Festival de Juayua" data-mail-state="Oferta recibida" data-mail-from="Asociacion Gastro Juayua" data-mail-avatar="GJ" data-mail-date="16/05/2026 · 12:10 p.m." data-mail-event="Festival Gastronomico Juayua" data-mail-host="Asociacion Gastro Juayua" data-mail-cupos="80" data-mail-free="80" data-mail-body="La Asociacion Gastro Juayua propone integrar menus por estaciones, demostraciones culinarias y recorridos por emprendimientos familiares para grupos de fin de semana.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Asociacion Gastro Juayua</strong><p><b>Festival Gastronomico</b> - Menus por estaciones y recorridos culinarios.</p></div>
+                <time>16 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-shuttle-surf" data-folder="inbox" data-tab="request" data-search-text="shuttle surf city transporte aeropuerto hoteles playa" data-mail-subject="Shuttle compartido aeropuerto · hoteles · Surf City" data-mail-state="Proveedor" data-mail-from="Shuttle Surf City" data-mail-avatar="SS" data-mail-date="15/05/2026 · 05:55 p.m." data-mail-event="Shuttle Surf City" data-mail-host="Shuttle Surf City" data-mail-cupos="54" data-mail-free="3 vans" data-mail-body="Shuttle Surf City ofrece vans climatizadas para traslados compartidos entre aeropuerto, hoteles y playas. Proponen horarios fijos para reducir costos de grupos pequenos y viajeros independientes.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Shuttle Surf City</strong><p><b>Traslado compartido</b> - Vans para aeropuerto, hoteles y playas.</p></div>
+                <time>15 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-artesanos-nahuizalco" data-folder="inbox" data-tab="request" data-search-text="artesanos nahuizalco comercio turistico talleres cultura" data-mail-subject="Talleres artesanales para grupos turisticos" data-mail-state="Oferta recibida" data-mail-from="Red Artesanal Nahuizalco" data-mail-avatar="RA" data-mail-date="15/05/2026 · 10:15 a.m." data-mail-event="Taller artesanal Nahuizalco" data-mail-host="Red Artesanal Nahuizalco" data-mail-cupos="35" data-mail-free="35" data-mail-body="La Red Artesanal Nahuizalco ofrece talleres participativos de fibras naturales, visita a tiendas locales y charla cultural con artesanos. Solicitan aparecer como experiencia complementaria para Ruta de las Flores.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Red Artesanal Nahuizalco</strong><p><b>Talleres artesanales</b> - Experiencia cultural para Ruta de las Flores.</p></div>
+                <time>15 may</time>
+              </button>
+              <button class="correspondence-thread" type="button" data-correspondence-thread="mail-sistema-nuevas-ofertas" data-folder="system" data-tab="all" data-search-text="sistema nuevas ofertas comercios transportistas universidades" data-mail-subject="Resumen de nuevas oportunidades recibidas" data-mail-state="Sistema" data-mail-from="Sistema TeCaiGO" data-mail-avatar="TC" data-mail-date="15/05/2026 · 08:00 a.m." data-mail-event="Oportunidades recibidas" data-mail-host="TeCaiGO" data-mail-cupos="14 mensajes" data-mail-free="Pendiente de clasificar" data-mail-body="Se detectaron nuevas propuestas de comercios turisticos, transportistas y universidades. Clasifica cada mensaje para convertirlo en experiencia, proveedor logistico o alianza de capital humano.">
+                <span class="mail-check"></span><span class="mail-star">☆</span>
+                <div><strong>Sistema TeCaiGO</strong><p><b>Nuevas oportunidades</b> - Resumen de comercios, transportistas y universidades.</p></div>
+                <time>15 may</time>
               </button>
             </div>
           </section>
@@ -2262,7 +2322,36 @@
       </section>
     </div>
 
+    <section class="home-notification-strip" data-notification-center aria-label="Centro de notificaciones" aria-hidden="true">
+      <div class="home-notification-head">
+        <strong>Centro de notificaciones</strong>
+        <button type="button" data-close-notifications aria-label="Cerrar notificaciones">×</button>
+      </div>
+      <div class="home-notification-feed">
+        <button class="home-notification-card unread" type="button" data-notification-thread="mail-playa-dorada">
+          <span class="notification-app">PD</span>
+          <div><strong>PLAYA DORADA</strong><small>Nuevo lugar turistico frente al malecon.</small></div>
+          <time>10:12</time>
+        </button>
+        <button class="home-notification-card unread" type="button" data-notification-thread="mail-transporte-cuscatlan">
+          <span class="notification-app">TC</span>
+          <div><strong>TRANSPORTES CUSCATLAN</strong><small>8 unidades disponibles para Surf City.</small></div>
+          <time>09:40</time>
+        </button>
+        <button class="home-notification-card unread" type="button" data-notification-thread="mail-universidad-turismo">
+          <span class="notification-app">UN</span>
+          <div><strong>UNIVERSIDAD TURISMO</strong><small>28 estudiantes disponibles para practicas.</small></div>
+          <time>09:05</time>
+        </button>
+        <button class="home-notification-card" type="button" data-notification-thread="mail-cafe-mirador">
+          <span class="notification-app">CM</span>
+          <div><strong>CAFE MIRADOR</strong><small>Experiencia cafetalera lista para evaluar.</small></div>
+          <time>08:32</time>
+        </button>
+      </div>
+    </section>
+
     <script src="./config.js?v=tecaigo-api-config-1"></script>
-    <script src="./app.js?v=tecaigo-correspondence-mailflow-3"></script>
+    <script src="./app.js?v=tecaigo-notification-center-mail-13"></script>
   </body>
 </html>

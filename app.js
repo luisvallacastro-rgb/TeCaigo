@@ -13,11 +13,13 @@ const slotRequestForm = document.querySelector("[data-slot-request-form]");
 const mobileMenuToggle = document.querySelector("[data-menu-toggle]");
 const mobileMenuOverlay = document.querySelector("[data-menu-overlay]");
 const tasteCarousel = document.querySelector(".taste-carousel");
+const notificationCenter = document.querySelector("[data-notification-center]");
 const desktopSidebarDeadZones = ".main, .view, .view.active, .home-layout, .feed-layout, .social-feed";
 const API_BASE_URL = window.TECAIGO_CONFIG?.API_BASE_URL || "http://localhost:3001/api";
 const LOCAL_FEED_POSTS_KEY = "tecaigo-local-feed-posts";
 const EMPTY_EVENT_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 let minimizedDrag = null;
+let notificationCenterDismissed = false;
 let composerImages = [];
 const paramCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
 const slotRequestCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
@@ -465,6 +467,7 @@ function activateView(viewId) {
 
   window.scrollTo({ top: 0, behavior: "smooth" });
   closeMobileMenu();
+  if (viewId === "home" && !notificationCenterDismissed) openNotificationCenter();
 }
 
 function openMobileMenu() {
@@ -617,10 +620,28 @@ navItems.forEach((item) => {
   item.addEventListener("click", () => activateView(item.dataset.view));
 });
 
+function openNotificationCenter() {
+  if (!notificationCenter) return;
+  document.body.classList.add("notification-center-open");
+  notificationCenter.setAttribute("aria-hidden", "false");
+}
+
+function closeNotificationCenter() {
+  notificationCenterDismissed = true;
+  document.body.classList.remove("notification-center-open");
+  notificationCenter?.setAttribute("aria-hidden", "true");
+}
+
+window.openTeCaigoNotifications = openNotificationCenter;
+window.closeTeCaigoNotifications = closeNotificationCenter;
+
+if (document.body.dataset.activeView === "home") openNotificationCenter();
+
 mobileMenuToggle?.addEventListener("click", toggleMobileMenu);
 mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
+    closeNotificationCenter();
     closeMobileMenu();
     closeClusterCupComposition();
     document.body.classList.remove("sidebar-collapsed");
@@ -2164,6 +2185,37 @@ function closeCorrespondenceModal() {
   correspondenceModal?.setAttribute("aria-hidden", "true");
 }
 
+function openCorrespondenceFromNotification(threadId) {
+  if (!correspondenceModal || !threadId) return;
+
+  const selectedThread = correspondenceModal.querySelector(`[data-correspondence-thread="${threadId}"]`);
+  if (!selectedThread) return;
+
+  const searchInput = correspondenceModal.querySelector("[data-correspondence-search]");
+  if (searchInput) searchInput.value = "";
+
+  correspondenceModal.dataset.sourceEvent = selectedThread.dataset.mailEvent || "Correspondencia recibida";
+  correspondenceModal.dataset.currentHost = selectedThread.dataset.mailHost || selectedThread.dataset.mailFrom || "Remitente";
+  correspondenceModal.dataset.currentCupos = selectedThread.dataset.mailCupos || "0";
+  correspondenceModal.dataset.currentFree = selectedThread.dataset.mailFree || "0";
+  correspondenceModal.dataset.currentStatus = selectedThread.dataset.mailState || "Pendiente";
+  correspondenceModal.dataset.hasResponse = selectedThread.dataset.tab === "response" ? "true" : "false";
+  correspondenceModal.dataset.activeFolder = (selectedThread.dataset.folder || "").includes("inbox") ? "inbox" : "system";
+  correspondenceModal.dataset.activeTab = "all";
+
+  correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => {
+    thread.classList.toggle("active", thread === selectedThread);
+  });
+
+  filterCorrespondenceThreads();
+  showCorrespondenceMailbox();
+  selectedThread.classList.add("active");
+  selectedThread.hidden = false;
+  correspondenceModal.classList.add("open");
+  correspondenceModal.setAttribute("aria-hidden", "false");
+  setTimeout(() => selectedThread.scrollIntoView({ block: "center", behavior: "smooth" }), 80);
+}
+
 function syncCorrespondenceThread(type) {
   if (!correspondenceModal) return;
 
@@ -2184,6 +2236,21 @@ function syncCorrespondenceThread(type) {
   correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => {
     thread.classList.toggle("active", thread.dataset.correspondenceThread === selectedType);
   });
+
+  const selectedThread = correspondenceModal.querySelector(`[data-correspondence-thread="${selectedType}"]`);
+  if (selectedThread?.dataset.mailSubject) {
+    setCorrespondenceText("[data-correspondence-event]", selectedThread.dataset.mailEvent || eventName);
+    setCorrespondenceText("[data-correspondence-host]", selectedThread.dataset.mailHost || selectedThread.dataset.mailFrom || host);
+    setCorrespondenceText("[data-correspondence-cupos]", selectedThread.dataset.mailCupos || cupos);
+    setCorrespondenceText("[data-correspondence-free]", selectedThread.dataset.mailFree || free);
+    setCorrespondenceText("[data-correspondence-state]", selectedThread.dataset.mailState || status);
+    setCorrespondenceText("[data-correspondence-subject]", selectedThread.dataset.mailSubject);
+    setCorrespondenceText("[data-correspondence-from]", selectedThread.dataset.mailFrom || host);
+    setCorrespondenceText("[data-correspondence-avatar]", selectedThread.dataset.mailAvatar || getCorrespondenceInitials(selectedThread.dataset.mailFrom || host));
+    setCorrespondenceText("[data-correspondence-body]", selectedThread.dataset.mailBody || "");
+    setCorrespondenceText("[data-correspondence-date]", selectedThread.dataset.mailDate || "18/05/2026");
+    return;
+  }
 
   setCorrespondenceText("[data-correspondence-event]", selectedType === "system" ? "Reglas de cupos externos" : eventName);
   setCorrespondenceText("[data-correspondence-host]", selectedType === "system" ? "TeCaiGO" : host);
@@ -2285,6 +2352,9 @@ function filterCorrespondenceThreads() {
     thread.hidden = !visible;
     if (visible && !firstVisible) firstVisible = thread;
   });
+
+  const visibleCount = correspondenceModal.querySelectorAll("[data-correspondence-thread]:not([hidden])").length;
+  setCorrespondenceText(".correspondence-range", visibleCount ? `1-${visibleCount} de ${visibleCount}` : "0 de 0");
 
   const active = correspondenceModal.querySelector("[data-correspondence-thread].active:not([hidden])");
   if (!active && firstVisible) {
@@ -2566,6 +2636,19 @@ function moveCalendarControl(action) {
 }
 
 document.addEventListener("click", (event) => {
+  if (event.target.closest("[data-close-notifications]")) {
+    closeNotificationCenter();
+    return;
+  }
+
+  const notificationThread = event.target.closest("[data-notification-thread]");
+  if (notificationThread) {
+    closeNotificationCenter();
+    activateView("requests");
+    openCorrespondenceFromNotification(notificationThread.dataset.notificationThread);
+    return;
+  }
+
   const paramSelectButton = event.target.closest("[data-param-select-button]");
   if (paramSelectButton) {
     const customSelect = paramSelectButton.closest("[data-param-select]");
@@ -3159,6 +3242,7 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  closeNotificationCenter();
   if (!eventFormPanel?.classList.contains("minimized")) {
     eventFormPanel?.classList.remove("open");
     eventFormPanel?.setAttribute("aria-hidden", "true");
