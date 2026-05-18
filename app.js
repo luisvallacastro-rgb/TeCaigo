@@ -2077,8 +2077,23 @@ function setRequestRowStatus(row, statusText) {
 }
 
 function setCorrespondenceText(selector, value) {
-  const element = correspondenceModal?.querySelector(selector);
-  if (element) element.textContent = value;
+  correspondenceModal?.querySelectorAll(selector).forEach((element) => {
+    element.textContent = value;
+  });
+}
+
+function getCorrespondenceInitials(value) {
+  const words = String(value || "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (!words.length) return "TC";
+  return words
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
 }
 
 function setCorrespondenceActiveControl(selector, value, dataKey) {
@@ -2112,6 +2127,7 @@ function openCorrespondenceModal(button) {
   setCorrespondenceText("[data-correspondence-thread-sent]", eventName);
   setCorrespondenceText("[data-correspondence-host]", host);
   setCorrespondenceText("[data-correspondence-from]", hasResponse ? host : "Sistema TeCaiGO");
+  setCorrespondenceText("[data-correspondence-avatar]", getCorrespondenceInitials(hasResponse ? host : "Sistema TeCaiGO"));
   setCorrespondenceText("[data-correspondence-cupos]", cupos);
   setCorrespondenceText("[data-correspondence-free]", free);
   setCorrespondenceText("[data-correspondence-state]", status);
@@ -2168,6 +2184,7 @@ function syncCorrespondenceThread(type) {
     setCorrespondenceText("[data-correspondence-state]", "Sistema");
     setCorrespondenceText("[data-correspondence-subject]", "Reglas de cupos externos");
     setCorrespondenceText("[data-correspondence-from]", "Sistema TeCaiGO");
+    setCorrespondenceText("[data-correspondence-avatar]", "TC");
     setCorrespondenceText(
       "[data-correspondence-body]",
       "Toda solicitud, respuesta, retiro o aprobacion queda registrada como correspondencia formal entre operadores y anfitriones dentro de TeCaiGO."
@@ -2179,6 +2196,7 @@ function syncCorrespondenceThread(type) {
     setCorrespondenceText("[data-correspondence-state]", status === "Retirada" ? "Retirada" : "Enviada");
     setCorrespondenceText("[data-correspondence-subject]", "Solicitud enviada al anfitrion");
     setCorrespondenceText("[data-correspondence-from]", "Operador TeCaiGO");
+    setCorrespondenceText("[data-correspondence-avatar]", "OT");
     setCorrespondenceText(
       "[data-correspondence-body]",
       `Se envio una solicitud formal de ${cupos} cupos para ${eventName} al anfitrion ${host}. La disponibilidad registrada al momento de solicitar fue de ${free} cupos.`
@@ -2194,6 +2212,7 @@ function syncCorrespondenceThread(type) {
     setCorrespondenceText("[data-correspondence-state]", "Denegada");
     setCorrespondenceText("[data-correspondence-subject]", "Solicitud denegada por el anfitrion");
     setCorrespondenceText("[data-correspondence-from]", "Volcan Tours");
+    setCorrespondenceText("[data-correspondence-avatar]", "VT");
     setCorrespondenceText(
       "[data-correspondence-body]",
       "El anfitrion Volcan Tours denego la solicitud de cupos para Ruta al volcan porque la disponibilidad externa ya no se encuentra abierta para esa fecha."
@@ -2204,6 +2223,7 @@ function syncCorrespondenceThread(type) {
   setCorrespondenceText("[data-correspondence-state]", status);
   setCorrespondenceText("[data-correspondence-subject]", "Respuesta recibida del anfitrion");
   setCorrespondenceText("[data-correspondence-from]", host);
+  setCorrespondenceText("[data-correspondence-avatar]", getCorrespondenceInitials(host));
   setCorrespondenceText(
     "[data-correspondence-body]",
     `El anfitrion ${host} respondio la solicitud de ${cupos} cupos para ${eventName}. Esta correspondencia queda registrada como comunicacion formal del proceso.`

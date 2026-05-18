@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>TeCaigo - Prototipo</title>
-    <link rel="stylesheet" href="./styles.css?v=tecaigo-event-form-readability-1" />
+    <link rel="stylesheet" href="./styles.css?v=tecaigo-gmail-correspondence-1" />
     <style>
       #home .wall-post:not(.feed-hidden) {
         display: block !important;
@@ -1987,75 +1987,96 @@
       <div class="correspondence-backdrop" data-close-correspondence></div>
       <section class="correspondence-dialog" role="dialog" aria-modal="true" aria-labelledby="correspondenceTitle">
         <header class="correspondence-top">
-          <div>
+          <div class="correspondence-brand">
+            <strong>TeCaiGO Mail</strong>
             <span>Correspondencia formal</span>
-            <h2 id="correspondenceTitle">Mensajeria de solicitudes</h2>
           </div>
-          <button type="button" data-close-correspondence aria-label="Cerrar correspondencia">X</button>
+          <label class="correspondence-global-search">
+            <span>⌕</span>
+            <input placeholder="Buscar correo" data-correspondence-search aria-label="Buscar correo formal" />
+          </label>
+          <div class="correspondence-account">
+            <button type="button" aria-label="Ayuda">?</button>
+            <button type="button" aria-label="Configuracion">⚙</button>
+            <span>LV</span>
+            <button type="button" data-close-correspondence aria-label="Cerrar correspondencia">×</button>
+          </div>
+          <h2 id="correspondenceTitle">Mensajeria de solicitudes</h2>
         </header>
 
         <div class="correspondence-workspace">
           <aside class="correspondence-folders" aria-label="Carpetas de correspondencia">
-            <button class="correspondence-compose" type="button" data-correspondence-compose-open>✎ Nuevo correo</button>
+            <button class="correspondence-compose" type="button" data-correspondence-compose-open><span>✎</span> Redactar</button>
             <nav>
               <button class="active" type="button" data-correspondence-folder="inbox"><span>▣</span> Recibidos <b>1</b></button>
-              <button type="button" data-correspondence-folder="sent"><span>↗</span> Enviados <b>2</b></button>
-              <button type="button" data-correspondence-folder="important"><span>★</span> Importantes</button>
+              <button type="button" data-correspondence-folder="sent"><span>➤</span> Enviados <b>2</b></button>
+              <button type="button" data-correspondence-folder="important"><span>☆</span> Destacados</button>
               <button type="button" data-correspondence-folder="approved"><span>✓</span> Aprobaciones</button>
               <button type="button" data-correspondence-folder="denied"><span>!</span> Denegadas</button>
               <button type="button" data-correspondence-folder="system"><span>⌁</span> Sistema</button>
             </nav>
+            <div class="correspondence-labels" aria-label="Etiquetas">
+              <strong>Etiquetas</strong>
+              <span><i></i> Solicitudes</span>
+              <span><i></i> Cupos externos</span>
+              <span><i></i> Anfitriones</span>
+            </div>
           </aside>
 
           <section class="correspondence-mailbox" aria-label="Lista de mensajes">
             <div class="correspondence-toolbar">
-              <label>
-                <span>Buscar correo</span>
-                <input placeholder="Buscar por evento, anfitrion, estado o asunto" data-correspondence-search aria-label="Buscar correo formal" />
-              </label>
+              <div class="mailbox-select">
+                <span class="mail-check"></span>
+                <button type="button" aria-label="Opciones de seleccion">⌄</button>
+              </div>
               <div class="correspondence-tools">
                 <button type="button" data-correspondence-refresh aria-label="Actualizar">↻</button>
-                <button type="button" data-correspondence-menu aria-label="Filtros">≡</button>
+                <button type="button" data-correspondence-menu aria-label="Mas opciones">⋮</button>
               </div>
+              <span class="correspondence-range">1-4 de 4</span>
             </div>
 
             <div class="correspondence-tabs">
-              <button class="active" type="button" data-correspondence-tab="all">Principal</button>
-              <button type="button" data-correspondence-tab="request">Solicitudes <b>2</b></button>
-              <button type="button" data-correspondence-tab="response">Respuestas <b>1</b></button>
+              <button class="active" type="button" data-correspondence-tab="all"><span>▣</span> Principal</button>
+              <button type="button" data-correspondence-tab="request"><span>◇</span> Solicitudes <b>2</b></button>
+              <button type="button" data-correspondence-tab="response"><span>ⓘ</span> Respuestas <b>1</b></button>
             </div>
 
             <div class="correspondence-list">
               <button class="correspondence-thread active unread" type="button" data-correspondence-thread="response" data-folder="inbox approved important" data-tab="response" data-search-text="tour cafe y mirador cafe aventura aprobada respuesta cupos">
                 <span class="mail-check"></span>
+                <span class="mail-star">☆</span>
                 <div>
-                  <strong data-correspondence-thread-event>Tour cafe y mirador</strong>
-                  <p><b>Cafe Aventura</b> acepto los cupos solicitados para venta externa.</p>
+                  <strong>Cafe Aventura</strong>
+                  <p><b data-correspondence-thread-event>Tour cafe y mirador</b> - Respuesta aprobada para cupos externos.</p>
                 </div>
                 <time>08:45</time>
                 <em>Nuevo</em>
               </button>
               <button class="correspondence-thread" type="button" data-correspondence-thread="sent" data-folder="sent important" data-tab="request" data-search-text="ruta internacional corta tecaigo tours enviada pendiente solicitud cupos">
                 <span class="mail-check"></span>
+                <span class="mail-star">☆</span>
                 <div>
-                  <strong data-correspondence-thread-sent>Ruta internacional corta</strong>
-                  <p><b>TeCaigo Tours</b> recibio tu solicitud y esta pendiente de respuesta.</p>
+                  <strong>Operador TeCaiGO</strong>
+                  <p><b data-correspondence-thread-sent>Ruta internacional corta</b> - Solicitud enviada y pendiente de respuesta.</p>
                 </div>
                 <time>07:58</time>
               </button>
               <button class="correspondence-thread" type="button" data-correspondence-thread="denied" data-folder="inbox denied" data-tab="response" data-search-text="ruta al volcan volcan tours denegada respuesta cupos">
                 <span class="mail-check"></span>
+                <span class="mail-star">☆</span>
                 <div>
-                  <strong>Ruta al volcan</strong>
-                  <p><b>Volcan Tours</b> denego la solicitud por cupos no disponibles.</p>
+                  <strong>Volcan Tours</strong>
+                  <p><b>Ruta al volcan</b> - Solicitud denegada por cupos no disponibles.</p>
                 </div>
                 <time>16 may</time>
               </button>
               <button class="correspondence-thread" type="button" data-correspondence-thread="system" data-folder="system" data-tab="all" data-search-text="sistema reglas cupos externos aprobaciones cambios">
                 <span class="mail-check"></span>
+                <span class="mail-star">☆</span>
                 <div>
-                  <strong>Reglas de cupos externos</strong>
-                  <p>Registro formal de cambios, aprobaciones y cupos heredados.</p>
+                  <strong>Sistema TeCaiGO</strong>
+                  <p><b>Reglas de cupos externos</b> - Registro formal de cambios y aprobaciones.</p>
                 </div>
                 <time>16 may</time>
               </button>
@@ -2063,26 +2084,32 @@
           </section>
 
           <article class="correspondence-message">
+            <div class="message-toolbar" aria-label="Acciones del mensaje">
+              <button type="button" aria-label="Volver">←</button>
+              <button type="button" aria-label="Archivar">▤</button>
+              <button type="button" aria-label="Reportar">!</button>
+              <button type="button" aria-label="Eliminar">⌫</button>
+              <button type="button" aria-label="Mas opciones">⋮</button>
+            </div>
             <div class="correspondence-message-head">
               <div>
-                <span data-correspondence-state>Aprobada</span>
                 <h3 data-correspondence-subject>Cupos aceptados por el anfitrion</h3>
+                <span data-correspondence-state>Aprobada</span>
               </div>
               <time data-correspondence-date>17/05/2026 · 08:45 a.m.</time>
             </div>
 
             <div class="correspondence-route">
-              <div>
-                <span>De</span>
+              <span class="sender-avatar" data-correspondence-avatar>CA</span>
+              <div class="route-main">
                 <strong data-correspondence-from>Cafe Aventura</strong>
+                <span>para Operador TeCaiGO</span>
               </div>
-              <div>
-                <span>Para</span>
-                <strong>Operador TeCaiGO</strong>
-              </div>
+              <button type="button" aria-label="Responder">↩</button>
             </div>
 
             <div class="correspondence-body">
+              <p class="formal-greeting">Estimado operador,</p>
               <p data-correspondence-body>
                 Hemos aprobado la solicitud de cupos para el evento seleccionado. Puedes continuar con la venta externa
                 bajo la comision acordada y respetando la fecha consultada.
@@ -2093,11 +2120,13 @@
                 <div><span>Cupos solicitados</span><strong data-correspondence-cupos>5</strong></div>
                 <div><span>Disponibles al solicitar</span><strong data-correspondence-free>12</strong></div>
               </div>
+              <p class="formal-signature">Atentamente,<br /><strong data-correspondence-from>Cafe Aventura</strong></p>
             </div>
 
             <footer class="correspondence-actions">
-              <button class="ghost-button" type="button" data-close-correspondence>Cerrar</button>
-              <button class="primary-button" type="button" data-correspondence-follow>Ver solicitud</button>
+              <button class="primary-button" type="button">Responder</button>
+              <button class="ghost-button" type="button">Reenviar</button>
+              <button class="ghost-button" type="button" data-correspondence-follow>Ver solicitud</button>
             </footer>
 
             <form class="correspondence-compose-panel" data-correspondence-compose-panel hidden>
@@ -2234,6 +2263,6 @@
     </div>
 
     <script src="./config.js?v=tecaigo-api-config-1"></script>
-    <script src="./app.js?v=tecaigo-new-event-side-image-1"></script>
+    <script src="./app.js?v=tecaigo-gmail-correspondence-1"></script>
   </body>
 </html>
