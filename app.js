@@ -2102,6 +2102,15 @@ function setCorrespondenceActiveControl(selector, value, dataKey) {
   });
 }
 
+function showCorrespondenceMailbox() {
+  if (!correspondenceModal) return;
+  correspondenceModal.classList.remove("is-reading", "is-composing");
+  correspondenceModal.classList.add("is-mailbox");
+  correspondenceModal.querySelector(".correspondence-compose")?.classList.remove("active");
+  const composePanel = correspondenceModal.querySelector("[data-correspondence-compose-panel]");
+  if (composePanel) composePanel.hidden = true;
+}
+
 function openCorrespondenceModal(button) {
   if (!correspondenceModal) return;
 
@@ -2142,23 +2151,24 @@ function openCorrespondenceModal(button) {
       : `La solicitud de ${cupos} cupos para ${eventName} fue enviada a ${host}. Aun no hay respuesta del anfitrion; cuando responda, este sobre mostrara la notificacion.`
   );
 
-  syncCorrespondenceThread(hasResponse ? "response" : "sent");
   const searchInput = correspondenceModal.querySelector("[data-correspondence-search]");
   if (searchInput) searchInput.value = "";
   filterCorrespondenceThreads();
+  showCorrespondenceMailbox();
   correspondenceModal.classList.add("open");
   correspondenceModal.setAttribute("aria-hidden", "false");
 }
 
 function closeCorrespondenceModal() {
-  correspondenceModal?.classList.remove("open");
+  correspondenceModal?.classList.remove("open", "is-reading", "is-composing");
   correspondenceModal?.setAttribute("aria-hidden", "true");
 }
 
 function syncCorrespondenceThread(type) {
   if (!correspondenceModal) return;
 
-  correspondenceModal.classList.remove("is-composing");
+  correspondenceModal.classList.remove("is-composing", "is-mailbox");
+  correspondenceModal.classList.add("is-reading");
   correspondenceModal.querySelector(".correspondence-compose")?.classList.remove("active");
   const composePanel = correspondenceModal.querySelector("[data-correspondence-compose-panel]");
   if (composePanel) composePanel.hidden = true;
@@ -2233,6 +2243,7 @@ function syncCorrespondenceThread(type) {
 function openCorrespondenceCompose() {
   if (!correspondenceModal) return;
 
+  correspondenceModal.classList.remove("is-mailbox", "is-reading");
   correspondenceModal.classList.add("is-composing");
   correspondenceModal.querySelector(".correspondence-compose")?.classList.add("active");
   correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => thread.classList.remove("active"));
@@ -2248,7 +2259,8 @@ function openCorrespondenceCompose() {
 function filterCorrespondenceThreads() {
   if (!correspondenceModal) return;
 
-  correspondenceModal.classList.remove("is-composing");
+  correspondenceModal.classList.remove("is-composing", "is-reading");
+  correspondenceModal.classList.add("is-mailbox");
   correspondenceModal.querySelector(".correspondence-compose")?.classList.remove("active");
   const composePanel = correspondenceModal.querySelector("[data-correspondence-compose-panel]");
   if (composePanel) composePanel.hidden = true;
@@ -2275,7 +2287,11 @@ function filterCorrespondenceThreads() {
   });
 
   const active = correspondenceModal.querySelector("[data-correspondence-thread].active:not([hidden])");
-  if (!active && firstVisible) syncCorrespondenceThread(firstVisible.dataset.correspondenceThread);
+  if (!active && firstVisible) {
+    correspondenceModal.querySelectorAll("[data-correspondence-thread]").forEach((thread) => {
+      thread.classList.toggle("active", thread === firstVisible);
+    });
+  }
 }
 
 function openSlotRequestFromRequestRow(row, mode = "editar") {
@@ -3066,8 +3082,13 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-correspondence-compose-cancel]")) {
-    const activeThread = correspondenceModal?.querySelector("[data-correspondence-thread]:not([hidden])");
-    if (activeThread) syncCorrespondenceThread(activeThread.dataset.correspondenceThread);
+    showCorrespondenceMailbox();
+    filterCorrespondenceThreads();
+    return;
+  }
+
+  if (event.target.closest("[data-correspondence-back]")) {
+    showCorrespondenceMailbox();
     return;
   }
 

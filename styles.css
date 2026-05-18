@@ -12332,3 +12332,58 @@ body[data-active-view="home"] .post-actions button.is-active {
     min-height: 46px !important;
   }
 }
+
+/* Mail flow: inbox first, message detail after row click */
+.correspondence-modal.is-mailbox .correspondence-workspace {
+  grid-template-columns: 250px minmax(0, 1fr) !important;
+}
+
+.correspondence-modal.is-mailbox .correspondence-mailbox {
+  display: grid !important;
+  border-radius: 18px !important;
+}
+
+.correspondence-modal.is-mailbox .correspondence-message {
+  display: none !important;
+}
+
+.correspondence-modal.is-mailbox .correspondence-list .correspondence-thread {
+  grid-template-columns: 24px 24px minmax(0, 1fr) 86px !important;
+}
+
+.correspondence-modal.is-mailbox .correspondence-list .correspondence-thread div {
+  grid-template-columns: minmax(150px, 0.26fr) minmax(0, 1fr) !important;
+}
+
+.correspondence-modal.is-mailbox .correspondence-list .correspondence-thread p {
+  font-size: 15px !important;
+}
+
+.correspondence-modal.is-reading .correspondence-workspace {
+  grid-template-columns: 250px minmax(0, 1fr) !important;
+}
+
+.correspondence-modal.is-reading .correspondence-mailbox {
+  display: none !important;
+}
+
+.correspondence-modal.is-reading .correspondence-message {
+  display: grid !important;
+  border-left: 0 !important;
+  border-radius: 18px !important;
+}
+
+.correspondence-modal.is-reading .correspondence-message-head h3 {
+  max-width: 980px !important;
+}
+
+.correspondence-modal.is-reading .correspondence-body p {
+  max-width: 920px !important;
+}
+
+@media (max-width: 1400px) and (max-height: 820px) {
+  .correspondence-modal.is-mailbox .correspondence-workspace,
+  .correspondence-modal.is-reading .correspondence-workspace {
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+  }
+}
