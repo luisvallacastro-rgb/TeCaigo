@@ -2175,31 +2175,43 @@ p {
   }
 
   .hero {
-    min-height: 88svh;
+    min-height: 100svh;
     align-items: center;
+    isolation: isolate;
   }
 
   .hero-canvas {
-    opacity: 0.3;
-    transform: scale(1.18) translate(12%, -3%);
+    inset: auto 0 0;
+    height: 100%;
+    opacity: 0.14;
+    transform: scale(1.45) translate(3%, 8%);
     transform-origin: center;
   }
 
   .hero-overlay {
     background:
-      radial-gradient(circle at 72% 34%, rgba(10, 165, 173, 0.12), transparent 34%),
-      linear-gradient(180deg, rgba(6, 18, 17, 0.64), rgba(6, 18, 17, 0.82) 46%, rgba(6, 18, 17, 0.96) 100%),
-      rgba(6, 18, 17, 0.46);
+      radial-gradient(circle at 50% 92%, rgba(10, 165, 173, 0.16), transparent 42%),
+      linear-gradient(180deg, rgba(2, 9, 9, 0.42), rgba(2, 9, 9, 0.72) 38%, rgba(2, 9, 9, 0.94) 100%),
+      rgba(2, 9, 9, 0.58);
   }
 
   .hero-content {
-    width: min(100% - 36px, 1120px);
+    width: min(100% - 32px, 1120px);
     align-self: center;
-    padding: 86px 0 48px;
+    padding: 96px 0 44px;
   }
 
   .hero-pitch {
     max-width: 21rem;
+    padding: 22px;
+    border: 1px solid rgba(94, 214, 218, 0.16);
+    border-radius: 14px;
+    background:
+      linear-gradient(180deg, rgba(4, 18, 17, 0.64), rgba(4, 18, 17, 0.32)),
+      rgba(2, 9, 9, 0.42);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .hero h1 {
