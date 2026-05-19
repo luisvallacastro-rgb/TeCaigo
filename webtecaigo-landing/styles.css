@@ -2159,24 +2159,30 @@ p {
 
   .hero {
     min-height: 88svh;
-    align-items: end;
+    align-items: center;
   }
 
   .hero-canvas {
-    opacity: 0.22;
-    transform: scale(0.78) translate(18%, -12%);
+    opacity: 0.3;
+    transform: scale(1.18) translate(12%, -3%);
     transform-origin: center;
   }
 
   .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(6, 18, 17, 0.54), rgba(6, 18, 17, 0.78) 34%, rgba(6, 18, 17, 0.98) 100%),
-      rgba(6, 18, 17, 0.48);
+      radial-gradient(circle at 72% 34%, rgba(10, 165, 173, 0.12), transparent 34%),
+      linear-gradient(180deg, rgba(6, 18, 17, 0.64), rgba(6, 18, 17, 0.82) 46%, rgba(6, 18, 17, 0.96) 100%),
+      rgba(6, 18, 17, 0.46);
   }
 
   .hero-content {
     width: min(100% - 36px, 1120px);
-    padding: 92px 0 28px;
+    align-self: center;
+    padding: 86px 0 48px;
+  }
+
+  .hero-pitch {
+    max-width: 21rem;
   }
 
   .hero h1 {
