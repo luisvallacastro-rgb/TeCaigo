@@ -2175,31 +2175,36 @@ p {
   }
 
   .hero {
-    min-height: 100svh;
+    min-height: 88svh;
     align-items: end;
   }
 
   .hero-canvas {
-    opacity: 0.42;
+    opacity: 0.22;
+    transform: scale(0.78) translate(18%, -12%);
+    transform-origin: center;
   }
 
   .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(6, 18, 17, 0.48), rgba(6, 18, 17, 0.78) 38%, rgba(6, 18, 17, 0.96) 100%),
-      rgba(6, 18, 17, 0.34);
+      linear-gradient(180deg, rgba(6, 18, 17, 0.54), rgba(6, 18, 17, 0.78) 34%, rgba(6, 18, 17, 0.98) 100%),
+      rgba(6, 18, 17, 0.48);
   }
 
   .hero-content {
-    width: min(100% - 32px, 1120px);
-    padding: 100px 0 38px;
+    width: min(100% - 36px, 1120px);
+    padding: 92px 0 28px;
   }
 
   .hero h1 {
-    font-size: 2.48rem;
-    line-height: 0.98;
+    max-width: 19rem;
+    font-size: 2.08rem;
+    line-height: 1;
   }
 
   .economy-line {
+    margin-top: 0.18em;
+    font-size: 0.58em;
     white-space: normal;
   }
 
@@ -2208,12 +2213,16 @@ p {
   }
 
   .hero-copy {
-    font-size: 1rem;
+    max-width: 18rem;
+    margin-top: 16px;
+    font-size: 0.92rem;
+    line-height: 1.45;
   }
 
   .hero-actions {
-    display: grid;
+    display: flex;
     gap: 10px;
+    margin-top: 20px;
   }
 
   h2 {
@@ -2283,7 +2292,11 @@ p {
   }
 
   .button {
-    width: 100%;
+    width: auto;
+    min-height: 38px;
+    padding: 0 13px;
+    border-radius: 7px;
+    font-size: 0.82rem;
   }
 
   .section-shell {
@@ -2471,17 +2484,18 @@ p {
 
 @media (max-width: 420px) {
   .hero h1 {
-    font-size: 2.18rem;
+    max-width: 18rem;
+    font-size: 1.92rem;
   }
 
   .hero-copy {
-    max-width: 22rem;
+    max-width: 17rem;
   }
 
   .button {
-    min-height: 46px;
-    padding: 0 14px;
-    font-size: 0.92rem;
+    min-height: 36px;
+    padding: 0 11px;
+    font-size: 0.78rem;
   }
 
   .intro-question h2,
@@ -2573,10 +2587,10 @@ p {
               </span>
             </h1>
             <p class="hero-copy">
-              Una red digital para ordenar operadores, turistas, comercios, transporte e instituciones.
+              Operación turística conectada en una sola red.
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="#inversion">Conocer necesidad de fondos</a>
+              <a class="button primary" href="#inversion">Ver inversión</a>
               <a class="button secondary" href="#que-es">Entender Tecaigo</a>
             </div>
           </div>
