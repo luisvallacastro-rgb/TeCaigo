@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>TeCaigo - Prototipo</title>
-    <link rel="stylesheet" href="./styles.css?v=tecaigo-notification-center-mail-13" />
+    <link rel="stylesheet" href="./styles.css?v=tecaigo-login-15" />
     <style>
       #home .wall-post:not(.feed-hidden) {
         display: block !important;
@@ -65,8 +65,31 @@
       }
     </style>
   </head>
-  <body data-active-view="home">
+  <body data-active-view="home" data-auth-state="locked">
     <!-- tecaigo-homefeed-inline-final -->
+    <section class="login-screen" data-login-screen aria-label="Inicio de sesion TeCaiGO">
+      <div class="login-panel">
+        <div class="login-brand">
+          <strong><span>TeCai</span><b>GO</b></strong>
+          <small>Turismo conectado</small>
+        </div>
+        <form class="login-card" data-login-form>
+          <span class="login-kicker">Acceso inicial</span>
+          <h1>Ingresar al sistema</h1>
+          <label>
+            Usuario
+            <input type="email" data-login-user autocomplete="username" value="operador@tecaigo.com" />
+          </label>
+          <label>
+            Contraseña
+            <input type="password" data-login-password autocomplete="current-password" value="TecaiGO2026" />
+          </label>
+          <p class="login-error" data-login-error aria-live="polite"></p>
+          <button class="login-submit" type="submit">Entrar</button>
+          <small class="login-hint">Usuario inicial: operador@tecaigo.com · Clave: TecaiGO2026</small>
+        </form>
+      </div>
+    </section>
     <div class="mobile-app-bar" aria-label="Navegacion movil">
       <button class="mobile-menu-button" type="button" data-menu-toggle aria-label="Abrir menu">
         <span></span>
@@ -2352,6 +2375,6 @@
     </section>
 
     <script src="./config.js?v=tecaigo-api-config-1"></script>
-    <script src="./app.js?v=tecaigo-notification-center-mail-13"></script>
+    <script src="./app.js?v=tecaigo-login-15"></script>
   </body>
 </html>

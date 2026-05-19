@@ -1,5 +1,9 @@
 const navItems = document.querySelectorAll(".nav-item");
 const views = document.querySelectorAll(".view");
+const loginForm = document.querySelector("[data-login-form]");
+const loginUser = document.querySelector("[data-login-user]");
+const loginPassword = document.querySelector("[data-login-password]");
+const loginError = document.querySelector("[data-login-error]");
 const composerModal = document.querySelector("#composerModal");
 const composerTextarea = document.querySelector(".composer-textarea");
 const composerFileInput = document.querySelector("[data-composer-file]");
@@ -17,6 +21,9 @@ const notificationCenter = document.querySelector("[data-notification-center]");
 const desktopSidebarDeadZones = ".main, .view, .view.active, .home-layout, .feed-layout, .social-feed";
 const API_BASE_URL = window.TECAIGO_CONFIG?.API_BASE_URL || "http://localhost:3001/api";
 const LOCAL_FEED_POSTS_KEY = "tecaigo-local-feed-posts";
+const AUTH_SESSION_KEY = "tecaigo-authenticated";
+const INITIAL_LOGIN_USER = "operador@tecaigo.com";
+const INITIAL_LOGIN_PASSWORD = "TecaiGO2026";
 const EMPTY_EVENT_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 let minimizedDrag = null;
 let notificationCenterDismissed = false;
@@ -25,6 +32,41 @@ const paramCalendarState = { month: new Date().getMonth(), year: new Date().getF
 const slotRequestCalendarState = { month: new Date().getMonth(), year: new Date().getFullYear() };
 const publicItineraryPlaces = ["Mirador publico", "Parque central", "Playa publica", "Sendero de montana", "Centro historico"];
 const privateItineraryPlaces = ["Restaurante Bruma", "Finca Cafe Aventura", "Hotel Jardin de Flores", "Hostal Lago Azul", "Comedor Ruta Viva"];
+
+function unlockApp() {
+  document.body.dataset.authState = "unlocked";
+  sessionStorage.setItem(AUTH_SESSION_KEY, "true");
+  if (document.body.dataset.activeView === "home" && !notificationCenterDismissed) openNotificationCenter();
+}
+
+function lockApp() {
+  document.body.dataset.authState = "locked";
+  sessionStorage.removeItem(AUTH_SESSION_KEY);
+  loginUser?.focus();
+}
+
+function validateLogin(user, password) {
+  return user.trim().toLowerCase() === INITIAL_LOGIN_USER && password === INITIAL_LOGIN_PASSWORD;
+}
+
+loginForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (validateLogin(loginUser?.value || "", loginPassword?.value || "")) {
+    if (loginError) loginError.textContent = "";
+    unlockApp();
+    return;
+  }
+
+  if (loginError) loginError.textContent = "Usuario o contraseña no coinciden con el acceso inicial.";
+  loginPassword?.focus();
+  loginPassword?.select();
+});
+
+if (sessionStorage.getItem(AUTH_SESSION_KEY) === "true") {
+  document.body.dataset.authState = "unlocked";
+} else {
+  lockApp();
+}
 
 const slotRequestPublicEvents = [
   {
@@ -467,7 +509,7 @@ function activateView(viewId) {
 
   window.scrollTo({ top: 0, behavior: "smooth" });
   closeMobileMenu();
-  if (viewId === "home" && !notificationCenterDismissed) openNotificationCenter();
+  if (viewId === "home" && document.body.dataset.authState === "unlocked" && !notificationCenterDismissed) openNotificationCenter();
 }
 
 function openMobileMenu() {
@@ -635,7 +677,7 @@ function closeNotificationCenter() {
 window.openTeCaigoNotifications = openNotificationCenter;
 window.closeTeCaigoNotifications = closeNotificationCenter;
 
-if (document.body.dataset.activeView === "home") openNotificationCenter();
+if (document.body.dataset.activeView === "home" && document.body.dataset.authState === "unlocked") openNotificationCenter();
 
 mobileMenuToggle?.addEventListener("click", toggleMobileMenu);
 mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
