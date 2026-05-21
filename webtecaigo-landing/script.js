@@ -9,6 +9,8 @@ const actorContent = {
     title: "Controlan eventos, cupos, ventas, aliados y liquidaciones desde un sistema común.",
     copy:
       "Tecaigo les da administración operativa, distribución colaborativa, control financiero y datos para tomar mejores decisiones.",
+    image: "assets/tecaigo-tour-operador-sheet.png",
+    imageAlt: "Vista móvil de tour operador en Tecaigo",
   },
   comercios: {
     label: "Comercios turísticos",
@@ -191,11 +193,20 @@ document.querySelectorAll(".actor-tab").forEach((tab) => {
       { duration: 220, easing: "ease-out" },
     );
 
-    card.innerHTML = `
-      <span class="actor-label">${actor.label}</span>
-      <h3>${actor.title}</h3>
-      <p>${actor.copy}</p>
-    `;
+    card.classList.toggle("has-visual", Boolean(actor.image));
+    card.innerHTML = actor.image
+      ? `
+        <img class="actor-visual" src="${actor.image}" alt="${actor.imageAlt}" />
+        <div class="actor-visual-caption">
+          <span class="actor-label">${actor.label}</span>
+          <h3>${actor.title}</h3>
+        </div>
+      `
+      : `
+        <span class="actor-label">${actor.label}</span>
+        <h3>${actor.title}</h3>
+        <p>${actor.copy}</p>
+      `;
   });
 });
 
