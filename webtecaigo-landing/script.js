@@ -6,35 +6,53 @@ const brandTealStroke = "rgba(10, 165, 173, 0.84)";
 const actorContent = {
   operadores: {
     label: "Tour operadores y clusters",
+    strategy: "El centro operativo donde nacen, se administran y se liquidan las experiencias.",
     title: "Controlan eventos, cupos, ventas, aliados y liquidaciones desde un sistema común.",
     copy:
       "Tecaigo les da administración operativa, distribución colaborativa, control financiero y datos para tomar mejores decisiones.",
-    image: "assets/tecaigo-tour-operador-sheet.png",
-    imageAlt: "Vista móvil de tour operador en Tecaigo",
+    image: "assets/tecaigo-guides-cluster.png",
+    imageAlt: "Grupo de guías y operadores turísticos conectados por Tecaigo",
+    fit: "cover",
   },
   comercios: {
-    label: "Comercios turísticos",
-    title: "Ganan visibilidad dentro de una red que mueve viajeros, rutas y experiencias reales.",
+    label: "Comercios y proveedores",
+    strategy: "La oferta local deja de estar aislada y entra en rutas que ya tienen demanda.",
+    title: "Conectan productos, servicios y experiencias con operadores que mueven viajeros.",
     copy:
-      "Restaurantes, hostales, destinos, guías y proveedores pueden promocionarse, crear alianzas y participar en paquetes turísticos.",
+      "Restaurantes, hostales, destinos, guías y proveedores pueden recibir visibilidad, alianzas y ventas dentro del flujo turístico.",
+    image: "assets/tecaigo-restaurant-owner.png",
+    imageAlt: "Comercio turístico aliado a Tecaigo",
+    fit: "cover",
   },
   transporte: {
     label: "Transportistas",
-    title: "Reciben demanda organizada, rutas más claras y reputación digital para crecer.",
+    strategy: "La movilidad se vuelve parte de la experiencia, no una coordinación improvisada.",
+    title: "Ordenan rutas, capacidad, puntos de salida y responsables para mover grupos con control.",
     copy:
-      "La plataforma conecta disponibilidad, capacidad, ubicación, eventos y ocupación para optimizar la logística turística.",
+      "La plataforma conecta disponibilidad, ubicación, eventos y ocupación para reducir fricción logística.",
+    image: "assets/tecaigo-transport-microbus.png",
+    imageAlt: "Transporte turístico conectado a Tecaigo",
+    fit: "cover",
   },
   viajeros: {
     label: "Viajeros",
-    title: "Descubren experiencias confiables, compran digitalmente y participan en comunidad.",
+    strategy: "La demanda encuentra experiencias confiables, visibles y listas para reservar.",
+    title: "Descubren rutas, compran cupos y participan en una comunidad turística conectada.",
     copy:
       "Tecaigo facilita reservas, recomendaciones, contenido y experiencias personalizadas para turismo interno y regional.",
+    image: "assets/tecaigo-tourist-beach.png",
+    imageAlt: "Viajera explorando una experiencia turística",
+    fit: "cover",
   },
   instituciones: {
-    label: "Instituciones públicas, educativas y financieras",
-    title: "Obtienen trazabilidad, formalización gradual y una vía para fortalecer economías locales.",
+    label: "Instituciones",
+    strategy: "La red genera datos, formación y trazabilidad para fortalecer economías locales.",
+    title: "Acompañan formalización, talento, financiamiento y decisiones con información real.",
     copy:
       "La red abre espacio para capacitación, inserción laboral, datos sectoriales, inclusión financiera y políticas de turismo sostenible.",
+    image: "assets/tecaigo-university-classroom.png",
+    imageAlt: "Instituciones formando talento turístico",
+    fit: "cover",
   },
 };
 
@@ -194,9 +212,16 @@ document.querySelectorAll(".actor-tab").forEach((tab) => {
     );
 
     card.classList.toggle("has-visual", Boolean(actor.image));
+    card.classList.toggle("fit-cover", actor.fit === "cover");
     card.innerHTML = actor.image
       ? `
-        <img class="actor-visual" src="${actor.image}" alt="${actor.imageAlt}" />
+        <div class="actor-strategy">
+          <span>${actor.label}</span>
+          <p>${actor.strategy}</p>
+        </div>
+        <div class="actor-visual-frame">
+          <img class="actor-visual" src="${actor.image}" alt="${actor.imageAlt}" />
+        </div>
         <div class="actor-visual-caption">
           <span class="actor-label">${actor.label}</span>
           <h3>${actor.title}</h3>

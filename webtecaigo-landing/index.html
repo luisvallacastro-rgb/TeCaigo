@@ -1729,39 +1729,80 @@ p {
 .actor-card.has-visual {
   position: relative;
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   min-height: clamp(420px, 40vw, 560px);
   padding: 0;
   overflow: hidden;
   background: #031011;
 }
 
+.actor-strategy {
+  position: relative;
+  z-index: 1;
+  padding: clamp(18px, 2.3vw, 28px) clamp(24px, 4vw, 44px);
+  background:
+    linear-gradient(90deg, rgba(2, 9, 9, 0.98), rgba(2, 9, 9, 0.88)),
+    #020909;
+}
+
+.actor-strategy span {
+  display: block;
+  color: var(--gold);
+  font-size: clamp(0.72rem, 1.1vw, 0.92rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.actor-strategy p {
+  max-width: 680px;
+  margin: 8px 0 0;
+  color: rgba(255, 253, 247, 0.82);
+  font-size: clamp(0.98rem, 1.35vw, 1.32rem);
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.actor-visual-frame {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(10, 165, 173, 0.1), transparent 42%),
+    #031011;
+}
+
 .actor-visual {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: inherit;
   object-fit: contain;
   object-position: center;
   opacity: 0.94;
+}
+
+.actor-card.fit-cover .actor-visual {
+  object-fit: cover;
 }
 
 .actor-card.has-visual::after {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(2, 9, 9, 0.04), rgba(2, 9, 9, 0.04) 58%, rgba(2, 9, 9, 0.42)),
+    linear-gradient(180deg, rgba(2, 9, 9, 0.02), rgba(2, 9, 9, 0.03) 58%, rgba(2, 9, 9, 0.34)),
     radial-gradient(circle at 50% 34%, transparent 0 54%, rgba(2, 9, 9, 0.22) 100%);
   pointer-events: none;
   content: "";
 }
 
 .actor-visual-caption {
-  position: absolute;
-  left: 28px;
-  right: 28px;
-  bottom: 20px;
+  position: relative;
   z-index: 1;
-  max-width: 520px;
+  max-width: none;
+  padding: clamp(18px, 2.6vw, 30px) clamp(24px, 4vw, 44px) clamp(22px, 3vw, 38px);
+  background:
+    linear-gradient(180deg, rgba(2, 9, 9, 0.78), rgba(2, 9, 9, 0.96)),
+    #020909;
 }
 
 .actor-card h3 {
@@ -2998,12 +3039,18 @@ p {
               <button class="actor-tab" type="button" data-actor="viajeros">Viajeros</button>
               <button class="actor-tab" type="button" data-actor="instituciones">Instituciones</button>
             </div>
-            <div class="actor-card has-visual" id="actorCard" aria-live="polite">
-              <img
-                class="actor-visual"
-                src="assets/tecaigo-tour-operador-sheet.png"
-                alt="Vista móvil de tour operador en Tecaigo"
-              />
+            <div class="actor-card has-visual fit-cover" id="actorCard" aria-live="polite">
+              <div class="actor-strategy">
+                <span>Tour operadores y clusters</span>
+                <p>El centro operativo donde nacen, se administran y se liquidan las experiencias.</p>
+              </div>
+              <div class="actor-visual-frame">
+                <img
+                  class="actor-visual"
+                  src="assets/tecaigo-guides-cluster.png"
+                  alt="Grupo de guías y operadores turísticos conectados por Tecaigo"
+                />
+              </div>
               <div class="actor-visual-caption">
                 <span class="actor-label">Tour operadores y clusters</span>
                 <h3>Controlan eventos, cupos, ventas, aliados y liquidaciones desde un sistema común.</h3>
@@ -3192,6 +3239,6 @@ p {
       <a href="#inicio">Volver arriba</a>
     </footer>
 
-    <script src="script.js?v=tecaigo-actors-01"></script>
+    <script src="script.js?v=tecaigo-actors-02"></script>
   </body>
 </html>
