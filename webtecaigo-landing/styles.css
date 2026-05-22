@@ -1661,6 +1661,10 @@ p {
   color: rgba(255, 253, 247, 0.74);
 }
 
+.actors-section .cyan-phrase {
+  color: var(--gold);
+}
+
 .actors-layout {
   display: grid;
   grid-template-columns: 0.9fr 1fr;
