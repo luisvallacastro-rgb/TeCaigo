@@ -619,9 +619,9 @@ p {
 
 .definition-panel {
   position: relative;
-  width: min(100%, 640px);
-  min-height: 292px;
-  max-height: 330px;
+  width: min(100%, 680px);
+  min-height: 260px;
+  max-height: 300px;
   overflow: hidden;
   opacity: 0;
   transform: translateY(30px) scale(0.98);
@@ -641,7 +641,7 @@ p {
 
 .definition-panel::before {
   position: absolute;
-  inset: 14px;
+  inset: 10px;
   border: 1px solid rgba(10, 165, 173, 0.1);
   border-radius: 12px;
   pointer-events: none;
@@ -650,10 +650,10 @@ p {
 
 .definition-panel::after {
   position: absolute;
-  right: 24px;
-  top: 24px;
-  width: 72px;
-  height: 72px;
+  right: 22px;
+  top: 22px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   background:
     linear-gradient(90deg, transparent 48%, rgba(10, 165, 173, 0.18) 48% 52%, transparent 52%),
@@ -675,7 +675,7 @@ p {
   align-items: flex-start !important;
   justify-content: center;
   align-items: center !important;
-  padding: clamp(28px, 3.2vw, 42px) clamp(28px, 3.8vw, 52px);
+  padding: clamp(22px, 2.6vw, 34px) clamp(26px, 3.4vw, 46px);
   border-radius: inherit;
   opacity: 0;
   transform: translateY(38px) scale(0.96);
@@ -734,11 +734,11 @@ p {
 }
 
 .definition-panel p {
-  max-width: 540px;
+  max-width: 600px;
   margin: 0;
   color: rgba(255, 253, 247, 0.82);
-  font-size: clamp(0.94rem, 1vw, 1.08rem) !important;
-  line-height: 1.48 !important;
+  font-size: clamp(1.08rem, 1.35vw, 1.42rem) !important;
+  line-height: 1.34 !important;
   text-align: center !important;
 }
 
@@ -1681,19 +1681,24 @@ p {
 }
 
 .actor-tabs {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: rgba(255, 253, 247, 0.14);
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  padding: 18px 20px;
+  background: rgba(2, 9, 9, 0.92);
 }
 
 .actor-tab {
-  min-height: 52px;
+  width: 74px;
+  min-height: 10px;
+  flex: 0 0 74px;
+  padding: 0;
   border: 0;
+  border-radius: 999px;
   color: rgba(255, 253, 247, 0.72);
-  background: rgba(20, 35, 33, 0.42);
+  background: rgba(255, 253, 247, 0.26);
   font: inherit;
-  font-size: 0.82rem;
+  font-size: 0;
   font-weight: 800;
   cursor: pointer;
   transition: background 160ms ease, color 160ms ease;
@@ -1701,8 +1706,7 @@ p {
 
 .actor-tab.active,
 .actor-tab:hover {
-  color: var(--ink);
-  background: var(--gold);
+  background: var(--teal);
 }
 
 .actor-card {
@@ -2169,7 +2173,7 @@ p {
   }
 
   .definition-panel {
-    min-height: 300px;
+    min-height: 250px;
     max-height: none;
   }
 
@@ -2251,7 +2255,7 @@ p {
   }
 
   .hero {
-    min-height: 100svh;
+    min-height: 88svh;
     align-items: center;
     isolation: isolate;
   }
@@ -2272,24 +2276,24 @@ p {
   }
 
   .hero-content {
-    width: min(100% - 32px, 1120px);
+    width: min(100% - 28px, 1120px);
     align-self: center;
-    padding: 96px 0 44px;
+    padding: 82px 0 34px;
   }
 
   .hero-pitch {
-    max-width: 21rem;
+    max-width: 24rem;
   }
 
   .hero h1 {
-    max-width: 19rem;
-    font-size: 2.08rem;
-    line-height: 1;
+    max-width: 23rem;
+    font-size: clamp(2.45rem, 11vw, 3.28rem);
+    line-height: 0.94;
   }
 
   .economy-line {
-    margin-top: 0.18em;
-    font-size: 0.58em;
+    margin-top: 0.14em;
+    font-size: 0.5em;
     white-space: normal;
   }
 
@@ -2298,16 +2302,16 @@ p {
   }
 
   .hero-copy {
-    max-width: 18rem;
-    margin-top: 16px;
-    font-size: 0.92rem;
-    line-height: 1.45;
+    max-width: 22rem;
+    margin-top: 18px;
+    font-size: 1.04rem;
+    line-height: 1.38;
   }
 
   .hero-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 24px;
   }
 
   h2 {
@@ -2353,16 +2357,16 @@ p {
   }
 
   .definition-panel {
-    min-height: 292px;
+    min-height: 240px;
   }
 
   .definition-panel article {
-    padding: 28px 20px;
+    padding: 22px 18px;
   }
 
   .definition-panel p {
-    font-size: 0.88rem !important;
-    line-height: 1.45 !important;
+    font-size: 1.02rem !important;
+    line-height: 1.32 !important;
   }
 
   .desktop-reveal {
@@ -2405,7 +2409,13 @@ p {
   }
 
   .actor-tabs {
-    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .actor-tab {
+    width: 34px;
+    flex: 0 0 34px;
   }
 
   .actor-card h3 {
@@ -2413,13 +2423,13 @@ p {
   }
 
   .actor-card.has-visual {
-    min-height: 300px;
+    min-height: 620px;
   }
 
   .actor-visual-caption {
-    left: 18px;
-    right: 18px;
-    bottom: 18px;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 
   .actor-card.has-visual h3 {
@@ -2440,11 +2450,52 @@ p {
   }
 
   .flow-board {
-    gap: 12px;
+    display: flex;
+    width: calc(100% + 32px);
+    gap: 14px;
+    margin-inline: -16px;
+    padding: 0 16px 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .flow-board::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .flow-board::-webkit-scrollbar-track {
+    background: rgba(255, 253, 247, 0.06);
+    border-radius: 999px;
+  }
+
+  .flow-board::-webkit-scrollbar-thumb {
+    background: rgba(10, 165, 173, 0.78);
+    border-radius: 999px;
+  }
+
+  .flow-board article {
+    min-height: 390px;
+    flex: 0 0 min(84vw, 380px);
+    justify-content: flex-start;
+    scroll-snap-align: center;
   }
 
   .flow-board h3 {
     min-height: 0;
+    font-size: 1.22rem;
+  }
+
+  .flow-board p {
+    font-size: 0.98rem;
+    line-height: 1.48;
+  }
+
+  .flow-more {
+    margin-top: 22px;
+    font-size: 0.92rem;
   }
 
   .flow-board article:hover,
@@ -2501,35 +2552,61 @@ p {
   }
 
   .tour-reel-section {
-    padding: 44px 0;
+    padding: 46px 0 54px;
   }
 
   .tour-reel-shell {
-    width: min(100% - 32px, 1120px);
+    width: 100%;
   }
 
   .tour-reel-copy {
-    margin-bottom: 22px;
+    width: min(100% - 34px, 520px);
+    margin: 0 auto 24px;
+    text-align: center;
   }
 
   .tour-reel-copy h2 {
-    font-size: 1.55rem;
-    line-height: 1.12;
+    font-size: clamp(1.95rem, 8.5vw, 2.75rem);
+    line-height: 1.02;
   }
 
   .reel-rotating-slot {
+    display: block;
+    margin-top: 0.12em;
     white-space: normal;
   }
 
+  .tour-reel-stage {
+    display: grid;
+    width: 100%;
+    gap: 14px;
+    padding: 4px 0 18px;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .tour-reel-track,
+  .tour-reel-track.reverse {
+    display: flex;
+    width: max-content;
+    gap: 14px;
+    animation-duration: 24s;
+  }
+
+  .tour-reel-card:not(.image-reel-card) {
+    display: none;
+  }
+
   .tour-reel-card {
-    width: 136px;
-    height: 88px;
+    width: min(82vw, 360px);
+    height: clamp(180px, 54vw, 250px);
+    flex: 0 0 min(82vw, 360px);
   }
 
   .tour-reel-card b {
-    left: 11px;
-    bottom: 14px;
-    font-size: 0.82rem;
+    left: 18px;
+    bottom: 18px;
+    font-size: 1.08rem;
   }
 
   .tour-reel-card:hover,
@@ -2583,18 +2660,18 @@ p {
 
 @media (max-width: 420px) {
   .hero h1 {
-    max-width: 18rem;
-    font-size: 1.92rem;
+    max-width: 21.5rem;
+    font-size: 2.7rem;
   }
 
   .hero-copy {
-    max-width: 17rem;
+    max-width: 20.5rem;
   }
 
   .button {
-    min-height: 36px;
-    padding: 0 11px;
-    font-size: 0.78rem;
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 0.9rem;
   }
 
   .intro-question h2,
@@ -2603,7 +2680,7 @@ p {
   }
 
   .definition-panel {
-    min-height: 286px;
+    min-height: 250px;
   }
 
   .feature-diagram {

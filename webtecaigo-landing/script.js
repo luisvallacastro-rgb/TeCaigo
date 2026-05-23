@@ -194,15 +194,24 @@ if (canvas && ctx) {
   draw();
 }
 
-document.querySelectorAll(".actor-tab").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const actor = actorContent[tab.dataset.actor];
-    const card = document.getElementById("actorCard");
-    if (!actor || !card) return;
+const actorTabs = [...document.querySelectorAll(".actor-tab")];
+const actorKeys = actorTabs.map((tab) => tab.dataset.actor).filter(Boolean);
+const actorMobileQuery = window.matchMedia("(max-width: 620px)");
+let actorCarouselTimer;
+let activeActorIndex = Math.max(
+  0,
+  actorKeys.findIndex((key) => document.querySelector(`.actor-tab[data-actor="${key}"]`)?.classList.contains("active")),
+);
 
-    document.querySelectorAll(".actor-tab").forEach((item) => item.classList.remove("active"));
-    tab.classList.add("active");
+function setActor(actorKey, animate = true) {
+  const actor = actorContent[actorKey];
+  const card = document.getElementById("actorCard");
+  if (!actor || !card) return;
 
+  activeActorIndex = Math.max(0, actorKeys.indexOf(actorKey));
+  actorTabs.forEach((item) => item.classList.toggle("active", item.dataset.actor === actorKey));
+
+  if (animate) {
     card.animate(
       [
         { opacity: 0.55, transform: "translateY(8px)" },
@@ -210,30 +219,50 @@ document.querySelectorAll(".actor-tab").forEach((tab) => {
       ],
       { duration: 220, easing: "ease-out" },
     );
+  }
 
-    card.classList.toggle("has-visual", Boolean(actor.image));
-    card.classList.toggle("fit-cover", actor.fit === "cover");
-    card.innerHTML = actor.image
-      ? `
-        <div class="actor-strategy">
-          <span>${actor.label}</span>
-          <p>${actor.strategy}</p>
-        </div>
-        <div class="actor-visual-frame">
-          <img class="actor-visual" src="${actor.image}" alt="${actor.imageAlt}" />
-        </div>
-        <div class="actor-visual-caption">
-          <span class="actor-label">${actor.label}</span>
-          <h3>${actor.title}</h3>
-        </div>
-      `
-      : `
+  card.classList.toggle("has-visual", Boolean(actor.image));
+  card.classList.toggle("fit-cover", actor.fit === "cover");
+  card.innerHTML = actor.image
+    ? `
+      <div class="actor-strategy">
+        <span>${actor.label}</span>
+        <p>${actor.strategy}</p>
+      </div>
+      <div class="actor-visual-frame">
+        <img class="actor-visual" src="${actor.image}" alt="${actor.imageAlt}" />
+      </div>
+      <div class="actor-visual-caption">
         <span class="actor-label">${actor.label}</span>
         <h3>${actor.title}</h3>
-        <p>${actor.copy}</p>
-      `;
+      </div>
+    `
+    : `
+      <span class="actor-label">${actor.label}</span>
+      <h3>${actor.title}</h3>
+      <p>${actor.copy}</p>
+    `;
+}
+
+function startActorCarousel() {
+  window.clearInterval(actorCarouselTimer);
+  if (actorKeys.length < 2) return;
+
+  actorCarouselTimer = window.setInterval(() => {
+    activeActorIndex = (activeActorIndex + 1) % actorKeys.length;
+    setActor(actorKeys[activeActorIndex]);
+  }, 7000);
+}
+
+actorTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    setActor(tab.dataset.actor);
+    startActorCarousel();
   });
 });
+
+actorMobileQuery.addEventListener("change", startActorCarousel);
+startActorCarousel();
 
 const heroBackgroundSlides = [...document.querySelectorAll(".hero-background-carousel img")];
 let heroBackgroundIndex = 0;
