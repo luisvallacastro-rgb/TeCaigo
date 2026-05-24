@@ -1860,76 +1860,169 @@ p {
 }
 
 .ecosystem-section {
-  background: #081412;
-}
-
-.ecosystem-layout {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  gap: clamp(34px, 6vw, 86px);
-  align-items: center;
-}
-
-.ecosystem-map {
-  position: relative;
-  min-height: 520px;
-  border: 1px solid rgba(10, 165, 173, 0.28);
-  border-radius: 8px;
+  overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(10, 165, 173, 0.12) 1px, transparent 1px),
-    linear-gradient(rgba(10, 165, 173, 0.12) 1px, transparent 1px),
-    rgba(255, 253, 247, 0.04);
-  background-size: 44px 44px;
-  box-shadow: var(--shadow);
+    radial-gradient(circle at 18% 16%, rgba(10, 165, 173, 0.16), transparent 34%),
+    linear-gradient(180deg, #081412 0%, #04100e 100%);
 }
 
-.core-node,
-.orbit-node {
+.solution-showcase .section-heading {
+  max-width: 940px;
+}
+
+.solution-role-title {
+  color: var(--teal);
+  font-size: clamp(2.35rem, 5vw, 5.8rem);
+  line-height: 0.96;
+}
+
+.solution-showcase .section-heading p:not(.section-kicker) {
+  max-width: 740px;
+  margin-top: 16px;
+  color: rgba(255, 253, 247, 0.68);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.5;
+}
+
+.mobile-app-carousel {
+  position: relative;
+  margin-top: clamp(24px, 3.6vw, 48px);
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.solution-divider {
+  width: min(100%, 1120px);
+  height: 1px;
+  margin: clamp(24px, 4.2vw, 52px) 0 clamp(24px, 3.8vw, 44px);
+  background: linear-gradient(90deg, transparent, rgba(10, 165, 173, 0.42), transparent);
+}
+
+.tourist-solution-heading {
+  margin-bottom: 0;
+}
+
+.tourist-carousel {
+  margin-top: clamp(22px, 3.2vw, 42px);
+}
+
+.tourist-track {
+  animation-duration: 48s;
+}
+
+.mobile-app-track {
+  --app-gap: clamp(20px, 3vw, 42px);
+  display: flex;
+  width: max-content;
+  align-items: flex-start;
+  gap: var(--app-gap);
+  animation: mobileAppReel 78s linear infinite;
+  will-change: transform;
+}
+
+.mobile-app-slide {
+  display: grid;
+  justify-items: center;
+  flex: 0 0 clamp(220px, 17.5vw, 285px);
+  gap: 10px;
+}
+
+.iphone-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 430 / 932;
+  padding: 10px;
+  border: 1px solid rgba(255, 253, 247, 0.28);
+  border-radius: clamp(38px, 4.8vw, 58px);
+  background:
+    linear-gradient(135deg, rgba(255, 253, 247, 0.26), rgba(255, 253, 247, 0.03) 22%, rgba(10, 165, 173, 0.16) 66%, rgba(255, 253, 247, 0.24)),
+    #111a1a;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 253, 247, 0.08),
+    inset 0 0 0 7px rgba(3, 7, 7, 0.88),
+    0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+.iphone-frame::before {
+  content: "";
   position: absolute;
-  display: grid;
-  place-items: center;
-  min-width: 128px;
-  min-height: 48px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  font-weight: 800;
-  text-align: center;
-  box-shadow: 0 16px 42px rgba(20, 35, 33, 0.12);
-}
-
-.core-node {
-  top: 50%;
+  z-index: 3;
+  top: 22px;
   left: 50%;
-  width: 156px;
-  height: 156px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  color: var(--white);
-  background: var(--teal-deep);
+  width: 32%;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.12);
 }
 
-.orbit-node {
-  color: var(--white);
-  background: #0d1d1a;
-  border: 1px solid rgba(255, 253, 247, 0.16);
+.iphone-frame::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: -4px;
+  width: 3px;
+  height: 14%;
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.24);
 }
 
-.node-a { top: 9%; left: 12%; }
-.node-b { top: 18%; right: 9%; }
-.node-c { top: 47%; right: 4%; }
-.node-d { bottom: 10%; right: 18%; }
-.node-e { bottom: 11%; left: 10%; }
-.node-f { top: 44%; left: 3%; }
+.iphone-screen {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: clamp(30px, 4vw, 48px);
+  background: #020908;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.08);
+}
 
-.solution-list {
+.iphone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.03);
+}
+
+.mobile-app-copy {
   display: grid;
-  gap: 22px;
+  gap: 6px;
+  width: min(100%, 270px);
+  min-height: 104px;
+  padding: 0 4px;
+  text-align: center;
 }
 
-.solution-list article {
-  padding: 0 0 24px;
-  border-bottom: 1px solid rgba(255, 253, 247, 0.14);
+.mobile-app-copy span {
+  color: var(--teal);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.mobile-app-copy h3 {
+  max-width: 11em;
+  margin-inline: auto;
+  color: var(--white);
+  font-size: clamp(1rem, 1.18vw, 1.3rem);
+  line-height: 1.08;
+}
+
+.mobile-app-copy p {
+  max-width: 20em;
+  margin-inline: auto;
+  color: rgba(255, 253, 247, 0.66);
+  font-size: clamp(0.74rem, 0.8vw, 0.86rem);
+  line-height: 1.36;
+}
+
+@keyframes mobileAppReel {
+  to {
+    transform: translateX(calc(-50% - (var(--app-gap) / 2)));
+  }
 }
 
 .pill {
@@ -2643,6 +2736,66 @@ p {
     padding: 8px;
   }
 
+  .solution-showcase .section-heading {
+    text-align: center;
+  }
+
+  .solution-showcase .section-heading p:not(.section-kicker) {
+    max-width: 24rem;
+    margin-inline: auto;
+    font-size: 0.92rem;
+    line-height: 1.42;
+  }
+
+  .mobile-app-carousel {
+    width: calc(100% + 32px);
+    margin-inline: -16px;
+    margin-top: 20px;
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .solution-divider {
+    margin: 28px 0 24px;
+  }
+
+  .tourist-solution-heading {
+    padding-top: 6px;
+  }
+
+  .mobile-app-track {
+    --app-gap: 22px;
+    animation-duration: 66s;
+  }
+
+  .tourist-track {
+    animation-duration: 42s;
+  }
+
+  .mobile-app-slide {
+    flex-basis: min(58vw, 240px);
+    gap: 8px;
+  }
+
+  .iphone-frame {
+    padding: 7px;
+    border-radius: 34px;
+  }
+
+  .mobile-app-copy {
+    width: min(100%, 230px);
+    min-height: 96px;
+    padding: 0;
+  }
+
+  .mobile-app-copy h3 {
+    font-size: 1rem;
+  }
+
+  .mobile-app-copy p {
+    font-size: 0.74rem;
+    line-height: 1.32;
+  }
+
   .item-index,
   .roadmap span {
     margin-bottom: 28px;
@@ -2748,7 +2901,6 @@ p {
       </a>
       <nav class="nav-links" aria-label="Secciones">
         <a href="#que-es">Qué es</a>
-        <a href="#necesidad">Necesidad</a>
         <a href="#actores">Actores</a>
         <a href="#solucion">Solución</a>
         <a href="#inversion">Inversión</a>
@@ -3066,42 +3218,6 @@ p {
         </div>
       </section>
 
-      <section id="necesidad" class="section need-section" aria-labelledby="need-title">
-        <div class="section-shell">
-          <div class="section-heading">
-            <p class="section-kicker">La necesidad</p>
-            <h2 id="need-title">Un sector dinámico opera con herramientas que no fueron diseñadas para escalar.</h2>
-            <p>
-              La informalidad no es falta de potencial. Es falta de infraestructura especializada para ordenar
-              operación, finanzas, ventas, trazabilidad y profesionalización.
-            </p>
-          </div>
-
-          <div class="problem-grid">
-            <article class="problem-item">
-              <span class="item-index">01</span>
-              <h3>Desorden operativo</h3>
-              <p>Sobreventa de cupos, coordinación manual, mala distribución de pasajeros y poca trazabilidad.</p>
-            </article>
-            <article class="problem-item">
-              <span class="item-index">02</span>
-              <h3>Pagos informales</h3>
-              <p>Ausencia de control financiero, historial económico y automatización de liquidaciones.</p>
-            </article>
-            <article class="problem-item">
-              <span class="item-index">03</span>
-              <h3>Baja visibilidad</h3>
-              <p>Dependencia de redes sociales, limitada expansión comercial y dificultad para captar clientes.</p>
-            </article>
-            <article class="problem-item">
-              <span class="item-index">04</span>
-              <h3>Brecha institucional</h3>
-              <p>Escasa digitalización, baja formalización tributaria y acceso limitado a productos financieros.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section id="actores" class="section actors-section" aria-labelledby="actors-title">
         <div class="section-shell actors-layout">
           <div>
@@ -3143,40 +3259,102 @@ p {
           </div>
         </div>
       </section>
-
       <section id="solucion" class="section ecosystem-section" aria-labelledby="solution-title">
-        <div class="section-shell">
+        <div class="section-shell solution-showcase">
           <div class="section-heading compact">
-            <p class="section-kicker">La solución</p>
-            <h2 id="solution-title">Un ecosistema tecnológico para operar, vender, mover y formalizar.</h2>
+            <p class="section-kicker">01</p>
+            <h2 id="solution-title" class="solution-role-title">Tour Operadores</h2>
+            <p>
+              Cada vista movil concentra una decision del negocio: crear, publicar, solicitar, vender y controlar cupos
+              sin perder trazabilidad.
+            </p>
           </div>
 
-          <div class="ecosystem-layout">
-            <div class="ecosystem-map" aria-label="Ecosistema Tecaigo">
-              <div class="core-node">Tecaigo</div>
-              <div class="orbit-node node-a">Tour operadores</div>
-              <div class="orbit-node node-b">Transporte</div>
-              <div class="orbit-node node-c">Comercios</div>
-              <div class="orbit-node node-d">Viajeros</div>
-              <div class="orbit-node node-e">Instituciones</div>
-              <div class="orbit-node node-f">Comisionistas</div>
+          <div class="mobile-app-carousel" aria-label="Carrusel de vistas moviles de Tecaigo para tour operadores">
+            <div class="mobile-app-track">
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-01.png" alt="Vista movil radar turistico de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>01</span><h3>Radar turistico</h3><p>El operador descubre demanda, rutas activas y oportunidades listas para crear.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-02.png" alt="Vista movil oferta conectada de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>02</span><h3>Oferta conectada</h3><p>Eventos, boleteria, agencias y aliados se ordenan en una navegacion comun.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-03.png" alt="Vista movil cluster turistico de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>03</span><h3>Cluster operativo</h3><p>El anfitrion administra aliados, operadores y rutas desde un mismo centro.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-04.png" alt="Vista movil lugares de salida de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>04</span><h3>Puntos de salida</h3><p>La logistica queda definida antes de vender: punto, referencia y responsable.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-05.png" alt="Vista movil crear experiencia de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>05</span><h3>Crear experiencia</h3><p>El evento nace con datos, parametros, portada y agenda para publicarse.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-06.png" alt="Vista movil solicitudes de cupos de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>06</span><h3>Solicitudes</h3><p>La demanda de otros clusters entra con cantidad, estado y trazabilidad.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-07.png" alt="Vista movil autorizacion de cupos de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>07</span><h3>Autorizar cupos</h3><p>El operador decide cuanto ceder sin tocar cupos protegidos del cluster.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-08.png" alt="Vista movil mis eventos de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>08</span><h3>Mis eventos</h3><p>Ventas, cupos y preparacion operativa se leen desde una vista simple.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-09.png" alt="Vista movil ocupacion de evento de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>09</span><h3>Ocupacion</h3><p>El progreso de venta separa internos, externos, disponibles y protegidos.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-10.png" alt="Vista movil gestion privada de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>10</span><h3>Gestion privada</h3><p>Cupos, precio y cierre del evento quedan bajo control del anfitrion.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-to-mobile-11.png" alt="Vista movil tendencias y notificaciones de Tecaigo" /></div>
+                <div class="mobile-app-copy"><span>11</span><h3>Tendencias</h3><p>Senales de consumo ayudan a decidir que vender, cuando publicar y con quien aliarse.</p></div>
+              </article>
             </div>
+          </div>
 
-            <div class="solution-list">
-              <article>
-                <span class="pill">Tecaigo EXE</span>
-                <h3>Sistema operativo turístico B2B</h3>
-                <p>Creación de eventos, gestión de cupos, clusters, logística, finanzas y administración operativa.</p>
+          <div class="solution-divider" aria-hidden="true"></div>
+
+          <div class="section-heading compact tourist-solution-heading">
+            <p class="section-kicker">02</p>
+            <h2 id="tourist-solution-title" class="solution-role-title">Turista</h2>
+            <p>
+              La app conecta la oferta turistica con una experiencia simple para explorar eventos, promociones,
+              agencias, boletos y reservas activas.
+            </p>
+          </div>
+
+          <div class="mobile-app-carousel tourist-carousel" aria-label="Carrusel de vistas moviles para turistas">
+            <div class="mobile-app-track tourist-track">
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-01.png" alt="Vista movil turista explorando experiencias" /></div>
+                <div class="mobile-app-copy"><span>01</span><h3>Explorar</h3><p>El viajero descubre eventos, boleteria, agencias y aliados desde una entrada clara.</p></div>
               </article>
-              <article>
-                <span class="pill">Tecaigo.com</span>
-                <h3>Marketplace turístico</h3>
-                <p>Venta de experiencias, reservas, pagos digitales, distribución de inventario y captación de demanda.</p>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-02.png" alt="Vista movil turista con eventos destacados" /></div>
+                <div class="mobile-app-copy"><span>02</span><h3>Promociones</h3><p>La oferta activa se muestra con busqueda, categorias y filtros pensados para decidir rapido.</p></div>
               </article>
-              <article>
-                <span class="pill">Tecaigo App</span>
-                <h3>Comunidad móvil para viajeros</h3>
-                <p>Experiencias personalizadas, contenido, socialización turística y recomendaciones inteligentes.</p>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-03.png" alt="Vista movil turista detalle de experiencia" /></div>
+                <div class="mobile-app-copy"><span>03</span><h3>Detalle</h3><p>Fotos, ruta, cupos, precio y salida se presentan antes de reservar.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-04.png" alt="Vista movil turista reserva y compra" /></div>
+                <div class="mobile-app-copy"><span>04</span><h3>Reserva</h3><p>El viajero confirma cupos y deja trazabilidad para el operador.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-05.png" alt="Vista movil turista seguimiento de compra" /></div>
+                <div class="mobile-app-copy"><span>05</span><h3>Seguimiento</h3><p>La experiencia queda organizada para consultar estado, salida y participacion.</p></div>
+              </article>
+              <article class="mobile-app-slide">
+                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-06.png" alt="Vista movil turista comunidad y servicios" /></div>
+                <div class="mobile-app-copy"><span>06</span><h3>Comunidad</h3><p>El viaje conecta con servicios, aliados y nuevas oportunidades dentro de la red.</p></div>
               </article>
             </div>
           </div>
@@ -3323,6 +3501,6 @@ p {
       <a href="#inicio">Volver arriba</a>
     </footer>
 
-    <script src="script.js?v=tecaigo-actors-03"></script>
+    <script src="script.js?v=mobile-solution-02"></script>
   </body>
 </html>

@@ -1843,76 +1843,169 @@ p {
 }
 
 .ecosystem-section {
-  background: #081412;
-}
-
-.ecosystem-layout {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  gap: clamp(34px, 6vw, 86px);
-  align-items: center;
-}
-
-.ecosystem-map {
-  position: relative;
-  min-height: 520px;
-  border: 1px solid rgba(10, 165, 173, 0.28);
-  border-radius: 8px;
+  overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(10, 165, 173, 0.12) 1px, transparent 1px),
-    linear-gradient(rgba(10, 165, 173, 0.12) 1px, transparent 1px),
-    rgba(255, 253, 247, 0.04);
-  background-size: 44px 44px;
-  box-shadow: var(--shadow);
+    radial-gradient(circle at 18% 16%, rgba(10, 165, 173, 0.16), transparent 34%),
+    linear-gradient(180deg, #081412 0%, #04100e 100%);
 }
 
-.core-node,
-.orbit-node {
+.solution-showcase .section-heading {
+  max-width: 940px;
+}
+
+.solution-role-title {
+  color: var(--teal);
+  font-size: clamp(2.35rem, 5vw, 5.8rem);
+  line-height: 0.96;
+}
+
+.solution-showcase .section-heading p:not(.section-kicker) {
+  max-width: 740px;
+  margin-top: 16px;
+  color: rgba(255, 253, 247, 0.68);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.5;
+}
+
+.mobile-app-carousel {
+  position: relative;
+  margin-top: clamp(24px, 3.6vw, 48px);
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.solution-divider {
+  width: min(100%, 1120px);
+  height: 1px;
+  margin: clamp(24px, 4.2vw, 52px) 0 clamp(24px, 3.8vw, 44px);
+  background: linear-gradient(90deg, transparent, rgba(10, 165, 173, 0.42), transparent);
+}
+
+.tourist-solution-heading {
+  margin-bottom: 0;
+}
+
+.tourist-carousel {
+  margin-top: clamp(22px, 3.2vw, 42px);
+}
+
+.tourist-track {
+  animation-duration: 48s;
+}
+
+.mobile-app-track {
+  --app-gap: clamp(20px, 3vw, 42px);
+  display: flex;
+  width: max-content;
+  align-items: flex-start;
+  gap: var(--app-gap);
+  animation: mobileAppReel 78s linear infinite;
+  will-change: transform;
+}
+
+.mobile-app-slide {
+  display: grid;
+  justify-items: center;
+  flex: 0 0 clamp(220px, 17.5vw, 285px);
+  gap: 10px;
+}
+
+.iphone-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 430 / 932;
+  padding: 10px;
+  border: 1px solid rgba(255, 253, 247, 0.28);
+  border-radius: clamp(38px, 4.8vw, 58px);
+  background:
+    linear-gradient(135deg, rgba(255, 253, 247, 0.26), rgba(255, 253, 247, 0.03) 22%, rgba(10, 165, 173, 0.16) 66%, rgba(255, 253, 247, 0.24)),
+    #111a1a;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 253, 247, 0.08),
+    inset 0 0 0 7px rgba(3, 7, 7, 0.88),
+    0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+.iphone-frame::before {
+  content: "";
   position: absolute;
-  display: grid;
-  place-items: center;
-  min-width: 128px;
-  min-height: 48px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  font-weight: 800;
-  text-align: center;
-  box-shadow: 0 16px 42px rgba(20, 35, 33, 0.12);
-}
-
-.core-node {
-  top: 50%;
+  z-index: 3;
+  top: 22px;
   left: 50%;
-  width: 156px;
-  height: 156px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  color: var(--white);
-  background: var(--teal-deep);
+  width: 32%;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.12);
 }
 
-.orbit-node {
-  color: var(--white);
-  background: #0d1d1a;
-  border: 1px solid rgba(255, 253, 247, 0.16);
+.iphone-frame::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: -4px;
+  width: 3px;
+  height: 14%;
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.24);
 }
 
-.node-a { top: 9%; left: 12%; }
-.node-b { top: 18%; right: 9%; }
-.node-c { top: 47%; right: 4%; }
-.node-d { bottom: 10%; right: 18%; }
-.node-e { bottom: 11%; left: 10%; }
-.node-f { top: 44%; left: 3%; }
+.iphone-screen {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: clamp(30px, 4vw, 48px);
+  background: #020908;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.08);
+}
 
-.solution-list {
+.iphone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.03);
+}
+
+.mobile-app-copy {
   display: grid;
-  gap: 22px;
+  gap: 6px;
+  width: min(100%, 270px);
+  min-height: 104px;
+  padding: 0 4px;
+  text-align: center;
 }
 
-.solution-list article {
-  padding: 0 0 24px;
-  border-bottom: 1px solid rgba(255, 253, 247, 0.14);
+.mobile-app-copy span {
+  color: var(--teal);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.mobile-app-copy h3 {
+  max-width: 11em;
+  margin-inline: auto;
+  color: var(--white);
+  font-size: clamp(1rem, 1.18vw, 1.3rem);
+  line-height: 1.08;
+}
+
+.mobile-app-copy p {
+  max-width: 20em;
+  margin-inline: auto;
+  color: rgba(255, 253, 247, 0.66);
+  font-size: clamp(0.74rem, 0.8vw, 0.86rem);
+  line-height: 1.36;
+}
+
+@keyframes mobileAppReel {
+  to {
+    transform: translateX(calc(-50% - (var(--app-gap) / 2)));
+  }
 }
 
 .pill {
@@ -2624,6 +2717,66 @@ p {
     max-width: calc(100vw - 24px);
     max-height: calc(56svh - 38px);
     padding: 8px;
+  }
+
+  .solution-showcase .section-heading {
+    text-align: center;
+  }
+
+  .solution-showcase .section-heading p:not(.section-kicker) {
+    max-width: 24rem;
+    margin-inline: auto;
+    font-size: 0.92rem;
+    line-height: 1.42;
+  }
+
+  .mobile-app-carousel {
+    width: calc(100% + 32px);
+    margin-inline: -16px;
+    margin-top: 20px;
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .solution-divider {
+    margin: 28px 0 24px;
+  }
+
+  .tourist-solution-heading {
+    padding-top: 6px;
+  }
+
+  .mobile-app-track {
+    --app-gap: 22px;
+    animation-duration: 66s;
+  }
+
+  .tourist-track {
+    animation-duration: 42s;
+  }
+
+  .mobile-app-slide {
+    flex-basis: min(58vw, 240px);
+    gap: 8px;
+  }
+
+  .iphone-frame {
+    padding: 7px;
+    border-radius: 34px;
+  }
+
+  .mobile-app-copy {
+    width: min(100%, 230px);
+    min-height: 96px;
+    padding: 0;
+  }
+
+  .mobile-app-copy h3 {
+    font-size: 1rem;
+  }
+
+  .mobile-app-copy p {
+    font-size: 0.74rem;
+    line-height: 1.32;
   }
 
   .item-index,

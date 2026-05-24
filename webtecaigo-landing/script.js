@@ -516,6 +516,17 @@ window.addEventListener("scroll", updateScrollReveals, { passive: true });
 window.addEventListener("resize", updateScrollReveals);
 updateScrollReveals();
 
+document.querySelectorAll(".mobile-app-track").forEach((track) => {
+  if (track.dataset.cloned === "true") return;
+
+  [...track.children].forEach((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+  });
+  track.dataset.cloned = "true";
+});
+
 const featureDetails = {
   create: {
     step: "01",
