@@ -621,17 +621,22 @@ const tourReelSection = document.querySelector(".tour-reel-section");
 const tourReelPreview = document.querySelector(".tour-reel-preview");
 const tourReelPreviewImage = tourReelPreview?.querySelector("img");
 const tourReelPreviewLabel = tourReelPreview?.querySelector("span");
+const canUseReelPreview = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+function closeTourReelPreview() {
+  tourReelSection?.classList.remove("preview-open");
+}
 
 document.querySelectorAll(".image-reel-card").forEach((card) => {
   card.addEventListener("mouseenter", () => {
-    if (!tourReelSection || !tourReelPreviewImage || !tourReelPreviewLabel) return;
+    if (!canUseReelPreview.matches || !tourReelSection || !tourReelPreviewImage || !tourReelPreviewLabel) return;
 
     tourReelPreviewImage.src = card.dataset.preview || "";
     tourReelPreviewLabel.textContent = card.dataset.previewLabel || card.textContent.trim();
     tourReelSection.classList.add("preview-open");
   });
 
-  card.addEventListener("mouseleave", () => {
-    tourReelSection?.classList.remove("preview-open");
-  });
+  card.addEventListener("mouseleave", closeTourReelPreview);
 });
+
+canUseReelPreview.addEventListener("change", closeTourReelPreview);
