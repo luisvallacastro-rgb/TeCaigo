@@ -2793,11 +2793,11 @@ p {
   }
 
   .mobile-app-track[data-ready="true"] {
-    animation: mobileAppReel 54s linear infinite;
+    animation: mobileAppReel 86s linear infinite;
   }
 
   .tourist-track[data-ready="true"] {
-    animation: mobileAppReel 42s linear infinite;
+    animation: mobileAppReel 74s linear infinite;
   }
 
   .mobile-app-slide {
