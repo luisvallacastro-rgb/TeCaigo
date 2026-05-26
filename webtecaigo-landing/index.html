@@ -2770,9 +2770,19 @@ p {
     margin-inline: auto;
     margin-top: 20px;
     min-height: calc((var(--mobile-phone-width, 180px) * 932 / 430) + 114px);
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    overflow-x: auto;
+    overflow-y: hidden;
+    mask-image: none;
+    -webkit-mask-image: none;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 16px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-app-carousel::-webkit-scrollbar {
+    display: none;
   }
 
   .solution-divider {
@@ -2787,17 +2797,19 @@ p {
     --app-gap: 18px;
     --mobile-phone-width: clamp(160px, 46vw, 196px);
     width: max-content;
-    padding-inline: 0;
-    animation: mobileAppReel 54s linear infinite;
+    padding-inline: 16px;
+    animation: none;
+    transform: none;
   }
 
   .tourist-track {
-    animation: mobileAppReel 42s linear infinite;
+    animation: none;
   }
 
   .mobile-app-slide {
     flex: 0 0 var(--mobile-phone-width);
     gap: 8px;
+    scroll-snap-align: center;
   }
 
   .iphone-frame {
