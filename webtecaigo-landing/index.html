@@ -1914,13 +1914,22 @@ p {
 
 .mobile-app-track {
   --app-gap: clamp(20px, 3vw, 42px);
+  --reel-distance: -50%;
   display: flex;
   width: max-content;
   align-items: flex-start;
   gap: var(--app-gap);
-  animation: mobileAppReel 78s linear infinite;
+  animation: none;
   transform: translate3d(0, 0, 0);
   will-change: transform;
+}
+
+.mobile-app-track[data-ready="true"] {
+  animation: mobileAppReel 78s linear infinite;
+}
+
+.tourist-track[data-ready="true"] {
+  animation-duration: 48s;
 }
 
 .mobile-app-slide {
@@ -2024,7 +2033,7 @@ p {
 
 @keyframes mobileAppReel {
   to {
-    transform: translateX(calc(-50% - (var(--app-gap) / 2)));
+    transform: translate3d(var(--reel-distance), 0, 0);
   }
 }
 
@@ -2796,11 +2805,15 @@ p {
     --mobile-phone-width: clamp(160px, 46vw, 196px);
     width: max-content;
     padding-inline: 0;
-    animation: mobileAppReel 54s linear infinite;
+    animation: none;
     transform: translate3d(0, 0, 0);
   }
 
-  .tourist-track {
+  .mobile-app-track[data-ready="true"] {
+    animation: mobileAppReel 54s linear infinite;
+  }
+
+  .tourist-track[data-ready="true"] {
     animation: mobileAppReel 42s linear infinite;
   }
 
@@ -3539,6 +3552,6 @@ p {
       <a href="#inicio">Volver arriba</a>
     </footer>
 
-    <script src="script.js?v=mobile-carousel-css-auto-4405188"></script>
+    <script src="script.js?v=carousel-ready-loop"></script>
   </body>
 </html>

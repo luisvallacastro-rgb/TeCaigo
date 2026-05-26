@@ -517,14 +517,19 @@ window.addEventListener("resize", updateScrollReveals);
 updateScrollReveals();
 
 document.querySelectorAll(".mobile-app-track").forEach((track) => {
-  if (track.dataset.cloned === "true") return;
+  if (track.dataset.cloned !== "true") {
+    [...track.children].forEach((slide) => {
+      const clone = slide.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+    });
+    track.dataset.cloned = "true";
+  }
 
-  [...track.children].forEach((slide) => {
-    const clone = slide.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    track.appendChild(clone);
+  window.requestAnimationFrame(() => {
+    track.style.setProperty("--reel-distance", `${-(track.scrollWidth / 2)}px`);
+    track.dataset.ready = "true";
   });
-  track.dataset.cloned = "true";
 });
 
 const featureDetails = {
