@@ -2770,13 +2770,11 @@ p {
     margin-inline: auto;
     margin-top: 20px;
     min-height: calc((var(--mobile-phone-width, 180px) * 932 / 430) + 114px);
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
     mask-image: none;
     -webkit-mask-image: none;
     overscroll-behavior-x: contain;
-    scroll-padding-inline: 16px;
-    scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
@@ -2797,19 +2795,18 @@ p {
     --app-gap: 18px;
     --mobile-phone-width: clamp(160px, 46vw, 196px);
     width: max-content;
-    padding-inline: 16px;
-    animation: none;
-    transform: none;
+    padding-inline: 0;
+    animation: mobileAppReel 54s linear infinite;
+    transform: translate3d(0, 0, 0);
   }
 
   .tourist-track {
-    animation: none;
+    animation: mobileAppReel 42s linear infinite;
   }
 
   .mobile-app-slide {
     flex: 0 0 var(--mobile-phone-width);
     gap: 8px;
-    scroll-snap-align: center;
   }
 
   .iphone-frame {
@@ -3542,6 +3539,6 @@ p {
       <a href="#inicio">Volver arriba</a>
     </footer>
 
-    <script src="script.js?v=mobile-solution-02"></script>
+    <script src="script.js?v=mobile-carousel-css-auto-4405188"></script>
   </body>
 </html>
