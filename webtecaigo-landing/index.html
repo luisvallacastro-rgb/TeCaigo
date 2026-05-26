@@ -2437,21 +2437,24 @@ p {
   }
 
   .system-transition {
-    height: 34vh;
+    height: clamp(250px, 62vw, 340px);
   }
 
   .system-transition-sticky {
-    height: 34vh;
+    height: 100%;
   }
 
   .system-preview-window {
-    height: 34vh;
+    height: 100%;
   }
 
   .system-preview-image {
-    height: 72vh;
-    background-size: auto 72vh;
-    transform: translateY(calc(var(--system-progress, 0) * -20vh));
+    height: 100%;
+    min-height: 0;
+    background-size: min(172vw, 680px) auto;
+    background-position: center top;
+    transform: none;
+    transition: none;
   }
 
   .intro-layout {
