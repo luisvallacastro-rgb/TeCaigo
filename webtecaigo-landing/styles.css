@@ -1895,6 +1895,10 @@ p {
   animation-duration: 48s;
 }
 
+.commerce-carousel {
+  margin-top: clamp(22px, 3.2vw, 42px);
+}
+
 .mobile-app-track {
   --app-gap: clamp(20px, 3vw, 42px);
   --reel-distance: -50%;
@@ -1913,6 +1917,10 @@ p {
 
 .tourist-track[data-ready="true"] {
   animation-duration: 48s;
+}
+
+.commerce-track[data-ready="true"] {
+  animation-duration: 64s;
 }
 
 .mobile-app-slide {
@@ -2783,6 +2791,10 @@ p {
     padding-top: 6px;
   }
 
+  .commerce-solution-heading {
+    padding-top: 6px;
+  }
+
   .mobile-app-track {
     --app-gap: 18px;
     --mobile-phone-width: clamp(160px, 46vw, 196px);
@@ -2798,6 +2810,10 @@ p {
 
   .tourist-track[data-ready="true"] {
     animation: mobileAppReel 74s linear infinite;
+  }
+
+  .commerce-track[data-ready="true"] {
+    animation: mobileAppReel 92s linear infinite;
   }
 
   .mobile-app-slide {
