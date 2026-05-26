@@ -2766,7 +2766,8 @@ p {
   }
 
   .mobile-app-carousel {
-    width: min(100%, 100vw);
+    width: calc(100vw - 32px);
+    max-width: 100vw;
     margin-inline: auto;
     margin-top: 20px;
     min-height: calc((var(--mobile-phone-width, 180px) * 932 / 430) + 114px);
