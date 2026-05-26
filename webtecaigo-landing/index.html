@@ -2437,24 +2437,21 @@ p {
   }
 
   .system-transition {
-    height: clamp(250px, 62vw, 340px);
+    height: 34vh;
   }
 
   .system-transition-sticky {
-    height: 100%;
+    height: 34vh;
   }
 
   .system-preview-window {
-    height: 100%;
+    height: 34vh;
   }
 
   .system-preview-image {
-    height: 100%;
-    min-height: 0;
-    background-size: min(172vw, 680px) auto;
-    background-position: center top;
-    transform: none;
-    transition: none;
+    height: 72vh;
+    background-size: auto 72vh;
+    transform: translateY(calc(var(--system-progress, 0) * -20vh));
   }
 
   .intro-layout {
@@ -2769,7 +2766,6 @@ p {
     margin-top: 20px;
     overflow: hidden;
     mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   }
 
   .solution-divider {
@@ -2780,18 +2776,12 @@ p {
     padding-top: 6px;
   }
 
-  .tourist-carousel {
-    min-height: calc((var(--mobile-phone-width, 180px) * 932 / 430) + 114px);
-    margin-top: 18px;
-  }
-
   .mobile-app-track {
     --app-gap: 18px;
     --mobile-phone-width: clamp(160px, 46vw, 196px);
     width: max-content;
     padding-inline: 0;
     animation: mobileAppReel 54s linear infinite;
-    transform: translate3d(0, 0, 0);
   }
 
   .tourist-track {
@@ -3363,7 +3353,7 @@ p {
           </div>
 
           <div class="mobile-app-carousel tourist-carousel" aria-label="Carrusel de vistas moviles para turistas">
-            <div class="mobile-app-track tourist-track" data-cloned="true">
+            <div class="mobile-app-track tourist-track">
               <article class="mobile-app-slide">
                 <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-01.png" alt="Vista movil turista explorando experiencias" /></div>
                 <div class="mobile-app-copy"><span>01</span><h3>Explorar</h3><p>El viajero descubre eventos, boleteria, agencias y aliados desde una entrada clara.</p></div>
@@ -3386,30 +3376,6 @@ p {
               </article>
               <article class="mobile-app-slide">
                 <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-06.png" alt="Vista movil turista comunidad y servicios" /></div>
-                <div class="mobile-app-copy"><span>06</span><h3>Comunidad</h3><p>El viaje conecta con servicios, aliados y nuevas oportunidades dentro de la red.</p></div>
-              </article>
-              <article class="mobile-app-slide" aria-hidden="true">
-                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-01.png" alt="" /></div>
-                <div class="mobile-app-copy"><span>01</span><h3>Explorar</h3><p>El viajero descubre eventos, boleteria, agencias y aliados desde una entrada clara.</p></div>
-              </article>
-              <article class="mobile-app-slide" aria-hidden="true">
-                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-02.png" alt="" /></div>
-                <div class="mobile-app-copy"><span>02</span><h3>Promociones</h3><p>La oferta activa se muestra con busqueda, categorias y filtros pensados para decidir rapido.</p></div>
-              </article>
-              <article class="mobile-app-slide" aria-hidden="true">
-                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-03.png" alt="" /></div>
-                <div class="mobile-app-copy"><span>03</span><h3>Detalle</h3><p>Fotos, ruta, cupos, precio y salida se presentan antes de reservar.</p></div>
-              </article>
-              <article class="mobile-app-slide" aria-hidden="true">
-                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-04.png" alt="" /></div>
-                <div class="mobile-app-copy"><span>04</span><h3>Reserva</h3><p>El viajero confirma cupos y deja trazabilidad para el operador.</p></div>
-              </article>
-              <article class="mobile-app-slide" aria-hidden="true">
-                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-05.png" alt="" /></div>
-                <div class="mobile-app-copy"><span>05</span><h3>Seguimiento</h3><p>La experiencia queda organizada para consultar estado, salida y participacion.</p></div>
-              </article>
-              <article class="mobile-app-slide" aria-hidden="true">
-                <div class="iphone-frame"><img class="iphone-screen" src="assets/tecaigo-tourist-mobile-06.png" alt="" /></div>
                 <div class="mobile-app-copy"><span>06</span><h3>Comunidad</h3><p>El viaje conecta con servicios, aliados y nuevas oportunidades dentro de la red.</p></div>
               </article>
             </div>
