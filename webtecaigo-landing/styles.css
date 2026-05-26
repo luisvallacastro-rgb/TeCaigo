@@ -1836,7 +1836,6 @@ p {
 
 .problem-item p,
 .solution-list p,
-.impact-grid p,
 .roadmap p,
 .funding-panel li,
 .credibility-grid p {
@@ -2040,7 +2039,11 @@ p {
 }
 
 .impact-section {
-  background: var(--ink);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 72% 24%, rgba(10, 165, 173, 0.2), transparent 34%),
+    radial-gradient(circle at 28% 80%, rgba(94, 214, 218, 0.12), transparent 28%),
+    linear-gradient(180deg, #10211e 0%, #071411 100%);
   color: var(--white);
 }
 
@@ -2053,27 +2056,151 @@ p {
   color: rgba(255, 253, 247, 0.76);
 }
 
-.impact-section .section-shell {
+.impact-interface {
   display: grid;
-  grid-template-columns: 0.88fr 1fr;
+  grid-template-columns: 0.78fr 1.1fr;
   gap: clamp(34px, 6vw, 84px);
+  align-items: center;
 }
 
-.impact-grid {
+.impact-copy h2 {
+  max-width: 9.6em;
+}
+
+.impact-stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: rgba(255, 253, 247, 0.16);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
 }
 
-.impact-grid article {
-  min-height: 210px;
-  padding: 26px;
-  background: #1b302d;
+.impact-stats span {
+  min-height: 78px;
+  padding: 14px;
+  border: 1px solid rgba(94, 214, 218, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 253, 247, 0.05);
+  color: rgba(255, 253, 247, 0.68);
+  font-size: 0.78rem;
+  line-height: 1.25;
 }
 
-.impact-grid p {
-  color: rgba(255, 253, 247, 0.7);
+.impact-stats strong {
+  display: block;
+  color: var(--teal);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.impact-network {
+  position: relative;
+  min-height: clamp(520px, 52vw, 680px);
+  border: 1px solid rgba(94, 214, 218, 0.14);
+  border-radius: 8px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(94, 214, 218, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(10, 165, 173, 0.16), transparent 34%),
+    rgba(3, 15, 13, 0.74);
+  background-size: 54px 54px, 54px 54px, auto, auto;
+}
+
+.network-core {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(150px, 16vw, 210px);
+  aspect-ratio: 1;
+  place-content: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(94, 214, 218, 0.46);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(94, 214, 218, 0.34), rgba(10, 165, 173, 0.13) 54%, rgba(3, 15, 13, 0.94) 100%);
+  box-shadow: 0 0 70px rgba(10, 165, 173, 0.26);
+  text-align: center;
+}
+
+.network-core span {
+  color: var(--white);
+  font-size: clamp(1.7rem, 2.8vw, 2.7rem);
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.network-core strong {
+  max-width: 9em;
+  margin: 6px auto 0;
+  color: rgba(255, 253, 247, 0.72);
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.network-ring {
+  position: absolute;
+  inset: 15%;
+  border: 1px solid rgba(94, 214, 218, 0.14);
+  border-radius: 50%;
+}
+
+.network-route {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54%;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(94, 214, 218, 0.62), transparent);
+}
+
+.route-a { transform: rotate(-28deg); }
+.route-b { transform: rotate(38deg); }
+.route-c { transform: rotate(156deg); }
+
+.network-card {
+  position: absolute;
+  z-index: 2;
+  width: clamp(160px, 16vw, 220px);
+  padding: 16px;
+  border: 1px solid rgba(94, 214, 218, 0.18);
+  border-radius: 8px;
+  background: rgba(8, 25, 22, 0.9);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.24);
+}
+
+.network-card span {
+  color: var(--teal);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.network-card h3 {
+  margin-top: 9px;
+  font-size: 1.12rem;
+  line-height: 1.06;
+}
+
+.network-card p {
+  margin-top: 8px;
+  color: rgba(255, 253, 247, 0.66);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.card-guatemala { top: 9%; left: 8%; }
+.card-salvador { top: 11%; right: 8%; }
+.card-honduras { left: 4%; bottom: 9%; }
+.card-nicaragua { right: 5%; bottom: 9%; }
+.card-panama {
+  left: 50%;
+  bottom: 5%;
+  width: clamp(150px, 13vw, 188px);
+  transform: translateX(-50%);
 }
 
 .roadmap {
@@ -2267,7 +2394,7 @@ p {
   .tour-reel-copy,
   .ecosystem-layout,
   .actors-layout,
-  .impact-section .section-shell,
+  .impact-interface,
   .funding-layout,
   .contact-layout {
     grid-template-columns: 1fr;
@@ -2518,7 +2645,6 @@ p {
 
   .problem-grid,
   .flow-board,
-  .impact-grid,
   .roadmap,
   .credibility-grid {
     grid-template-columns: 1fr;
@@ -2560,9 +2686,48 @@ p {
 
   .problem-item,
   .flow-board article,
-  .impact-grid article,
   .roadmap li {
     padding: 22px;
+  }
+
+  .impact-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-network {
+    min-height: 720px;
+  }
+
+  .network-core {
+    top: 40%;
+    width: 148px;
+  }
+
+  .network-ring,
+  .network-route {
+    opacity: 0.7;
+  }
+
+  .network-card {
+    width: min(44%, 172px);
+    padding: 12px;
+  }
+
+  .network-card h3 {
+    font-size: 0.98rem;
+  }
+
+  .network-card p {
+    font-size: 0.7rem;
+  }
+
+  .card-guatemala { top: 4%; left: 4%; }
+  .card-salvador { top: 4%; right: 4%; }
+  .card-honduras { left: 4%; bottom: 22%; }
+  .card-nicaragua { right: 4%; bottom: 22%; }
+  .card-panama {
+    bottom: 4%;
+    width: min(70%, 240px);
   }
 
   .flow-board {
