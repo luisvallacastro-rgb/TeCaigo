@@ -2805,23 +2805,24 @@ p {
 
   .roadmap li {
     flex: 0 0 min(82vw, 360px);
-    min-height: 360px;
+    min-height: clamp(230px, 42vh, 270px);
+    padding: 20px 22px 22px;
     animation-name: roadmapCardCycle;
     scroll-snap-align: start;
   }
 
   .roadmap li h3 {
-    font-size: 1.45rem;
+    font-size: 1.28rem;
     line-height: 1.12;
   }
 
   .roadmap li p {
-    font-size: 1rem;
-    line-height: 1.48;
+    font-size: 0.95rem;
+    line-height: 1.42;
   }
 
   .roadmap span {
-    margin-bottom: 42px;
+    margin-bottom: 22px;
   }
 
   .roadmap-section::after {
