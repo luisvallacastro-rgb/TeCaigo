@@ -2872,7 +2872,7 @@ p {
     width: calc(100% + 32px);
     gap: 14px;
     margin-inline: -16px;
-    padding: 0 16px 14px;
+    padding: 14px 16px 14px;
     overflow-x: auto;
     overflow-y: visible;
     overscroll-behavior-x: contain;
