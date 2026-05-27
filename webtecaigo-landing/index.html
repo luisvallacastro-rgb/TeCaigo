@@ -2217,6 +2217,49 @@ p {
   100% { opacity: 0; transform: scale(1.11); }
 }
 
+@keyframes roadmapCardCycle {
+  0% {
+    border-color: rgba(94, 214, 218, 0.12);
+    background: rgba(8, 23, 21, 0.68);
+    box-shadow: none;
+    transform: translateY(0);
+  }
+  6%,
+  24% {
+    border-color: rgba(94, 214, 218, 0.5);
+    background: rgba(9, 38, 35, 0.88);
+    box-shadow: 0 24px 80px rgba(10, 165, 173, 0.14);
+    transform: translateY(-10px);
+  }
+  31%,
+  100% {
+    border-color: rgba(94, 214, 218, 0.12);
+    background: rgba(8, 23, 21, 0.68);
+    box-shadow: none;
+    transform: translateY(0);
+  }
+}
+
+@keyframes roadmapCardProgress {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  6% {
+    opacity: 1;
+    transform: scaleX(0);
+  }
+  24% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  31%,
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
 .roadmap {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2228,12 +2271,39 @@ p {
 }
 
 .roadmap li {
+  position: relative;
+  overflow: hidden;
   min-height: 260px;
   padding: 26px;
+  border: 1px solid rgba(94, 214, 218, 0.12);
   background: rgba(8, 23, 21, 0.68);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  animation: roadmapCardCycle 32s infinite;
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
+
+.roadmap li:nth-child(2) { animation-delay: 8s; }
+.roadmap li:nth-child(3) { animation-delay: 16s; }
+.roadmap li:nth-child(4) { animation-delay: 24s; }
+
+.roadmap li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--teal), rgba(94, 214, 218, 0.32));
+  box-shadow: 0 0 22px rgba(94, 214, 218, 0.58);
+  animation: roadmapCardProgress 32s infinite;
+}
+
+.roadmap li:nth-child(2)::before { animation-delay: 8s; }
+.roadmap li:nth-child(3)::before { animation-delay: 16s; }
+.roadmap li:nth-child(4)::before { animation-delay: 24s; }
 
 .roadmap span {
   display: inline-block;
@@ -2703,6 +2773,10 @@ p {
   .flow-board article,
   .roadmap li {
     padding: 22px;
+  }
+
+  .roadmap li {
+    animation-name: roadmapCardCycle;
   }
 
   .roadmap-section::after {
