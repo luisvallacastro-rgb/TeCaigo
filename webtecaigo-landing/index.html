@@ -1854,7 +1854,6 @@ p {
 .problem-item p,
 .solution-list p,
 .roadmap p,
-.funding-panel li,
 .credibility-grid p {
   color: rgba(255, 253, 247, 0.68);
 }
@@ -2336,6 +2335,8 @@ p {
 .funding-section {
   color: var(--white);
   background:
+    radial-gradient(circle at 78% 20%, rgba(94, 214, 218, 0.18), transparent 30%),
+    radial-gradient(circle at 16% 78%, rgba(10, 165, 173, 0.18), transparent 28%),
     linear-gradient(135deg, rgba(4, 88, 81, 0.96), rgba(22, 41, 39, 0.98)),
     #045851;
 }
@@ -2351,6 +2352,30 @@ p {
   color: rgba(255, 253, 247, 0.78);
 }
 
+.funding-copy h2 {
+  max-width: 9em;
+}
+
+.funding-lede {
+  max-width: 760px;
+  margin-top: 26px;
+}
+
+.funding-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.investment-note {
+  max-width: 260px;
+  color: rgba(255, 253, 247, 0.62);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
 .funding-panel {
   padding: clamp(24px, 4vw, 42px);
   border: 1px solid rgba(255, 253, 247, 0.2);
@@ -2358,29 +2383,85 @@ p {
   background: rgba(255, 253, 247, 0.08);
 }
 
-.funding-panel ul {
+.investment-thesis {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.1), rgba(255, 253, 247, 0.045)),
+    rgba(3, 15, 13, 0.34);
+}
+
+.panel-kicker {
+  margin: 0 0 14px;
+  color: var(--teal) !important;
+  font-size: 0.78rem !important;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1.1 !important;
+  text-transform: uppercase;
+}
+
+.investment-thesis h3 {
+  max-width: 16em;
+  font-size: clamp(1.55rem, 2.3vw, 2.35rem);
+  line-height: 1.05;
+}
+
+.investment-grid {
   display: grid;
-  gap: 14px;
-  margin: 22px 0 0;
-  padding: 0;
-  list-style: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 30px;
+  background: rgba(255, 253, 247, 0.14);
 }
 
-.funding-panel li {
-  position: relative;
-  padding-left: 24px;
-  color: rgba(255, 253, 247, 0.76);
+.investment-grid article {
+  min-height: 170px;
+  padding: 20px;
+  background: rgba(8, 25, 22, 0.9);
 }
 
-.funding-panel li::before {
-  position: absolute;
-  left: 0;
-  top: 0.65em;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold);
-  content: "";
+.investment-grid span {
+  color: var(--teal);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.investment-grid h4 {
+  margin: 18px 0 0;
+  color: var(--white);
+  font-size: 1.02rem;
+  line-height: 1.12;
+}
+
+.investment-grid p {
+  margin: 10px 0 0;
+  color: rgba(255, 253, 247, 0.64);
+  font-size: 0.86rem;
+  line-height: 1.42;
+}
+
+.investment-bridge {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 253, 247, 0.16);
+}
+
+.investment-bridge strong {
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.investment-bridge p {
+  margin: 0;
+  color: rgba(255, 253, 247, 0.72);
+  line-height: 1.5;
 }
 
 .credibility-section {
@@ -2919,6 +3000,28 @@ p {
   .roadmap::-webkit-scrollbar-thumb {
     background: rgba(94, 214, 218, 0.48);
     border-radius: 999px;
+  }
+
+  .funding-copy h2 {
+    max-width: 100%;
+  }
+
+  .funding-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .investment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .investment-grid article {
+    min-height: auto;
+  }
+
+  .investment-bridge {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .flow-board::-webkit-scrollbar {
@@ -3953,25 +4056,48 @@ p {
 
       <section id="inversion" class="section funding-section" aria-labelledby="funding-title">
         <div class="section-shell funding-layout">
-          <div>
-            <p class="section-kicker">Fondos no reembolsables</p>
-            <h2 id="funding-title">Creamos infraestructura diseñada para generar crecimiento sostenible.</h2>
-            <p>
-              La inversión solicitada permitirá acelerar el desarrollo tecnológico, validar el modelo con actores
-              reales, fortalecer la experiencia de usuario y preparar la expansión regional con medición de impacto.
+          <div class="funding-copy">
+            <h2 id="funding-title">Invertir en Tecaigo es ordenar el turismo que ya mueve la región.</h2>
+            <p class="funding-lede">
+              Buscamos inversión para terminar el producto y activar una red que conecte tour operadores, transporte,
+              comercios y viajeros. Tecaigo no solo digitaliza una venta: crea empleo directo e indirecto, formaliza
+              operación turística y abre camino para que actores hoy informales accedan a banca, trazabilidad fiscal e
+              incentivos que atraigan más visitantes.
             </p>
-            <a class="button primary" href="#contacto">Solicitar dossier del proyecto</a>
+            <div class="funding-actions">
+              <a class="button primary" href="#contacto">Solicitar dossier del proyecto</a>
+              <span class="investment-note">Capital estratégico para cerrar tecnología, pilotos y alianzas sectoriales.</span>
+            </div>
           </div>
-          <div class="funding-panel" aria-label="Uso de fondos">
-            <h3>Uso estratégico de fondos</h3>
-            <ul>
-              <li>Desarrollo de Tecaigo EXE, marketplace y aplicación móvil.</li>
-              <li>Infraestructura cloud, seguridad, datos y tiempo real.</li>
-              <li>Diseño UX/UI para operación turística y viajeros.</li>
-              <li>Marketing, adquisición de usuarios y alianzas territoriales.</li>
-              <li>Pilotos con operadores, transporte, comercios e instituciones.</li>
-              <li>Integración financiera, pagos y trazabilidad económica.</li>
-            </ul>
+          <div class="funding-panel investment-thesis" aria-label="Tesis de inversión en Tecaigo">
+            <p class="panel-kicker">Tesis de inversión</p>
+            <h3>Un producto inclusivo para convertir operación turística en economía formal.</h3>
+            <div class="investment-grid">
+              <article>
+                <span>01</span>
+                <h4>Empleo y cadena local</h4>
+                <p>Más rutas activas significan trabajo para operadores, guías, transporte, comercios y servicios aliados.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h4>Tour operadores y transporte</h4>
+                <p>El sistema fortalece a quienes mueven experiencias y pasajeros, conectándolos con demanda real.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h4>Banca y formalización</h4>
+                <p>La trazabilidad de ventas, cupos y pagos crea historial para acceso financiero responsable.</p>
+              </article>
+              <article>
+                <span>04</span>
+                <h4>Gobierno e incentivos</h4>
+                <p>Una operación medible puede tributar mejor y justificar políticas fiscales para atraer turismo.</p>
+              </article>
+            </div>
+            <div class="investment-bridge">
+              <strong>Meta</strong>
+              <p>Crear conexiones estratégicas con sector turístico, banca e instituciones públicas para que crecer también signifique formalizar.</p>
+            </div>
           </div>
         </div>
       </section>
