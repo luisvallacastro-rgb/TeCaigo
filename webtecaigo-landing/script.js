@@ -532,6 +532,57 @@ document.querySelectorAll(".mobile-app-track").forEach((track) => {
   });
 });
 
+const roadmapCarousel = document.querySelector(".roadmap");
+const roadmapCards = [...document.querySelectorAll(".roadmap li")];
+const roadmapMobileQuery = window.matchMedia("(max-width: 620px)");
+const roadmapCycleMs = 32000;
+const roadmapStepMs = 8000;
+const roadmapStartTime = window.performance.now();
+let roadmapTimer = null;
+let roadmapActiveIndex = 0;
+
+function getRoadmapPhaseIndex() {
+  return Math.floor(((window.performance.now() - roadmapStartTime) % roadmapCycleMs) / roadmapStepMs) % roadmapCards.length;
+}
+
+function scrollRoadmapTo(index, behavior = "smooth") {
+  if (!roadmapCarousel || roadmapCards.length === 0 || !roadmapMobileQuery.matches) return;
+
+  const card = roadmapCards[index % roadmapCards.length];
+  const targetLeft = getRoadmapTargetLeft(index);
+  roadmapCarousel.scrollTo({
+    left: targetLeft,
+    behavior,
+  });
+}
+
+function getRoadmapTargetLeft(index) {
+  const card = roadmapCards[index % roadmapCards.length];
+  return card.offsetLeft - roadmapCarousel.offsetLeft;
+}
+
+function startRoadmapAutoScroll() {
+  window.clearInterval(roadmapTimer);
+  roadmapTimer = null;
+
+  if (!roadmapMobileQuery.matches || roadmapCards.length < 2) return;
+
+  roadmapActiveIndex = getRoadmapPhaseIndex();
+  scrollRoadmapTo(roadmapActiveIndex, "auto");
+  roadmapTimer = window.setInterval(() => {
+    const nextIndex = getRoadmapPhaseIndex();
+    const targetLeft = getRoadmapTargetLeft(nextIndex);
+    const isAlreadyInPlace = Math.abs(roadmapCarousel.scrollLeft - targetLeft) < 12;
+    if (nextIndex === roadmapActiveIndex && isAlreadyInPlace) return;
+    roadmapActiveIndex = nextIndex;
+    scrollRoadmapTo(roadmapActiveIndex);
+  }, 500);
+}
+
+roadmapMobileQuery.addEventListener("change", startRoadmapAutoScroll);
+window.addEventListener("resize", () => scrollRoadmapTo(roadmapActiveIndex, "auto"));
+startRoadmapAutoScroll();
+
 const featureDetails = {
   create: {
     step: "01",
