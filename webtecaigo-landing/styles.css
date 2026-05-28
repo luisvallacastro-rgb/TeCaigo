@@ -2513,19 +2513,8 @@ p {
   animation: phone-signal 3.4s linear infinite;
 }
 
-.phone-link:nth-of-type(2n) {
+.phone-link.alt {
   animation-delay: -1.4s;
-}
-
-.phone-device {
-  animation: phone-float 4.6s ease-in-out infinite;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.36));
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.phone-device:nth-of-type(2n) {
-  animation-delay: -1.8s;
 }
 
 .phone-hub {
@@ -2550,24 +2539,6 @@ p {
 .phone-dot,
 .phone-screen {
   fill: rgba(94, 214, 218, 0.72);
-}
-
-.signal-node {
-  opacity: 0.72;
-}
-
-.signal-ring {
-  fill: rgba(2, 20, 18, 0.7);
-  stroke: rgba(94, 214, 218, 0.48);
-  stroke-dasharray: 4 4;
-}
-
-.signal-icon {
-  fill: none;
-  stroke: rgba(255, 253, 247, 0.68);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
 }
 
 .route-spark {
@@ -2613,17 +2584,6 @@ p {
   100% {
     stroke-dashoffset: 0;
     opacity: 0.18;
-  }
-}
-
-@keyframes phone-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
   }
 }
 
