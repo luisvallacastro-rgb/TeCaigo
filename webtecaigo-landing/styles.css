@@ -2383,8 +2383,8 @@ p {
 
 .regional-route {
   position: relative;
-  width: min(100%, 620px);
-  aspect-ratio: 1.18;
+  width: min(100%, 680px);
+  aspect-ratio: 1.24;
   overflow: hidden;
   border: 1px solid rgba(94, 214, 218, 0.22);
   border-radius: 8px;
@@ -2406,31 +2406,54 @@ p {
   height: 100%;
 }
 
-.route-land {
-  fill: rgba(255, 253, 247, 0.08);
-  stroke: rgba(255, 253, 247, 0.12);
-  stroke-width: 1.2;
+.route-map-glow {
+  fill: rgba(94, 214, 218, 0.08);
+  filter: blur(18px);
 }
 
-.route-path-shadow,
-.route-path {
+.route-country {
+  fill: rgba(255, 253, 247, 0.07);
+  stroke: rgba(255, 253, 247, 0.16);
+  stroke-width: 1.1;
+}
+
+.route-country.is-active {
+  fill: rgba(94, 214, 218, 0.11);
+  stroke: rgba(94, 214, 218, 0.28);
+}
+
+.route-lane,
+.route-flow,
+.phone-link {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.route-path-shadow {
+.route-lane {
   stroke: rgba(94, 214, 218, 0.16);
-  stroke-width: 16;
+  stroke-width: 13;
 }
 
-.route-path {
+.route-flow {
   stroke: var(--teal);
-  stroke-dasharray: 760;
-  stroke-dashoffset: 760;
-  stroke-width: 5;
+  stroke-dasharray: 620;
+  stroke-dashoffset: 620;
+  stroke-width: 4;
   filter: drop-shadow(0 0 12px rgba(94, 214, 218, 0.64));
-  animation: route-draw 7.5s ease-in-out infinite;
+  animation: route-draw 8.5s ease-in-out infinite;
+}
+
+.route-flow.alt {
+  stroke: rgba(255, 253, 247, 0.72);
+  stroke-width: 2.4;
+  animation-delay: -2.6s;
+}
+
+.route-flow.secondary {
+  stroke: rgba(188, 247, 129, 0.72);
+  stroke-width: 3;
+  animation-delay: -4s;
 }
 
 .route-node {
@@ -2449,7 +2472,7 @@ p {
 
 .route-label {
   fill: rgba(255, 253, 247, 0.72);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2460,6 +2483,9 @@ p {
   stroke: rgba(94, 214, 218, 0.52);
   stroke-width: 2;
   filter: drop-shadow(0 0 22px rgba(94, 214, 218, 0.42));
+  animation: route-core-breathe 3.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .route-core-text {
@@ -2476,16 +2502,53 @@ p {
   text-transform: uppercase;
 }
 
-.route-pin {
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.38));
+.route-transport {
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.42));
 }
 
-.route-pin-body {
+.transport-body {
   fill: #5ed6da;
 }
 
-.route-pin-center {
+.transport-detail {
   fill: #06211f;
+}
+
+.transport-light {
+  fill: #fffdf7;
+}
+
+.phone-link {
+  stroke: rgba(94, 214, 218, 0.34);
+  stroke-dasharray: 7 11;
+  stroke-width: 1.6;
+  animation: phone-signal 3.4s linear infinite;
+}
+
+.phone-link:nth-of-type(2n) {
+  animation-delay: -1.4s;
+}
+
+.phone-device {
+  animation: phone-float 4.6s ease-in-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.36));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.phone-device:nth-of-type(2n) {
+  animation-delay: -1.8s;
+}
+
+.phone-shell {
+  fill: rgba(7, 20, 19, 0.96);
+  stroke: rgba(94, 214, 218, 0.54);
+  stroke-width: 1.4;
+}
+
+.phone-dot,
+.phone-screen {
+  fill: rgba(94, 214, 218, 0.72);
 }
 
 .route-spark {
@@ -2497,7 +2560,7 @@ p {
 @keyframes route-draw {
   0%,
   12% {
-    stroke-dashoffset: 760;
+    stroke-dashoffset: 620;
   }
 
   62%,
@@ -2515,6 +2578,44 @@ p {
   100% {
     opacity: 0;
     transform: scale(2.2);
+  }
+}
+
+@keyframes route-core-breathe {
+  0%,
+  100% {
+    transform: scale(0.96);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes phone-signal {
+  0% {
+    stroke-dashoffset: 36;
+    opacity: 0.18;
+  }
+
+  50% {
+    opacity: 0.78;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.18;
+  }
+}
+
+@keyframes phone-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
   }
 }
 
