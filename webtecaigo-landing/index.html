@@ -2381,14 +2381,14 @@ p {
 .funding-visual {
   position: relative;
   display: grid;
-  min-height: clamp(520px, 54vw, 720px);
+  min-height: clamp(430px, 42vw, 570px);
   place-items: center;
   perspective: 1500px;
 }
 
 .funding-visual::before {
   position: absolute;
-  width: min(72vw, 560px);
+  width: min(54vw, 430px);
   aspect-ratio: 1;
   border-radius: 999px;
   background:
@@ -2400,11 +2400,11 @@ p {
 
 .s26-phone {
   position: relative;
-  width: clamp(250px, 24vw, 390px);
+  width: clamp(220px, 18vw, 305px);
   aspect-ratio: 9 / 20.6;
-  transform: rotateY(-20deg) rotateZ(4deg) translateX(5%);
+  transform: rotateY(-20deg) rotateZ(4deg) translateX(2%);
   transform-style: preserve-3d;
-  filter: drop-shadow(-34px 38px 42px rgba(0, 0, 0, 0.42));
+  filter: drop-shadow(-24px 28px 34px rgba(0, 0, 0, 0.38));
 }
 
 .s26-phone::before {
@@ -3005,12 +3005,12 @@ p {
   }
 
   .funding-visual {
-    min-height: 520px;
+    min-height: 450px;
     margin-top: 8px;
   }
 
   .s26-phone {
-    width: min(72vw, 310px);
+    width: min(66vw, 265px);
     transform: rotateY(-14deg) rotateZ(3deg);
   }
 
