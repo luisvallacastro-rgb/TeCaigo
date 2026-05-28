@@ -2478,30 +2478,6 @@ p {
   text-transform: uppercase;
 }
 
-.route-core {
-  fill: rgba(4, 88, 81, 0.94);
-  stroke: rgba(94, 214, 218, 0.52);
-  stroke-width: 2;
-  filter: drop-shadow(0 0 22px rgba(94, 214, 218, 0.42));
-  animation: route-core-breathe 3.6s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.route-core-text {
-  fill: #fffdf7;
-  font-size: 28px;
-  font-weight: 900;
-}
-
-.route-core-subtext {
-  fill: rgba(255, 253, 247, 0.68);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .route-transport {
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.42));
 }
@@ -2578,17 +2554,6 @@ p {
   100% {
     opacity: 0;
     transform: scale(2.2);
-  }
-}
-
-@keyframes route-core-breathe {
-  0%,
-  100% {
-    transform: scale(0.96);
-  }
-
-  50% {
-    transform: scale(1.04);
   }
 }
 
