@@ -2364,7 +2364,7 @@ p {
 .funding-visual {
   position: relative;
   display: grid;
-  min-height: clamp(430px, 42vw, 570px);
+  min-height: clamp(430px, 40vw, 560px);
   place-items: center;
   perspective: 1500px;
 }
@@ -2381,71 +2381,154 @@ p {
   transform: translate(8%, 4%);
 }
 
-.s26-phone {
+.regional-route {
   position: relative;
-  width: clamp(205px, 16vw, 270px);
-  aspect-ratio: 706 / 1680;
-  transform: rotateY(-20deg) rotateZ(4deg) translateX(2%);
-  transform-style: preserve-3d;
-  filter: drop-shadow(-24px 28px 34px rgba(0, 0, 0, 0.38));
-}
-
-.s26-phone::before {
-  position: absolute;
-  inset: 4.5% -5.5% 4.5% auto;
-  width: 10%;
-  border-radius: 0 30px 30px 0;
-  background: linear-gradient(90deg, rgba(12, 17, 18, 0.94), rgba(88, 101, 103, 0.96));
-  content: "";
-  transform: translateZ(-26px) rotateY(42deg);
-  transform-origin: left center;
-}
-
-.s26-phone::after {
-  position: absolute;
-  inset: -1.6%;
-  border-radius: 30px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 22%),
-    linear-gradient(145deg, #202b2d, #080b0d 46%, #2b3a3d);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 0 0 7px rgba(6, 8, 9, 0.98);
-  content: "";
-}
-
-.s26-screen {
-  position: absolute;
-  inset: 2.5% 2.7% 2.6%;
-  z-index: 1;
+  width: min(100%, 620px);
+  aspect-ratio: 1.18;
   overflow: hidden;
-  border: 1px solid rgba(156, 245, 246, 0.22);
-  border-radius: 24px;
-  background: #061011;
-  box-shadow: inset 0 0 24px rgba(94, 214, 218, 0.12);
+  border: 1px solid rgba(94, 214, 218, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 52% 48%, rgba(94, 214, 218, 0.18), transparent 34%),
+    rgba(3, 18, 16, 0.38);
+  background-size: 48px 48px, 48px 48px, auto, auto;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 253, 247, 0.04),
+    0 30px 70px rgba(0, 0, 0, 0.28);
 }
 
-.s26-screen img {
-  display: block;
+.regional-route svg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
 }
 
-.s26-camera {
-  position: absolute;
-  top: 3.9%;
-  left: 50%;
-  z-index: 2;
-  width: 3.2%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgba(2, 7, 8, 0.92);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 0 0 4px rgba(3, 10, 11, 0.45);
-  transform: translateX(-50%);
+.route-land {
+  fill: rgba(255, 253, 247, 0.08);
+  stroke: rgba(255, 253, 247, 0.12);
+  stroke-width: 1.2;
+}
+
+.route-path-shadow,
+.route-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route-path-shadow {
+  stroke: rgba(94, 214, 218, 0.16);
+  stroke-width: 16;
+}
+
+.route-path {
+  stroke: var(--teal);
+  stroke-dasharray: 760;
+  stroke-dashoffset: 760;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 12px rgba(94, 214, 218, 0.64));
+  animation: route-draw 7.5s ease-in-out infinite;
+}
+
+.route-node {
+  fill: #5ed6da;
+  filter: drop-shadow(0 0 10px rgba(94, 214, 218, 0.78));
+}
+
+.route-node-ring {
+  fill: none;
+  stroke: rgba(94, 214, 218, 0.48);
+  stroke-width: 2;
+  animation: route-pulse 2.8s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.route-label {
+  fill: rgba(255, 253, 247, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.route-core {
+  fill: rgba(4, 88, 81, 0.94);
+  stroke: rgba(94, 214, 218, 0.52);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 22px rgba(94, 214, 218, 0.42));
+}
+
+.route-core-text {
+  fill: #fffdf7;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.route-core-subtext {
+  fill: rgba(255, 253, 247, 0.68);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.route-pin {
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.38));
+}
+
+.route-pin-body {
+  fill: #5ed6da;
+}
+
+.route-pin-center {
+  fill: #06211f;
+}
+
+.route-spark {
+  fill: #fffdf7;
+  opacity: 0.78;
+  animation: route-sparkle 2.4s ease-in-out infinite;
+}
+
+@keyframes route-draw {
+  0%,
+  12% {
+    stroke-dashoffset: 760;
+  }
+
+  62%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes route-pulse {
+  0% {
+    opacity: 0.68;
+    transform: scale(0.76);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+@keyframes route-sparkle {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(0.82);
+  }
+
+  50% {
+    opacity: 0.88;
+    transform: scale(1);
+  }
 }
 
 .credibility-section {
@@ -2991,17 +3074,13 @@ p {
   }
 
   .funding-visual {
-    min-height: 450px;
+    min-height: 360px;
     margin-top: 8px;
   }
 
-  .s26-phone {
-    width: min(66vw, 265px);
-    transform: rotateY(-14deg) rotateZ(3deg);
-  }
-
-  .s26-phone::before {
-    transform: translateZ(-18px) rotateY(38deg);
+  .regional-route {
+    width: 100%;
+    min-height: 320px;
   }
 
   .funding-actions {

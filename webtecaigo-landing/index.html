@@ -2381,7 +2381,7 @@ p {
 .funding-visual {
   position: relative;
   display: grid;
-  min-height: clamp(430px, 42vw, 570px);
+  min-height: clamp(430px, 40vw, 560px);
   place-items: center;
   perspective: 1500px;
 }
@@ -2398,71 +2398,154 @@ p {
   transform: translate(8%, 4%);
 }
 
-.s26-phone {
+.regional-route {
   position: relative;
-  width: clamp(205px, 16vw, 270px);
-  aspect-ratio: 706 / 1680;
-  transform: rotateY(-20deg) rotateZ(4deg) translateX(2%);
-  transform-style: preserve-3d;
-  filter: drop-shadow(-24px 28px 34px rgba(0, 0, 0, 0.38));
-}
-
-.s26-phone::before {
-  position: absolute;
-  inset: 4.5% -5.5% 4.5% auto;
-  width: 10%;
-  border-radius: 0 30px 30px 0;
-  background: linear-gradient(90deg, rgba(12, 17, 18, 0.94), rgba(88, 101, 103, 0.96));
-  content: "";
-  transform: translateZ(-26px) rotateY(42deg);
-  transform-origin: left center;
-}
-
-.s26-phone::after {
-  position: absolute;
-  inset: -1.6%;
-  border-radius: 30px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 22%),
-    linear-gradient(145deg, #202b2d, #080b0d 46%, #2b3a3d);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 0 0 7px rgba(6, 8, 9, 0.98);
-  content: "";
-}
-
-.s26-screen {
-  position: absolute;
-  inset: 2.5% 2.7% 2.6%;
-  z-index: 1;
+  width: min(100%, 620px);
+  aspect-ratio: 1.18;
   overflow: hidden;
-  border: 1px solid rgba(156, 245, 246, 0.22);
-  border-radius: 24px;
-  background: #061011;
-  box-shadow: inset 0 0 24px rgba(94, 214, 218, 0.12);
+  border: 1px solid rgba(94, 214, 218, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 52% 48%, rgba(94, 214, 218, 0.18), transparent 34%),
+    rgba(3, 18, 16, 0.38);
+  background-size: 48px 48px, 48px 48px, auto, auto;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 253, 247, 0.04),
+    0 30px 70px rgba(0, 0, 0, 0.28);
 }
 
-.s26-screen img {
-  display: block;
+.regional-route svg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
 }
 
-.s26-camera {
-  position: absolute;
-  top: 3.9%;
-  left: 50%;
-  z-index: 2;
-  width: 3.2%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgba(2, 7, 8, 0.92);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 0 0 4px rgba(3, 10, 11, 0.45);
-  transform: translateX(-50%);
+.route-land {
+  fill: rgba(255, 253, 247, 0.08);
+  stroke: rgba(255, 253, 247, 0.12);
+  stroke-width: 1.2;
+}
+
+.route-path-shadow,
+.route-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route-path-shadow {
+  stroke: rgba(94, 214, 218, 0.16);
+  stroke-width: 16;
+}
+
+.route-path {
+  stroke: var(--teal);
+  stroke-dasharray: 760;
+  stroke-dashoffset: 760;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 12px rgba(94, 214, 218, 0.64));
+  animation: route-draw 7.5s ease-in-out infinite;
+}
+
+.route-node {
+  fill: #5ed6da;
+  filter: drop-shadow(0 0 10px rgba(94, 214, 218, 0.78));
+}
+
+.route-node-ring {
+  fill: none;
+  stroke: rgba(94, 214, 218, 0.48);
+  stroke-width: 2;
+  animation: route-pulse 2.8s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.route-label {
+  fill: rgba(255, 253, 247, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.route-core {
+  fill: rgba(4, 88, 81, 0.94);
+  stroke: rgba(94, 214, 218, 0.52);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 22px rgba(94, 214, 218, 0.42));
+}
+
+.route-core-text {
+  fill: #fffdf7;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.route-core-subtext {
+  fill: rgba(255, 253, 247, 0.68);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.route-pin {
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.38));
+}
+
+.route-pin-body {
+  fill: #5ed6da;
+}
+
+.route-pin-center {
+  fill: #06211f;
+}
+
+.route-spark {
+  fill: #fffdf7;
+  opacity: 0.78;
+  animation: route-sparkle 2.4s ease-in-out infinite;
+}
+
+@keyframes route-draw {
+  0%,
+  12% {
+    stroke-dashoffset: 760;
+  }
+
+  62%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes route-pulse {
+  0% {
+    opacity: 0.68;
+    transform: scale(0.76);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+@keyframes route-sparkle {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(0.82);
+  }
+
+  50% {
+    opacity: 0.88;
+    transform: scale(1);
+  }
 }
 
 .credibility-section {
@@ -3008,17 +3091,13 @@ p {
   }
 
   .funding-visual {
-    min-height: 450px;
+    min-height: 360px;
     margin-top: 8px;
   }
 
-  .s26-phone {
-    width: min(66vw, 265px);
-    transform: rotateY(-14deg) rotateZ(3deg);
-  }
-
-  .s26-phone::before {
-    transform: translateZ(-18px) rotateY(38deg);
+  .regional-route {
+    width: 100%;
+    min-height: 320px;
   }
 
   .funding-actions {
@@ -4071,12 +4150,70 @@ p {
               <span class="investment-note">Capital estratégico para cerrar tecnología, pilotos y alianzas sectoriales.</span>
             </div>
           </div>
-          <div class="funding-visual" aria-label="Vista de Tecaigo en modo turista dentro de un Samsung S26 Ultra">
-            <div class="s26-phone" role="img" aria-label="Samsung S26 Ultra inclinado mostrando la experiencia turista de Tecaigo">
-              <div class="s26-screen">
-                <img src="assets/tecaigo-tourist-investment-s26.png" alt="Pantalla de Tecaigo en modo turista con eventos, boletos, agencias y aliados" loading="lazy" />
-              </div>
-              <span class="s26-camera" aria-hidden="true"></span>
+          <div class="funding-visual" aria-label="Ruta turística centroamericana conectada por Tecaigo">
+            <div class="regional-route" role="img" aria-label="Animación de una ruta que conecta Guatemala, Honduras, El Salvador, Nicaragua, Costa Rica y Panamá con Tecaigo">
+              <svg viewBox="0 0 620 520" aria-hidden="true" focusable="false">
+                <defs>
+                  <path id="tecaigoRegionalPath" d="M112 126 C166 94 220 112 262 158 C300 198 250 231 204 244 C250 278 316 280 364 250 C424 213 474 242 502 296 C526 342 556 366 590 384" />
+                </defs>
+
+                <path class="route-land" d="M76 112 C118 72 196 66 254 118 C302 160 326 214 282 250 C240 284 176 282 132 248 C90 216 38 198 76 112Z" />
+                <path class="route-land" d="M246 154 C294 104 372 124 402 188 C434 254 372 294 312 278 C260 264 220 206 246 154Z" />
+                <path class="route-land" d="M372 226 C430 186 510 214 536 286 C558 346 590 354 604 394 C566 410 500 398 464 354 C430 312 374 296 372 226Z" />
+                <path class="route-land" d="M86 330 C132 306 206 328 230 378 C252 424 200 456 142 438 C88 420 42 366 86 330Z" />
+
+                <path class="route-path-shadow" d="M112 126 C166 94 220 112 262 158 C300 198 250 231 204 244 C250 278 316 280 364 250 C424 213 474 242 502 296 C526 342 556 366 590 384" />
+                <path class="route-path" d="M112 126 C166 94 220 112 262 158 C300 198 250 231 204 244 C250 278 316 280 364 250 C424 213 474 242 502 296 C526 342 556 366 590 384" />
+
+                <g>
+                  <circle class="route-node-ring" cx="112" cy="126" r="13" />
+                  <circle class="route-node" cx="112" cy="126" r="6" />
+                  <text class="route-label" x="70" y="95">Guatemala</text>
+                </g>
+                <g>
+                  <circle class="route-node-ring" cx="262" cy="158" r="13" />
+                  <circle class="route-node" cx="262" cy="158" r="6" />
+                  <text class="route-label" x="234" y="126">Honduras</text>
+                </g>
+                <g>
+                  <circle class="route-node-ring" cx="204" cy="244" r="13" />
+                  <circle class="route-node" cx="204" cy="244" r="6" />
+                  <text class="route-label" x="116" y="282">El Salvador</text>
+                </g>
+                <g>
+                  <circle class="route-node-ring" cx="364" cy="250" r="13" />
+                  <circle class="route-node" cx="364" cy="250" r="6" />
+                  <text class="route-label" x="368" y="222">Nicaragua</text>
+                </g>
+                <g>
+                  <circle class="route-node-ring" cx="502" cy="296" r="13" />
+                  <circle class="route-node" cx="502" cy="296" r="6" />
+                  <text class="route-label" x="438" y="270">Costa Rica</text>
+                </g>
+                <g>
+                  <circle class="route-node-ring" cx="590" cy="384" r="13" />
+                  <circle class="route-node" cx="590" cy="384" r="6" />
+                  <text class="route-label" x="532" y="430">Panamá</text>
+                </g>
+
+                <g transform="translate(260 338)">
+                  <circle class="route-core" cx="60" cy="48" r="62" />
+                  <text class="route-core-text" x="60" y="42" text-anchor="middle">TeCaiGO</text>
+                  <text class="route-core-subtext" x="60" y="64" text-anchor="middle">red regional</text>
+                </g>
+
+                <circle class="route-spark" cx="162" cy="114" r="3" />
+                <circle class="route-spark" cx="426" cy="216" r="2.5" />
+                <circle class="route-spark" cx="536" cy="348" r="3" />
+
+                <g class="route-pin">
+                  <animateMotion dur="7.5s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#tecaigoRegionalPath" />
+                  </animateMotion>
+                  <path class="route-pin-body" d="M0 -22 C12 -22 21 -13 21 -2 C21 13 0 28 0 28 C0 28 -21 13 -21 -2 C-21 -13 -12 -22 0 -22Z" />
+                  <circle class="route-pin-center" cx="0" cy="-2" r="7" />
+                </g>
+              </svg>
             </div>
           </div>
         </div>
