@@ -2345,9 +2345,9 @@ p {
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(circle at 74% 28%, rgba(94, 214, 218, 0.22), transparent 28%),
-    linear-gradient(90deg, rgba(4, 22, 20, 0.9), rgba(4, 30, 27, 0.72) 48%, rgba(4, 22, 20, 0.88)),
-    linear-gradient(180deg, rgba(4, 15, 14, 0.82), rgba(4, 18, 16, 0.78));
+    radial-gradient(circle at 74% 28%, rgba(94, 214, 218, 0.18), transparent 30%),
+    linear-gradient(90deg, rgba(3, 13, 12, 0.78), rgba(4, 30, 27, 0.48) 50%, rgba(3, 13, 12, 0.72)),
+    linear-gradient(180deg, rgba(4, 15, 14, 0.58), rgba(4, 18, 16, 0.64));
   content: "";
 }
 
@@ -2365,7 +2365,7 @@ p {
   border: 1px solid rgba(255, 253, 247, 0.14);
   border-radius: 8px;
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
-  opacity: 0.44;
+  opacity: 0.78;
   transform: rotate(var(--tilt, 0deg));
   animation: collage-drift var(--speed, 22s) ease-in-out infinite;
   animation-delay: var(--delay, 0s);
@@ -2376,6 +2376,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: saturate(1.16) contrast(1.08) brightness(1.08);
   transform: scale(1.06);
 }
 
@@ -3243,7 +3244,7 @@ p {
   }
 
   .collage-tile {
-    opacity: 0.3;
+    opacity: 0.48;
   }
 
   .funding-visual {
