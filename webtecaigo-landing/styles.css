@@ -2422,6 +2422,12 @@ p {
   stroke: rgba(94, 214, 218, 0.28);
 }
 
+.route-border {
+  fill: none;
+  stroke: rgba(94, 214, 218, 0.22);
+  stroke-width: 1;
+}
+
 .route-lane,
 .route-flow,
 .phone-link {
@@ -2454,6 +2460,12 @@ p {
   stroke: rgba(188, 247, 129, 0.72);
   stroke-width: 3;
   animation-delay: -4s;
+}
+
+.route-flow.gold {
+  stroke: rgba(241, 232, 86, 0.82);
+  stroke-width: 3.2;
+  animation-delay: -6.2s;
 }
 
 .route-node {
@@ -2516,6 +2528,19 @@ p {
   animation-delay: -1.8s;
 }
 
+.phone-hub {
+  filter: drop-shadow(0 0 18px rgba(94, 214, 218, 0.74));
+}
+
+.phone-hub-ring {
+  fill: rgba(94, 214, 218, 0.08);
+  stroke: rgba(94, 214, 218, 0.58);
+  stroke-width: 2;
+  animation: route-pulse 3s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 .phone-shell {
   fill: rgba(7, 20, 19, 0.96);
   stroke: rgba(94, 214, 218, 0.54);
@@ -2525,6 +2550,24 @@ p {
 .phone-dot,
 .phone-screen {
   fill: rgba(94, 214, 218, 0.72);
+}
+
+.signal-node {
+  opacity: 0.72;
+}
+
+.signal-ring {
+  fill: rgba(2, 20, 18, 0.7);
+  stroke: rgba(94, 214, 218, 0.48);
+  stroke-dasharray: 4 4;
+}
+
+.signal-icon {
+  fill: none;
+  stroke: rgba(255, 253, 247, 0.68);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
 }
 
 .route-spark {
