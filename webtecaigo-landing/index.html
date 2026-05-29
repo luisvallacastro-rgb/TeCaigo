@@ -2533,11 +2533,11 @@ p {
 
 .route-flow {
   stroke: var(--teal);
-  stroke-dasharray: 620;
-  stroke-dashoffset: 620;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
   stroke-width: 4;
   filter: drop-shadow(0 0 12px rgba(94, 214, 218, 0.64));
-  animation: route-draw 8.5s ease-in-out infinite;
+  opacity: 0.86;
 }
 
 .route-flow.alt {
@@ -2567,7 +2567,6 @@ p {
   fill: none;
   stroke: rgba(94, 214, 218, 0.48);
   stroke-width: 2;
-  animation: route-pulse 2.8s ease-out infinite;
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -2582,6 +2581,7 @@ p {
 
 .route-transport {
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.42));
+  opacity: 0.92;
 }
 
 .transport-body {
@@ -2600,7 +2600,7 @@ p {
   stroke: rgba(94, 214, 218, 0.34);
   stroke-dasharray: 7 11;
   stroke-width: 1.6;
-  animation: phone-signal 3.4s linear infinite;
+  opacity: 0.46;
 }
 
 .phone-link.alt {
@@ -2615,7 +2615,6 @@ p {
   fill: rgba(94, 214, 218, 0.08);
   stroke: rgba(94, 214, 218, 0.58);
   stroke-width: 2;
-  animation: route-pulse 3s ease-out infinite;
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -2633,61 +2632,7 @@ p {
 
 .route-spark {
   fill: #fffdf7;
-  opacity: 0.78;
-  animation: route-sparkle 2.4s ease-in-out infinite;
-}
-
-@keyframes route-draw {
-  0%,
-  12% {
-    stroke-dashoffset: 620;
-  }
-
-  62%,
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes route-pulse {
-  0% {
-    opacity: 0.68;
-    transform: scale(0.76);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(2.2);
-  }
-}
-
-@keyframes phone-signal {
-  0% {
-    stroke-dashoffset: 36;
-    opacity: 0.18;
-  }
-
-  50% {
-    opacity: 0.78;
-  }
-
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.18;
-  }
-}
-
-@keyframes route-sparkle {
-  0%,
-  100% {
-    opacity: 0.28;
-    transform: scale(0.82);
-  }
-
-  50% {
-    opacity: 0.88;
-    transform: scale(1);
-  }
+  opacity: 0.76;
 }
 
 .credibility-section {
@@ -4458,43 +4403,28 @@ p {
                 <circle class="route-spark" cx="704" cy="398" r="3" />
                 <circle class="route-spark" cx="318" cy="206" r="2.5" />
 
-                <g class="route-transport">
-                  <animateMotion dur="8.5s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#regionalRouteA" />
-                  </animateMotion>
+                <g class="route-transport" transform="translate(430 312) rotate(24)">
                   <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
                   <rect class="transport-detail" x="-11" y="-5" width="7" height="5" rx="1" />
                   <rect class="transport-detail" x="-1" y="-5" width="7" height="5" rx="1" />
                   <circle class="transport-detail" cx="-10" cy="10" r="3" />
                   <circle class="transport-detail" cx="10" cy="10" r="3" />
                 </g>
-                <g class="route-transport">
-                  <animateMotion dur="9.8s" begin="-2.4s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#regionalRouteB" />
-                  </animateMotion>
+                <g class="route-transport" transform="translate(704 404) rotate(22)">
                   <rect class="transport-body" x="-16" y="-8" width="32" height="16" rx="4" />
                   <rect class="transport-light" x="7" y="-4" width="5" height="4" rx="1" />
                   <circle class="transport-detail" cx="-8" cy="8" r="2.6" />
                   <circle class="transport-detail" cx="8" cy="8" r="2.6" />
                 </g>
-                <g class="route-transport">
-                  <animateMotion dur="10.4s" begin="-4.8s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#regionalRouteC" />
-                  </animateMotion>
+                <g class="route-transport" transform="translate(338 238) rotate(42)">
                   <path class="transport-body" d="M-16 0 L12 -10 L18 -4 L5 2 L18 8 L12 13Z" />
                   <circle class="transport-detail" cx="1" cy="0" r="3" />
                 </g>
-                <g class="route-transport">
-                  <animateMotion dur="11s" begin="-6s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#regionalRouteD" />
-                  </animateMotion>
+                <g class="route-transport" transform="translate(600 328) rotate(12)">
                   <path class="transport-body" d="M-18 -4 C-8 -12 10 -12 18 -3 L10 7 L-10 7Z" />
                   <rect class="transport-detail" x="-9" y="-3" width="18" height="5" rx="2" />
                 </g>
-                <g class="route-transport">
-                  <animateMotion dur="9s" begin="-3.2s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#regionalRouteE" />
-                  </animateMotion>
+                <g class="route-transport" transform="translate(262 220) rotate(-14)">
                   <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
                   <rect class="transport-detail" x="-11" y="-5" width="7" height="5" rx="1" />
                   <rect class="transport-detail" x="-1" y="-5" width="7" height="5" rx="1" />
