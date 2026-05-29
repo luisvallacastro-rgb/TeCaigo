@@ -2443,7 +2443,11 @@ p {
 }
 
 .funding-copy h2 {
-  max-width: 9.4em;
+  max-width: 8.4em;
+}
+
+.funding-accent {
+  color: var(--teal);
 }
 
 .funding-lede {
@@ -2592,10 +2596,14 @@ p {
 }
 
 .route-label {
-  fill: rgba(255, 253, 247, 0.72);
-  font-size: 11px;
+  fill: rgba(255, 253, 247, 0.9);
+  font-size: 16px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  paint-order: stroke;
+  stroke: rgba(2, 9, 9, 0.86);
+  stroke-linejoin: round;
+  stroke-width: 4px;
   text-transform: uppercase;
 }
 
@@ -4343,7 +4351,7 @@ p {
         </div>
         <div class="section-shell funding-layout">
           <div class="funding-copy">
-            <h2 id="funding-title">Invertir en Tecaigo es ordenar el turismo que ya mueve la región.</h2>
+            <h2 id="funding-title">Capital para activar la <span class="funding-accent">red turística regional.</span></h2>
             <p class="funding-lede">
               Buscamos inversión para terminar el producto y activar una red que conecte tour operadores, transporte,
               comercios y viajeros. Tecaigo no solo digitaliza una venta: crea empleo directo e indirecto, formaliza

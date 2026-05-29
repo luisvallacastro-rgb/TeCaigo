@@ -2426,7 +2426,11 @@ p {
 }
 
 .funding-copy h2 {
-  max-width: 9.4em;
+  max-width: 8.4em;
+}
+
+.funding-accent {
+  color: var(--teal);
 }
 
 .funding-lede {
@@ -2575,10 +2579,14 @@ p {
 }
 
 .route-label {
-  fill: rgba(255, 253, 247, 0.72);
-  font-size: 11px;
+  fill: rgba(255, 253, 247, 0.9);
+  font-size: 16px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  paint-order: stroke;
+  stroke: rgba(2, 9, 9, 0.86);
+  stroke-linejoin: round;
+  stroke-width: 4px;
   text-transform: uppercase;
 }
 
