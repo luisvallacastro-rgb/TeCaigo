@@ -106,7 +106,7 @@ a {
 }
 
 .nav-links {
-  gap: clamp(14px, 2vw, 28px);
+  gap: clamp(12px, 1.7vw, 24px);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -2339,6 +2339,10 @@ p {
 
 .funding-section {
   position: relative;
+  display: grid;
+  min-height: calc(100svh - 77px);
+  align-items: center;
+  padding: clamp(34px, 5vh, 58px) 0;
   isolation: isolate;
   overflow: hidden;
   overflow-anchor: none;
@@ -2349,12 +2353,12 @@ p {
 
 .funding-section::after {
   position: absolute;
-  inset: 0;
+  inset: -1px 0;
   z-index: 1;
   background:
+    linear-gradient(180deg, #020909, rgba(2, 9, 9, 0.1) 12%, rgba(2, 9, 9, 0.1) 88%, #020909),
     radial-gradient(ellipse at 76% 50%, rgba(2, 12, 11, 0.78), rgba(2, 12, 11, 0.52) 30%, rgba(2, 12, 11, 0.12) 54%, transparent 70%),
-    linear-gradient(90deg, rgba(2, 12, 11, 0.44), rgba(2, 12, 11, 0.16) 48%, rgba(2, 12, 11, 0.48)),
-    linear-gradient(180deg, rgba(3, 13, 12, 0.14), rgba(3, 13, 12, 0.24));
+    linear-gradient(90deg, rgba(2, 12, 11, 0.5), rgba(2, 12, 11, 0.2) 48%, rgba(2, 12, 11, 0.52));
   content: "";
 }
 
@@ -2429,9 +2433,24 @@ p {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.58fr);
-  gap: clamp(34px, 6vw, 82px);
-  align-items: center;
+  width: min(1540px, calc(100% - 48px));
+  grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1fr);
+  gap: 0;
+  align-items: stretch;
+  overflow: hidden;
+  padding: clamp(28px, 3.6vw, 54px);
+  border: 1px solid rgba(94, 214, 218, 0.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(94, 214, 218, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 214, 218, 0.07) 1px, transparent 1px),
+    radial-gradient(circle at 70% 48%, rgba(94, 214, 218, 0.18), transparent 34%),
+    radial-gradient(circle at 18% 30%, rgba(10, 165, 173, 0.14), transparent 30%),
+    rgba(3, 18, 16, 0.46);
+  background-size: 48px 48px, 48px 48px, auto, auto, auto;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 253, 247, 0.04),
+    0 30px 70px rgba(0, 0, 0, 0.28);
 }
 
 .funding-layout p {
@@ -2439,11 +2458,26 @@ p {
 }
 
 .funding-copy {
+  position: relative;
+  display: flex;
+  min-height: clamp(430px, 40vw, 560px);
+  flex-direction: column;
+  justify-content: center;
+  padding-right: clamp(22px, 3.8vw, 58px);
   text-shadow: 0 3px 26px rgba(0, 0, 0, 0.58);
 }
 
+.funding-copy::before {
+  display: none;
+}
+
+.funding-copy > * {
+  position: relative;
+}
+
 .funding-copy h2 {
-  max-width: 8.4em;
+  max-width: 9.2em;
+  font-size: clamp(2.6rem, 4.35vw, 4.65rem);
 }
 
 .funding-accent {
@@ -2453,21 +2487,8 @@ p {
 .funding-lede {
   max-width: 720px;
   margin-top: 26px;
-}
-
-.funding-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  margin-top: 28px;
-}
-
-.investment-note {
-  max-width: 260px;
-  color: rgba(255, 253, 247, 0.62);
-  font-size: 0.86rem;
-  line-height: 1.35;
+  font-size: clamp(1rem, 1.32vw, 1.2rem);
+  line-height: 1.58;
 }
 
 .funding-visual {
@@ -2492,20 +2513,10 @@ p {
 
 .regional-route {
   position: relative;
-  width: min(100%, 680px);
-  aspect-ratio: 1.24;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(430px, 40vw, 560px);
   overflow: hidden;
-  border: 1px solid rgba(94, 214, 218, 0.22);
-  border-radius: 8px;
-  background:
-    linear-gradient(rgba(94, 214, 218, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94, 214, 218, 0.06) 1px, transparent 1px),
-    radial-gradient(circle at 52% 48%, rgba(94, 214, 218, 0.18), transparent 34%),
-    rgba(3, 18, 16, 0.38);
-  background-size: 48px 48px, 48px 48px, auto, auto;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 253, 247, 0.04),
-    0 30px 70px rgba(0, 0, 0, 0.28);
 }
 
 .regional-route svg {
@@ -2713,24 +2724,263 @@ p {
   }
 }
 
-.credibility-section {
-  background: #071211;
+.demand-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 3.8vw, 54px) 0;
+  background:
+    radial-gradient(circle at 76% 18%, rgba(10, 165, 173, 0.18), transparent 34%),
+    radial-gradient(circle at 18% 78%, rgba(241, 91, 69, 0.12), transparent 32%),
+    linear-gradient(180deg, #071211 0%, #020909 100%);
 }
 
-.credibility-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  margin-top: 42px;
-  background: var(--line);
+.demand-section::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(94, 214, 218, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 214, 218, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 54% 48%, #000, transparent 72%);
+  content: "";
+  pointer-events: none;
 }
 
-.credibility-grid p {
-  min-height: 150px;
+.demand-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1480px, calc(100% - 40px));
+}
+
+.demand-carousel {
+  position: relative;
+  min-height: clamp(420px, 42vw, 600px);
+  overflow: hidden;
+  border: 1px solid rgba(94, 214, 218, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(94, 214, 218, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 214, 218, 0.055) 1px, transparent 1px),
+    radial-gradient(circle at 50% 48%, rgba(10, 165, 173, 0.2), transparent 38%),
+    rgba(3, 18, 16, 0.58);
+  background-size: 52px 52px, 52px 52px, auto, auto;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 253, 247, 0.04),
+    0 36px 90px rgba(0, 0, 0, 0.34);
+}
+
+.demand-carousel::before,
+.demand-carousel::after {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  content: "";
+}
+
+.demand-carousel::before {
+  background:
+    linear-gradient(90deg, rgba(2, 9, 9, 0.92), transparent 18%, transparent 82%, rgba(2, 9, 9, 0.92)),
+    linear-gradient(180deg, rgba(2, 9, 9, 0.22), transparent 22%, transparent 76%, rgba(2, 9, 9, 0.48));
+}
+
+.demand-carousel::after {
+  border: 1px solid rgba(94, 214, 218, 0.14);
+  border-radius: inherit;
+}
+
+.demand-stage {
+  position: absolute;
+  inset: clamp(14px, 2vw, 24px) 0 72px;
+  perspective: 1600px;
+  transform-style: preserve-3d;
+}
+
+.demand-slide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: min(74vw, 980px);
+  aspect-ratio: 1.95;
   margin: 0;
-  padding: 24px;
-  background: #0b1715;
-  font-weight: 700;
+  overflow: hidden;
+  border: 1px solid rgba(255, 253, 247, 0.16);
+  border-radius: 8px;
+  background: rgba(2, 9, 9, 0.72);
+  box-shadow:
+    0 32px 70px rgba(0, 0, 0, 0.42),
+    0 0 42px rgba(10, 165, 173, 0.12);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition:
+    transform 720ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 520ms ease,
+    filter 520ms ease;
+}
+
+.demand-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.demand-slide.is-active {
+  box-shadow:
+    0 42px 90px rgba(0, 0, 0, 0.52),
+    0 0 64px rgba(10, 165, 173, 0.2);
+}
+
+.demand-slide figcaption {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(94, 214, 218, 0.28);
+  border-radius: 8px;
+  color: rgba(255, 253, 247, 0.9);
+  background: rgba(2, 9, 9, 0.72);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+
+.demand-controls {
+  position: absolute;
+  left: clamp(18px, 3vw, 34px);
+  right: clamp(18px, 3vw, 34px);
+  bottom: 24px;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: auto minmax(160px, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.demand-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.demand-arrow {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 253, 247, 0.2);
+  border-radius: 8px;
+  color: var(--white);
+  background: rgba(255, 253, 247, 0.07);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.2rem;
+}
+
+.demand-arrow:hover {
+  border-color: rgba(94, 214, 218, 0.5);
+  background: rgba(10, 165, 173, 0.16);
+}
+
+.demand-progress {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.12);
+}
+
+.demand-progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--demand-progress, 9.09%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), rgba(94, 214, 218, 0.92));
+  box-shadow: 0 0 20px rgba(10, 165, 173, 0.48);
+  transition: width 520ms ease;
+}
+
+.demand-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  color: rgba(255, 253, 247, 0.76);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.demand-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.demand-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.28);
+  cursor: pointer;
+}
+
+.demand-dots button.active {
+  width: 22px;
+  background: var(--teal);
+}
+
+@media (max-width: 980px) {
+  .demand-slide {
+    width: min(88vw, 760px);
+  }
+}
+
+@media (max-width: 620px) {
+  .demand-shell {
+    width: min(100% - 24px, 1480px);
+  }
+
+  .demand-carousel {
+    min-height: 390px;
+  }
+
+  .demand-stage {
+    inset: 12px 0 118px;
+  }
+
+  .demand-slide {
+    width: min(92vw, 520px);
+  }
+
+  .demand-slide figcaption {
+    left: 12px;
+    bottom: 12px;
+    min-height: 30px;
+    font-size: 0.68rem;
+  }
+
+  .demand-controls {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .demand-arrows,
+  .demand-meta {
+    justify-content: space-between;
+  }
+
+  .demand-dots {
+    max-width: 156px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
 }
 
 .contact-section {
@@ -3253,6 +3503,7 @@ p {
 
   .funding-copy h2 {
     max-width: 100%;
+    font-size: clamp(2.18rem, 9vw, 3rem);
   }
 
   .funding-collage {
@@ -3265,18 +3516,24 @@ p {
   }
 
   .funding-visual {
-    min-height: 360px;
-    margin-top: 8px;
+    min-height: clamp(300px, 68vw, 360px);
+    margin-top: 0;
+  }
+
+  .funding-copy {
+    min-height: auto;
+    padding: 26px;
+  }
+
+  .funding-lede {
+    margin-top: 18px;
+    font-size: 0.98rem;
+    line-height: 1.52;
   }
 
   .regional-route {
     width: 100%;
-    min-height: 320px;
-  }
-
-  .funding-actions {
-    align-items: flex-start;
-    flex-direction: column;
+    min-height: clamp(300px, 68vw, 360px);
   }
 
   .flow-board::-webkit-scrollbar {
@@ -3668,10 +3925,11 @@ p {
         </span>
       </a>
       <nav class="nav-links" aria-label="Secciones">
-        <a href="#que-es">Qué es</a>
-        <a href="#actores">Actores</a>
-        <a href="#solucion">Solución</a>
-        <a href="#inversion">Inversión</a>
+        <a href="#que-es">Proyecto</a>
+        <a href="#actores">Red</a>
+        <a href="#solucion">Plataforma</a>
+        <a href="#inversion">Capital</a>
+        <a href="#noticias">Noticias</a>
       </nav>
       <a class="header-cta" href="#contacto">Agendar reunión</a>
     </header>
@@ -4358,10 +4616,6 @@ p {
               operación turística y abre camino para que actores hoy informales accedan a banca, trazabilidad fiscal e
               incentivos que atraigan más visitantes.
             </p>
-            <div class="funding-actions">
-              <a class="button primary" href="#contacto">Solicitar dossier del proyecto</a>
-              <span class="investment-note">Capital estratégico para cerrar tecnología, pilotos y alianzas sectoriales.</span>
-            </div>
           </div>
           <div class="funding-visual" aria-label="Ruta turística centroamericana conectada por Tecaigo">
             <div class="regional-route" role="img" aria-label="Animación de una ruta que conecta Guatemala, Honduras, El Salvador, Nicaragua, Costa Rica y Panamá con Tecaigo">
@@ -4538,17 +4792,66 @@ p {
         </div>
       </section>
 
-      <section class="section credibility-section" aria-labelledby="why-title">
-        <div class="section-shell">
-          <div class="section-heading compact">
-            <p class="section-kicker">Por qué ahora</p>
-            <h2 id="why-title">El turismo regional ya se mueve en red. Falta la plataforma que lo haga escalable.</h2>
-          </div>
-          <div class="credibility-grid">
-            <p>Crecimiento del turismo interno y experiencial.</p>
-            <p>Alta adopción de smartphones en la región.</p>
-            <p>Operadores con demanda real de coordinación y distribución.</p>
-            <p>Oportunidad pública para digitalización, formalización e inclusión financiera.</p>
+      <section id="noticias" class="section demand-section" aria-label="Noticias">
+        <div class="section-shell demand-shell">
+          <div class="demand-carousel" data-demand-carousel>
+            <div class="demand-stage" aria-live="polite">
+              <figure class="demand-slide">
+                <img src="assets/demanda/01.png" alt="Captura de demanda turística en Tecaigo 01" loading="lazy" />
+                <figcaption>Demanda 01</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/02.png" alt="Captura de demanda turística en Tecaigo 02" loading="lazy" />
+                <figcaption>Demanda 02</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/03.png" alt="Captura de demanda turística en Tecaigo 03" loading="lazy" />
+                <figcaption>Demanda 03</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/04.png" alt="Captura de demanda turística en Tecaigo 04" loading="lazy" />
+                <figcaption>Demanda 04</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/05.png" alt="Captura de demanda turística en Tecaigo 05" loading="lazy" />
+                <figcaption>Demanda 05</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/06.png" alt="Captura de demanda turística en Tecaigo 06" loading="lazy" />
+                <figcaption>Demanda 06</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/07.png" alt="Captura de demanda turística en Tecaigo 07" loading="lazy" />
+                <figcaption>Demanda 07</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/08.png" alt="Captura de demanda turística en Tecaigo 08" loading="lazy" />
+                <figcaption>Demanda 08</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/09.png" alt="Captura de demanda turística en Tecaigo 09" loading="lazy" />
+                <figcaption>Demanda 09</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/10.png" alt="Captura de demanda turística en Tecaigo 10" loading="lazy" />
+                <figcaption>Demanda 10</figcaption>
+              </figure>
+              <figure class="demand-slide">
+                <img src="assets/demanda/11.png" alt="Captura de demanda turística en Tecaigo 11" loading="lazy" />
+                <figcaption>Demanda 11</figcaption>
+              </figure>
+            </div>
+            <div class="demand-controls">
+              <div class="demand-arrows">
+                <button class="demand-arrow" type="button" data-demand-prev aria-label="Ver captura anterior">‹</button>
+                <button class="demand-arrow" type="button" data-demand-next aria-label="Ver captura siguiente">›</button>
+              </div>
+              <div class="demand-progress" aria-hidden="true"><span></span></div>
+              <div class="demand-meta">
+                <span data-demand-count>01 / 11</span>
+                <div class="demand-dots" data-demand-dots aria-label="Selector de capturas"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -4591,6 +4894,6 @@ p {
       <a href="#inicio">Volver arriba</a>
     </footer>
 
-    <script src="script.js?v=roadmap-auto-scroll-sync-3"></script>
+    <script src="script.js?v=demand-carousel-3d-1"></script>
   </body>
 </html>

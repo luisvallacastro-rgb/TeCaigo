@@ -696,3 +696,101 @@ document.querySelectorAll(".image-reel-card").forEach((card) => {
 });
 
 canUseReelPreview.addEventListener("change", closeTourReelPreview);
+
+const demandCarousel = document.querySelector("[data-demand-carousel]");
+const demandSlides = [...document.querySelectorAll(".demand-slide")];
+const demandPrev = document.querySelector("[data-demand-prev]");
+const demandNext = document.querySelector("[data-demand-next]");
+const demandCount = document.querySelector("[data-demand-count]");
+const demandDots = document.querySelector("[data-demand-dots]");
+let demandIndex = 0;
+let demandTimer = null;
+
+function getCircularOffset(index, activeIndex, total) {
+  let offset = index - activeIndex;
+  if (offset > total / 2) offset -= total;
+  if (offset < -total / 2) offset += total;
+  return offset;
+}
+
+function renderDemandCarousel() {
+  if (!demandCarousel || demandSlides.length === 0) return;
+
+  const total = demandSlides.length;
+  demandCarousel.style.setProperty("--demand-progress", `${((demandIndex + 1) / total) * 100}%`);
+  if (demandCount) {
+    demandCount.textContent = `${String(demandIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+  }
+
+  demandSlides.forEach((slide, index) => {
+    const offset = getCircularOffset(index, demandIndex, total);
+    const depth = Math.min(Math.abs(offset), 4);
+    const isVisible = depth <= 3;
+    const direction = Math.sign(offset);
+    const translate = offset * 30;
+    const scale = 1 - depth * 0.08;
+    const rotate = direction * -15;
+    const lift = depth === 0 ? 0 : depth * 8;
+
+    slide.classList.toggle("is-active", offset === 0);
+    slide.setAttribute("aria-hidden", String(offset !== 0));
+    slide.style.zIndex = String(20 - depth);
+    slide.style.opacity = isVisible ? String(1 - depth * 0.22) : "0";
+    slide.style.filter = `saturate(${1 - depth * 0.08}) brightness(${1 - depth * 0.1}) blur(${depth > 2 ? 1.5 : 0}px)`;
+    slide.style.transform = `
+      translate(-50%, -50%)
+      translateX(${translate}%)
+      translateY(${lift}px)
+      translateZ(${-depth * 120}px)
+      rotateY(${rotate}deg)
+      scale(${scale})
+    `;
+  });
+
+  demandDots?.querySelectorAll("button").forEach((dot, index) => {
+    dot.classList.toggle("active", index === demandIndex);
+    dot.setAttribute("aria-pressed", String(index === demandIndex));
+  });
+}
+
+function setDemandIndex(nextIndex) {
+  if (demandSlides.length === 0) return;
+  demandIndex = (nextIndex + demandSlides.length) % demandSlides.length;
+  renderDemandCarousel();
+}
+
+function startDemandCarousel() {
+  window.clearInterval(demandTimer);
+  if (demandSlides.length < 2) return;
+  demandTimer = window.setInterval(() => setDemandIndex(demandIndex + 1), 4200);
+}
+
+if (demandCarousel && demandSlides.length > 0) {
+  if (demandDots) {
+    demandDots.innerHTML = demandSlides
+      .map((_, index) => `<button type="button" aria-label="Ver captura ${index + 1}" aria-pressed="false"></button>`)
+      .join("");
+  }
+
+  demandPrev?.addEventListener("click", () => {
+    setDemandIndex(demandIndex - 1);
+    startDemandCarousel();
+  });
+
+  demandNext?.addEventListener("click", () => {
+    setDemandIndex(demandIndex + 1);
+    startDemandCarousel();
+  });
+
+  demandDots?.querySelectorAll("button").forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      setDemandIndex(index);
+      startDemandCarousel();
+    });
+  });
+
+  demandCarousel.addEventListener("mouseenter", () => window.clearInterval(demandTimer));
+  demandCarousel.addEventListener("mouseleave", startDemandCarousel);
+  renderDemandCarousel();
+  startDemandCarousel();
+}
