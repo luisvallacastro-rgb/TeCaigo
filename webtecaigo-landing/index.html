@@ -1303,22 +1303,23 @@ p {
 }
 
 .reel-rotating-slot {
-  display: flex;
+  display: inline-flex;
   align-items: baseline;
   justify-content: center;
   color: var(--teal);
   font-size: 1.22em;
   line-height: 1.08;
   min-height: 1.08em;
-  width: 100%;
+  width: 23ch;
+  max-width: 100%;
   margin-top: 0.08em;
   white-space: nowrap;
 }
 
 .reel-rotating-word {
   display: inline-block;
-  min-width: 21ch;
-  text-align: left;
+  min-width: 0;
+  text-align: center;
 }
 
 .tour-reel-stage {
@@ -3379,8 +3380,10 @@ p {
   }
 
   .reel-rotating-slot {
-    display: block;
+    display: inline-flex;
+    justify-content: center;
     min-height: 2.16em;
+    width: 20ch;
     margin-top: 0.12em;
     white-space: normal;
   }
