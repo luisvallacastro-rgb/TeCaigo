@@ -1308,6 +1308,8 @@ p {
   justify-content: center;
   color: var(--teal);
   font-size: 1.22em;
+  line-height: 1.08;
+  min-height: 1.08em;
   width: 100%;
   margin-top: 0.08em;
   white-space: nowrap;
@@ -1315,6 +1317,8 @@ p {
 
 .reel-rotating-word {
   display: inline-block;
+  min-width: 21ch;
+  text-align: left;
 }
 
 .tour-reel-stage {
@@ -2336,6 +2340,8 @@ p {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  overflow-anchor: none;
+  scroll-margin-top: 77px;
   color: var(--white);
   background: #071816;
 }
@@ -3374,8 +3380,14 @@ p {
 
   .reel-rotating-slot {
     display: block;
+    min-height: 2.16em;
     margin-top: 0.12em;
     white-space: normal;
+  }
+
+  .reel-rotating-word {
+    min-width: 0;
+    text-align: center;
   }
 
   .tour-reel-stage {
