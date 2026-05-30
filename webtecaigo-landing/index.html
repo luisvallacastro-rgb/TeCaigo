@@ -278,6 +278,81 @@ a {
   margin-top: 28px;
 }
 
+.hero-core-note {
+  max-width: 520px;
+  margin: 12px 0 0;
+  color: rgba(255, 253, 247, 0.62);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.hero-core-note p {
+  margin: 0;
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.hero-core-note p + p {
+  margin-top: 4px;
+}
+
+.hero-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.store-badge {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid rgba(255, 253, 247, 0.22);
+  border-radius: 7px;
+  color: var(--white);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.06), rgba(255, 253, 247, 0.02)),
+    rgba(2, 9, 9, 0.48);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.04);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.store-badge svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+
+.store-badge span {
+  display: grid;
+  gap: 2px;
+  text-transform: none;
+}
+
+.store-badge small {
+  display: block;
+  color: rgba(255, 253, 247, 0.72);
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.store-badge span {
+  font-size: 0.98rem;
+}
+
+.store-badge:nth-child(2) svg {
+  fill: currentColor;
+}
+
+.play-blue { fill: #28a8e0; }
+.play-green { fill: #37bd75; }
+.play-yellow { fill: #ffd25a; }
+.play-red { fill: #f05d5e; }
+
 .button {
   display: inline-flex;
   min-height: 48px;
@@ -307,6 +382,37 @@ a {
   background: rgba(255, 253, 247, 0.08);
 }
 
+.hero-actions .button {
+  min-width: clamp(150px, 13vw, 190px);
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 10px;
+  font-size: 0.98rem;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 253, 247, 0.12);
+}
+
+.hero-actions .button.primary {
+  border-color: rgba(94, 214, 218, 0.74);
+  background:
+    linear-gradient(180deg, rgba(94, 214, 218, 0.92), var(--teal));
+}
+
+.hero-actions .button.secondary {
+  border-color: rgba(255, 253, 247, 0.48);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.12), rgba(255, 253, 247, 0.04)),
+    rgba(5, 18, 18, 0.48);
+  backdrop-filter: blur(10px);
+}
+
+.hero-pitch:has(.hero-exe-button:is(:hover, :focus-visible)) .hero-exe-note,
+.hero-pitch:has(.hero-app-button:is(:hover, :focus-visible)) .hero-app-note {
+  color: var(--teal);
+  text-shadow: 0 0 18px rgba(94, 214, 218, 0.22);
+}
+
 .section,
 .intro-band,
 .contact-section {
@@ -315,7 +421,7 @@ a {
 
 .system-transition {
   position: relative;
-  height: 44vh;
+  height: clamp(460px, 62vh, 720px);
   background: var(--black);
 }
 
@@ -323,7 +429,7 @@ a {
   position: relative;
   top: 0;
   display: block;
-  height: 44vh;
+  height: 100%;
   min-height: auto;
   overflow: hidden;
   color: var(--white);
@@ -332,7 +438,7 @@ a {
 .system-preview-window {
   position: relative;
   width: 100%;
-  height: 44vh;
+  height: 100%;
   overflow: hidden;
   border-top: 1px solid rgba(10, 165, 173, 0.2);
   border-bottom: 1px solid rgba(10, 165, 173, 0.2);
@@ -349,11 +455,11 @@ a {
 .system-preview-image {
   background:
     url("assets/tecaigo-laptop-sofa.png") center top / 100% auto no-repeat;
-  height: 100vw;
-  min-height: 100vh;
+  height: 112vw;
+  min-height: 112vh;
   inset: 0 0 auto;
   transform:
-    translateY(calc(var(--system-progress, 0) * -32vw));
+    translateY(calc(var(--system-progress, 0) * -24vw));
   transition: transform 120ms linear;
 }
 
@@ -381,7 +487,7 @@ a {
 
 .desktop-reveal {
   position: relative;
-  height: clamp(360px, 46vh, 560px);
+  height: clamp(520px, 64vh, 760px);
   margin-top: -1px;
   margin-bottom: -1px;
   overflow: hidden;
@@ -405,10 +511,10 @@ a {
 }
 
 .desktop-reveal-image {
-  height: min(96vw, 980px);
-  min-height: 720px;
+  height: min(104vw, 1120px);
+  min-height: 900px;
   background: url("assets/tecaigo-desktop-cluster-office.png") center top / 100% auto no-repeat;
-  transform: translateY(calc(var(--desktop-progress, 0) * -24vw));
+  transform: translateY(calc(var(--desktop-progress, 0) * -18vw));
   transition: transform 120ms linear;
 }
 
@@ -1325,9 +1431,8 @@ p {
 .tour-reel-stage {
   position: relative;
   display: grid;
-  gap: 14px;
   overflow: hidden;
-  padding: 22px 0;
+  padding: 24px 0;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
@@ -1365,8 +1470,8 @@ p {
 .tour-reel-track {
   display: flex;
   width: max-content;
-  gap: 14px;
-  animation: tourReelMove 42s linear infinite;
+  gap: 18px;
+  animation: tourReelMove 58s linear infinite;
   transition: opacity 220ms ease, filter 220ms ease;
 }
 
@@ -1383,8 +1488,8 @@ p {
 .tour-reel-card {
   position: relative;
   flex: 0 0 auto;
-  width: clamp(140px, 13vw, 218px);
-  height: clamp(92px, 8.2vw, 136px);
+  width: clamp(250px, 24vw, 420px);
+  height: clamp(132px, 12.3vw, 216px);
   overflow: hidden;
   border: 1px solid rgba(94, 214, 218, 0.14);
   border-radius: 8px;
@@ -1470,6 +1575,27 @@ p {
 }
 
 .cupos-card {
+  --reel-image: url("assets/tecaigo-cupos-carousel.png");
+  --reel-bg:
+    radial-gradient(circle at 26% 24%, rgba(94, 214, 218, 0.34), transparent 18%),
+    linear-gradient(135deg, #10253b, #071414 54%, #142f30);
+}
+
+.eventos-privados-card {
+  --reel-image: url("assets/tecaigo-eventos-privados-carousel.png");
+  --reel-bg:
+    radial-gradient(circle at 78% 18%, rgba(94, 214, 218, 0.28), transparent 20%),
+    linear-gradient(135deg, #10213c, #0b1718 58%, #183536);
+}
+
+.cupos-detalle-card {
+  --reel-image: url("assets/tecaigo-cupos-detalle-carousel.png");
+  --reel-bg:
+    radial-gradient(circle at 26% 24%, rgba(94, 214, 218, 0.34), transparent 18%),
+    linear-gradient(135deg, #10253b, #071414 54%, #142f30);
+}
+
+.cupos-clean-card {
   --reel-image: url("assets/tecaigo-cupos-clean-carousel.png");
   --reel-bg:
     radial-gradient(circle at 26% 24%, rgba(94, 214, 218, 0.34), transparent 18%),
@@ -2561,6 +2687,11 @@ p {
   stroke-width: 13;
 }
 
+.route-lane.local {
+  stroke: rgba(94, 214, 218, 0.1);
+  stroke-width: 8;
+}
+
 .route-flow {
   stroke: var(--teal);
   stroke-dasharray: 22 18;
@@ -2592,6 +2723,19 @@ p {
   animation-delay: -6.2s;
 }
 
+.route-flow.local {
+  stroke-width: 2.4;
+  opacity: 0.64;
+  animation-duration: 7.4s;
+}
+
+.route-flow.long {
+  stroke: rgba(94, 214, 218, 0.74);
+  stroke-width: 3.6;
+  opacity: 0.76;
+  animation-duration: 13.2s;
+}
+
 .route-node {
   fill: #5ed6da;
   filter: drop-shadow(0 0 10px rgba(94, 214, 218, 0.78));
@@ -2621,6 +2765,12 @@ p {
 .route-transport {
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.42));
   opacity: 0.92;
+}
+
+.route-transport.small {
+  opacity: 0.78;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .transport-body {
@@ -2756,17 +2906,12 @@ p {
   position: relative;
   min-height: clamp(420px, 42vw, 600px);
   overflow: hidden;
-  border: 1px solid rgba(94, 214, 218, 0.2);
-  border-radius: 8px;
+  border: 0;
+  border-radius: 0;
   background:
-    linear-gradient(rgba(94, 214, 218, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94, 214, 218, 0.055) 1px, transparent 1px),
-    radial-gradient(circle at 50% 48%, rgba(10, 165, 173, 0.2), transparent 38%),
-    rgba(3, 18, 16, 0.58);
-  background-size: 52px 52px, 52px 52px, auto, auto;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 253, 247, 0.04),
-    0 36px 90px rgba(0, 0, 0, 0.34);
+    radial-gradient(circle at 50% 48%, rgba(10, 165, 173, 0.16), transparent 38%),
+    linear-gradient(90deg, rgba(2, 9, 9, 0.68), rgba(3, 18, 16, 0.2) 18%, rgba(3, 18, 16, 0.2) 82%, rgba(2, 9, 9, 0.68));
+  box-shadow: none;
 }
 
 .demand-carousel::before,
@@ -2780,13 +2925,18 @@ p {
 
 .demand-carousel::before {
   background:
-    linear-gradient(90deg, rgba(2, 9, 9, 0.92), transparent 18%, transparent 82%, rgba(2, 9, 9, 0.92)),
-    linear-gradient(180deg, rgba(2, 9, 9, 0.22), transparent 22%, transparent 76%, rgba(2, 9, 9, 0.48));
+    radial-gradient(ellipse at 50% 50%, transparent 44%, rgba(2, 9, 9, 0.18) 68%, rgba(2, 9, 9, 0.58) 100%),
+    linear-gradient(90deg, #020909 0%, rgba(2, 9, 9, 0.94) 4%, transparent 18%, transparent 82%, rgba(2, 9, 9, 0.94) 96%, #020909 100%),
+    linear-gradient(180deg, #020909 0%, rgba(2, 9, 9, 0.82) 7%, transparent 21%, transparent 78%, rgba(2, 9, 9, 0.82) 93%, #020909 100%);
 }
 
 .demand-carousel::after {
-  border: 1px solid rgba(94, 214, 218, 0.14);
-  border-radius: inherit;
+  inset: 6px clamp(10px, 2vw, 28px);
+  border: 1px solid rgba(94, 214, 218, 0.04);
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  opacity: 0.55;
 }
 
 .demand-stage {
@@ -2805,7 +2955,7 @@ p {
   aspect-ratio: 1.95;
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 253, 247, 0.16);
+  border: 1px solid rgba(255, 253, 247, 0.1);
   border-radius: 8px;
   background: rgba(2, 9, 9, 0.72);
   box-shadow:
@@ -2853,14 +3003,21 @@ p {
 
 .demand-controls {
   position: absolute;
-  left: clamp(18px, 3vw, 34px);
-  right: clamp(18px, 3vw, 34px);
-  bottom: 24px;
+  left: clamp(16px, 2.4vw, 28px);
+  right: clamp(16px, 2.4vw, 28px);
+  bottom: 18px;
   z-index: 8;
   display: grid;
-  grid-template-columns: auto minmax(160px, 1fr) auto;
-  gap: 18px;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  gap: 14px;
   align-items: center;
+  opacity: 0.58;
+  transition: opacity 180ms ease;
+}
+
+.demand-carousel:hover .demand-controls,
+.demand-carousel:focus-within .demand-controls {
+  opacity: 1;
 }
 
 .demand-arrows {
@@ -2870,30 +3027,32 @@ p {
 
 .demand-arrow {
   display: inline-flex;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 253, 247, 0.2);
-  border-radius: 8px;
-  color: var(--white);
-  background: rgba(255, 253, 247, 0.07);
+  border: 1px solid rgba(255, 253, 247, 0.14);
+  border-radius: 999px;
+  color: rgba(255, 253, 247, 0.82);
+  background: rgba(2, 9, 9, 0.18);
   cursor: pointer;
   font: inherit;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
 }
 
 .demand-arrow:hover {
-  border-color: rgba(94, 214, 218, 0.5);
-  background: rgba(10, 165, 173, 0.16);
+  border-color: rgba(94, 214, 218, 0.38);
+  color: var(--white);
+  background: rgba(10, 165, 173, 0.1);
 }
 
 .demand-progress {
   position: relative;
-  height: 3px;
+  height: 2px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 253, 247, 0.12);
+  background: rgba(255, 253, 247, 0.08);
 }
 
 .demand-progress span {
@@ -2901,8 +3060,8 @@ p {
   inset: 0 auto 0 0;
   width: var(--demand-progress, 9.09%);
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--teal), rgba(94, 214, 218, 0.92));
-  box-shadow: 0 0 20px rgba(10, 165, 173, 0.48);
+  background: rgba(94, 214, 218, 0.76);
+  box-shadow: none;
   transition: width 520ms ease;
 }
 
@@ -2911,8 +3070,8 @@ p {
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
-  color: rgba(255, 253, 247, 0.76);
-  font-size: 0.86rem;
+  color: rgba(255, 253, 247, 0.62);
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -2922,18 +3081,18 @@ p {
 }
 
 .demand-dots button {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 253, 247, 0.28);
+  background: rgba(255, 253, 247, 0.24);
   cursor: pointer;
 }
 
 .demand-dots button.active {
-  width: 22px;
-  background: var(--teal);
+  width: 16px;
+  background: rgba(94, 214, 218, 0.72);
 }
 
 @media (max-width: 980px) {
@@ -2942,21 +3101,22 @@ p {
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 760px) {
   .demand-shell {
-    width: min(100% - 24px, 1480px);
+    width: min(100% - 20px, 1480px);
   }
 
   .demand-carousel {
-    min-height: 390px;
+    min-height: clamp(232px, 60vw, 400px);
   }
 
   .demand-stage {
-    inset: 12px 0 118px;
+    inset: 8px 0 50px;
   }
 
   .demand-slide {
-    width: min(92vw, 520px);
+    width: min(100%, 640px);
+    border-radius: 6px;
   }
 
   .demand-slide figcaption {
@@ -2967,19 +3127,54 @@ p {
   }
 
   .demand-controls {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    left: clamp(14px, 5vw, 32px);
+    right: clamp(14px, 5vw, 32px);
+    bottom: 8px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    opacity: 0.74;
   }
 
-  .demand-arrows,
+  .demand-arrows {
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    bottom: clamp(66px, 18vw, 108px);
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .demand-arrow {
+    width: 42px;
+    height: 42px;
+    pointer-events: auto;
+    border-color: rgba(255, 253, 247, 0.1);
+    background: rgba(2, 9, 9, 0.22);
+  }
+
   .demand-meta {
     justify-content: space-between;
+    gap: 10px;
+  }
+
+  .demand-progress {
+    align-self: center;
   }
 
   .demand-dots {
-    max-width: 156px;
-    flex-wrap: wrap;
+    max-width: 118px;
+    gap: 5px;
+    flex-wrap: nowrap;
     justify-content: flex-end;
+  }
+
+  .demand-dots button {
+    width: 5px;
+    height: 5px;
+  }
+
+  .demand-dots button.active {
+    width: 14px;
   }
 }
 
@@ -2996,6 +3191,13 @@ p {
 .contact-form {
   display: grid;
   gap: 16px;
+}
+
+.form-honey {
+  position: absolute;
+  left: -100vw;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .contact-form label {
@@ -3025,6 +3227,27 @@ p {
   width: fit-content;
   border: 0;
   cursor: pointer;
+}
+
+.contact-form .button:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.form-status {
+  min-height: 1.4em;
+  margin: -2px 0 0;
+  color: rgba(255, 253, 247, 0.68);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.form-status.success {
+  color: var(--teal);
+}
+
+.form-status.error {
+  color: #f6a091;
 }
 
 .site-footer {
@@ -3236,7 +3459,20 @@ p {
 
   .hero-actions {
     display: flex;
+    align-items: flex-start;
     gap: 12px;
+    margin-top: 24px;
+  }
+
+  .hero-actions .button {
+    flex: 0 0 auto;
+    min-width: 164px;
+    min-height: 46px;
+    padding: 0 16px;
+    font-size: 0.9rem;
+  }
+
+  .hero-platforms {
     margin-top: 24px;
   }
 
@@ -3252,7 +3488,7 @@ p {
   }
 
   .system-transition {
-    height: clamp(250px, 62vw, 340px);
+    height: clamp(360px, 88vw, 480px);
   }
 
   .system-transition-sticky {
@@ -3299,14 +3535,14 @@ p {
   }
 
   .desktop-reveal {
-    height: 38vh;
+    height: clamp(360px, 58vh, 520px);
   }
 
   .desktop-reveal-image {
-    height: 78vh;
-    min-height: 560px;
-    background-size: auto 78vh;
-    transform: translateY(calc(var(--desktop-progress, 0) * -26vh));
+    height: 92vh;
+    min-height: 660px;
+    background-size: auto 92vh;
+    transform: translateY(calc(var(--desktop-progress, 0) * -20vh));
   }
 
   .button {
@@ -3516,8 +3752,9 @@ p {
   }
 
   .funding-visual {
-    min-height: clamp(300px, 68vw, 360px);
-    margin-top: 0;
+    min-height: clamp(420px, 116vw, 560px);
+    margin-top: -6px;
+    overflow: visible;
   }
 
   .funding-copy {
@@ -3532,8 +3769,14 @@ p {
   }
 
   .regional-route {
-    width: 100%;
-    min-height: clamp(300px, 68vw, 360px);
+    width: calc(100% + 56px);
+    min-height: clamp(420px, 116vw, 560px);
+    margin-inline: -28px;
+  }
+
+  .regional-route svg {
+    transform: scale(1.28);
+    transform-origin: 54% 48%;
   }
 
   .flow-board::-webkit-scrollbar {
@@ -3961,8 +4204,30 @@ p {
               Operación turística conectada en una sola red.
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="#inversion">Ver inversión</a>
-              <a class="button secondary" href="#que-es">Entender Tecaigo</a>
+              <a class="button primary hero-exe-button" href="https://tecaigo-app.onrender.com/?v=tecaigo-mobile-login-20" target="_blank" rel="noopener">TeCaigo.Exe</a>
+              <a class="button secondary hero-app-button" href="https://tecaigo-flutter-prototype.onrender.com/?v=desktop-frame-36a965e" target="_blank" rel="noopener">TeCaigo.APP</a>
+            </div>
+            <div class="hero-core-note">
+              <p class="hero-exe-note">Tecaigo.EXE: para una mejor experiencia, visualizar en escritorio.</p>
+              <p class="hero-app-note">TeCaigo.APP: para una mejor experiencia visual, abrir desde teléfono.</p>
+              <div class="hero-platforms" aria-label="Compatibilidad móvil">
+                <span class="store-badge" aria-label="Disponible en Google Play">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path class="play-blue" d="M4.2 3.6 13.7 12 4.2 20.4Z" />
+                    <path class="play-green" d="M4.2 3.6 16.2 10.1 13.7 12Z" />
+                    <path class="play-yellow" d="M13.7 12 16.2 13.9 4.2 20.4Z" />
+                    <path class="play-red" d="M16.2 10.1 20.1 12 16.2 13.9 13.7 12Z" />
+                  </svg>
+                  <span><small>Disponible en</small>Google Play</span>
+                </span>
+                <span class="store-badge" aria-label="Disponible en App Store">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M15.3 4.2c-.8.5-1.4 1.4-1.3 2.3.9.1 1.8-.5 2.3-1.2.5-.7.8-1.6.7-2.4-.6 0-1.2.4-1.7 1.3Z" />
+                    <path d="M17.8 13.1c0-2 1.6-3 1.7-3.1-1-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.3.7-2.9.7-.6 0-1.5-.7-2.5-.7-1.3 0-2.5.8-3.2 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.7 1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3 0 0-2.8-1.1-2.8-3.1Z" />
+                  </svg>
+                  <span><small>Disponible en</small>App Store</span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -4198,39 +4463,21 @@ p {
           <div class="tour-reel-stage" aria-hidden="true">
             <div class="tour-reel-track">
               <span class="tour-reel-card image-reel-card homefeed-card" data-preview="assets/tecaigo-homefeed-carousel.png" data-preview-label="Homefeed"><b>Homefeed</b></span>
-              <span class="tour-reel-card card-02"><b>Viajeros</b></span>
-              <span class="tour-reel-card card-03"><b>Transporte</b></span>
-              <span class="tour-reel-card card-04"><b>Clusters</b></span>
               <span class="tour-reel-card image-reel-card solicitud-card" data-preview="assets/tecaigo-solicitud-carousel.png" data-preview-label="Solicitud"><b>Solicitud</b></span>
-              <span class="tour-reel-card card-06"><b>Comercios</b></span>
-              <span class="tour-reel-card card-07"><b>Datos</b></span>
-              <span class="tour-reel-card card-08"><b>Impacto</b></span>
+              <span class="tour-reel-card image-reel-card eventos-card" data-preview="assets/tecaigo-eventos-carousel.png" data-preview-label="Eventos"><b>Eventos</b></span>
+              <span class="tour-reel-card image-reel-card eventos-publicos-card" data-preview="assets/tecaigo-eventos-publicos-carousel.png" data-preview-label="Eventos públicos"><b>Eventos públicos</b></span>
+              <span class="tour-reel-card image-reel-card eventos-privados-card" data-preview="assets/tecaigo-eventos-privados-carousel.png" data-preview-label="Eventos privados"><b>Eventos privados</b></span>
+              <span class="tour-reel-card image-reel-card cupos-card" data-preview="assets/tecaigo-cupos-carousel.png" data-preview-label="Cupos"><b>Cupos</b></span>
+              <span class="tour-reel-card image-reel-card cupos-clean-card" data-preview="assets/tecaigo-cupos-clean-carousel.png" data-preview-label="Cupos disponibles"><b>Cupos disponibles</b></span>
+              <span class="tour-reel-card image-reel-card cupos-detalle-card" data-preview="assets/tecaigo-cupos-detalle-carousel.png" data-preview-label="Detalle de cupo"><b>Detalle de cupo</b></span>
               <span class="tour-reel-card image-reel-card homefeed-card" data-preview="assets/tecaigo-homefeed-carousel.png" data-preview-label="Homefeed"><b>Homefeed</b></span>
-              <span class="tour-reel-card card-02"><b>Viajeros</b></span>
-              <span class="tour-reel-card card-03"><b>Transporte</b></span>
-              <span class="tour-reel-card card-04"><b>Clusters</b></span>
               <span class="tour-reel-card image-reel-card solicitud-card" data-preview="assets/tecaigo-solicitud-carousel.png" data-preview-label="Solicitud"><b>Solicitud</b></span>
-              <span class="tour-reel-card card-06"><b>Comercios</b></span>
-              <span class="tour-reel-card card-07"><b>Datos</b></span>
-              <span class="tour-reel-card card-08"><b>Impacto</b></span>
-            </div>
-            <div class="tour-reel-track reverse">
+              <span class="tour-reel-card image-reel-card eventos-card" data-preview="assets/tecaigo-eventos-carousel.png" data-preview-label="Eventos"><b>Eventos</b></span>
               <span class="tour-reel-card image-reel-card eventos-publicos-card" data-preview="assets/tecaigo-eventos-publicos-carousel.png" data-preview-label="Eventos públicos"><b>Eventos públicos</b></span>
-              <span class="tour-reel-card image-reel-card cupos-card" data-preview="assets/tecaigo-cupos-clean-carousel.png" data-preview-label="Cupos"><b>Cupos</b></span>
-              <span class="tour-reel-card card-02"><b>Guías</b></span>
-              <span class="tour-reel-card card-04"><b>Pueblos</b></span>
-              <span class="tour-reel-card card-01"><b>Playas</b></span>
-              <span class="tour-reel-card card-06"><b>Pagos</b></span>
-              <span class="tour-reel-card card-03"><b>Logística</b></span>
-              <span class="tour-reel-card card-08"><b>Comunidad</b></span>
-              <span class="tour-reel-card image-reel-card eventos-publicos-card" data-preview="assets/tecaigo-eventos-publicos-carousel.png" data-preview-label="Eventos públicos"><b>Eventos públicos</b></span>
-              <span class="tour-reel-card image-reel-card cupos-card" data-preview="assets/tecaigo-cupos-clean-carousel.png" data-preview-label="Cupos"><b>Cupos</b></span>
-              <span class="tour-reel-card card-02"><b>Guías</b></span>
-              <span class="tour-reel-card card-04"><b>Pueblos</b></span>
-              <span class="tour-reel-card card-01"><b>Playas</b></span>
-              <span class="tour-reel-card card-06"><b>Pagos</b></span>
-              <span class="tour-reel-card card-03"><b>Logística</b></span>
-              <span class="tour-reel-card card-08"><b>Comunidad</b></span>
+              <span class="tour-reel-card image-reel-card eventos-privados-card" data-preview="assets/tecaigo-eventos-privados-carousel.png" data-preview-label="Eventos privados"><b>Eventos privados</b></span>
+              <span class="tour-reel-card image-reel-card cupos-card" data-preview="assets/tecaigo-cupos-carousel.png" data-preview-label="Cupos"><b>Cupos</b></span>
+              <span class="tour-reel-card image-reel-card cupos-clean-card" data-preview="assets/tecaigo-cupos-clean-carousel.png" data-preview-label="Cupos disponibles"><b>Cupos disponibles</b></span>
+              <span class="tour-reel-card image-reel-card cupos-detalle-card" data-preview="assets/tecaigo-cupos-detalle-carousel.png" data-preview-label="Detalle de cupo"><b>Detalle de cupo</b></span>
             </div>
           </div>
         </div>
@@ -4621,130 +4868,142 @@ p {
             <div class="regional-route" role="img" aria-label="Animación de una ruta que conecta Guatemala, Honduras, El Salvador, Nicaragua, Costa Rica y Panamá con Tecaigo">
               <svg viewBox="0 0 900 620" aria-hidden="true" focusable="false">
                 <defs>
-                  <path id="regionalRouteA" d="M136 245 C224 216 302 238 384 292 C472 350 540 326 606 280 C668 238 736 270 802 384" />
-                  <path id="regionalRouteB" d="M136 245 C198 308 248 382 292 424 C380 492 498 486 612 420 C706 366 774 404 828 486" />
-                  <path id="regionalRouteC" d="M232 142 C294 194 342 238 384 292 C438 362 500 424 612 420 C690 416 760 454 828 486" />
-                  <path id="regionalRouteD" d="M292 424 C356 356 438 292 542 292 C644 294 736 354 802 384" />
-                  <path id="regionalRouteE" d="M136 245 C196 246 258 224 322 206 C412 184 504 226 542 292" />
+                  <path id="regionalRouteA" d="M271 235 C246 216 226 198 208 187" />
+                  <path id="regionalRouteB" d="M208 187 C256 176 318 180 359 207" />
+                  <path id="regionalRouteC" d="M359 207 C326 218 296 230 271 235" />
+                  <path id="regionalRouteD" d="M271 235 C320 248 370 260 420 288" />
+                  <path id="regionalRouteE" d="M658 433 C590 428 524 410 474 389" />
+                  <path id="regionalRouteF" d="M474 389 C408 348 340 284 271 235" />
+                  <path id="regionalRouteG" d="M420 288 C446 318 462 356 474 389 C512 414 586 430 646 404" />
+                  <path id="regionalRouteH" d="M287 100 C306 150 330 184 359 207" />
+                  <path id="regionalRouteI" d="M208 187 C254 224 310 254 359 207 C394 240 414 274 420 288 C444 342 456 372 474 389 C528 416 594 430 658 433" />
                 </defs>
 
-                <path class="route-map-glow" d="M68 220 C118 144 190 120 268 136 C324 70 398 86 436 172 C506 150 598 178 660 244 C738 248 814 326 862 456 C798 526 680 528 590 450 C500 530 360 518 274 430 C188 468 82 394 58 298 C50 266 54 238 68 220Z" />
+                <path class="route-map-glow" d="M142 224 C176 144 240 94 310 92 C376 96 430 144 492 184 C570 234 654 314 746 412 C784 454 766 516 704 530 C622 548 560 486 512 432 C468 386 420 360 358 330 C300 300 240 284 184 270 C148 262 132 244 142 224Z" />
 
-                <path class="route-country is-active" d="M80 238 L122 202 L148 204 L164 182 L198 180 L212 146 L250 134 L260 154 L244 194 L264 220 L238 260 L178 282 L118 270Z" />
-                <path class="route-country is-active" d="M252 120 L294 92 L334 104 L326 138 L304 172 L274 178 L252 154Z" />
-                <path class="route-country is-active" d="M230 236 L320 198 L404 216 L462 270 L418 330 L326 322 L268 282Z" />
-                <path class="route-country is-active" d="M158 296 L230 280 L278 314 L250 360 L174 348 L126 320Z" />
-                <path class="route-country is-active" d="M420 308 L504 276 L590 300 L644 374 L600 438 L512 414 L452 364Z" />
-                <path class="route-country is-active" d="M602 430 L672 396 L744 420 L704 478 L628 492 L576 464Z" />
-                <path class="route-country is-active" d="M716 472 L804 442 L862 494 L824 548 L742 530 L690 500Z" />
-                <path class="route-border" d="M80 238 C178 170 284 152 404 216 C506 270 574 302 644 374 C704 436 768 470 862 494" />
+                <path class="route-country is-active" data-country="Guatemala" d="M261.9 212.6 L253.0 213.1 L255.4 220.0 L235.2 231.9 L232.2 240.2 L212.7 232.9 L183.0 231.1 L145.4 207.3 L152.4 186.0 L146.9 178.0 L165.9 146.1 L218.5 144.6 L220.2 131.7 L210.6 129.1 L204.0 116.1 L177.9 98.6 L196.1 98.0 L196.5 75.5 L270.1 75.3 L267.0 152.9 L285.1 154.3 L292.3 160.6 L297.2 154.8 L292.5 149.8 L308.0 159.7 L270.1 186.5 L270.1 205.9 L261.9 212.6 Z" />
+                <path class="route-country is-active" data-country="Belize" d="M268.7 132.7 L270.3 70.2 L281.7 72.2 L295.6 49.5 L304.7 48.4 L302.5 55.6 L313.0 52.7 L313.6 59.3 L305.3 83.8 L310.2 87.5 L305.4 94.5 L308.2 109.5 L303.0 127.4 L304.4 121.8 L278.5 153.4 L267.0 152.9 L268.7 132.7 Z" />
+                <path class="route-country is-active" data-country="Honduras" d="M261.9 212.6 L270.1 205.9 L270.1 186.5 L304.1 161.7 L333.4 151.2 L338.0 157.2 L382.6 157.8 L400.4 151.1 L397.4 147.3 L418.3 153.9 L438.1 149.1 L451.8 157.7 L460.2 156.8 L452.5 154.1 L466.6 156.2 L489.4 172.8 L469.9 166.7 L480.9 178.5 L485.7 178.0 L477.4 172.5 L488.2 180.8 L493.7 177.0 L497.5 177.5 L493.7 181.9 L499.4 180.3 L490.5 172.7 L513.6 189.1 L498.3 188.5 L494.0 194.1 L459.0 204.3 L441.9 196.4 L432.2 206.6 L431.2 216.4 L408.7 230.8 L408.1 236.5 L396.9 227.1 L384.0 239.2 L366.8 239.6 L369.3 257.7 L360.9 260.1 L355.9 270.6 L344.6 270.5 L336.6 258.2 L341.1 253.1 L324.3 253.3 L328.9 236.8 L324.3 232.7 L316.3 234.7 L307.4 229.6 L296.9 235.4 L296.6 230.0 L283.1 225.3 L272.2 213.4 L261.9 212.6 Z" />
+                <path class="route-country is-active" data-country="El Salvador" d="M232.2 240.2 L235.2 231.9 L255.4 220.0 L253.0 213.1 L260.5 211.4 L272.2 213.4 L283.1 225.3 L296.6 230.0 L296.9 235.4 L311.9 229.7 L328.9 236.8 L328.2 251.1 L323.5 251.9 L325.4 258.1 L319.8 263.3 L285.2 259.8 L266.4 250.7 L243.9 248.5 L232.2 240.2 Z" />
+                <path class="route-country is-active" data-country="Nicaragua" d="M409.7 347.2 L330.4 270.5 L334.0 266.3 L341.5 273.2 L355.9 270.6 L360.9 260.1 L369.3 257.7 L366.8 239.6 L384.0 239.2 L393.8 227.6 L408.1 236.5 L408.7 230.8 L431.2 216.4 L432.2 206.6 L441.9 196.4 L459.0 204.3 L494.0 194.1 L498.3 188.5 L513.6 189.1 L501.7 196.9 L506.8 198.2 L511.3 215.3 L496.3 252.9 L499.4 293.3 L493.1 294.5 L496.1 277.3 L495.1 284.6 L487.6 288.6 L491.5 298.8 L493.9 296.1 L491.7 310.6 L487.4 303.0 L485.1 315.3 L490.6 316.2 L492.5 325.5 L483.8 339.4 L492.1 358.3 L481.4 362.0 L470.7 359.3 L464.1 350.7 L451.1 347.7 L440.8 352.8 L413.9 342.0 L409.7 347.2 Z" />
+                <path class="route-country is-active" data-country="Costa Rica" d="M490.7 353.1 L510.6 385.7 L536.5 409.5 L525.0 407.0 L521.2 412.8 L521.3 428.9 L530.2 434.4 L522.0 441.1 L525.0 452.9 L516.7 458.4 L523.0 470.2 L512.8 456.7 L511.9 445.9 L499.4 442.9 L507.2 456.4 L489.1 447.7 L495.6 439.8 L493.2 429.5 L470.0 412.5 L453.6 407.9 L448.8 392.2 L426.4 379.5 L430.6 389.4 L443.5 397.8 L433.3 408.8 L426.0 398.6 L411.3 394.9 L404.0 381.6 L405.4 370.1 L412.6 365.8 L410.6 358.7 L399.9 354.6 L409.4 353.4 L413.9 342.0 L440.8 352.8 L451.1 347.7 L464.1 350.7 L470.7 359.3 L481.8 362.1 L492.1 358.3 L490.7 353.1 Z" />
+                <path class="route-country is-active" data-country="Panama" d="M536.1 408.0 L545.4 413.8 L545.1 422.9 L552.3 423.2 L549.4 431.1 L568.3 433.7 L564.0 424.0 L577.8 438.8 L587.3 440.1 L648.4 417.2 L654.9 406.7 L681.6 408.1 L678.0 412.8 L702.5 414.8 L726.4 426.8 L746.1 444.8 L741.4 452.5 L754.6 474.1 L737.7 490.7 L730.3 483.5 L731.6 490.6 L724.0 502.3 L703.1 469.3 L710.6 466.9 L708.4 461.4 L715.4 455.3 L731.4 466.4 L719.8 459.9 L715.3 449.0 L717.0 455.1 L711.0 456.2 L711.7 449.8 L705.9 454.5 L704.3 449.5 L704.0 457.3 L696.0 440.4 L677.0 431.7 L678.3 426.0 L675.7 431.5 L657.5 432.9 L650.0 438.7 L649.1 448.2 L621.0 462.7 L639.3 493.6 L605.2 503.7 L597.4 475.2 L590.8 475.8 L590.8 487.4 L582.5 484.9 L569.5 463.9 L552.9 465.3 L551.8 457.8 L526.6 459.7 L523.0 470.2 L516.7 458.4 L525.0 452.9 L522.0 441.1 L530.2 434.4 L521.3 428.9 L521.2 412.8 L525.0 407.0 L533.7 411.7 L536.1 408.0 Z" />
+                <path class="route-border" d="M146 178 C204 114 282 78 362 154 C422 211 494 190 514 189 C498 255 498 300 410 347 C454 408 536 410 536 408 C607 438 686 390 754 474" />
 
-                <path class="phone-link" d="M136 245 C210 168 292 160 384 292" />
-                <path class="phone-link alt" d="M136 245 C156 334 206 414 292 424" />
-                <path class="phone-link" d="M232 142 C284 192 322 236 384 292" />
-                <path class="phone-link alt" d="M384 292 C430 246 490 244 542 292" />
-                <path class="phone-link" d="M292 424 C392 464 514 492 612 420" />
-                <path class="phone-link alt" d="M542 292 C640 300 742 374 828 486" />
-                <path class="phone-link" d="M612 420 C684 470 746 496 828 486" />
+                <path class="phone-link" d="M271 235 C246 216 226 198 208 187" />
+                <path class="phone-link alt" d="M208 187 C256 176 318 180 359 207" />
+                <path class="phone-link" d="M359 207 C326 218 296 230 271 235" />
+                <path class="phone-link alt" d="M271 235 C320 248 370 260 420 288" />
+                <path class="phone-link" d="M658 433 C590 428 524 410 474 389" />
+                <path class="phone-link alt" d="M474 389 C408 348 340 284 271 235" />
+                <path class="phone-link" d="M420 288 C446 318 462 356 474 389 C512 414 586 430 646 404" />
 
-                <path class="route-lane" d="M136 245 C224 216 302 238 384 292 C472 350 540 326 606 280 C668 238 736 270 802 384" />
-                <path class="route-lane" d="M136 245 C198 308 248 382 292 424 C380 492 498 486 612 420 C706 366 774 404 828 486" />
-                <path class="route-lane" d="M232 142 C294 194 342 238 384 292 C438 362 500 424 612 420 C690 416 760 454 828 486" />
-                <path class="route-lane" d="M292 424 C356 356 438 292 542 292 C644 294 736 354 802 384" />
-                <path class="route-lane" d="M136 245 C196 246 258 224 322 206 C412 184 504 226 542 292" />
+                <path class="route-lane local" d="M271 235 C246 216 226 198 208 187" />
+                <path class="route-lane local" d="M208 187 C256 176 318 180 359 207" />
+                <path class="route-lane local" d="M359 207 C326 218 296 230 271 235" />
+                <path class="route-lane local" d="M271 235 C320 248 370 260 420 288" />
+                <path class="route-lane local" d="M658 433 C590 428 524 410 474 389" />
+                <path class="route-lane local" d="M474 389 C408 348 340 284 271 235" />
+                <path class="route-lane" d="M420 288 C446 318 462 356 474 389 C512 414 586 430 646 404" />
+                <path class="route-lane" d="M287 100 C306 150 330 184 359 207" />
+                <path class="route-lane" d="M208 187 C254 224 310 254 359 207 C394 240 414 274 420 288 C444 342 456 372 474 389 C528 416 594 430 658 433" />
 
-                <path class="route-flow" d="M136 245 C224 216 302 238 384 292 C472 350 540 326 606 280 C668 238 736 270 802 384" />
-                <path class="route-flow alt" d="M136 245 C198 308 248 382 292 424 C380 492 498 486 612 420 C706 366 774 404 828 486" />
-                <path class="route-flow secondary" d="M232 142 C294 194 342 238 384 292 C438 362 500 424 612 420 C690 416 760 454 828 486" />
-                <path class="route-flow gold" d="M292 424 C356 356 438 292 542 292 C644 294 736 354 802 384" />
-                <path class="route-flow" d="M136 245 C196 246 258 224 322 206 C412 184 504 226 542 292" style="animation-delay: -5.2s" />
+                <path class="route-flow local" d="M271 235 C246 216 226 198 208 187" />
+                <path class="route-flow local secondary" d="M208 187 C256 176 318 180 359 207" style="animation-delay: -1.2s" />
+                <path class="route-flow local alt" d="M359 207 C326 218 296 230 271 235" style="animation-delay: -2.4s" />
+                <path class="route-flow local gold" d="M271 235 C320 248 370 260 420 288" style="animation-delay: -3.4s" />
+                <path class="route-flow local secondary" d="M658 433 C590 428 524 410 474 389" style="animation-delay: -4.2s" />
+                <path class="route-flow local alt" d="M474 389 C408 348 340 284 271 235" style="animation-delay: -5.4s" />
+                <path class="route-flow" d="M420 288 C446 318 462 356 474 389 C512 414 586 430 646 404" style="animation-delay: -6.2s" />
+                <path class="route-flow secondary" d="M287 100 C306 150 330 184 359 207" style="animation-delay: -7.1s" />
+                <path class="route-flow long" d="M208 187 C254 224 310 254 359 207 C394 240 414 274 420 288 C444 342 456 372 474 389 C528 416 594 430 658 433" style="animation-delay: -8.2s" />
 
                 <g>
-                  <circle class="route-node-ring" cx="136" cy="245" r="17" />
-                  <circle class="route-node" cx="136" cy="245" r="7" />
-                  <text class="route-label" x="74" y="218">Guatemala</text>
+                  <circle class="route-node-ring" cx="208" cy="187" r="17" />
+                  <circle class="route-node" cx="208" cy="187" r="7" />
+                  <text class="route-label" x="136" y="162">Guatemala</text>
                 </g>
                 <g>
-                  <circle class="route-node-ring" cx="232" cy="142" r="16" />
-                  <circle class="route-node" cx="232" cy="142" r="6.5" />
-                  <text class="route-label" x="214" y="102">Belice</text>
+                  <circle class="route-node-ring" cx="287" cy="100" r="16" />
+                  <circle class="route-node" cx="287" cy="100" r="6.5" />
+                  <text class="route-label" x="268" y="62">Belice</text>
                 </g>
                 <g>
-                  <circle class="route-node-ring" cx="384" cy="292" r="17" />
-                  <circle class="route-node" cx="384" cy="292" r="7" />
-                  <text class="route-label" x="356" y="250">Honduras</text>
+                  <circle class="route-node-ring" cx="359" cy="207" r="17" />
+                  <circle class="route-node" cx="359" cy="207" r="7" />
+                  <text class="route-label" x="326" y="166">Honduras</text>
                 </g>
                 <g>
-                  <circle class="route-node-ring" cx="292" cy="424" r="17" />
-                  <circle class="route-node" cx="292" cy="424" r="7" />
-                  <text class="route-label" x="220" y="466">El Salvador</text>
+                  <circle class="route-node-ring" cx="271" cy="235" r="17" />
+                  <circle class="route-node" cx="271" cy="235" r="7" />
+                  <text class="route-label" x="190" y="288">El Salvador</text>
                 </g>
                 <g>
-                  <circle class="route-node-ring" cx="542" cy="292" r="17" />
-                  <circle class="route-node" cx="542" cy="292" r="7" />
-                  <text class="route-label" x="518" y="250">Nicaragua</text>
+                  <circle class="route-node-ring" cx="420" cy="288" r="17" />
+                  <circle class="route-node" cx="420" cy="288" r="7" />
+                  <text class="route-label" x="392" y="246">Nicaragua</text>
                 </g>
                 <g>
-                  <circle class="route-node-ring" cx="612" cy="420" r="17" />
-                  <circle class="route-node" cx="612" cy="420" r="7" />
-                  <text class="route-label" x="536" y="456">Costa Rica</text>
+                  <circle class="route-node-ring" cx="474" cy="389" r="17" />
+                  <circle class="route-node" cx="474" cy="389" r="7" />
+                  <text class="route-label" x="400" y="426">Costa Rica</text>
                 </g>
                 <g>
-                  <circle class="route-node-ring" cx="828" cy="486" r="17" />
-                  <circle class="route-node" cx="828" cy="486" r="7" />
-                  <text class="route-label" x="784" y="542">Panamá</text>
+                  <circle class="route-node-ring" cx="658" cy="433" r="17" />
+                  <circle class="route-node" cx="658" cy="433" r="7" />
+                  <text class="route-label" x="614" y="490">Panamá</text>
                 </g>
 
-                <g class="phone-hub" transform="translate(136 245)">
+                <g class="phone-hub" transform="translate(208 187)">
                   <circle class="phone-hub-ring" r="34" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
-                <g class="phone-hub" transform="translate(232 142)">
+                <g class="phone-hub" transform="translate(287 100)">
                   <circle class="phone-hub-ring" r="32" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
-                <g class="phone-hub" transform="translate(384 292)">
+                <g class="phone-hub" transform="translate(359 207)">
                   <circle class="phone-hub-ring" r="34" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
-                <g class="phone-hub" transform="translate(292 424)">
+                <g class="phone-hub" transform="translate(271 235)">
                   <circle class="phone-hub-ring" r="34" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
-                <g class="phone-hub" transform="translate(542 292)">
+                <g class="phone-hub" transform="translate(420 288)">
                   <circle class="phone-hub-ring" r="34" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
-                <g class="phone-hub" transform="translate(612 420)">
+                <g class="phone-hub" transform="translate(474 389)">
                   <circle class="phone-hub-ring" r="34" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
-                <g class="phone-hub" transform="translate(828 486)">
+                <g class="phone-hub" transform="translate(658 433)">
                   <circle class="phone-hub-ring" r="34" />
                   <rect class="phone-shell" x="-10" y="-18" width="20" height="36" rx="5" />
                   <rect class="phone-screen" x="-6" y="-10" width="12" height="20" rx="2" />
                   <circle class="phone-dot" cx="0" cy="14" r="1.4" />
                 </g>
 
-                <circle class="route-spark" cx="204" cy="246" r="3" />
-                <circle class="route-spark" cx="446" cy="308" r="2.5" />
-                <circle class="route-spark" cx="704" cy="398" r="3" />
-                <circle class="route-spark" cx="318" cy="206" r="2.5" />
+                <circle class="route-spark" cx="286" cy="184" r="3" />
+                <circle class="route-spark" cx="436" cy="300" r="2.5" />
+                <circle class="route-spark" cx="570" cy="408" r="3" />
+                <circle class="route-spark" cx="318" cy="170" r="2.5" />
 
                 <g class="route-transport">
-                  <animateMotion dur="8.5s" repeatCount="indefinite" rotate="auto">
+                  <animateMotion dur="8.5s" repeatCount="indefinite" rotate="auto-reverse">
                     <mpath href="#regionalRouteA" />
                   </animateMotion>
                   <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
@@ -4763,22 +5022,66 @@ p {
                   <circle class="transport-detail" cx="8" cy="8" r="2.6" />
                 </g>
                 <g class="route-transport">
-                  <animateMotion dur="10.4s" begin="-4.8s" repeatCount="indefinite" rotate="auto">
+                  <animateMotion dur="10.4s" begin="-4.8s" repeatCount="indefinite" rotate="auto-reverse">
                     <mpath href="#regionalRouteC" />
                   </animateMotion>
-                  <path class="transport-body" d="M-16 0 L12 -10 L18 -4 L5 2 L18 8 L12 13Z" />
-                  <circle class="transport-detail" cx="1" cy="0" r="3" />
+                  <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
+                  <rect class="transport-detail" x="-11" y="-5" width="7" height="5" rx="1" />
+                  <rect class="transport-detail" x="-1" y="-5" width="7" height="5" rx="1" />
+                  <circle class="transport-detail" cx="-10" cy="10" r="3" />
+                  <circle class="transport-detail" cx="10" cy="10" r="3" />
                 </g>
                 <g class="route-transport">
                   <animateMotion dur="11s" begin="-6s" repeatCount="indefinite" rotate="auto">
                     <mpath href="#regionalRouteD" />
                   </animateMotion>
-                  <path class="transport-body" d="M-18 -4 C-8 -12 10 -12 18 -3 L10 7 L-10 7Z" />
-                  <rect class="transport-detail" x="-9" y="-3" width="18" height="5" rx="2" />
+                  <rect class="transport-body" x="-16" y="-8" width="32" height="16" rx="4" />
+                  <rect class="transport-light" x="7" y="-4" width="5" height="4" rx="1" />
+                  <circle class="transport-detail" cx="-8" cy="8" r="2.6" />
+                  <circle class="transport-detail" cx="8" cy="8" r="2.6" />
                 </g>
                 <g class="route-transport">
-                  <animateMotion dur="9s" begin="-3.2s" repeatCount="indefinite" rotate="auto">
+                  <animateMotion dur="9s" begin="-3.2s" repeatCount="indefinite" rotate="auto-reverse">
                     <mpath href="#regionalRouteE" />
+                  </animateMotion>
+                  <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
+                  <rect class="transport-detail" x="-11" y="-5" width="7" height="5" rx="1" />
+                  <rect class="transport-detail" x="-1" y="-5" width="7" height="5" rx="1" />
+                  <circle class="transport-detail" cx="-10" cy="10" r="3" />
+                  <circle class="transport-detail" cx="10" cy="10" r="3" />
+                </g>
+                <g class="route-transport small">
+                  <animateMotion dur="6.6s" begin="-1.1s" repeatCount="indefinite" rotate="auto-reverse">
+                    <mpath href="#regionalRouteF" />
+                  </animateMotion>
+                  <rect class="transport-body" x="-16" y="-8" width="32" height="16" rx="4" />
+                  <rect class="transport-detail" x="-10" y="-4" width="6" height="4" rx="1" />
+                  <rect class="transport-detail" x="-1" y="-4" width="6" height="4" rx="1" />
+                  <circle class="transport-detail" cx="-8" cy="8" r="2.6" />
+                  <circle class="transport-detail" cx="8" cy="8" r="2.6" />
+                </g>
+                <g class="route-transport small">
+                  <animateMotion dur="7.2s" begin="-4.4s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#regionalRouteI" />
+                  </animateMotion>
+                  <rect class="transport-body" x="-16" y="-8" width="32" height="16" rx="4" />
+                  <rect class="transport-light" x="7" y="-4" width="5" height="4" rx="1" />
+                  <circle class="transport-detail" cx="-8" cy="8" r="2.6" />
+                  <circle class="transport-detail" cx="8" cy="8" r="2.6" />
+                </g>
+                <g class="route-transport">
+                  <animateMotion dur="13.4s" begin="-8.2s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#regionalRouteG" />
+                  </animateMotion>
+                  <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
+                  <rect class="transport-detail" x="-11" y="-5" width="7" height="5" rx="1" />
+                  <rect class="transport-detail" x="-1" y="-5" width="7" height="5" rx="1" />
+                  <circle class="transport-detail" cx="-10" cy="10" r="3" />
+                  <circle class="transport-detail" cx="10" cy="10" r="3" />
+                </g>
+                <g class="route-transport">
+                  <animateMotion dur="12.6s" begin="-5.6s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#regionalRouteH" />
                   </animateMotion>
                   <rect class="transport-body" x="-18" y="-10" width="36" height="20" rx="5" />
                   <rect class="transport-detail" x="-11" y="-5" width="7" height="5" rx="1" />
@@ -4866,7 +5169,14 @@ p {
               aceleradoras y aliados estratégicos que busquen fortalecer turismo, empleo e inclusión financiera.
             </p>
           </div>
-          <form class="contact-form" action="mailto:info@tecaigo.com" method="post" enctype="text/plain">
+          <form class="contact-form" action="https://formsubmit.co/luisvallacastro@gmail.com" method="post" data-contact-form>
+            <input type="hidden" name="_subject" value="Nuevo interés desde Web Tecaigo" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <label class="form-honey" aria-hidden="true">
+              No completar
+              <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+            </label>
             <label>
               Nombre
               <input type="text" name="nombre" autocomplete="name" required />
@@ -4877,13 +5187,14 @@ p {
             </label>
             <label>
               Correo
-              <input type="email" name="correo" autocomplete="email" required />
+              <input type="email" name="email" autocomplete="email" required />
             </label>
             <label>
               Mensaje
               <textarea name="mensaje" rows="4" required></textarea>
             </label>
             <button class="button primary" type="submit">Enviar interés</button>
+            <p class="form-status" data-contact-status role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
@@ -4894,6 +5205,6 @@ p {
       <a href="#inicio">Volver arriba</a>
     </footer>
 
-    <script src="script.js?v=demand-carousel-3d-1"></script>
+    <script src="script.js?v=contact-form-email-1"></script>
   </body>
 </html>

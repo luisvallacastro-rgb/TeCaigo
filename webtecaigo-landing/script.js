@@ -794,3 +794,45 @@ if (demandCarousel && demandSlides.length > 0) {
   renderDemandCarousel();
   startDemandCarousel();
 }
+
+const contactForm = document.querySelector("[data-contact-form]");
+const contactStatus = document.querySelector("[data-contact-status]");
+
+function setContactStatus(message, type = "") {
+  if (!contactStatus) return;
+  contactStatus.textContent = message;
+  contactStatus.classList.toggle("success", type === "success");
+  contactStatus.classList.toggle("error", type === "error");
+}
+
+contactForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const endpoint = contactForm.action.replace("formsubmit.co/", "formsubmit.co/ajax/");
+  const formData = new FormData(contactForm);
+
+  submitButton.disabled = true;
+  setContactStatus("Enviando interés...");
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("No se pudo enviar el formulario.");
+    }
+
+    contactForm.reset();
+    setContactStatus("Gracias. Recibimos tu interés y te contactaremos pronto.", "success");
+  } catch (error) {
+    setContactStatus("No pudimos enviar el formulario. Intenta de nuevo o escribe a luisvallacastro@gmail.com.", "error");
+  } finally {
+    submitButton.disabled = false;
+  }
+});
