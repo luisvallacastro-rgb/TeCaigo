@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="TeCaiGO">
-  <rect width="128" height="128" rx="28" fill="#020909"/>
-  <circle cx="92" cy="36" r="22" fill="#0aa5ad" opacity=".28"/>
-  <path d="M90 17c-20 0-35 15-35 34 0 25 35 60 35 60s35-35 35-60c0-19-15-34-35-34zm0 48c-8 0-14-6-14-14s6-14 14-14 14 6 14 14-6 14-14 14z" fill="#0aa5ad"/>
-  <text x="15" y="75" fill="#fffdf7" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" letter-spacing="-2">Te</text>
-  <text x="48" y="100" fill="#0aa5ad" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="900" letter-spacing="-3">GO</text>
+  <rect width="128" height="128" rx="30" fill="#020909"/>
+  <rect x="10" y="10" width="108" height="108" rx="25" fill="#06211f" stroke="#0aa5ad" stroke-width="5"/>
+  <circle cx="96" cy="30" r="13" fill="#0aa5ad"/>
+  <text x="15" y="86" fill="#fffdf7" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="900" letter-spacing="-4">G</text>
+  <text x="61" y="86" fill="#0aa5ad" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="900" letter-spacing="-5">O</text>
 </svg>
