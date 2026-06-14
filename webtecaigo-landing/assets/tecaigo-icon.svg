@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="TeCaiGO">
-  <rect width="128" height="128" rx="30" fill="#020909"/>
-  <rect x="10" y="10" width="108" height="108" rx="25" fill="#06211f" stroke="#0aa5ad" stroke-width="5"/>
-  <circle cx="96" cy="30" r="13" fill="#0aa5ad"/>
-  <text x="15" y="86" fill="#fffdf7" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="900" letter-spacing="-4">G</text>
-  <text x="61" y="86" fill="#0aa5ad" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="900" letter-spacing="-5">O</text>
+  <rect width="128" height="128" rx="24" fill="#020909"/>
+  <rect x="4" y="4" width="120" height="120" rx="22" fill="#06211f" stroke="#0aa5ad" stroke-width="6"/>
+  <circle cx="102" cy="24" r="11" fill="#0aa5ad"/>
+  <text x="7" y="92" fill="#fffdf7" font-family="Arial, Helvetica, sans-serif" font-size="74" font-weight="900" letter-spacing="-6">G</text>
+  <text x="66" y="92" fill="#0aa5ad" font-family="Arial, Helvetica, sans-serif" font-size="74" font-weight="900" letter-spacing="-7">O</text>
 </svg>
