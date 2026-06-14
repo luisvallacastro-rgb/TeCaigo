@@ -3233,6 +3233,180 @@ p {
   color: #f6a091;
 }
 
+.faq-chat {
+  position: fixed !important;
+  top: auto !important;
+  right: clamp(14px, 2.2vw, 28px) !important;
+  bottom: clamp(14px, 2.2vw, 28px) !important;
+  left: auto !important;
+  z-index: 30;
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.faq-chat-toggle,
+.faq-chat-panel {
+  pointer-events: auto;
+}
+
+.faq-chat-toggle {
+  display: inline-flex;
+  grid-row: 2;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border: 1px solid rgba(94, 214, 218, 0.42);
+  border-radius: 999px;
+  color: #001315;
+  background: linear-gradient(180deg, rgba(94, 214, 218, 0.96), var(--teal));
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32), 0 0 32px rgba(94, 214, 218, 0.16);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.faq-chat-panel {
+  display: grid;
+  grid-row: 1;
+  width: min(390px, calc(100vw - 28px));
+  max-height: min(720px, calc(100svh - 96px));
+  overflow: hidden;
+  border: 1px solid rgba(94, 214, 218, 0.24);
+  border-radius: 12px;
+  background:
+    linear-gradient(rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 214, 218, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 16% 10%, rgba(94, 214, 218, 0.18), transparent 30%),
+    rgba(3, 18, 16, 0.96);
+  background-size: 34px 34px, 34px 34px, auto, auto;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.54);
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transform-origin: right bottom;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.faq-chat.open .faq-chat-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.faq-chat-panel[aria-hidden="true"] {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.faq-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid rgba(94, 214, 218, 0.14);
+}
+
+.faq-chat-header p {
+  margin: 0 0 3px;
+  color: var(--teal);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.faq-chat-header strong {
+  display: block;
+  color: var(--white);
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.faq-chat-header button {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 253, 247, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 253, 247, 0.86);
+  background: rgba(255, 253, 247, 0.05);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.3rem;
+}
+
+.faq-chat-log {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 150px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 14px 16px;
+}
+
+.chat-message {
+  width: fit-content;
+  max-width: 92%;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: rgba(255, 253, 247, 0.84);
+  background: rgba(255, 253, 247, 0.07);
+  font-size: 0.88rem;
+  line-height: 1.42;
+}
+
+.chat-message.bot {
+  border: 1px solid rgba(94, 214, 218, 0.16);
+  background: rgba(8, 30, 28, 0.9);
+}
+
+.chat-message.user {
+  justify-self: end;
+  color: #031211;
+  background: rgba(94, 214, 218, 0.88);
+  font-weight: 800;
+}
+
+.faq-chat-prompts {
+  display: grid;
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 0 16px 16px;
+  scrollbar-width: thin;
+}
+
+.faq-chat-prompts button {
+  width: 100%;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(94, 214, 218, 0.22);
+  border-radius: 8px;
+  color: rgba(255, 253, 247, 0.82);
+  background: rgba(255, 253, 247, 0.05);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+.faq-chat-prompts button:hover,
+.faq-chat-prompts button:focus-visible {
+  border-color: rgba(94, 214, 218, 0.46);
+  color: var(--white);
+  background: rgba(94, 214, 218, 0.1);
+  outline: none;
+}
+
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -4123,6 +4297,30 @@ p {
     width: min(74vw, 280px);
     height: clamp(112px, 32vw, 138px);
     flex-basis: min(74vw, 280px);
+  }
+
+  .faq-chat {
+    right: 10px !important;
+    bottom: 10px !important;
+  }
+
+  .faq-chat-toggle {
+    min-height: 42px;
+    padding: 0 14px;
+    font-size: 0.78rem;
+  }
+
+  .faq-chat-panel {
+    width: calc(100vw - 20px);
+    max-height: calc(100svh - 72px);
+  }
+
+  .faq-chat-log {
+    max-height: 230px;
+  }
+
+  .faq-chat-prompts {
+    max-height: 240px;
   }
 }
 

@@ -836,3 +836,151 @@ contactForm?.addEventListener("submit", async (event) => {
     submitButton.disabled = false;
   }
 });
+
+const faqChat = document.querySelector("[data-faq-chat]");
+const chatToggle = document.querySelector("[data-chat-toggle]");
+const chatClose = document.querySelector("[data-chat-close]");
+const chatPanel = document.querySelector("[data-chat-panel]");
+const chatLog = document.querySelector("[data-chat-log]");
+const chatPrompts = document.querySelector("[data-chat-prompts]");
+
+const tecaigoFaqs = [
+  {
+    prompt: "Qué es Tecaigo",
+    keywords: ["que es", "qué es", "proyecto", "plataforma"],
+    answer:
+      "Tecaigo es una infraestructura digital para ordenar turismo colaborativo: conecta tour operadores, transporte, comercios, viajeros e instituciones en una sola red operativa.",
+  },
+  {
+    prompt: "Qué problema resuelve",
+    keywords: ["problema", "resuelve", "manual", "desorden", "friccion", "fricción"],
+    answer:
+      "Resuelve coordinación manual, cupos dispersos, baja trazabilidad, poca visibilidad de comercios locales y operación turística difícil de medir o financiar.",
+  },
+  {
+    prompt: "Cómo gana dinero",
+    keywords: ["dinero", "gana", "modelo", "ingreso", "monetiza", "comision", "comisión"],
+    answer:
+      "El modelo puede combinar comisiones por transacción, herramientas operativas para clusters, servicios de distribución, data sectorial y módulos financieros cuando la red escale.",
+  },
+  {
+    prompt: "Quiénes usan la plataforma",
+    keywords: ["usuarios", "actores", "quienes", "quiénes", "operadores", "transportistas", "comercios", "viajeros"],
+    answer:
+      "La usan cinco actores: tour operadores y clusters, transportistas, comercios/proveedores turísticos, viajeros e instituciones que impulsan formalización y desarrollo.",
+  },
+  {
+    prompt: "Qué es TeCaigo.EXE",
+    keywords: ["exe", "core", "web", "desktop", "escritorio"],
+    answer:
+      "TeCaigo.EXE es el core.web operativo: la vista pensada para escritorio donde se administran eventos, cupos, solicitudes, clusters, finanzas y coordinación B2B.",
+  },
+  {
+    prompt: "Qué es TeCaigo.APP",
+    keywords: ["app", "telefono", "móvil", "movil", "android", "ios", "google play", "app store"],
+    answer:
+      "TeCaigo.APP es la experiencia móvil para viajeros y operación en campo. Está pensada para teléfono y se presenta como compatible con Android y App Store.",
+  },
+  {
+    prompt: "Por qué Centroamérica",
+    keywords: ["centroamerica", "centroamérica", "region", "regional", "guatemala", "honduras", "panama", "panamá"],
+    answer:
+      "Centroamérica comparte rutas, turismo interno, operadores, transporte terrestre y destinos complementarios. Tecaigo busca activar esa red regional con datos y coordinación común.",
+  },
+  {
+    prompt: "Qué necesita de inversión",
+    keywords: ["inversion", "inversión", "capital", "financiamiento", "fondos"],
+    answer:
+      "La inversión busca terminar producto, validar operación real, activar red comercial, fortalecer tecnología y preparar pilotos con aliados turísticos e institucionales.",
+  },
+  {
+    prompt: "Qué impacto genera",
+    keywords: ["impacto", "empleo", "formalizacion", "formalización", "inclusion", "inclusión", "desarrollo"],
+    answer:
+      "El impacto esperado es empleo directo e indirecto, formalización turística, trazabilidad fiscal, inclusión financiera y más oportunidades para comercios y actores locales.",
+  },
+  {
+    prompt: "Cómo se implementa",
+    keywords: ["implementar", "implementa", "piloto", "validacion", "validación", "fase"],
+    answer:
+      "La ruta sugerida es validar primero con clusters y operadores en El Salvador, medir operación real, sumar marketplace móvil y luego escalar rutas regionales.",
+  },
+  {
+    prompt: "Es seguro para pagos y datos",
+    keywords: ["seguro", "seguridad", "pagos", "datos", "trazabilidad"],
+    answer:
+      "La visión es operar con trazabilidad de cupos, responsables, eventos y liquidaciones. Los pagos y módulos financieros deben implementarse con proveedores seguros y reglas claras de datos.",
+  },
+  {
+    prompt: "Cómo contacto al equipo",
+    keywords: ["contacto", "correo", "reunion", "reunión", "hablar", "presentacion", "presentación"],
+    answer:
+      "Puedes usar el formulario de la landing. Los mensajes llegan a luisvallacastro@gmail.com para abrir conversación con aliados, instituciones o potenciales inversionistas.",
+  },
+];
+
+function normalizeQuestion(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function appendChatMessage(text, type = "bot") {
+  if (!chatLog) return;
+  const message = document.createElement("p");
+  message.className = `chat-message ${type}`;
+  message.textContent = text;
+  chatLog.append(message);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+function findFaqAnswer(question) {
+  const normalized = normalizeQuestion(question);
+  const scored = tecaigoFaqs
+    .map((faq) => ({
+      faq,
+      score: faq.keywords.reduce((total, keyword) => {
+        const normalizedKeyword = normalizeQuestion(keyword);
+        return total + (normalized.includes(normalizedKeyword) ? Math.max(1, normalizedKeyword.length / 6) : 0);
+      }, 0),
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  return scored[0]?.score > 0
+    ? scored[0].faq.answer
+    : "Puedo responder sobre qué es Tecaigo, inversión, actores, app móvil, core web, impacto, implementación, seguridad y contacto. Prueba con una de las preguntas sugeridas.";
+}
+
+function askFaq(question) {
+  appendChatMessage(question, "user");
+  window.setTimeout(() => appendChatMessage(findFaqAnswer(question), "bot"), 160);
+}
+
+function setChatOpen(isOpen) {
+  if (!faqChat || !chatToggle || !chatPanel) return;
+  faqChat.classList.toggle("open", isOpen);
+  chatToggle.setAttribute("aria-expanded", String(isOpen));
+  chatPanel.setAttribute("aria-hidden", String(!isOpen));
+  if (isOpen) {
+    window.setTimeout(() => chatPrompts?.querySelector("button")?.focus(), 120);
+  }
+}
+
+if (faqChat && chatLog && chatPrompts) {
+  appendChatMessage("Selecciona una de estas preguntas para conocer Tecaigo. La lista está pensada para aliados, público e inversionistas.");
+  chatPrompts.innerHTML = tecaigoFaqs
+    .map((faq) => `<button type="button">${faq.prompt}</button>`)
+    .join("");
+
+  chatPrompts.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => askFaq(button.textContent.trim()));
+  });
+}
+
+chatToggle?.addEventListener("click", () => {
+  setChatOpen(!faqChat.classList.contains("open"));
+});
+
+chatClose?.addEventListener("click", () => setChatOpen(false));
