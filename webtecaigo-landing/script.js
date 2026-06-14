@@ -849,73 +849,109 @@ const tecaigoFaqs = [
     prompt: "Qué es Tecaigo",
     keywords: ["que es", "qué es", "proyecto", "plataforma"],
     answer:
-      "Tecaigo es una infraestructura digital para ordenar turismo colaborativo: conecta tour operadores, transporte, comercios, viajeros e instituciones en una sola red operativa.",
+      "Es una plataforma tecnológica que conecta a tour operadores, turistas, empresas de transporte y comercios turísticos dentro de un mismo ecosistema digital. Facilita la creación, promoción, venta y gestión de experiencias turísticas, permitiendo que todos los actores colaboren de forma más eficiente para generar nuevas oportunidades de negocio y brindar mejores experiencias de viaje.",
+  },
+  {
+    prompt: "Cómo funciona Tecaigo",
+    keywords: ["como funciona", "cómo funciona", "funciona", "operacion", "operación", "eventos", "experiencias"],
+    answer:
+      "Los tour operadores generan eventos y experiencias turísticas dentro de TeCaiGO. Comercios turísticos y empresas de transporte se integran para complementar la oferta, mientras que los turistas pueden descubrir, reservar y disfrutar estas experiencias desde la aplicación móvil. Todo el proceso es coordinado y administrado a través de TeCaiGO, facilitando la colaboración, la comercialización y la operación turística en un solo ecosistema.",
   },
   {
     prompt: "Qué problema resuelve",
     keywords: ["problema", "resuelve", "manual", "desorden", "friccion", "fricción"],
     answer:
-      "Resuelve coordinación manual, cupos dispersos, baja trazabilidad, poca visibilidad de comercios locales y operación turística difícil de medir o financiar.",
+      "La fragmentación del sector turístico. Actualmente, tour operadores, comercios turísticos, empresas de transporte y turistas trabajan a través de canales separados, procesos manuales y poca coordinación. TeCaiGO los conecta en una sola plataforma, facilitando la colaboración, la comercialización de servicios, la gestión de experiencias turísticas y el acceso a nuevas oportunidades de negocio.",
   },
   {
-    prompt: "Cómo gana dinero",
-    keywords: ["dinero", "gana", "modelo", "ingreso", "monetiza", "comision", "comisión"],
+    prompt: "Quién es el anfitrión",
+    keywords: ["anfitrion", "anfitrión", "host", "responsable", "organiza", "administra", "cupos"],
     answer:
-      "El modelo puede combinar comisiones por transacción, herramientas operativas para clusters, servicios de distribución, data sectorial y módulos financieros cuando la red escale.",
+      "Es el tour operador responsable de crear, organizar y administrar un evento dentro de TeCaiGO. Es quien define la experiencia turística, establece las condiciones de participación, coordina los servicios necesarios y pone a disposición los cupos para su comercialización, ya sea de forma privada dentro de un clúster o pública a través de la red de aliados de la plataforma.",
   },
   {
-    prompt: "Quiénes usan la plataforma",
-    keywords: ["usuarios", "actores", "quienes", "quiénes", "operadores", "transportistas", "comercios", "viajeros"],
+    prompt: "Qué es un evento",
+    keywords: ["evento", "eventos", "experiencia", "privado", "publico", "público", "cluster", "clúster", "comisiones"],
     answer:
-      "La usan cinco actores: tour operadores y clusters, transportistas, comercios/proveedores turísticos, viajeros e instituciones que impulsan formalización y desarrollo.",
+      "Es una experiencia turística creada por un tour operador dentro de TeCaiGO. Puede ser privado, disponible únicamente para miembros de un mismo clúster, o público, permitiendo que otros aliados de la plataforma lo comercialicen y generen comisiones por las ventas realizadas. Cada evento puede integrar transporte, destinos, actividades y otros servicios turísticos.",
+  },
+  {
+    prompt: "Qué es un clúster",
+    keywords: ["cluster", "clúster", "agrupacion", "agrupación", "afiliados", "colaborativa", "privados"],
+    answer:
+      "Es una agrupación de tour operadores afiliados a TeCaiGO que trabajan de forma colaborativa, compartiendo oportunidades de negocio y participando en eventos privados exclusivos para sus miembros.",
+  },
+  {
+    prompt: "Quiénes son los comercios turísticos",
+    keywords: ["comercios", "comercio", "turisticos", "turísticos", "emprendimientos", "productos", "servicios", "paquetes"],
+    answer:
+      "Son empresas o emprendimientos que ofrecen productos, servicios o experiencias relacionadas con la actividad turística. Dentro de TeCaiGO, pueden publicar y promocionar sus servicios para que los tour operadores los incorporen en sus eventos y paquetes turísticos, contribuyendo a enriquecer la experiencia de los viajeros y generar nuevas oportunidades de negocio.",
+  },
+  {
+    prompt: "Cómo se incorpora el sector transporte",
+    keywords: ["transporte", "movilizacion", "movilización", "unidades", "capacidades", "disponibilidad", "rutas", "logistica", "logística"],
+    answer:
+      "Se incorpora a TeCaiGO como proveedor de servicios de movilización para los eventos turísticos. Las empresas de transporte pueden publicar sus unidades, capacidades y disponibilidad, permitiendo que los tour operadores las contraten para complementar sus experiencias turísticas. De esta manera, se facilita la coordinación logística, la optimización de rutas y la integración del transporte dentro de un mismo ecosistema.",
   },
   {
     prompt: "Qué es TeCaigo.EXE",
     keywords: ["exe", "core", "web", "desktop", "escritorio"],
     answer:
-      "TeCaigo.EXE es el core.web operativo: la vista pensada para escritorio donde se administran eventos, cupos, solicitudes, clusters, finanzas y coordinación B2B.",
+      "Es el centro de operaciones de TeCaiGO. Es una plataforma de escritorio diseñada para administrar y coordinar todos los procesos del ecosistema turístico, permitiendo gestionar eventos, clústeres, tour operadores, comercios turísticos, transporte, reservas, ventas y demás actividades necesarias para el funcionamiento de la plataforma. Su objetivo es brindar herramientas robustas de gestión, control y seguimiento que faciliten la operación diaria y la toma de decisiones de los diferentes participantes del ecosistema.",
   },
   {
     prompt: "Qué es TeCaigo.APP",
     keywords: ["app", "telefono", "móvil", "movil", "android", "ios", "google play", "app store"],
     answer:
-      "TeCaigo.APP es la experiencia móvil para viajeros y operación en campo. Está pensada para teléfono y se presenta como compatible con Android y App Store.",
+      "Es la aplicación móvil diseñada para los usuarios del ecosistema turístico. A través de ella, los turistas pueden descubrir destinos, explorar eventos, adquirir paquetes turísticos, realizar reservas y gestionar sus experiencias de viaje desde un solo lugar. La aplicación también facilita la interacción entre los diferentes actores de la plataforma, brindando acceso rápido a información relevante y mejorando la experiencia turística de principio a fin.",
   },
   {
-    prompt: "Por qué Centroamérica",
-    keywords: ["centroamerica", "centroamérica", "region", "regional", "guatemala", "honduras", "panama", "panamá"],
+    prompt: "Por qué se considera de impacto social",
+    keywords: ["impacto social", "social", "formalizar", "digitalizar", "inclusion", "inclusión", "desarrollo sostenible"],
     answer:
-      "Centroamérica comparte rutas, turismo interno, operadores, transporte terrestre y destinos complementarios. Tecaigo busca activar esa red regional con datos y coordinación común.",
+      "TeCaiGO genera impacto social porque ayuda a formalizar y digitalizar el sector turístico, creando nuevas oportunidades de negocio para tour operadores y fortaleciendo las economías locales mediante un modelo colaborativo que promueve el crecimiento, la inclusión financiera y el desarrollo sostenible del turismo.",
   },
   {
-    prompt: "Qué necesita de inversión",
-    keywords: ["inversion", "inversión", "capital", "financiamiento", "fondos"],
+    prompt: "Por qué se busca la inclusión",
+    keywords: ["inclusion financiera", "inclusión financiera", "financiera", "pagos", "historial", "transaccional", "financiamiento", "formalización"],
     answer:
-      "La inversión busca terminar producto, validar operación real, activar red comercial, fortalecer tecnología y preparar pilotos con aliados turísticos e institucionales.",
+      "Porque muchos actores del sector turístico operan de manera informal o con acceso limitado a servicios financieros. La plataforma promueve el uso de herramientas digitales, medios de pago electrónicos e historial transaccional, facilitando que tour operadores y negocios turísticos tengan mayores oportunidades de crecimiento, financiamiento y formalización.",
   },
   {
-    prompt: "Qué impacto genera",
-    keywords: ["impacto", "empleo", "formalizacion", "formalización", "inclusion", "inclusión", "desarrollo"],
+    prompt: "Qué gana la banca",
+    keywords: ["banca", "banco", "financiera", "creditos", "créditos", "evaluacion", "evaluación", "transacciones"],
     answer:
-      "El impacto esperado es empleo directo e indirecto, formalización turística, trazabilidad fiscal, inclusión financiera y más oportunidades para comercios y actores locales.",
+      "Acceso a información confiable y documentada sobre la actividad de los participantes del sector turístico. A través de TeCaiGO se registra el historial de ventas, reservas, operaciones y transacciones, generando evidencia que facilita la evaluación financiera y reduce la incertidumbre al momento de ofrecer créditos y otros servicios financieros.",
   },
   {
-    prompt: "Cómo se implementa",
-    keywords: ["implementar", "implementa", "piloto", "validacion", "validación", "fase"],
+    prompt: "Es de beneficio para el Gobierno",
+    keywords: ["gobierno", "beneficio", "formalizacion", "formalización", "trazabilidad", "recaudacion", "recaudación", "empleo", "fiscal"],
     answer:
-      "La ruta sugerida es validar primero con clusters y operadores en El Salvador, medir operación real, sumar marketplace móvil y luego escalar rutas regionales.",
+      "Sí. TeCaiGO beneficia al gobierno porque impulsa la formalización del sector turístico, genera mayor trazabilidad de las operaciones y promueve el crecimiento económico. Al digitalizar y documentar la actividad turística, facilita una mejor recaudación fiscal, fomenta la generación de empleo y fortalece el desarrollo sostenible del turismo.",
   },
   {
-    prompt: "Es seguro para pagos y datos",
-    keywords: ["seguro", "seguridad", "pagos", "datos", "trazabilidad"],
+    prompt: "Por qué se considera regional",
+    keywords: ["regional", "centroamerica", "centroamérica", "paises", "países", "fronteras", "rutas", "region"],
     answer:
-      "La visión es operar con trazabilidad de cupos, responsables, eventos y liquidaciones. Los pagos y módulos financieros deben implementarse con proveedores seguros y reglas claras de datos.",
+      "Porque está diseñado para conectar y fortalecer el ecosistema turístico de Centroamérica. Su modelo permite integrar tour operadores, comercios turísticos, empresas de transporte y turistas de diferentes países, facilitando la creación de rutas, experiencias y oportunidades de negocio que trascienden las fronteras nacionales.",
   },
   {
-    prompt: "Cómo contacto al equipo",
-    keywords: ["contacto", "correo", "reunion", "reunión", "hablar", "presentacion", "presentación"],
+    prompt: "De dónde provienen los ingresos",
+    keywords: ["ingresos", "provienen", "comisiones", "comercializacion", "comercialización", "suscripcion", "suscripción", "planes"],
     answer:
-      "Puedes usar el formulario de la landing. Los mensajes llegan a luisvallacastro@gmail.com para abrir conversación con aliados, instituciones o potenciales inversionistas.",
+      "Principalmente de las comisiones generadas por la comercialización de eventos y experiencias turísticas, así como de planes de suscripción para usuarios empresariales dentro del ecosistema.",
+  },
+  {
+    prompt: "Para qué se necesita un aliado",
+    keywords: ["aliado", "aliados", "alianza", "alianzas", "instituciones", "universidades", "organizaciones", "adopcion", "adopción"],
+    answer:
+      "Acelerar la adopción de la plataforma, fortalecer el ecosistema turístico y ampliar las oportunidades para sus participantes. A través de alianzas con instituciones financieras, gobiernos, empresas, universidades y organizaciones del sector, es posible impulsar la formalización, la inclusión financiera, la innovación y el crecimiento sostenible del turismo en la región.",
+  },
+  {
+    prompt: "Acerca del fundador",
+    keywords: ["fundador", "luis", "valladares", "contador", "banca", "finanzas", "turismo", "legado"],
+    answer:
+      "Luis Valladares, fundador de TeCaiGO, es un ex tour operador y Contador Público con Maestría en Banca y Finanzas y estudios de posgrado en Riesgos Bancarios y Financieros. Su experiencia en los sectores turístico y financiero le ha permitido desarrollar la visión de una plataforma que promueva la colaboración, la formalización y el crecimiento sostenible del turismo en Centroamérica.",
   },
 ];
 
@@ -938,6 +974,12 @@ function appendChatMessage(text, type = "bot") {
 
 function findFaqAnswer(question) {
   const normalized = normalizeQuestion(question);
+  const exactMatch = tecaigoFaqs.find((faq) => normalizeQuestion(faq.prompt) === normalized);
+
+  if (exactMatch) {
+    return exactMatch.answer;
+  }
+
   const scored = tecaigoFaqs
     .map((faq) => ({
       faq,
