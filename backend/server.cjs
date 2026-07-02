@@ -19,12 +19,24 @@ const {
 const PORT = Number(process.env.PORT) || 3001;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
 const DATABASE_PROVIDER = process.env.DATABASE_PROVIDER || "sqlite";
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://tecaigo-app.onrender.com",
+  "https://tecaigo-flutter-prototype.onrender.com",
+  "https://webtecaigo-landing.onrender.com",
+  "http://localhost:8084",
+  "http://127.0.0.1:8084",
+  "http://localhost:8091",
+  "http://127.0.0.1:8091",
+];
 
 function getCorsOrigin(request) {
   if (CORS_ORIGIN === "*") return "*";
 
   const requestOrigin = request.headers.origin;
-  const allowedOrigins = CORS_ORIGIN.split(",").map((origin) => origin.trim()).filter(Boolean);
+  const allowedOrigins = [
+    ...CORS_ORIGIN.split(",").map((origin) => origin.trim()).filter(Boolean),
+    ...DEFAULT_ALLOWED_ORIGINS,
+  ];
 
   if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
     return requestOrigin;
