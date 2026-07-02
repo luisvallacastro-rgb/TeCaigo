@@ -35,6 +35,22 @@ CREATE INDEX IF NOT EXISTS registrations_user_type_idx
 CREATE INDEX IF NOT EXISTS registrations_status_idx
   ON registrations ((payload ->> 'status'));
 
+CREATE TABLE IF NOT EXISTS reservations (
+  id TEXT PRIMARY KEY,
+  payload JSONB NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS reservations_event_idx
+  ON reservations ((payload ->> 'eventTitle'));
+
+CREATE INDEX IF NOT EXISTS reservations_source_idx
+  ON reservations ((payload ->> 'source'));
+
+CREATE INDEX IF NOT EXISTS reservations_status_idx
+  ON reservations ((payload ->> 'status'));
+
 -- Tablas que vienen despues de validar el flujo principal.
 -- Las dejamos documentadas para que el sistema crezca ordenado.
 

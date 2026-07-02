@@ -45,6 +45,16 @@ async function initDatabase() {
     CREATE INDEX IF NOT EXISTS registrations_company_idx ON registrations ((payload ->> 'companyName'));
     CREATE INDEX IF NOT EXISTS registrations_user_type_idx ON registrations ((payload ->> 'userType'));
     CREATE INDEX IF NOT EXISTS registrations_status_idx ON registrations ((payload ->> 'status'));
+
+    CREATE TABLE IF NOT EXISTS reservations (
+      id TEXT PRIMARY KEY,
+      payload JSONB NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+    CREATE INDEX IF NOT EXISTS reservations_event_idx ON reservations ((payload ->> 'eventTitle'));
+    CREATE INDEX IF NOT EXISTS reservations_source_idx ON reservations ((payload ->> 'source'));
+    CREATE INDEX IF NOT EXISTS reservations_status_idx ON reservations ((payload ->> 'status'));
   `);
 }
 
@@ -92,11 +102,33 @@ async function insertRegistration(registration) {
   return payload;
 }
 
+async function getReservations() {
+  const result = await getPool().query("SELECT payload FROM reservations ORDER BY created_at DESC;");
+  return result.rows.map((row) => row.payload);
+}
+
+async function insertReservation(reservation) {
+  const now = new Date().toISOString();
+  const createdAt = reservation.createdAt || now;
+  const payload = { ...reservation, createdAt, updatedAt: now };
+
+  await getPool().query(
+    `INSERT INTO reservations (id, payload, created_at, updated_at)
+     VALUES ($1, $2::jsonb, $3, $4)
+     ON CONFLICT(id) DO UPDATE SET
+       payload = excluded.payload,
+       updated_at = excluded.updated_at;`,
+    [reservation.id, JSON.stringify(payload), createdAt, now]
+  );
+  return payload;
+}
+
 async function getSummary() {
   const result = await getPool().query(`
     SELECT
       (SELECT COUNT(*)::int FROM events) AS "eventCount",
-      (SELECT COUNT(*)::int FROM registrations) AS "registrationCount";
+      (SELECT COUNT(*)::int FROM registrations) AS "registrationCount",
+      (SELECT COUNT(*)::int FROM reservations) AS "reservationCount";
   `);
 
   return {
@@ -104,6 +136,7 @@ async function getSummary() {
     database: "DATABASE_URL",
     eventCount: result.rows[0]?.eventCount || 0,
     registrationCount: result.rows[0]?.registrationCount || 0,
+    reservationCount: result.rows[0]?.reservationCount || 0,
   };
 }
 
@@ -112,8 +145,10 @@ module.exports = {
   getEventById,
   getEvents,
   getRegistrations,
+  getReservations,
   getSummary,
   initDatabase,
   insertRegistration,
+  insertReservation,
   upsertEvent,
 };

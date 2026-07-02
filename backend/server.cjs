@@ -8,9 +8,11 @@ const {
   getEventById,
   getEvents,
   getRegistrations,
+  getReservations,
   getSummary,
   initDatabase,
   insertRegistration,
+  insertReservation,
   upsertEvent,
 } = require("./database.cjs");
 
@@ -122,6 +124,36 @@ function normalizeRegistration(input) {
   };
 }
 
+function normalizeReservation(input) {
+  const now = new Date().toISOString();
+  const eventTitle = String(input.eventTitle || input.event?.title || "Evento TeCaiGO").trim();
+  const contact = String(input.contact || "Turista TeCaiGO").trim();
+  const idBase = `${eventTitle}-${contact}`
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+  return {
+    id: input.id || `${idBase || "reserva"}-${Date.now()}`,
+    source: input.source || "tecaigo-app",
+    mode: input.mode || input.status || "Reserva",
+    status: input.status || "Pendiente",
+    eventId: input.eventId || "",
+    eventTitle,
+    eventLocation: input.eventLocation || input.event?.location || "",
+    selectedDate: input.selectedDate || "",
+    guests: Number(input.guests) || 1,
+    contact,
+    note: input.note || "",
+    unitPrice: Number(input.unitPrice) || 0,
+    total: Number(input.total) || 0,
+    createdAt: input.createdAt || now,
+    updatedAt: now,
+  };
+}
+
 const server = http.createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
 
@@ -179,6 +211,19 @@ const server = http.createServer(async (request, response) => {
       const input = body ? JSON.parse(body) : {};
       const registration = normalizeRegistration(input);
       sendJson(request, response, 201, { registration: await insertRegistration(registration) });
+      return;
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/reservations") {
+      sendJson(request, response, 200, { reservations: await getReservations() });
+      return;
+    }
+
+    if (request.method === "POST" && url.pathname === "/api/reservations") {
+      const body = await readRequestBody(request);
+      const input = body ? JSON.parse(body) : {};
+      const reservation = normalizeReservation(input);
+      sendJson(request, response, 201, { reservation: await insertReservation(reservation) });
       return;
     }
 

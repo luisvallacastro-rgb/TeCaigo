@@ -650,7 +650,7 @@ async function connectBackend() {
     renderClusterEventDetail();
     await loadRegistrationsFromBackend();
     updateBackendStatus(
-      `${formatStorageLabel(summary?.storage)}: ${summary?.eventCount ?? payload.events?.length ?? 0} eventos / ${summary?.registrationCount ?? 0} registros`,
+      `${formatStorageLabel(summary?.storage)}: ${summary?.eventCount ?? payload.events?.length ?? 0} eventos / ${summary?.registrationCount ?? 0} registros / ${summary?.reservationCount ?? 0} reservas APP`,
       "is-online"
     );
   } catch (error) {

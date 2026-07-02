@@ -50,6 +50,12 @@ async function initDatabase() {
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS reservations (
+      id TEXT PRIMARY KEY,
+      payload TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
   `);
 
   if ((await countRows("events")) === 0) {
@@ -108,14 +114,35 @@ async function insertRegistration(registration) {
   return JSON.parse(payload);
 }
 
+async function getReservations() {
+  const output = await runSql("SELECT payload FROM reservations ORDER BY created_at DESC;", { json: true });
+  return JSON.parse(output || "[]").map((row) => JSON.parse(row.payload));
+}
+
+async function insertReservation(reservation) {
+  const now = new Date().toISOString();
+  const createdAt = reservation.createdAt || now;
+  const payload = JSON.stringify({ ...reservation, createdAt, updatedAt: now });
+  await runSql(`
+    INSERT INTO reservations (id, payload, created_at, updated_at)
+    VALUES (${sqlValue(reservation.id)}, ${sqlValue(payload)}, ${sqlValue(createdAt)}, ${sqlValue(now)})
+    ON CONFLICT(id) DO UPDATE SET
+      payload = excluded.payload,
+      updated_at = excluded.updated_at;
+  `);
+  return JSON.parse(payload);
+}
+
 async function getSummary() {
   const eventCount = await countRows("events");
   const registrationCount = await countRows("registrations");
+  const reservationCount = await countRows("reservations");
   return {
     storage: "sqlite",
     database: DB_FILE,
     eventCount,
     registrationCount,
+    reservationCount,
   };
 }
 
@@ -124,8 +151,10 @@ module.exports = {
   getEventById,
   getEvents,
   getRegistrations,
+  getReservations,
   getSummary,
   initDatabase,
   insertRegistration,
+  insertReservation,
   upsertEvent,
 };
